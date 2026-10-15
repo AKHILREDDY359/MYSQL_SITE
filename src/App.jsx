@@ -22,9 +22,9 @@ export default function App() {
     const lastId = getLastActiveQuestion(1);
     return QUESTIONS.find(q => q.id === lastId) || QUESTIONS[0];
   });
-  const [progressMap, setProgressMap] = useState({});
-  const [bookmarks, setBookmarks] = useState([]);
-  const [metrics, setMetrics] = useState({});
+  const [progressMap, setProgressMap] = useState(() => getAllProgress());
+  const [bookmarks, setBookmarks] = useState(() => getBookmarks());
+  const [metrics, setMetrics] = useState(() => calculateDashboardMetrics(QUESTIONS));
   const [isDbResetting, setIsDbResetting] = useState(false);
   const [isEngineReady, setIsEngineReady] = useState(false);
 

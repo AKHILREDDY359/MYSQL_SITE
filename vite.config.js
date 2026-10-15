@@ -6,9 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true
-  },
-  optimizeDeps: {
-    exclude: ['sql.js']
+    host: true
   }
 });

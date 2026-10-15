@@ -1,45 +1,92 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 
 export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }) {
   const editorRef = useRef(null);
+  const [useFallback, setUseFallback] = useState(false);
+
+  // If Monaco CDN is blocked or offline, fallback smoothly after 6s timeout
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!editorRef.current) {
+        setUseFallback(true);
+      }
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
 
-    // Define custom dark theme matching SQL Sprint palette
-    monaco.editor.defineTheme('sqlSprintDark', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        { token: 'keyword', foreground: '4F8CFF', fontStyle: 'bold' },
-        { token: 'string', foreground: '4ADE80' },
-        { token: 'number', foreground: 'FBBF24' },
-        { token: 'comment', foreground: '64748B', fontStyle: 'italic' },
-        { token: 'operator.sql', foreground: '38BDF8' },
-        { token: 'identifier', foreground: 'E5E7EB' }
-      ],
-      colors: {
-        'editor.background': '#0E1526',
-        'editor.foreground': '#E5E7EB',
-        'editorCursor.foreground': '#4F8CFF',
-        'editor.lineHighlightBackground': '#16223B',
-        'editorLineNumber.foreground': '#475569',
-        'editorLineNumber.activeForeground': '#94A3B8',
-        'editor.selectionBackground': '#2563EB40',
-        'editor.inactiveSelectionBackground': '#2563EB20'
-      }
-    });
+    try {
+      // Define custom dark theme matching SQL Sprint palette
+      monaco.editor.defineTheme('sqlSprintDark', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [
+          { token: 'keyword', foreground: '4F8CFF', fontStyle: 'bold' },
+          { token: 'string', foreground: '4ADE80' },
+          { token: 'number', foreground: 'FBBF24' },
+          { token: 'comment', foreground: '64748B', fontStyle: 'italic' },
+          { token: 'operator.sql', foreground: '38BDF8' },
+          { token: 'identifier', foreground: 'E5E7EB' }
+        ],
+        colors: {
+          'editor.background': '#0E1526',
+          'editor.foreground': '#E5E7EB',
+          'editorCursor.foreground': '#4F8CFF',
+          'editor.lineHighlightBackground': '#16223B',
+          'editorLineNumber.foreground': '#475569',
+          'editorLineNumber.activeForeground': '#94A3B8',
+          'editor.selectionBackground': '#2563EB40',
+          'editor.inactiveSelectionBackground': '#2563EB20'
+        }
+      });
 
-    monaco.editor.setTheme('sqlSprintDark');
+      monaco.editor.setTheme('sqlSprintDark');
 
-    // Register Cmd+Enter / Ctrl+Enter keybinding
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
-      if (onRunQuery) {
-        onRunQuery();
-      }
-    });
+      // Register Cmd+Enter / Ctrl+Enter keybinding
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+        if (onRunQuery) {
+          onRunQuery();
+        }
+      });
+    } catch (e) {
+      console.warn('Monaco theme setup notice:', e);
+    }
   };
+
+  const handleKeyDown = (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      if (onRunQuery) onRunQuery();
+    }
+  };
+
+  if (useFallback) {
+    return (
+      <div className="w-full h-full relative overflow-hidden bg-[#0E1526] p-3 flex flex-col">
+        <div className="flex items-center justify-between text-[11px] text-text-muted mb-1 select-none">
+          <span>SQL Editor (Standard Mode • Cmd+Enter to Run)</span>
+          <button 
+            onClick={() => setUseFallback(false)} 
+            className="text-brand hover:underline"
+          >
+            Retry Monaco
+          </button>
+        </div>
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="-- Write your SQL query here... (e.g. SELECT * FROM Employees;)"
+          style={{ fontSize: `${fontSize}px` }}
+          className="flex-1 w-full bg-transparent font-mono text-text-primary p-2 border border-panel-border rounded-md resize-none focus:outline-none focus:border-brand selection:bg-brand selection:text-white leading-relaxed"
+          spellCheck="false"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full relative overflow-hidden bg-[#0E1526]">
