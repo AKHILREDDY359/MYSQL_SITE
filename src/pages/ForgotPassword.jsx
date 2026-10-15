@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Terminal, Mail, ArrowRight, ArrowLeft, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
+import { Terminal, Mail, ArrowRight, ArrowLeft, AlertCircle, Loader2, CheckCircle2, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
-export default function ForgotPassword({ onNavigate }) {
+export default function ForgotPassword({ onNavigate, onClose, asModal = false }) {
   const { requestPasswordReset, authError, clearError } = useAuth();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,44 +35,68 @@ export default function ForgotPassword({ onNavigate }) {
   };
 
   if (isSuccess) {
+    const successCard = (
+      <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+            title="Close (Return to Dashboard)"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
+          <CheckCircle2 className="w-7 h-7" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
+            Reset link sent
+          </h2>
+          <p className="text-xs text-text-secondary leading-relaxed">
+            We've dispatched password reset instructions to:
+          </p>
+          <div className="font-mono text-xs font-bold text-brand bg-brand-surface py-1.5 px-3 rounded-lg border border-brand/20 inline-block">
+            {email}
+          </div>
+          <p className="text-xs text-text-secondary leading-relaxed pt-2">
+            Follow the link inside the email to set a new password. If you don't see it within a couple minutes, please check your spam folder.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <button
+            onClick={() => onNavigate && onNavigate('login')}
+            className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span>Back to Sign In</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+
+    if (asModal) return successCard;
     return (
       <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-        <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
-            <CheckCircle2 className="w-7 h-7" />
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
-              Reset link sent
-            </h2>
-            <p className="text-xs text-text-secondary leading-relaxed">
-              We've dispatched password reset instructions to:
-            </p>
-            <div className="font-mono text-xs font-bold text-brand bg-brand-surface py-1.5 px-3 rounded-lg border border-brand/20 inline-block">
-              {email}
-            </div>
-            <p className="text-xs text-text-secondary leading-relaxed pt-2">
-              Follow the link inside the email to set a new password. If you don't see it within a couple minutes, please check your spam folder.
-            </p>
-          </div>
-
-          <div className="pt-2">
-            <button
-              onClick={() => onNavigate && onNavigate('login')}
-              className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Back to Sign In</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+        {successCard}
       </div>
     );
   }
 
-  return (
-    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-      <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6">
+  const cardContent = (
+    <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6">
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+          title="Close (Return to Dashboard)"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
         {/* Back Link */}
         <button
           type="button"
@@ -162,6 +186,12 @@ export default function ForgotPassword({ onNavigate }) {
           </p>
         </div>
       </div>
+  );
+
+  if (asModal) return cardContent;
+  return (
+    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
+      {cardContent}
     </div>
   );
 }

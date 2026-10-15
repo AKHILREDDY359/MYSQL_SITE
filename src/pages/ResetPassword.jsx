@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Terminal, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Terminal, Lock, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, CheckCircle2, ShieldCheck, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
-export default function ResetPassword({ onNavigate }) {
+export default function ResetPassword({ onNavigate, onResetSuccess, onClose, asModal = false }) {
   const { updatePassword, authError, clearError } = useAuth();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,7 +33,9 @@ export default function ResetPassword({ onNavigate }) {
       await updatePassword(password);
       setIsSuccess(true);
       setTimeout(() => {
-        if (onNavigate) onNavigate('dashboard');
+        if (onResetSuccess) onResetSuccess();
+        if (onClose) onClose();
+        else if (onNavigate) onNavigate('dashboard');
       }, 1500);
     } catch (err) {
       setErrorMessage(err.message || 'Failed to update password. Your recovery session may have expired.');
@@ -43,38 +45,66 @@ export default function ResetPassword({ onNavigate }) {
   };
 
   if (isSuccess) {
+    const successCard = (
+      <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+            title="Close (Return to Dashboard)"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
+          <CheckCircle2 className="w-7 h-7" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
+            Password Updated!
+          </h2>
+          <p className="text-xs text-text-secondary leading-relaxed">
+            Your password has been changed successfully. You can now use your new password to sign in across all devices.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <button
+            onClick={() => {
+              if (onResetSuccess) onResetSuccess();
+              if (onClose) onClose();
+              else if (onNavigate) onNavigate('dashboard');
+            }}
+            className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span>Continue to SQLForge</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+
+    if (asModal) return successCard;
     return (
       <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-        <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
-            <CheckCircle2 className="w-7 h-7" />
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
-              Password Updated!
-            </h2>
-            <p className="text-xs text-text-secondary leading-relaxed">
-              Your password has been changed successfully. You can now use your new password to sign in across all devices.
-            </p>
-          </div>
-
-          <div className="pt-2">
-            <button
-              onClick={() => onNavigate && onNavigate('dashboard')}
-              className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Continue to SQLForge</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+        {successCard}
       </div>
     );
   }
 
-  return (
-    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-      <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6">
+  const cardContent = (
+    <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6">
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+          title="Close (Return to Dashboard)"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand text-white shadow-md shadow-brand/20 mb-1">
@@ -171,6 +201,12 @@ export default function ResetPassword({ onNavigate }) {
           </button>
         </form>
       </div>
+  );
+
+  if (asModal) return cardContent;
+  return (
+    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
+      {cardContent}
     </div>
   );
 }

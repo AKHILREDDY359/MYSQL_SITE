@@ -77,6 +77,22 @@ export default function App() {
     return 'dashboard';
   });
 
+  const isAuthModalPage = ['login', 'signup', 'forgot-password', 'reset-password'].includes(activePage);
+
+  // Content page to display underneath the floating auth modal
+  const [contentPage, setContentPage] = useState(() => {
+    const initialPage = typeof window !== 'undefined' && window.location.hash
+      ? parseHash(window.location.hash).page
+      : 'dashboard';
+    return ['login', 'signup', 'forgot-password', 'reset-password'].includes(initialPage) ? 'dashboard' : initialPage;
+  });
+
+  useEffect(() => {
+    if (!['login', 'signup', 'forgot-password', 'reset-password'].includes(activePage)) {
+      setContentPage(activePage);
+    }
+  }, [activePage]);
+
   const [questions] = useState(QUESTIONS);
 
   const [currentQuestion, setCurrentQuestion] = useState(() => {
@@ -266,6 +282,18 @@ export default function App() {
     };
   }, [questions]);
 
+  // Handle Escape key to close floating auth modal
+  useEffect(() => {
+    if (!isAuthModalPage) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        navigateTo(contentPage || 'dashboard');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isAuthModalPage, contentPage, navigateTo]);
+
   // Initialize engine and load storage on initial mount
   useEffect(() => {
     async function setup() {
@@ -340,7 +368,7 @@ export default function App() {
     <ToastProvider>
       <div className={`flex flex-col h-screen w-screen overflow-hidden bg-background text-text-primary ${theme === 'dark' ? 'dark' : 'light'}`}>
         <AppHeader
-          activePage={activePage}
+          activePage={isAuthModalPage ? contentPage : activePage}
           setActivePage={navigateTo}
           solvedCount={metrics.solved || 0}
           totalCount={questions.length}
@@ -403,38 +431,7 @@ export default function App() {
         />
 
         <main className="flex-1 flex overflow-hidden">
-          {activePage === 'login' && (
-            <Login
-              onNavigate={navigateTo}
-              onLoginSuccess={() => {
-                refreshProgress();
-                navigateTo('dashboard');
-              }}
-            />
-          )}
-
-          {activePage === 'signup' && (
-            <SignUp
-              onNavigate={navigateTo}
-            />
-          )}
-
-          {activePage === 'forgot-password' && (
-            <ForgotPassword
-              onNavigate={navigateTo}
-            />
-          )}
-
-          {activePage === 'reset-password' && (
-            <ResetPassword
-              onNavigate={navigateTo}
-              onResetSuccess={() => {
-                navigateTo('dashboard');
-              }}
-            />
-          )}
-
-          {activePage === 'dashboard' && (
+          {contentPage === 'dashboard' && (
             <Dashboard
               metrics={metrics}
               questions={questions}
@@ -445,7 +442,7 @@ export default function App() {
             />
           )}
 
-          {activePage === 'interview' && (
+          {contentPage === 'interview' && (
             <InterviewQuestions
               questions={questions}
               progressMap={progressMap}
@@ -456,7 +453,7 @@ export default function App() {
             />
           )}
 
-          {activePage === 'practice' && (
+          {contentPage === 'practice' && (
             <PracticeWorkspace
               questions={questions}
               currentQuestion={currentQuestion}
@@ -477,13 +474,13 @@ export default function App() {
             />
           )}
 
-          {activePage === 'revision' && (
+          {contentPage === 'revision' && (
             <Revision
               onNavigateToTopicQuestions={handleNavigateToTopicQuestions}
             />
           )}
 
-          {activePage === 'progress' && (
+          {contentPage === 'progress' && (
             <ProgressDashboard
               metrics={metrics}
               questions={questions}
@@ -494,7 +491,7 @@ export default function App() {
             />
           )}
 
-          {activePage === 'settings' && (
+          {contentPage === 'settings' && (
             <Settings
               onResetDb={handleResetDb}
               isDbResetting={isDbResetting}
@@ -510,6 +507,63 @@ export default function App() {
             />
           )}
         </main>
+
+        {/* Floating Auth Modal Overlay */}
+        {isAuthModalPage && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200 overflow-y-auto"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                navigateTo(contentPage || 'dashboard');
+              }
+            }}
+          >
+            <div className="relative w-full max-w-md my-8 animate-in fade-in zoom-in-95 duration-200">
+              {activePage === 'login' && (
+                <Login
+                  onNavigate={navigateTo}
+                  onClose={() => navigateTo(contentPage || 'dashboard')}
+                  onLoginSuccess={() => {
+                    refreshProgress();
+                    navigateTo(contentPage || 'dashboard');
+                  }}
+                  asModal
+                />
+              )}
+
+              {activePage === 'signup' && (
+                <SignUp
+                  onNavigate={navigateTo}
+                  onClose={() => navigateTo(contentPage || 'dashboard')}
+                  onSignUpSuccess={() => {
+                    refreshProgress();
+                    navigateTo(contentPage || 'dashboard');
+                  }}
+                  asModal
+                />
+              )}
+
+              {activePage === 'forgot-password' && (
+                <ForgotPassword
+                  onNavigate={navigateTo}
+                  onClose={() => navigateTo(contentPage || 'dashboard')}
+                  asModal
+                />
+              )}
+
+              {activePage === 'reset-password' && (
+                <ResetPassword
+                  onNavigate={navigateTo}
+                  onClose={() => navigateTo(contentPage || 'dashboard')}
+                  onResetSuccess={() => {
+                    navigateTo(contentPage || 'dashboard');
+                  }}
+                  asModal
+                />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </ToastProvider>
   );

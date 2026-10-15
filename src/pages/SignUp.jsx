@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Lock, Mail, User, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Terminal, Lock, Mail, User, Eye, EyeOff, ArrowRight, AlertCircle, Loader2, CheckCircle2, ShieldCheck, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
-export default function SignUp({ onNavigate }) {
+export default function SignUp({ onNavigate, onSignUpSuccess, onClose, asModal = false }) {
   const { user, signup, authError, clearError, loading } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -67,7 +67,9 @@ export default function SignUp({ onNavigate }) {
         // Direct session created (email confirmation disabled in Supabase)
         setSignupSuccess(true);
         setTimeout(() => {
-          if (onNavigate) onNavigate('dashboard');
+          if (onSignUpSuccess) onSignUpSuccess();
+          if (onClose) onClose();
+          else if (onNavigate) onNavigate('dashboard');
         }, 1200);
       } else {
         // Email verification required
@@ -81,44 +83,68 @@ export default function SignUp({ onNavigate }) {
   };
 
   if (requiresVerification) {
+    const verifyCard = (
+      <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+            title="Close (Return to Dashboard)"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
+          <Mail className="w-7 h-7" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
+            Verify your email
+          </h2>
+          <p className="text-xs text-text-secondary leading-relaxed">
+            We have sent a verification email to:
+          </p>
+          <div className="font-mono text-xs font-bold text-brand bg-brand-surface py-1.5 px-3 rounded-lg border border-brand/20 inline-block">
+            {email}
+          </div>
+          <p className="text-xs text-text-secondary leading-relaxed pt-2">
+            Please click the confirmation link in the email to activate your SQLForge account, then sign in below.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <button
+            onClick={() => onNavigate && onNavigate('login')}
+            className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <span>Go to Sign In</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+
+    if (asModal) return verifyCard;
     return (
       <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-        <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6 text-center animate-in fade-in duration-200">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-surface text-brand mx-auto shadow-sm">
-            <Mail className="w-7 h-7" />
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-extrabold text-text-primary tracking-tight">
-              Verify your email
-            </h2>
-            <p className="text-xs text-text-secondary leading-relaxed">
-              We have sent a verification email to:
-            </p>
-            <div className="font-mono text-xs font-bold text-brand bg-brand-surface py-1.5 px-3 rounded-lg border border-brand/20 inline-block">
-              {email}
-            </div>
-            <p className="text-xs text-text-secondary leading-relaxed pt-2">
-              Please click the confirmation link in the email to activate your SQLForge account, then sign in below.
-            </p>
-          </div>
-
-          <div className="pt-2">
-            <button
-              onClick={() => onNavigate && onNavigate('login')}
-              className="w-full py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-semibold text-sm shadow-md shadow-brand/20 transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              <span>Go to Sign In</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
+        {verifyCard}
       </div>
     );
   }
 
-  return (
-    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
-      <div className="w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-lg p-6 sm:p-8 space-y-6">
+  const cardContent = (
+    <div className="relative w-full max-w-md bg-panel rounded-2xl border border-panel-border shadow-2xl p-6 sm:p-8 space-y-6">
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-panel-light transition-colors cursor-pointer"
+          title="Close (Return to Dashboard)"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      )}
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand text-white shadow-md shadow-brand/20 mb-1">
@@ -283,7 +309,10 @@ export default function SignUp({ onNavigate }) {
         <div className="space-y-3 text-center">
           <button
             type="button"
-            onClick={() => onNavigate && onNavigate('dashboard')}
+            onClick={() => {
+              if (onClose) onClose();
+              else if (onNavigate) onNavigate('dashboard');
+            }}
             className="w-full py-2.5 px-4 rounded-xl bg-panel-light hover:bg-panel-lighter border border-panel-border text-text-primary font-semibold text-xs transition-all cursor-pointer flex items-center justify-center gap-2"
           >
             <span>Practice as Guest (No Registration Needed)</span>
@@ -301,6 +330,12 @@ export default function SignUp({ onNavigate }) {
           </p>
         </div>
       </div>
+  );
+
+  if (asModal) return cardContent;
+  return (
+    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center bg-background px-4 py-8 bg-tech-grid">
+      {cardContent}
     </div>
   );
 }
