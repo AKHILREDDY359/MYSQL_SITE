@@ -450,7 +450,7 @@ create policy "Users can manage their own progress"
                 </div>
 
                 <p className="text-text-secondary leading-relaxed">
-                  To sync across all devices via Supabase, enter your project's URL and Public Anon Key below (found in your Supabase Dashboard under <strong>Project Settings $\rightarrow$ API</strong>):
+                  To sync across all devices via Supabase, enter your project's URL and Public Anon Key below (found in your Supabase Dashboard under <strong>Project Settings → API</strong>):
                 </p>
 
                 <form onSubmit={handleSaveCredentials} className="space-y-2 pt-1">
