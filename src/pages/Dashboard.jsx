@@ -275,7 +275,7 @@ export default function Dashboard({
         <ProgressCard
           title="Total Bank"
           value={total}
-          subtitle="350 Problems"
+          subtitle={`${total} Problems`}
           icon={HelpCircle}
           color="brand"
         />
