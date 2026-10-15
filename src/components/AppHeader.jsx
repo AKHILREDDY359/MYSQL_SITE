@@ -126,10 +126,10 @@ export default function AppHeader({
           className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-panel-light hover:bg-panel-lighter border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-all cursor-pointer group shadow-xs"
         >
           <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-brand to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold shrink-0 uppercase shadow-xs">
-            {(activeProfile || 'A')[0]}
+            {String(activeProfile || 'Akhil').charAt(0).toUpperCase()}
           </div>
           <span className="font-medium text-text-primary group-hover:text-brand max-w-[90px] sm:max-w-[120px] truncate">
-            {activeProfile}
+            {String(activeProfile || 'Akhil')}
           </span>
           {authUser ? (
             <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 font-semibold" title="Cloud Sync Active">

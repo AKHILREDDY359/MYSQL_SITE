@@ -111,12 +111,13 @@ export default function App() {
     getCurrentAuthUser().then(user => {
       if (user) {
         setAuthUser(user);
-        setActiveProfileState(user.email.split('@')[0]);
+        const name = user.email ? user.email.split('@')[0] : 'User';
+        setActiveProfileState(name);
         fetchProgressFromCloud()
           .then(() => refreshProgress())
           .catch(err => console.warn('Cloud sync on mount error:', err));
       }
-    });
+    }).catch(err => console.warn('User fetch error:', err));
 
     const unsubscribe = onAuthStateChanged((user) => {
       setAuthUser(user);
@@ -129,7 +130,11 @@ export default function App() {
     });
 
     return () => {
-      unsubscribe();
+      if (typeof unsubscribe === 'function') {
+        try {
+          unsubscribe();
+        } catch (e) {}
+      }
     };
   }, [refreshProgress]);
 

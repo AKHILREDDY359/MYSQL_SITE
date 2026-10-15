@@ -5,7 +5,8 @@ import { loadFromStorage, saveToStorage, STORAGE_KEYS } from '../utils/storage.j
 // Get storage key scoped to current profile/account
 export function getScopedStorageKey(baseKey) {
   const profile = getActiveProfile();
-  return `${baseKey}_${profile.toLowerCase()}`;
+  const safeProfile = (typeof profile === 'string' && profile.trim().length > 0) ? profile.trim() : 'akhil';
+  return `${baseKey}_${safeProfile.toLowerCase()}`;
 }
 
 /**
@@ -119,21 +120,22 @@ export async function syncProgressToCloud(progressMap) {
  * Downloads cloud progress from Supabase and merges into the active account.
  */
 export async function fetchProgressFromCloud() {
-  const supabase = getSupabaseClient();
-  if (!supabase) return null;
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase) return null;
 
-  const user = await getCurrentAuthUser();
-  if (!user) return null;
+    const user = await getCurrentAuthUser();
+    if (!user) return null;
 
-  const { data, error } = await supabase
-    .from('user_progress')
-    .select('*')
-    .eq('user_id', user.id);
+    const { data, error } = await supabase
+      .from('user_progress')
+      .select('*')
+      .eq('user_id', user.id);
 
-  if (error) {
-    console.warn('Failed to fetch cloud progress:', error.message);
-    throw error;
-  }
+    if (error) {
+      console.warn('Failed to fetch cloud progress:', error.message);
+      return null;
+    }
 
   if (!data || data.length === 0) {
     // If cloud is empty, sync current local progress up to cloud
@@ -174,4 +176,8 @@ export async function fetchProgressFromCloud() {
   saveAccountBookmarks(bookmarksList);
 
   return progressMap;
+} catch (err) {
+  console.warn('fetchProgressFromCloud caught error:', err);
+  return null;
+}
 }

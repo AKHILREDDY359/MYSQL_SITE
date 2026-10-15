@@ -10,11 +10,15 @@ const STORAGE_KEYS_AUTH = {
 const DEFAULT_PROFILE = 'Akhil';
 
 export function getActiveProfile() {
-  return loadFromStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
+  const val = loadFromStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
+  if (typeof val === 'string' && val.trim().length > 0) {
+    return val.trim();
+  }
+  return DEFAULT_PROFILE;
 }
 
 export function setActiveProfile(profileName) {
-  const clean = (profileName || DEFAULT_PROFILE).trim();
+  const clean = (typeof profileName === 'string' && profileName.trim()) ? profileName.trim() : DEFAULT_PROFILE;
   saveToStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, clean);
 
   // Add to saved profiles list
@@ -28,7 +32,11 @@ export function setActiveProfile(profileName) {
 }
 
 export function getSavedProfiles() {
-  return loadFromStorage(STORAGE_KEYS_AUTH.PROFILES_LIST, [DEFAULT_PROFILE]);
+  const list = loadFromStorage(STORAGE_KEYS_AUTH.PROFILES_LIST, [DEFAULT_PROFILE]);
+  if (Array.isArray(list) && list.length > 0) {
+    return list.filter(p => typeof p === 'string' && p.trim().length > 0);
+  }
+  return [DEFAULT_PROFILE];
 }
 
 /**
@@ -87,12 +95,12 @@ export async function signOutUser() {
  * Get currently authenticated Supabase user or null.
  */
 export async function getCurrentAuthUser() {
-  const supabase = getSupabaseClient();
-  if (!supabase) return null;
-
   try {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user;
+    const supabase = getSupabaseClient();
+    if (!supabase || !supabase.auth) return null;
+
+    const res = await supabase.auth.getUser();
+    return res?.data?.user || null;
   } catch (err) {
     return null;
   }
@@ -102,14 +110,28 @@ export async function getCurrentAuthUser() {
  * Listen for auth state changes.
  */
 export function onAuthStateChanged(callback) {
-  const supabase = getSupabaseClient();
-  if (!supabase) return () => {};
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase || !supabase.auth) return () => {};
 
-  const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-    callback(session?.user || null, event);
-  });
+    const res = supabase.auth.onAuthStateChange((event, session) => {
+      try {
+        callback(session?.user || null, event);
+      } catch (cbErr) {
+        console.warn('Auth callback error:', cbErr);
+      }
+    });
 
-  return () => {
-    subscription.unsubscribe();
-  };
+    const subscription = res?.data?.subscription;
+    return () => {
+      try {
+        if (subscription && typeof subscription.unsubscribe === 'function') {
+          subscription.unsubscribe();
+        }
+      } catch (e) {}
+    };
+  } catch (err) {
+    console.warn('onAuthStateChanged error:', err);
+    return () => {};
+  }
 }
