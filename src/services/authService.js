@@ -6,14 +6,12 @@ const STORAGE_KEYS_AUTH = {
   PROFILES_LIST: 'SQL_SPRINT_SAVED_PROFILES'
 };
 
-// Default profile name
 const DEFAULT_PROFILE = 'Guest';
 
 export function getActiveProfile() {
   const val = loadFromStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
   if (typeof val === 'string' && val.trim().length > 0) {
     const trimmed = val.trim();
-    // Automatically migrate legacy hardcoded 'Akhil' profile to 'Guest'
     if (trimmed.toLowerCase() === 'akhil') {
       saveToStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
       return DEFAULT_PROFILE;
@@ -27,7 +25,6 @@ export function setActiveProfile(profileName) {
   const clean = (typeof profileName === 'string' && profileName.trim()) ? profileName.trim() : DEFAULT_PROFILE;
   saveToStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, clean);
 
-  // Add to saved profiles list
   const list = getSavedProfiles();
   if (!list.includes(clean)) {
     list.push(clean);
@@ -50,23 +47,66 @@ export function getSavedProfiles() {
 }
 
 /**
- * Sign up with email & password via Supabase.
+ * Format raw Supabase authentication errors into friendly, actionable messages.
  */
-export async function signUpWithEmail(email, password) {
-  const supabase = getSupabaseClient();
-  if (!supabase) {
-    throw new Error('Supabase is not configured. Please enter your Supabase Project URL & Anon Key in Cloud Settings.');
+export function formatAuthError(error) {
+  if (!error) return 'An unexpected error occurred.';
+  const message = error.message || String(error);
+
+  if (message.includes('Invalid login credentials')) {
+    return 'Incorrect email or password. Please verify your details and try again.';
+  }
+  if (message.includes('Email not confirmed')) {
+    return 'Your email has not been confirmed yet. Please check your inbox for the verification link.';
+  }
+  if (message.includes('User already registered') || message.includes('already exists')) {
+    return 'An account with this email address already exists. Try logging in instead.';
+  }
+  if (message.includes('Password should be at least')) {
+    return 'Password must be at least 6 characters long.';
+  }
+  if (message.includes('rate limit') || message.includes('Too many requests')) {
+    return 'Too many login attempts. Please wait a moment before trying again.';
+  }
+  if (message.includes('Failed to fetch') || message.includes('NetworkError')) {
+    return 'Network connection failure. Please check your internet connection.';
+  }
+  if (message.includes('Auth session missing') || message.includes('JWT expired')) {
+    return 'Your session has expired. Please log in again to continue.';
   }
 
+  return message;
+}
+
+/**
+ * Sign up with email, password, and optional full name via Supabase.
+ */
+export async function signUpWithEmail(email, password, fullName = '') {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please check your Supabase Project URL & Anon Key.');
+  }
+
+  const cleanEmail = email.trim();
+  const cleanName = (fullName || '').trim() || cleanEmail.split('@')[0];
+
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password
+    email: cleanEmail,
+    password,
+    options: {
+      data: {
+        full_name: cleanName
+      },
+      emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/#/login` : undefined
+    }
   });
 
   if (error) throw error;
-  if (data.user) {
-    setActiveProfile(data.user.email.split('@')[0]);
+
+  if (data?.user) {
+    setActiveProfile(cleanName);
   }
+
   return data;
 }
 
@@ -76,18 +116,62 @@ export async function signUpWithEmail(email, password) {
 export async function signInWithEmail(email, password) {
   const supabase = getSupabaseClient();
   if (!supabase) {
-    throw new Error('Supabase is not configured. Please enter your Supabase Project URL & Anon Key in Cloud Settings.');
+    throw new Error('Supabase is not configured. Please check your Supabase Project URL & Anon Key.');
   }
 
+  const cleanEmail = email.trim();
+
   const { data, error } = await supabase.auth.signInWithPassword({
-    email,
+    email: cleanEmail,
     password
   });
 
   if (error) throw error;
-  if (data.user) {
-    setActiveProfile(data.user.email.split('@')[0]);
+
+  if (data?.user) {
+    const name = data.user.user_metadata?.full_name || cleanEmail.split('@')[0];
+    setActiveProfile(name);
   }
+
+  return data;
+}
+
+/**
+ * Send password reset email via Supabase with redirect URL.
+ */
+export async function resetPasswordForEmail(email) {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please check your Supabase Project URL & Anon Key.');
+  }
+
+  const cleanEmail = email.trim();
+  const redirectUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}/#/reset-password`
+    : undefined;
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+    redirectTo: redirectUrl
+  });
+
+  if (error) throw error;
+  return data;
+}
+
+/**
+ * Update authenticated user's password (e.g. from password reset recovery session).
+ */
+export async function updateUserPassword(newPassword) {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please check your Supabase Project URL & Anon Key.');
+  }
+
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
+  });
+
+  if (error) throw error;
   return data;
 }
 
@@ -97,7 +181,26 @@ export async function signInWithEmail(email, password) {
 export async function signOutUser() {
   const supabase = getSupabaseClient();
   if (supabase) {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.warn('Supabase sign out error:', err);
+    }
+  }
+  setActiveProfile(DEFAULT_PROFILE);
+}
+
+/**
+ * Get active session.
+ */
+export async function getCurrentSession() {
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase || !supabase.auth) return null;
+    const { data } = await supabase.auth.getSession();
+    return data?.session || null;
+  } catch (err) {
+    return null;
   }
 }
 
@@ -126,7 +229,7 @@ export function onAuthStateChanged(callback) {
 
     const res = supabase.auth.onAuthStateChange((event, session) => {
       try {
-        callback(session?.user || null, event);
+        callback(session?.user || null, event, session);
       } catch (cbErr) {
         console.warn('Auth callback error:', cbErr);
       }

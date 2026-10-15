@@ -8,6 +8,8 @@
  * Generated automatically by scripts/buildAndVerifyQuestionBank.js
  */
 
+import { DDL_DML_QUESTIONS, DDL_DML_TOPICS } from './ddlDmlQuestions.js';
+
 export const QUESTION_TOPICS = [
   "SQL Fundamentals",
   "WHERE & Operators",
@@ -18,10 +20,11 @@ export const QUESTION_TOPICS = [
   "SQL JOINs",
   "Subqueries",
   "CASE Expressions",
-  "Interview Ready Questions"
+  "Interview Ready Questions",
+  ...DDL_DML_TOPICS
 ];
 
-export const QUESTIONS = [
+const BASE_QUESTIONS = [
   {
     "id": 1,
     "title": "Display all employees working in IT",
@@ -31691,4 +31694,9 @@ export const QUESTIONS = [
       "rowCount": 8
     }
   }
+];
+
+export const QUESTIONS = [
+  ...BASE_QUESTIONS,
+  ...DDL_DML_QUESTIONS
 ];

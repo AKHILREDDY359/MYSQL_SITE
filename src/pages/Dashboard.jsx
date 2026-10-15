@@ -20,7 +20,9 @@ export const CANONICAL_TOPICS = [
   "SQL JOINs",
   "Subqueries",
   "CASE Expressions",
-  "Interview Ready Questions"
+  "Interview Ready Questions",
+  "Table & Schema Management (DDL)",
+  "Data Modification (DML)"
 ];
 
 const TOPIC_ICONS = {
@@ -33,7 +35,9 @@ const TOPIC_ICONS = {
   "SQL JOINs": Compass,
   "Subqueries": Sparkles,
   "CASE Expressions": GitFork,
-  "Interview Ready Questions": BookOpen
+  "Interview Ready Questions": BookOpen,
+  "Table & Schema Management (DDL)": Layers,
+  "Data Modification (DML)": Zap
 };
 
 export default function Dashboard({
@@ -221,13 +225,16 @@ export default function Dashboard({
           <div className="space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-surface border border-brand/30 text-xs font-bold text-emerald-800 dark:text-emerald-300">
               <Terminal className="w-3.5 h-3.5 text-brand" />
-              <span>SQL Sprint Master Placement Hub</span>
+              <span>SQLForge — Forge Your SQL Skills</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
-              Master SQL Technical Interviews (375 Verified Problems)
+              Master SQL from Basics to Advanced ({questions.length} Verified Problems)
             </h1>
+            <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+              Strong and developer-focused, ideal for mastering SQL from basics to advanced.
+            </p>
             <p className="text-sm text-text-secondary leading-relaxed">
-              Curated corporate SQL interview challenges organized across 9 core curriculum topics (featuring a comprehensive CASE Expressions module) plus a dedicated 50 Common Logic-Based SQL Interview Questions section with live WebAssembly execution, relational schema exploration, and automated answer validation.
+              Curated corporate SQL interview challenges organized across 12 core curriculum topics (including Table & Schema Management DDL, Data Modification DML, and CASE Expressions) with live WebAssembly execution, relational schema exploration, and automated answer validation.
             </p>
           </div>
 

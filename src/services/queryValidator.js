@@ -97,3 +97,70 @@ export function hasOrderByClause(sql) {
   const stripped = cleanSql.replace(/'(?:''|[^'])*'/g, "''").replace(/"(?:""|[^"])*"/g, '""');
   return /\bORDER\s+BY\b/.test(stripped);
 }
+
+// Prohibited dangerous keywords in DDL/DML sandbox
+const DANGEROUS_DDL_DML_KEYWORDS = [
+  'ATTACH', 'DETACH', 'LOAD_EXTENSION', 'REINDEX', 'VACUUM', 'PRAGMA',
+  'GRANT', 'REVOKE', 'EXEC', 'EXECUTE', 'UPSERT'
+];
+
+const ALLOWED_DDL_DML_INITIAL_KEYWORDS = [
+  'CREATE', 'ALTER', 'DROP', 'INSERT', 'UPDATE', 'DELETE', 'SELECT', 'WITH'
+];
+
+/**
+ * Validates statements for the isolated DDL/DML sandbox.
+ * Allows schema definition, alteration, insertion, updates, and deletes.
+ * Blocks system-level operations like ATTACH, DETACH, PRAGMA, etc.
+ */
+export function validateDdlDmlSafety(rawSql) {
+  if (!rawSql || typeof rawSql !== 'string') {
+    return { valid: false, error: 'Query is empty. Please enter a valid SQL statement.' };
+  }
+
+  const cleanSql = stripComments(rawSql).trim();
+  if (!cleanSql) {
+    return { valid: false, error: 'Query contains only whitespace or comments.' };
+  }
+
+  // Strip string literals before keyword tokenization
+  const stringLiteralStripped = cleanSql.replace(/'(?:''|[^'])*'/g, "''").replace(/"(?:""|[^"])*"/g, '""');
+
+  // Check for forbidden dangerous system-level commands
+  const words = stringLiteralStripped.toUpperCase().match(/\b[A-Z_]+\b/g) || [];
+  for (const word of words) {
+    if (DANGEROUS_DDL_DML_KEYWORDS.includes(word)) {
+      return {
+        valid: false,
+        error: `Security restriction: System-level command "${word}" is not permitted in practice exercises.`
+      };
+    }
+  }
+
+  // Split on semicolons for statement validation
+  const statements = cleanSql
+    .split(';')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (statements.length === 0) {
+    return { valid: false, error: 'No executable SQL statements found.' };
+  }
+
+  // Verify each statement starts with an allowed keyword
+  for (const stmt of statements) {
+    const firstWordMatch = stmt.match(/^([a-zA-Z_]+)/);
+    if (!firstWordMatch) {
+      return { valid: false, error: 'Invalid SQL syntax: Statement must begin with a valid command.' };
+    }
+    const firstWord = firstWordMatch[1].toUpperCase();
+    if (!ALLOWED_DDL_DML_INITIAL_KEYWORDS.includes(firstWord)) {
+      return {
+        valid: false,
+        error: `Command "${firstWord}" is not permitted. Only DDL/DML operations (${ALLOWED_DDL_DML_INITIAL_KEYWORDS.join(', ')}) are supported.`
+      };
+    }
+  }
+
+  return { valid: true, sanitizedSql: cleanSql, statements };
+}

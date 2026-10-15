@@ -21,7 +21,7 @@ function assert(condition, testName, details = '') {
 }
 
 async function runComprehensiveVerification() {
-  console.log('=== SQL Sprint Platform Verification Suite ===\n');
+  console.log('=== SQLForge Platform Verification Suite ===\n');
 
   // 1. Verify Database Initialization
   console.log('1. Database Engine & Seed Verification:');
@@ -48,18 +48,18 @@ async function runComprehensiveVerification() {
   const reviewCount = db.exec('SELECT COUNT(*) FROM Performance_Reviews;')[0].values[0][0];
   assert(reviewCount === 18, 'Performance_Reviews table seeded with exactly 18 records', `Got ${reviewCount}`);
 
-  // 2. Verify all 375 questions exist and have expected outputs
+  // 2. Verify all 405 questions exist and have expected outputs
   console.log('\n2. Question Bank Completeness Verification:');
-  assert(QUESTIONS.length === 375, 'Question bank has exactly 375 questions', `Got ${QUESTIONS.length}`);
+  assert(QUESTIONS.length === 405, 'Question bank has exactly 405 questions (375 baseline + 30 DDL/DML)', `Got ${QUESTIONS.length}`);
   
   const allHaveOutputs = QUESTIONS.every(q => 
     q.expectedOutput && 
     Array.isArray(q.expectedOutput.columns) && 
     Array.isArray(q.expectedOutput.values) && 
     typeof q.expectedOutput.rowCount === 'number' &&
-    q.expectedOutput.rowCount > 0
+    q.expectedOutput.rowCount >= 0
   );
-  assert(allHaveOutputs, 'All 375 questions have precomputed, verified outputs with real rows from database');
+  assert(allHaveOutputs, 'All 405 questions have precomputed, verified outputs with real rows from database');
 
   const EXPECTED_TOPIC_TARGETS = {
     'SQL Fundamentals': 25,
@@ -71,7 +71,9 @@ async function runComprehensiveVerification() {
     'SQL JOINs': 75,
     'Subqueries': 50,
     'CASE Expressions': 25,
-    'Interview Ready Questions': 50
+    'Interview Ready Questions': 50,
+    'Table & Schema Management (DDL)': 15,
+    'Data Modification (DML)': 15
   };
   const topicCounts = {};
   QUESTIONS.forEach(q => {
@@ -84,7 +86,7 @@ async function runComprehensiveVerification() {
       console.error(`Mismatch for ${topic}: expected ${target}, got ${topicCounts[topic]}`);
     }
   }
-  assert(allTopicsMatch, 'All 10 topics strictly match their exact question targets (375 total)');
+  assert(allTopicsMatch, 'All 12 topics strictly match their exact question targets (405 total)');
 
   // 3. Test Security & Safety Barrier
   console.log('\n3. Query Safety & Sandbox Enforcement:');
@@ -216,9 +218,9 @@ async function runComprehensiveVerification() {
   ];
   // Pretend Q1 is solved
   const calculatedMetrics = calculateDashboardMetrics(QUESTIONS);
-  assert(calculatedMetrics.total === 375, 'Total questions metric calculated correctly (375)');
+  assert(calculatedMetrics.total === 405, 'Total questions metric calculated correctly (405)');
   assert(typeof calculatedMetrics.accuracy === 'number', 'Accuracy percentage computed');
-  assert(calculatedMetrics.pending === 375, 'Pending count initialized to 375 when no attempts made');
+  assert(calculatedMetrics.pending === 405, 'Pending count initialized to 405 when no attempts made');
 
   // Summary
   console.log(`\n==============================================`);

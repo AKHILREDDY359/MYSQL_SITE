@@ -388,7 +388,7 @@ WHERE salary < (
     title: 'MySQL vs SQLite Compatibility Guide',
     badge: 'Platform Architecture',
     summary: 'Key differences between browser-based SQLite (sql.js) and standard MySQL 8.0 server.',
-    syntax: `SQL Sprint runs queries locally in your browser via SQLite WebAssembly.`,
+    syntax: `SQLForge runs queries locally in your browser via SQLite WebAssembly.`,
     explanation: `Key Behavioral Differences:
 1. Regex Operator: MySQL supports \`REGEXP\` / \`RLIKE\`. SQLite supports \`LIKE\` and \`GLOB\`.
 2. Case Sensitivity in LIKE: MySQL's \`LIKE\` is case-insensitive with default collations. SQLite's \`LIKE\` is case-insensitive for ASCII text, but case-sensitive for non-ASCII characters.

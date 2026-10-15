@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Database, Terminal, BookOpen, BarChart3, Settings, 
   LayoutDashboard, RefreshCw, CheckCircle2, Sun, Moon, 
-  ArrowLeft, User, Cloud, Menu, X, ChevronRight, Sparkles
+  ArrowLeft, User, Cloud, CloudOff, Menu, X, ChevronRight, 
+  Sparkles, LogIn, LogOut, AlertCircle, ChevronDown 
 } from 'lucide-react';
 
 export default function AppHeader({ 
@@ -19,9 +20,16 @@ export default function AppHeader({
   currentQuestionId = 1,
   onOpenAccountModal,
   activeProfile = 'Guest',
-  authUser = null
+  authUser = null,
+  syncStatus = 'idle',
+  onRetrySync,
+  onSignOut,
+  onNavigate
 }) {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
+
   const percentage = Math.round((solvedCount / totalCount) * 100) || 0;
 
   const navItems = [
@@ -33,20 +41,41 @@ export default function AppHeader({
     { id: 'settings', label: 'Settings', icon: Settings, desc: 'Preferences, engine & cloud sync' },
   ];
 
-  // Close nav menu on Esc key
+  // Close menus on Esc key or outside click
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isNavMenuOpen) {
+      if (e.key === 'Escape') {
         setIsNavMenuOpen(false);
+        setIsUserMenuOpen(false);
       }
     };
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isNavMenuOpen]);
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleNavClick = (id) => {
     setActivePage(id);
     setIsNavMenuOpen(false);
+  };
+
+  const handleAuthNavigate = (target) => {
+    setIsNavMenuOpen(false);
+    setIsUserMenuOpen(false);
+    if (onNavigate) {
+      onNavigate(target);
+    } else {
+      setActivePage(target);
+    }
   };
 
   return (
@@ -70,7 +99,7 @@ export default function AppHeader({
         {/* Logo and Brand */}
         <button
           onClick={() => { setActivePage('dashboard'); setIsNavMenuOpen(false); }}
-          className="flex items-center gap-2.5 text-left group focus:outline-none"
+          className="flex items-center gap-2.5 text-left group focus:outline-none cursor-pointer"
           title="SQLForge — Go to Dashboard"
         >
           <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center text-white shadow-md shadow-brand/20 group-hover:scale-105 transition-transform shrink-0">
@@ -94,28 +123,9 @@ export default function AppHeader({
         {/* Current Active Page Pill */}
         <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-panel-light border border-panel-border text-xs text-text-secondary">
           <span className="w-1.5 h-1.5 rounded-full bg-brand"></span>
-          <span className="capitalize font-semibold text-text-primary">{activePage}</span>
-        </div>
-
-        {/* Desktop Quick Switch Buttons */}
-        <div className="hidden xl:flex items-center gap-1.5 pl-2 border-l border-panel-border">
-          <button
-            onClick={() => setActivePage('interview')}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
-              activePage === 'interview'
-                ? 'bg-brand text-white shadow-xs'
-                : 'bg-panel-light hover:bg-panel-lighter border border-panel-border text-text-primary hover:text-brand'
-            }`}
-            title="50 Common SQL Interview Questions"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Interview Questions</span>
-            <span className={`text-[10px] font-mono px-1 py-0.2 rounded font-bold ${
-              activePage === 'interview' ? 'bg-black/20 text-white' : 'bg-brand-surface text-brand'
-            }`}>
-              50
-            </span>
-          </button>
+          <span className="capitalize font-semibold text-text-primary">
+            {activePage === 'interview' ? 'Interview Questions' : activePage}
+          </span>
         </div>
 
         {/* Back to Dashboard Arrow Button (Always visible when in practice view) */}
@@ -190,6 +200,61 @@ export default function AppHeader({
                   );
                 })}
               </nav>
+
+              {/* Authentication Status in Drawer */}
+              <div className="pt-2 border-t border-panel-border space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted font-mono block">
+                  Cloud Account
+                </span>
+
+                {authUser ? (
+                  <div className="p-3 rounded-xl bg-panel-light border border-panel-border space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-brand text-white font-bold text-xs flex items-center justify-center shrink-0 uppercase">
+                        {(authUser.user_metadata?.full_name || authUser.email || 'U').charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-text-primary truncate">
+                          {authUser.user_metadata?.full_name || authUser.email?.split('@')[0]}
+                        </div>
+                        <div className="text-[11px] text-text-muted truncate">
+                          {authUser.email}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsNavMenuOpen(false);
+                        if (onSignOut) onSignOut();
+                      }}
+                      className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-panel hover:bg-panel-border border border-panel-border text-xs text-danger font-medium transition-colors cursor-pointer"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="p-3 rounded-xl bg-brand-surface border border-brand/25 space-y-2.5">
+                    <div className="text-xs text-text-primary font-medium leading-relaxed">
+                      Sync solved questions, drafts, and bookmarks across devices.
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleAuthNavigate('login')}
+                        className="flex-1 py-1.5 px-3 rounded-lg bg-brand hover:bg-brand-hover text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer text-center"
+                      >
+                        Sign In
+                      </button>
+                      <button
+                        onClick={() => handleAuthNavigate('signup')}
+                        className="flex-1 py-1.5 px-3 rounded-lg bg-panel hover:bg-panel-light border border-panel-border text-text-primary text-xs font-semibold transition-colors cursor-pointer text-center"
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Bottom Section Docked Fully at the Bottom */}
@@ -218,8 +283,8 @@ export default function AppHeader({
         </>
       )}
 
-      {/* Right Controls: Database status & Progress widget */}
-      <div className="flex items-center gap-3">
+      {/* Right Controls: Database status, Progress, Auth & Theme */}
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* Active Database Pill */}
         <button
           onClick={onOpenDatabaseModal}
@@ -236,7 +301,7 @@ export default function AppHeader({
         </button>
 
         {/* Progress Counter Pill */}
-        <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-panel-light border border-panel-border text-xs">
+        <div className="hidden xs:flex items-center gap-2 px-3 py-1 rounded-md bg-panel-light border border-panel-border text-xs">
           <CheckCircle2 className="w-3.5 h-3.5 text-success" />
           <span className="text-text-secondary">Solved:</span>
           <span className="font-semibold text-text-primary">
@@ -245,31 +310,123 @@ export default function AppHeader({
           <span className="text-[11px] text-brand font-medium">({percentage}%)</span>
         </div>
 
-        {/* Practice Account & Cloud Sync Pill */}
-        <button
-          onClick={onOpenAccountModal}
-          title={`Practice Account: "${activeProfile}" (${authUser ? 'Cloud Connected' : 'Local Storage'}). Click to switch profile or sync cloud.`}
-          className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-panel-light hover:bg-panel-lighter border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-all cursor-pointer group shadow-xs"
-        >
-          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-brand to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold shrink-0 uppercase shadow-xs">
-            {String(activeProfile || 'Guest').charAt(0).toUpperCase()}
+        {/* Live Cloud Sync Status Pill (when authenticated) */}
+        {authUser && (
+          <div className="hidden md:flex items-center">
+            {syncStatus === 'syncing' && (
+              <span className="flex items-center gap-1.5 text-[11px] text-brand bg-brand-surface border border-brand/25 px-2.5 py-1 rounded-md font-mono" title="Uploading progress to Supabase">
+                <RefreshCw className="w-3 h-3 text-brand animate-spin" />
+                <span>Syncing</span>
+              </span>
+            )}
+            {syncStatus === 'synced' && (
+              <span className="flex items-center gap-1.5 text-[11px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md font-mono font-semibold" title="Progress securely synchronized to Supabase cloud">
+                <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                <span>Synced</span>
+              </span>
+            )}
+            {syncStatus === 'error' && (
+              <button 
+                onClick={onRetrySync} 
+                className="flex items-center gap-1.5 text-[11px] text-amber-600 dark:text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded-md font-mono font-semibold transition-colors cursor-pointer"
+                title="Sync encountered an error. Click to retry."
+              >
+                <AlertCircle className="w-3 h-3 text-amber-500" />
+                <span>Sync Error (Retry)</span>
+              </button>
+            )}
+            {syncStatus === 'offline' && (
+              <span className="flex items-center gap-1.5 text-[11px] text-text-muted bg-panel border border-panel-border px-2.5 py-1 rounded-md font-mono" title="Working offline. Local progress will sync when reconnected.">
+                <CloudOff className="w-3 h-3 text-text-muted" />
+                <span>Offline</span>
+              </span>
+            )}
           </div>
-          <span className="font-medium text-text-primary group-hover:text-brand max-w-[90px] sm:max-w-[120px] truncate">
-            {String(activeProfile || 'Guest')}
-          </span>
-          {authUser ? (
-            <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 font-semibold" title="Cloud Sync Active">
-              <Cloud className="w-3 h-3 text-emerald-500" />
-              <span className="hidden xl:inline">Cloud</span>
-            </span>
-          ) : (
-            <span className="text-[10px] text-text-muted font-mono bg-panel px-1.5 py-0.5 rounded border border-panel-border font-medium hidden sm:inline" title="Stored locally on this browser">
-              Local
-            </span>
-          )}
-        </button>
+        )}
 
-        {/* Segmented Dual Theme Switcher (Zero-confusion: shows current theme active, direct one-click selection) */}
+        {/* Auth / Account Controls */}
+        {authUser ? (
+          /* Logged In User Pill with Dropdown */
+          <div className="relative" ref={userMenuRef}>
+            <button
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+              className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-panel-light hover:bg-panel-lighter border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-all cursor-pointer group shadow-xs"
+              title={`Logged in as ${authUser.email}. Click for account actions.`}
+            >
+              <div className="w-5 h-5 rounded-full bg-brand text-white flex items-center justify-center text-[10px] font-bold shrink-0 uppercase shadow-xs">
+                {(authUser.user_metadata?.full_name || authUser.email || 'U').charAt(0)}
+              </div>
+              <span className="font-semibold text-text-primary group-hover:text-brand max-w-[90px] sm:max-w-[120px] truncate">
+                {authUser.user_metadata?.full_name || authUser.email?.split('@')[0]}
+              </span>
+              <ChevronDown className="w-3 h-3 text-text-muted group-hover:text-text-primary" />
+            </button>
+
+            {/* Dropdown Popover */}
+            {isUserMenuOpen && (
+              <div className="absolute right-0 mt-1.5 w-56 rounded-xl bg-panel border border-panel-border shadow-xl p-2 z-50 text-xs space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                <div className="px-2.5 py-2 border-b border-panel-border">
+                  <div className="font-bold text-text-primary truncate">
+                    {authUser.user_metadata?.full_name || 'SQLForge Developer'}
+                  </div>
+                  <div className="text-[11px] text-text-muted font-mono truncate">
+                    {authUser.email}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => handleAuthNavigate('settings')}
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-panel-light transition-colors text-left cursor-pointer"
+                >
+                  <Settings className="w-3.5 h-3.5" />
+                  <span>Account & Cloud Settings</span>
+                </button>
+
+                <button
+                  onClick={onRetrySync}
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-panel-light transition-colors text-left cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Force Sync Progress</span>
+                </button>
+
+                <div className="border-t border-panel-border pt-1">
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      if (onSignOut) onSignOut();
+                    }}
+                    className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-danger hover:bg-red-500/10 transition-colors text-left cursor-pointer font-medium"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Unauthenticated Guest Controls: Prominent Sign In button */
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => handleAuthNavigate('login')}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-brand hover:bg-brand-hover text-white text-xs font-semibold shadow-xs transition-all cursor-pointer active:scale-95"
+              title="Sign in to save and sync progress across devices"
+            >
+              <LogIn className="w-3.5 h-3.5" />
+              <span>Sign In</span>
+            </button>
+
+            <button
+              onClick={() => handleAuthNavigate('signup')}
+              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-panel-light hover:bg-panel-lighter border border-panel-border text-xs font-medium text-text-secondary hover:text-text-primary transition-all cursor-pointer"
+            >
+              <span>Sign Up</span>
+            </button>
+          </div>
+        )}
+
+        {/* Segmented Dual Theme Switcher */}
         <div className="flex items-center p-0.5 rounded-lg bg-panel-light border border-panel-border shadow-xs">
           <button
             type="button"
@@ -282,7 +439,7 @@ export default function AppHeader({
             }`}
           >
             <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'text-amber-500 fill-amber-400' : 'text-text-muted'}`} />
-            <span>White</span>
+            <span className="hidden sm:inline">White</span>
           </button>
           <button
             type="button"
@@ -295,7 +452,7 @@ export default function AppHeader({
             }`}
           >
             <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? 'fill-white text-white' : 'text-text-muted'}`} />
-            <span>Dark</span>
+            <span className="hidden sm:inline">Dark</span>
           </button>
         </div>
 
@@ -304,25 +461,10 @@ export default function AppHeader({
           onClick={onResetDb}
           disabled={isDbResetting}
           title="Reset practice database to initial seed state"
-          className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-panel-light border border-transparent hover:border-panel-border transition-colors disabled:opacity-50"
+          className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-panel-light border border-transparent hover:border-panel-border transition-colors disabled:opacity-50 cursor-pointer"
         >
           <RefreshCw className={`w-4 h-4 ${isDbResetting ? 'animate-spin text-brand' : ''}`} />
         </button>
-
-        {/* Mobile Nav Menu Indicator */}
-        <div className="flex md:hidden">
-          <select
-            value={activePage}
-            onChange={(e) => setActivePage(e.target.value)}
-            className="bg-panel-light border border-panel-border rounded-md px-2 py-1 text-xs text-text-primary focus:outline-none"
-          >
-            {navItems.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
     </header>
   );

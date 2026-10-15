@@ -6,6 +6,11 @@ import PracticeWorkspace from './pages/PracticeWorkspace.jsx';
 import Revision from './pages/Revision.jsx';
 import ProgressDashboard from './pages/ProgressDashboard.jsx';
 import Settings from './pages/Settings.jsx';
+import Login from './pages/Login.jsx';
+import SignUp from './pages/SignUp.jsx';
+import ForgotPassword from './pages/ForgotPassword.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+import MergeProgressModal from './components/MergeProgressModal.jsx';
 import MasterDatabaseModal from './components/MasterDatabaseModal.jsx';
 import AccountModal from './components/AccountModal.jsx';
 import { ToastProvider } from './components/Toast.jsx';
@@ -14,16 +19,32 @@ import { QUESTIONS } from './data/questionBank.js';
 import { 
   getAllProgress, getBookmarks, toggleBookmark, 
   toggleQuestionReview, calculateDashboardMetrics, 
-  getLastActiveQuestion 
+  getLastActiveQuestion, setActiveUserId 
 } from './services/progressService.js';
 import { STORAGE_KEYS, loadFromStorage, saveToStorage } from './utils/storage.js';
 import { initDatabase, resetDatabase } from './services/databaseEngine.js';
-import { getActiveProfile, onAuthStateChanged, getCurrentAuthUser } from './services/authService.js';
-import { fetchProgressFromCloud } from './services/cloudProgressService.js';
+import { getActiveProfile } from './services/authService.js';
+import { 
+  fetchProgressFromCloud, subscribeSyncStatus, 
+  retrySync, getGuestProgressSummary, mergeGuestProgressIntoUser 
+} from './services/cloudProgressService.js';
+import { useAuth } from './contexts/AuthContext.jsx';
 
 // Helper to parse route from URL hash
 function parseHash(hash) {
   const clean = (hash || '').replace(/^#\/?/, '').trim();
+  if (clean.includes('type=recovery') || clean.startsWith('reset-password')) {
+    return { page: 'reset-password', questionId: null };
+  }
+  if (clean.startsWith('login')) {
+    return { page: 'login', questionId: null };
+  }
+  if (clean.startsWith('signup')) {
+    return { page: 'signup', questionId: null };
+  }
+  if (clean.startsWith('forgot-password')) {
+    return { page: 'forgot-password', questionId: null };
+  }
   if (!clean || clean === 'dashboard') {
     return { page: 'dashboard', questionId: null };
   }
@@ -85,9 +106,12 @@ export default function App() {
     return loadFromStorage(STORAGE_KEYS.EDITOR_THEME, 'auto');
   });
 
+  const { user: authUser, logout } = useAuth();
+  const [syncStatus, setSyncStatus] = useState('idle');
+  const [guestSummary, setGuestSummary] = useState(null);
+  const [isMergeModalOpen, setIsMergeModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
-  const [authUser, setAuthUser] = useState(null);
 
   // Refresh progress and metrics from storage (Declared early so all hooks can safely use it)
   const refreshProgress = useCallback(() => {
@@ -119,37 +143,55 @@ export default function App() {
     saveToStorage(STORAGE_KEYS.EDITOR_THEME, editorTheme);
   }, [editorTheme]);
 
-  // Listen for Supabase authentication state and sync profile & cloud progress
+  // Subscribe to live cloud sync status updates
   useEffect(() => {
-    getCurrentAuthUser().then(user => {
-      if (user) {
-        setAuthUser(user);
-        const name = user.email ? user.email.split('@')[0] : 'User';
-        setActiveProfileState(name);
-        fetchProgressFromCloud()
-          .then(() => refreshProgress())
-          .catch(err => console.warn('Cloud sync on mount error:', err));
-      }
-    }).catch(err => console.warn('User fetch error:', err));
-
-    const unsubscribe = onAuthStateChanged((user) => {
-      setAuthUser(user);
-      setActiveProfileState(getActiveProfile());
-      if (user) {
-        fetchProgressFromCloud()
-          .then(() => refreshProgress())
-          .catch(err => console.warn('Cloud sync on auth change error:', err));
-      }
+    const unsubscribe = subscribeSyncStatus((state) => {
+      setSyncStatus(state.status);
     });
-
     return () => {
       if (typeof unsubscribe === 'function') {
-        try {
-          unsubscribe();
-        } catch (e) {}
+        unsubscribe();
       }
     };
-  }, [refreshProgress]);
+  }, []);
+
+  // Update active user scope and sync cloud progress whenever authUser changes
+  useEffect(() => {
+    const uid = authUser?.id || null;
+    setActiveUserId(uid);
+    const profileName = authUser?.user_metadata?.full_name || (authUser?.email ? authUser.email.split('@')[0] : 'Guest');
+    setActiveProfileState(profileName);
+    refreshProgress();
+
+    if (authUser) {
+      // Check if guest progress exists on this browser that can be merged
+      const summary = getGuestProgressSummary();
+      if (summary && summary.solved > 0) {
+        setGuestSummary(summary);
+        setIsMergeModalOpen(true);
+      }
+
+      // Download user's progress from cloud into isolated storage
+      fetchProgressFromCloud(authUser)
+        .then(() => refreshProgress())
+        .catch(err => console.warn('Cloud sync error on auth change:', err));
+    }
+  }, [authUser, refreshProgress]);
+
+  const handleMergeGuestProgress = async () => {
+    if (!authUser) return;
+    try {
+      await mergeGuestProgressIntoUser(authUser.id);
+      refreshProgress();
+      setIsMergeModalOpen(false);
+    } catch (err) {
+      console.error('Failed to merge guest progress:', err);
+    }
+  };
+
+  const handleSkipGuestProgress = () => {
+    setIsMergeModalOpen(false);
+  };
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -295,6 +337,18 @@ export default function App() {
           onOpenAccountModal={() => setIsAccountModalOpen(true)}
           activeProfile={activeProfile}
           authUser={authUser}
+          syncStatus={syncStatus}
+          onRetrySync={retrySync}
+          onSignOut={logout}
+          onNavigate={navigateTo}
+        />
+
+        <MergeProgressModal
+          isOpen={isMergeModalOpen}
+          user={authUser}
+          guestSummary={guestSummary}
+          onMerge={handleMergeGuestProgress}
+          onSkip={handleSkipGuestProgress}
         />
 
         {engineError && (
@@ -332,6 +386,37 @@ export default function App() {
         />
 
         <main className="flex-1 flex overflow-hidden">
+          {activePage === 'login' && (
+            <Login
+              onNavigate={navigateTo}
+              onLoginSuccess={() => {
+                refreshProgress();
+                navigateTo('dashboard');
+              }}
+            />
+          )}
+
+          {activePage === 'signup' && (
+            <SignUp
+              onNavigate={navigateTo}
+            />
+          )}
+
+          {activePage === 'forgot-password' && (
+            <ForgotPassword
+              onNavigate={navigateTo}
+            />
+          )}
+
+          {activePage === 'reset-password' && (
+            <ResetPassword
+              onNavigate={navigateTo}
+              onResetSuccess={() => {
+                navigateTo('dashboard');
+              }}
+            />
+          )}
+
           {activePage === 'dashboard' && (
             <Dashboard
               metrics={metrics}

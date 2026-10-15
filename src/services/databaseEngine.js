@@ -1,5 +1,4 @@
 import initSqlJs from 'sql.js';
-import sqlWasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import { TABLES_SCHEMA, DATABASE_NAME } from '../data/schema.js';
 import { SEED_SQL } from '../data/seedData.js';
 import { validateQuerySafety } from './queryValidator.js';
@@ -18,27 +17,33 @@ export async function initDatabase() {
   initPromise = (async () => {
     try {
       if (!SQL) {
-        try {
-          // Tier 1: Bundler-managed asset URL (Vite dev & production)
-          SQL = await initSqlJs({
-            locateFile: () => sqlWasmUrl
-          });
-        } catch (err1) {
-          console.warn('Vite asset WASM loading failed, attempting local public asset:', err1);
+        if (typeof window !== 'undefined') {
           try {
-            // Tier 2: Local public assets (/sql-wasm.wasm or /sql-wasm-browser.wasm)
-            const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
-            const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+            // Tier 1: Bundler-managed asset URL (Vite dev & production)
+            const wasmAsset = await import('sql.js/dist/sql-wasm.wasm?url');
             SQL = await initSqlJs({
-              locateFile: (file) => `${cleanBase}${file}`
+              locateFile: () => wasmAsset.default
             });
-          } catch (err2) {
-            console.warn('Local public WASM loading failed, falling back to CDN:', err2);
-            // Tier 3: Official sql.js CDN
-            SQL = await initSqlJs({
-              locateFile: (file) => `https://sql.js.org/dist/${file}`
-            });
+          } catch (err1) {
+            console.warn('Vite asset WASM loading failed, attempting local public asset:', err1);
+            try {
+              // Tier 2: Local public assets (/sql-wasm.wasm or /sql-wasm-browser.wasm)
+              const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
+              const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+              SQL = await initSqlJs({
+                locateFile: (file) => `${cleanBase}${file}`
+              });
+            } catch (err2) {
+              console.warn('Local public WASM loading failed, falling back to CDN:', err2);
+              // Tier 3: Official sql.js CDN
+              SQL = await initSqlJs({
+                locateFile: (file) => `https://sql.js.org/dist/${file}`
+              });
+            }
           }
+        } else {
+          // Node.js testing environment
+          SQL = await initSqlJs();
         }
       }
 

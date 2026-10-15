@@ -13,6 +13,7 @@ import SQLEditor from '../components/SQLEditor.jsx';
 import QueryToolbar from '../components/QueryToolbar.jsx';
 import ResultsPanel from '../components/ResultsPanel.jsx';
 import { executeQuery } from '../services/databaseEngine.js';
+import { isDdlDmlQuestion, executeDdlDmlExercise } from '../services/isolatedExerciseEngine.js';
 import { validateAnswer } from '../services/answerChecker.js';
 import { 
   getQuestionDraft, saveQuestionDraft, recordQueryRun, 
@@ -147,7 +148,12 @@ export default function PracticeWorkspace({
 
     try {
       setIsRunning(true);
-      const res = await executeQuery(userSql);
+      let res;
+      if (isDdlDmlQuestion(currentQuestion)) {
+        res = await executeDdlDmlExercise(userSql, currentQuestion);
+      } else {
+        res = await executeQuery(userSql);
+      }
       setQueryResult(res);
       setActiveResultTab('results');
 
@@ -158,7 +164,7 @@ export default function PracticeWorkspace({
       }
 
       if (res.success) {
-        addToast(`Query executed in ${res.executionTimeMs} ms (${res.rowCount} rows)`, 'info');
+        addToast(`Query executed in ${res.executionTimeMs} ms (${res.rowCount || 0} rows)`, 'info');
       } else {
         addToast('Query failed: ' + res.error, 'error');
       }
@@ -183,23 +189,37 @@ export default function PracticeWorkspace({
 
     try {
       setIsSubmitting(true);
-      // 1. Execute user query
-      const actualRes = await executeQuery(userSql);
-      setQueryResult(actualRes);
+      let validation;
+      let actualRes;
 
-      // 2. Validate against expected output
-      const expectedOutput = currentQuestion.expectedOutput;
-      const validation = validateAnswer(actualRes, expectedOutput, currentQuestion, userSql);
+      if (isDdlDmlQuestion(currentQuestion)) {
+        // Isolated DDL/DML execution with automatic state comparison
+        const ddlRes = await executeDdlDmlExercise(userSql, currentQuestion);
+        actualRes = ddlRes;
+        setQueryResult(actualRes);
+
+        validation = {
+          isCorrect: ddlRes.isCorrect === true,
+          feedback: ddlRes.feedback || (ddlRes.isCorrect ? 'Success! Database state matches expected structure.' : ddlRes.error || 'Verification mismatch.'),
+          detailedReason: ddlRes.detailedReason || ddlRes.error
+        };
+      } else {
+        // Standard read-only execution
+        actualRes = await executeQuery(userSql);
+        setQueryResult(actualRes);
+        const expectedOutput = currentQuestion.expectedOutput;
+        validation = validateAnswer(actualRes, expectedOutput, currentQuestion, userSql);
+      }
+
       setSubmissionResult(validation);
       setActiveResultTab('submission');
 
-      // 3. Record in progress tracker
+      // Record in progress tracker
       recordAnswerSubmission(currentQuestion.id, validation.isCorrect, userSql, validation);
       onProgressUpdated();
 
       if (validation.isCorrect) {
         addToast('Correct! Question marked as Solved 🎉', 'success');
-        // Trigger celebratory confetti
         confetti({
           particleCount: 90,
           spread: 70,

@@ -6,8 +6,8 @@ import { STORAGE_KEYS, loadFromStorage, saveToStorage } from './storage.js';
 
 export function exportProgressData() {
   const data = {
-    app: 'SQL Sprint',
-    version: '1.0.0',
+    app: 'SQLForge',
+    version: '2.0.0',
     exportedAt: new Date().toISOString(),
     progress: loadFromStorage(STORAGE_KEYS.PROGRESS, {}),
     drafts: loadFromStorage(STORAGE_KEYS.DRAFTS, {}),
@@ -19,7 +19,7 @@ export function exportProgressData() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
-  anchor.download = `sql-sprint-progress-${new Date().toISOString().slice(0, 10)}.json`;
+  anchor.download = `sqlforge-progress-${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(anchor);
   anchor.click();
   document.body.removeChild(anchor);

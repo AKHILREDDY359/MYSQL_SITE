@@ -5,6 +5,16 @@ import {
   getAccountBookmarks, saveAccountBookmarks 
 } from './cloudProgressService.js';
 
+let activeUserId = null;
+
+export function setActiveUserId(uid) {
+  activeUserId = uid;
+}
+
+export function getActiveUserId() {
+  return activeUserId;
+}
+
 export const QUESTION_STATUS = {
   NOT_STARTED: 'not_started',
   ATTEMPTED: 'attempted',
@@ -13,7 +23,7 @@ export const QUESTION_STATUS = {
 };
 
 export function getAllProgress() {
-  return getAccountProgress();
+  return getAccountProgress(activeUserId);
 }
 
 export function getQuestionStatus(qid) {
@@ -34,13 +44,13 @@ export function getQuestionProgress(qid) {
 }
 
 export function saveQuestionDraft(qid, sql) {
-  const drafts = getAccountDrafts();
+  const drafts = getAccountDrafts(activeUserId);
   drafts[qid] = sql;
-  saveAccountDrafts(drafts);
+  saveAccountDrafts(drafts, activeUserId);
 }
 
 export function getQuestionDraft(qid, defaultSql = '') {
-  const drafts = getAccountDrafts();
+  const drafts = getAccountDrafts(activeUserId);
   return drafts[qid] !== undefined ? drafts[qid] : defaultSql;
 }
 
@@ -69,7 +79,7 @@ export function recordQueryRun(qid, sql) {
   }
   current.lastAttemptAt = new Date().toISOString();
   progress[qid] = current;
-  saveAccountProgress(progress);
+  saveAccountProgress(progress, activeUserId);
 }
 
 export function recordAnswerSubmission(qid, isCorrect, sql, details = {}) {
@@ -102,7 +112,7 @@ export function recordAnswerSubmission(qid, isCorrect, sql, details = {}) {
   }
 
   progress[qid] = current;
-  saveAccountProgress(progress);
+  saveAccountProgress(progress, activeUserId);
   return current;
 }
 
@@ -121,12 +131,12 @@ export function toggleQuestionReview(qid) {
   }
 
   progress[qid] = current;
-  saveAccountProgress(progress);
+  saveAccountProgress(progress, activeUserId);
   return current.status;
 }
 
 export function getBookmarks() {
-  return getAccountBookmarks();
+  return getAccountBookmarks(activeUserId);
 }
 
 export function toggleBookmark(qid) {
@@ -138,7 +148,7 @@ export function toggleBookmark(qid) {
   } else {
     updated = [...bookmarks, qid];
   }
-  saveAccountBookmarks(updated);
+  saveAccountBookmarks(updated, activeUserId);
   return updated.includes(qid);
 }
 
@@ -192,7 +202,7 @@ export function calculateDashboardMetrics(questions = []) {
         topicStats[q.topic].solved += 1;
         difficultyStats[diff].solved += 1;
 
-        if (p.solvedAt && p.solvedAt.slice(0, 10) === todayStr) {
+        if (p.solvedAt && p.solvedAt.startsWith(todayStr)) {
           solvedToday += 1;
         }
       } else if (p.status === QUESTION_STATUS.ATTEMPTED) {
@@ -200,13 +210,6 @@ export function calculateDashboardMetrics(questions = []) {
         topicStats[q.topic].attempted += 1;
       } else if (p.status === QUESTION_STATUS.NEEDS_REVIEW) {
         needsReview += 1;
-        if (p.solvedAt) {
-          solved += 1;
-          topicStats[q.topic].solved += 1;
-          difficultyStats[diff].solved += 1;
-        } else if (p.attempts > 0) {
-          attempted += 1;
-        }
       }
 
       if (p.incorrectCount > 0 && p.status !== QUESTION_STATUS.SOLVED) {

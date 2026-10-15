@@ -11,7 +11,7 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('SQL Sprint Application Crash caught by ErrorBoundary:', error, errorInfo);
+    console.error('SQLForge Application Crash caught by ErrorBoundary:', error, errorInfo);
   }
 
   handleReload = () => {
@@ -68,7 +68,7 @@ export default class ErrorBoundary extends React.Component {
               </div>
               <div>
                 <h1 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0, color: '#F9FAFB' }}>
-                  SQL Sprint Recovery
+                  SQLForge Recovery
                 </h1>
                 <p style={{ fontSize: '12px', color: '#9CA3AF', margin: '4px 0 0 0' }}>
                   The application caught a runtime exception.

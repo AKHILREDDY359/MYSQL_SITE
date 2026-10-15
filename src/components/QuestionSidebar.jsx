@@ -43,7 +43,9 @@ export default function QuestionSidebar({
     "SQL JOINs",
     "Subqueries",
     "CASE Expressions",
-    "Interview Ready Questions"
+    "Interview Ready Questions",
+    "Table & Schema Management (DDL)",
+    "Data Modification (DML)"
   ];
 
   const topics = useMemo(() => {
@@ -299,6 +301,34 @@ export default function QuestionSidebar({
               )}
             </div>
           </div>
+
+          {/* MySQL vs SQLite Compatibility Note (for DDL/DML & specialized questions) */}
+          {(currentQuestion?.mysqlSyntax || currentQuestion?.compatibilityNote) && (
+            <div className="p-3.5 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                  MySQL vs SQLite Compatibility
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 font-mono font-medium">
+                  Engine: SQLite Sandbox
+                </span>
+              </div>
+              {currentQuestion.mysqlSyntax && (
+                <div className="space-y-1">
+                  <span className="text-[10px] text-text-secondary font-medium">Standard MySQL 8.0+ Syntax:</span>
+                  <pre className="p-2 rounded bg-panel/80 border border-panel-border text-[11px] font-mono text-blue-700 dark:text-blue-300 overflow-x-auto">
+                    {currentQuestion.mysqlSyntax}
+                  </pre>
+                </div>
+              )}
+              {currentQuestion.compatibilityNote && (
+                <p className="text-[11px] text-text-secondary leading-relaxed">
+                  <strong className="text-text-primary">Note: </strong>{currentQuestion.compatibilityNote}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* Master Table Preview Card (Input Data) */}
           <TablePreviewCard tableName={currentQuestion?.tableName || 'Employees'} />
