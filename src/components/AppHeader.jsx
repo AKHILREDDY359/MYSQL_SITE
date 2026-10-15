@@ -119,17 +119,17 @@ export default function AppHeader({
         <button
           onClick={onToggleTheme}
           title={theme === 'dark' ? "Switch to White Theme" : "Switch to Dark Theme"}
-          className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-panel-light hover:bg-panel-lighter border border-panel-border text-text-secondary hover:text-text-primary transition-all cursor-pointer shadow-sm"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-panel-light hover:bg-panel-hover border border-panel-border text-text-primary transition-all cursor-pointer shadow-sm hover:border-brand/40 group active:scale-95"
         >
           {theme === 'dark' ? (
             <>
-              <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
-              <span className="text-[11px] font-medium hidden sm:inline text-text-secondary">White Theme</span>
+              <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
+              <span className="text-xs font-semibold text-text-primary">White Theme</span>
             </>
           ) : (
             <>
-              <Moon className="w-4 h-4 text-brand hover:-rotate-12 transition-transform" />
-              <span className="text-[11px] font-medium hidden sm:inline text-text-secondary">Dark Theme</span>
+              <Moon className="w-4 h-4 text-brand group-hover:-rotate-12 transition-transform" />
+              <span className="text-xs font-semibold text-text-primary">Dark Theme</span>
             </>
           )}
         </button>
