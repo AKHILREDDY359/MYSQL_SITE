@@ -299,6 +299,48 @@ export default function QuestionSidebar({
               )}
             </div>
           </div>
+
+          {/* Forward & Backward Question Navigation Footer */}
+          <div className="pt-4 border-t border-panel-border space-y-2 select-none">
+            <div className="text-[10px] text-text-muted uppercase tracking-wider font-semibold text-center">
+              Navigate Questions (Alt + ← / →)
+            </div>
+            <div className="flex items-center justify-between gap-2.5">
+              <button
+                onClick={() => hasPrev && onSelectQuestion(questions[currentIndex - 1])}
+                disabled={!hasPrev}
+                title="Go backward to previous question (Alt+Left)"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-panel-border bg-panel-light hover:bg-panel-hover text-xs font-semibold text-text-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4 text-text-secondary" />
+                <div className="text-left truncate">
+                  <span className="block leading-none">Previous</span>
+                  {hasPrev && (
+                    <span className="text-[10px] text-text-muted font-normal truncate block mt-0.5">
+                      Q{questions[currentIndex - 1].id}
+                    </span>
+                  )}
+                </div>
+              </button>
+
+              <button
+                onClick={() => hasNext && onSelectQuestion(questions[currentIndex + 1])}
+                disabled={!hasNext}
+                title="Go forward to next question (Alt+Right)"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg border border-brand/30 bg-brand/10 hover:bg-brand/20 text-xs font-semibold text-brand disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm active:scale-95"
+              >
+                <div className="text-right truncate">
+                  <span className="block leading-none">Next</span>
+                  {hasNext && (
+                    <span className="text-[10px] text-brand/70 font-normal truncate block mt-0.5">
+                      Q{questions[currentIndex + 1].id}
+                    </span>
+                  )}
+                </div>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         /* Questions Navigator List View */

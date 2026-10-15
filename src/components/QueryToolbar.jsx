@@ -1,5 +1,8 @@
 import React from 'react';
-import { Play, Send, RotateCcw, AlignLeft, Copy, Trash2, Lightbulb, Eye, Check } from 'lucide-react';
+import { 
+  Play, Send, RotateCcw, AlignLeft, Copy, Trash2, 
+  Lightbulb, Eye, Check, ChevronLeft, ChevronRight 
+} from 'lucide-react';
 import { useToast } from './Toast.jsx';
 
 export default function QueryToolbar({
@@ -9,8 +12,12 @@ export default function QueryToolbar({
   onFormatSql,
   onClearQuery,
   onCopyQuery,
-  onToggleHint,
-  onToggleSolution,
+  onPrevQuestion,
+  onNextQuestion,
+  hasPrev = false,
+  hasNext = false,
+  currentQuestionId = 1,
+  totalQuestions = 50,
   isRunning = false,
   isSubmitting = false
 }) {
@@ -72,8 +79,33 @@ export default function QueryToolbar({
         </button>
       </div>
 
-      {/* Right editor actions */}
-      <div className="flex items-center gap-1.5">
+      {/* Right controls: Forward / Backward navigation + Editor actions */}
+      <div className="flex items-center gap-2">
+        {/* Forward & Backward Navigator in Toolbar */}
+        <div className="flex items-center gap-1 bg-panel border border-panel-border rounded-lg p-0.5">
+          <button
+            onClick={onPrevQuestion}
+            disabled={!hasPrev}
+            title="Previous question (Alt + Left)"
+            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+          <span className="text-[11px] font-mono px-1.5 text-text-primary font-semibold select-none">
+            #{currentQuestionId}/{totalQuestions}
+          </span>
+          <button
+            onClick={onNextQuestion}
+            disabled={!hasNext}
+            title="Next question (Alt + Right)"
+            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        <div className="h-4 w-px bg-panel-border"></div>
+
         <button
           onClick={handleCopy}
           title="Copy SQL to clipboard"

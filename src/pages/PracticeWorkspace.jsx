@@ -40,8 +40,39 @@ export default function PracticeWorkspace({
   const [isRunning, setIsRunning] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editorFontSize, setEditorFontSize] = useState(13);
-
   const { addToast } = useToast();
+
+  const currentIndex = questions.findIndex((q) => q.id === currentQuestion?.id);
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < questions.length - 1;
+
+  const handlePrevQuestion = useCallback(() => {
+    if (hasPrev) {
+      setCurrentQuestion(questions[currentIndex - 1]);
+    }
+  }, [hasPrev, currentIndex, questions, setCurrentQuestion]);
+
+  const handleNextQuestion = useCallback(() => {
+    if (hasNext) {
+      setCurrentQuestion(questions[currentIndex + 1]);
+    }
+  }, [hasNext, currentIndex, questions, setCurrentQuestion]);
+
+  // Global Alt+Left / Alt+Right keyboard shortcuts for question navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        handlePrevQuestion();
+      } else if (e.altKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNextQuestion();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handlePrevQuestion, handleNextQuestion]);
 
   // Load draft when question changes
   useEffect(() => {
@@ -263,6 +294,12 @@ export default function PracticeWorkspace({
           onFormatSql={handleFormatSql}
           onClearQuery={handleClearQuery}
           onCopyQuery={handleCopyQuery}
+          onPrevQuestion={handlePrevQuestion}
+          onNextQuestion={handleNextQuestion}
+          hasPrev={hasPrev}
+          hasNext={hasNext}
+          currentQuestionId={currentQuestion?.id || 1}
+          totalQuestions={questions.length}
           isRunning={isRunning}
           isSubmitting={isSubmitting}
         />
@@ -285,6 +322,8 @@ export default function PracticeWorkspace({
             submissionResult={submissionResult}
             activeTab={activeResultTab}
             setActiveTab={setActiveResultTab}
+            onNextQuestion={handleNextQuestion}
+            hasNext={hasNext}
           />
         </div>
       </div>
