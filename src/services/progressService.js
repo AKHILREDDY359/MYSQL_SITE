@@ -1,4 +1,9 @@
 import { STORAGE_KEYS, loadFromStorage, saveToStorage, clearAllAppData } from '../utils/storage.js';
+import { 
+  getAccountProgress, saveAccountProgress, 
+  getAccountDrafts, saveAccountDrafts, 
+  getAccountBookmarks, saveAccountBookmarks 
+} from './cloudProgressService.js';
 
 export const QUESTION_STATUS = {
   NOT_STARTED: 'not_started',
@@ -8,7 +13,7 @@ export const QUESTION_STATUS = {
 };
 
 export function getAllProgress() {
-  return loadFromStorage(STORAGE_KEYS.PROGRESS, {});
+  return getAccountProgress();
 }
 
 export function getQuestionStatus(qid) {
@@ -29,13 +34,13 @@ export function getQuestionProgress(qid) {
 }
 
 export function saveQuestionDraft(qid, sql) {
-  const drafts = loadFromStorage(STORAGE_KEYS.DRAFTS, {});
+  const drafts = getAccountDrafts();
   drafts[qid] = sql;
-  saveToStorage(STORAGE_KEYS.DRAFTS, drafts);
+  saveAccountDrafts(drafts);
 }
 
 export function getQuestionDraft(qid, defaultSql = '') {
-  const drafts = loadFromStorage(STORAGE_KEYS.DRAFTS, {});
+  const drafts = getAccountDrafts();
   return drafts[qid] !== undefined ? drafts[qid] : defaultSql;
 }
 
@@ -64,7 +69,7 @@ export function recordQueryRun(qid, sql) {
   }
   current.lastAttemptAt = new Date().toISOString();
   progress[qid] = current;
-  saveToStorage(STORAGE_KEYS.PROGRESS, progress);
+  saveAccountProgress(progress);
 }
 
 export function recordAnswerSubmission(qid, isCorrect, sql, details = {}) {
@@ -97,7 +102,7 @@ export function recordAnswerSubmission(qid, isCorrect, sql, details = {}) {
   }
 
   progress[qid] = current;
-  saveToStorage(STORAGE_KEYS.PROGRESS, progress);
+  saveAccountProgress(progress);
   return current;
 }
 
@@ -116,12 +121,12 @@ export function toggleQuestionReview(qid) {
   }
 
   progress[qid] = current;
-  saveToStorage(STORAGE_KEYS.PROGRESS, progress);
+  saveAccountProgress(progress);
   return current.status;
 }
 
 export function getBookmarks() {
-  return loadFromStorage(STORAGE_KEYS.BOOKMARKS, []);
+  return getAccountBookmarks();
 }
 
 export function toggleBookmark(qid) {
@@ -133,7 +138,7 @@ export function toggleBookmark(qid) {
   } else {
     updated = [...bookmarks, qid];
   }
-  saveToStorage(STORAGE_KEYS.BOOKMARKS, updated);
+  saveAccountBookmarks(updated);
   return updated.includes(qid);
 }
 

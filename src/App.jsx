@@ -6,6 +6,7 @@ import Revision from './pages/Revision.jsx';
 import ProgressDashboard from './pages/ProgressDashboard.jsx';
 import Settings from './pages/Settings.jsx';
 import MasterDatabaseModal from './components/MasterDatabaseModal.jsx';
+import AccountModal from './components/AccountModal.jsx';
 import { ToastProvider } from './components/Toast.jsx';
 
 import { QUESTIONS } from './data/questionBank.js';
@@ -16,6 +17,8 @@ import {
 } from './services/progressService.js';
 import { STORAGE_KEYS, loadFromStorage, saveToStorage } from './utils/storage.js';
 import { initDatabase, resetDatabase } from './services/databaseEngine.js';
+import { getActiveProfile, onAuthStateChanged, getCurrentAuthUser } from './services/authService.js';
+import { fetchProgressFromCloud } from './services/cloudProgressService.js';
 
 // Helper to parse route from URL hash
 function parseHash(hash) {
@@ -78,6 +81,10 @@ export default function App() {
     return loadFromStorage(STORAGE_KEYS.EDITOR_THEME, 'auto');
   });
 
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
+  const [authUser, setAuthUser] = useState(null);
+
   // Sync site theme with HTML root class, body class, and local storage
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.THEME, theme);
@@ -98,6 +105,33 @@ export default function App() {
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.EDITOR_THEME, editorTheme);
   }, [editorTheme]);
+
+  // Listen for Supabase authentication state and sync profile & cloud progress
+  useEffect(() => {
+    getCurrentAuthUser().then(user => {
+      if (user) {
+        setAuthUser(user);
+        setActiveProfileState(user.email.split('@')[0]);
+        fetchProgressFromCloud()
+          .then(() => refreshProgress())
+          .catch(err => console.warn('Cloud sync on mount error:', err));
+      }
+    });
+
+    const unsubscribe = onAuthStateChanged((user) => {
+      setAuthUser(user);
+      setActiveProfileState(getActiveProfile());
+      if (user) {
+        fetchProgressFromCloud()
+          .then(() => refreshProgress())
+          .catch(err => console.warn('Cloud sync on auth change error:', err));
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [refreshProgress]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
@@ -249,6 +283,9 @@ export default function App() {
           onToggleTheme={toggleTheme}
           onSelectTheme={setTheme}
           currentQuestionId={currentQuestion?.id || 1}
+          onOpenAccountModal={() => setIsAccountModalOpen(true)}
+          activeProfile={activeProfile}
+          authUser={authUser}
         />
 
         {engineError && (
@@ -274,6 +311,15 @@ export default function App() {
           onClose={() => setIsDatabaseModalOpen(false)}
           onResetDb={handleResetDb}
           isDbResetting={isDbResetting}
+        />
+
+        <AccountModal
+          isOpen={isAccountModalOpen}
+          onClose={() => setIsAccountModalOpen(false)}
+          onProgressUpdated={() => {
+            setActiveProfileState(getActiveProfile());
+            refreshProgress();
+          }}
         />
 
         <main className="flex-1 flex overflow-hidden">
@@ -336,6 +382,9 @@ export default function App() {
               setTheme={setTheme}
               editorTheme={editorTheme}
               setEditorTheme={setEditorTheme}
+              onOpenAccountModal={() => setIsAccountModalOpen(true)}
+              activeProfile={activeProfile}
+              authUser={authUser}
             />
           )}
         </main>

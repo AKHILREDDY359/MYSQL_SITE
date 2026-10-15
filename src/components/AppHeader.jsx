@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, Terminal, BookOpen, BarChart3, Settings, LayoutDashboard, RefreshCw, CheckCircle2, Sun, Moon, ArrowLeft } from 'lucide-react';
+import { Database, Terminal, BookOpen, BarChart3, Settings, LayoutDashboard, RefreshCw, CheckCircle2, Sun, Moon, ArrowLeft, User, Cloud } from 'lucide-react';
 
 export default function AppHeader({ 
   activePage, 
@@ -12,7 +12,10 @@ export default function AppHeader({
   theme = 'dark',
   onToggleTheme,
   onSelectTheme,
-  currentQuestionId = 1
+  currentQuestionId = 1,
+  onOpenAccountModal,
+  activeProfile = 'Akhil',
+  authUser = null
 }) {
   const percentage = Math.round((solvedCount / totalCount) * 100) || 0;
 
@@ -115,6 +118,30 @@ export default function AppHeader({
           </span>
           <span className="text-[11px] text-brand font-medium">({percentage}%)</span>
         </div>
+
+        {/* Practice Account & Cloud Sync Pill */}
+        <button
+          onClick={onOpenAccountModal}
+          title={`Practice Account: "${activeProfile}" (${authUser ? 'Cloud Connected' : 'Local Storage'}). Click to switch profile or sync cloud.`}
+          className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-panel-light hover:bg-panel-lighter border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-all cursor-pointer group shadow-xs"
+        >
+          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-brand to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold shrink-0 uppercase shadow-xs">
+            {(activeProfile || 'A')[0]}
+          </div>
+          <span className="font-medium text-text-primary group-hover:text-brand max-w-[90px] sm:max-w-[120px] truncate">
+            {activeProfile}
+          </span>
+          {authUser ? (
+            <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20 font-semibold" title="Cloud Sync Active">
+              <Cloud className="w-3 h-3 text-emerald-500" />
+              <span className="hidden xl:inline">Cloud</span>
+            </span>
+          ) : (
+            <span className="text-[10px] text-text-muted font-mono bg-panel px-1.5 py-0.5 rounded border border-panel-border font-medium hidden sm:inline" title="Stored locally on this browser">
+              Local
+            </span>
+          )}
+        </button>
 
         {/* Segmented Dual Theme Switcher (Zero-confusion: shows current theme active, direct one-click selection) */}
         <div className="flex items-center p-0.5 rounded-lg bg-panel-light border border-panel-border shadow-xs">

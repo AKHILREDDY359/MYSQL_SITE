@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Settings as SettingsIcon, Database, RefreshCw, 
   ShieldCheck, AlertTriangle, HardDrive, Cpu, ExternalLink, 
-  Check, Server, Sun, Moon, Code 
+  Check, Server, Sun, Moon, Code, User, Cloud, ArrowRight 
 } from 'lucide-react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import { resetProgress } from '../services/progressService.js';
@@ -16,7 +16,10 @@ export default function Settings({
   onToggleTheme, 
   setTheme,
   editorTheme = 'auto',
-  setEditorTheme
+  setEditorTheme,
+  onOpenAccountModal,
+  activeProfile = 'Akhil',
+  authUser = null
 }) {
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const { addToast } = useToast();
@@ -47,6 +50,48 @@ export default function Settings({
         <p className="text-xs text-text-secondary mt-1">
           Database engine information, SQLite/MySQL compatibility documentation, and local storage controls.
         </p>
+      </div>
+
+      {/* Account & Practice Profile Card */}
+      <div className="p-6 rounded-2xl bg-panel border border-panel-border space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand to-indigo-600 flex items-center justify-center text-white text-lg font-bold shadow-md shadow-brand/20">
+              {(activeProfile || 'A')[0].toUpperCase()}
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-base font-bold text-text-primary">
+                  Practice Account: {activeProfile}
+                </h3>
+                {authUser ? (
+                  <span className="flex items-center gap-1 text-[11px] text-emerald-500 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
+                    <Cloud className="w-3.5 h-3.5 text-emerald-500" />
+                    Cloud Synced ({authUser.email})
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-text-muted font-mono bg-panel-light px-2 py-0.5 rounded border border-panel-border">
+                    Local Device Profile
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-text-secondary mt-0.5">
+                {authUser 
+                  ? 'Your solved questions and drafts are securely backed up to your Supabase PostgreSQL database.'
+                  : 'Your progress is stored per profile on this browser. Connect Supabase to sync across devices!'}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onOpenAccountModal}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs font-semibold shadow-sm transition-all shrink-0 cursor-pointer"
+          >
+            <User className="w-4 h-4" />
+            <span>Manage Accounts & Cloud Sync</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Theme & Appearance Card */}
