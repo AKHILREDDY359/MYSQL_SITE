@@ -5,7 +5,7 @@ import { loadFromStorage, saveToStorage, STORAGE_KEYS } from '../utils/storage.j
 // Get storage key scoped to current profile/account
 export function getScopedStorageKey(baseKey) {
   const profile = getActiveProfile();
-  const safeProfile = (typeof profile === 'string' && profile.trim().length > 0) ? profile.trim() : 'akhil';
+  const safeProfile = (typeof profile === 'string' && profile.trim().length > 0) ? profile.trim() : 'guest';
   return `${baseKey}_${safeProfile.toLowerCase()}`;
 }
 

@@ -18,7 +18,7 @@ export default function Settings({
   editorTheme = 'auto',
   setEditorTheme,
   onOpenAccountModal,
-  activeProfile = 'Akhil',
+  activeProfile = 'Guest',
   authUser = null
 }) {
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
@@ -57,7 +57,7 @@ export default function Settings({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand to-indigo-600 flex items-center justify-center text-white text-lg font-bold shadow-md shadow-brand/20">
-              {String(activeProfile || 'Akhil').charAt(0).toUpperCase()}
+              {String(activeProfile || 'Guest').charAt(0).toUpperCase()}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">

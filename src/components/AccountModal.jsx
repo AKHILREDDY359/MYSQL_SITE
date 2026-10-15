@@ -308,7 +308,7 @@ create policy "Users can manage their own progress"
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Enter name (e.g. Akhil, Placement_Round1)..."
+                    placeholder="Enter name (e.g. Candidate_1, Placement_Round1)..."
                     value={newProfileInput}
                     onChange={(e) => setNewProfileInput(e.target.value)}
                     className="flex-1 px-3 py-2 rounded-lg bg-panel-light border border-panel-border text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand"

@@ -7,12 +7,18 @@ const STORAGE_KEYS_AUTH = {
 };
 
 // Default profile name
-const DEFAULT_PROFILE = 'Akhil';
+const DEFAULT_PROFILE = 'Guest';
 
 export function getActiveProfile() {
   const val = loadFromStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
   if (typeof val === 'string' && val.trim().length > 0) {
-    return val.trim();
+    const trimmed = val.trim();
+    // Automatically migrate legacy hardcoded 'Akhil' profile to 'Guest'
+    if (trimmed.toLowerCase() === 'akhil') {
+      saveToStorage(STORAGE_KEYS_AUTH.ACTIVE_PROFILE, DEFAULT_PROFILE);
+      return DEFAULT_PROFILE;
+    }
+    return trimmed;
   }
   return DEFAULT_PROFILE;
 }
@@ -34,7 +40,11 @@ export function setActiveProfile(profileName) {
 export function getSavedProfiles() {
   const list = loadFromStorage(STORAGE_KEYS_AUTH.PROFILES_LIST, [DEFAULT_PROFILE]);
   if (Array.isArray(list) && list.length > 0) {
-    return list.filter(p => typeof p === 'string' && p.trim().length > 0);
+    const cleaned = list
+      .map(p => (typeof p === 'string' && p.trim().toLowerCase() === 'akhil' ? DEFAULT_PROFILE : p))
+      .filter(p => typeof p === 'string' && p.trim().length > 0);
+    const unique = Array.from(new Set(cleaned));
+    return unique.length > 0 ? unique : [DEFAULT_PROFILE];
   }
   return [DEFAULT_PROFILE];
 }
