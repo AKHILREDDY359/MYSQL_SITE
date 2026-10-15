@@ -97,7 +97,7 @@ export async function signUpWithEmail(email, password, fullName = '') {
       data: {
         full_name: cleanName
       },
-      emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/#/login` : undefined
+      emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/` : undefined
     }
   });
 
@@ -147,7 +147,7 @@ export async function resetPasswordForEmail(email) {
 
   const cleanEmail = email.trim();
   const redirectUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/#/reset-password`
+    ? `${window.location.origin}/`
     : undefined;
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
