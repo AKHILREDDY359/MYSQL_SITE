@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root, html.light, .light {
   --bg-app: 248 250 252;
   --bg-panel: 255 255 255;
   --bg-panel-light: 241 245 249;
@@ -18,7 +18,7 @@
   color-scheme: light;
 }
 
-html.dark {
+html.dark, .dark {
   --bg-app: 11 16 32;
   --bg-panel: 18 26 43;
   --bg-panel-light: 24 35 56;
@@ -44,6 +44,47 @@ html.dark {
     color: rgb(var(--text-primary));
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
+}
+
+/* Core platform theme utility classes */
+.bg-background {
+  background-color: rgb(var(--bg-app)) !important;
+}
+
+.bg-panel {
+  background-color: rgb(var(--bg-panel));
+}
+
+.bg-panel\/95 {
+  background-color: rgba(var(--bg-panel), 0.95);
+}
+
+.bg-panel\/90 {
+  background-color: rgba(var(--bg-panel), 0.90);
+}
+
+.bg-panel-light {
+  background-color: rgb(var(--bg-panel-light));
+}
+
+.bg-panel-lighter {
+  background-color: rgb(var(--bg-panel-lighter));
+}
+
+.text-text-primary {
+  color: rgb(var(--text-primary));
+}
+
+.text-text-secondary {
+  color: rgb(var(--text-secondary));
+}
+
+.text-text-muted {
+  color: rgb(var(--text-muted));
+}
+
+.border-panel-border {
+  border-color: rgb(var(--border-color));
 }
 
 /* Custom Scrollbars */

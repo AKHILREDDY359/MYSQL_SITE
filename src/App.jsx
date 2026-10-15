@@ -69,22 +69,26 @@ export default function App() {
   const [isEngineReady, setIsEngineReady] = useState(false);
   const [isDatabaseModalOpen, setIsDatabaseModalOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
-    return loadFromStorage(STORAGE_KEYS.THEME, 'dark');
+    return loadFromStorage(STORAGE_KEYS.THEME, 'light');
   });
 
   const [editorTheme, setEditorTheme] = useState(() => {
     return loadFromStorage(STORAGE_KEYS.EDITOR_THEME, 'auto');
   });
 
-  // Sync site theme with HTML root class and local storage
+  // Sync site theme with HTML root class, body class, and local storage
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.THEME, theme);
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
     } else {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
     }
   }, [theme]);
 
@@ -213,7 +217,7 @@ export default function App() {
 
   return (
     <ToastProvider>
-      <div className="flex flex-col h-screen w-screen overflow-hidden bg-background text-text-primary">
+      <div className={`flex flex-col h-screen w-screen overflow-hidden bg-background text-text-primary ${theme === 'dark' ? 'dark' : 'light'}`}>
         <AppHeader
           activePage={activePage}
           setActivePage={navigateTo}
