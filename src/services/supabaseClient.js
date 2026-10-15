@@ -6,7 +6,10 @@ const STORAGE_KEYS_SUPABASE = {
   KEY: 'SQL_SPRINT_SUPABASE_ANON_KEY'
 };
 
-// Check Vite environment variables first, then fallback to user-configured localStorage
+const DEFAULT_SUPABASE_URL = 'https://bntqucgzfcpgbjrqxdqm.supabase.co';
+const DEFAULT_SUPABASE_KEY = 'sb_publishable_Ys5QXthI_4JAmhQxujr1tQ_cDS-Ixry';
+
+// Check Vite environment variables first, then user-configured localStorage, then built-in project defaults
 export function getSupabaseCredentials() {
   const envUrl = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_URL;
   const envKey = typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_ANON_KEY;
@@ -22,7 +25,7 @@ export function getSupabaseCredentials() {
     return { url: storedUrl, key: storedKey, source: 'storage' };
   }
 
-  return { url: '', key: '', source: 'none' };
+  return { url: DEFAULT_SUPABASE_URL, key: DEFAULT_SUPABASE_KEY, source: 'default' };
 }
 
 let supabaseInstance = null;
