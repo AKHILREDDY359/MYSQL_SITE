@@ -85,6 +85,15 @@ export default function App() {
   const [activeProfile, setActiveProfileState] = useState(() => getActiveProfile());
   const [authUser, setAuthUser] = useState(null);
 
+  // Refresh progress and metrics from storage (Declared early so all hooks can safely use it)
+  const refreshProgress = useCallback(() => {
+    const currentProg = getAllProgress();
+    const currentBm = getBookmarks();
+    setProgressMap(currentProg);
+    setBookmarks(currentBm);
+    setMetrics(calculateDashboardMetrics(questions));
+  }, [questions]);
+
   // Sync site theme with HTML root class, body class, and local storage
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.THEME, theme);
@@ -192,15 +201,6 @@ export default function App() {
       window.removeEventListener('hashchange', handleLocationChange);
       window.removeEventListener('popstate', handleLocationChange);
     };
-  }, [questions]);
-
-  // Refresh progress and metrics from storage
-  const refreshProgress = useCallback(() => {
-    const currentProg = getAllProgress();
-    const currentBm = getBookmarks();
-    setProgressMap(currentProg);
-    setBookmarks(currentBm);
-    setMetrics(calculateDashboardMetrics(questions));
   }, [questions]);
 
   // Initialize engine and load storage on initial mount
