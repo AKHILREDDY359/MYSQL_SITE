@@ -74,7 +74,7 @@ export default function Dashboard({
   return (
     <div className="flex-1 overflow-y-auto bg-background px-6 lg:px-8 xl:px-10 py-6 space-y-6 w-full">
       {/* Hero Welcome Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-panel via-panel-light to-panel border border-panel-border p-6 sm:p-8 shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-panel border border-panel-border p-6 sm:p-8 shadow-sm">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/30 text-xs font-semibold text-brand">
