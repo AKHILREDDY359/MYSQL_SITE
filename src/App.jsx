@@ -67,6 +67,8 @@ export default function App() {
   const [metrics, setMetrics] = useState(() => calculateDashboardMetrics(QUESTIONS));
   const [isDbResetting, setIsDbResetting] = useState(false);
   const [isEngineReady, setIsEngineReady] = useState(false);
+  const [engineError, setEngineError] = useState(null);
+  const [isEngineRetrying, setIsEngineRetrying] = useState(false);
   const [isDatabaseModalOpen, setIsDatabaseModalOpen] = useState(false);
   const [theme, setTheme] = useState(() => {
     return loadFromStorage(STORAGE_KEYS.THEME, 'light');
@@ -166,15 +168,32 @@ export default function App() {
   useEffect(() => {
     async function setup() {
       try {
+        setEngineError(null);
         await initDatabase();
         setIsEngineReady(true);
       } catch (err) {
         console.error('Failed to initialize database engine:', err);
+        setEngineError(err.message || 'WebAssembly database engine failed to initialize.');
       }
       refreshProgress();
     }
     setup();
   }, [refreshProgress]);
+
+  const handleRetryEngine = async () => {
+    try {
+      setIsEngineRetrying(true);
+      setEngineError(null);
+      await initDatabase();
+      setIsEngineReady(true);
+      refreshProgress();
+    } catch (err) {
+      console.error('Database engine retry failed:', err);
+      setEngineError(err.message || 'Database engine retry failed.');
+    } finally {
+      setIsEngineRetrying(false);
+    }
+  };
 
   // Handle resetting the database
   const handleResetDb = async () => {
@@ -231,6 +250,24 @@ export default function App() {
           onSelectTheme={setTheme}
           currentQuestionId={currentQuestion?.id || 1}
         />
+
+        {engineError && (
+          <div className="bg-red-500/15 border-b border-red-500/30 px-4 py-2.5 flex items-center justify-between text-xs text-red-700 dark:text-red-300 z-50">
+            <div className="flex items-center gap-2">
+              <span className="font-bold uppercase tracking-wider bg-red-500/20 text-red-700 dark:text-red-300 px-1.5 py-0.5 rounded text-[10px]">
+                Engine Alert
+              </span>
+              <span>{engineError}</span>
+            </div>
+            <button
+              onClick={handleRetryEngine}
+              disabled={isEngineRetrying}
+              className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white rounded font-medium transition-colors disabled:opacity-50 cursor-pointer text-xs shrink-0"
+            >
+              {isEngineRetrying ? 'Retrying...' : 'Retry Engine Load'}
+            </button>
+          </div>
+        )}
 
         <MasterDatabaseModal
           isOpen={isDatabaseModalOpen}

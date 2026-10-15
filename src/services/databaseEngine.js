@@ -19,14 +19,26 @@ export async function initDatabase() {
     try {
       if (!SQL) {
         try {
+          // Tier 1: Bundler-managed asset URL (Vite dev & production)
           SQL = await initSqlJs({
             locateFile: () => sqlWasmUrl
           });
-        } catch (localWasmErr) {
-          console.warn('Local WASM failed, falling back to CDN:', localWasmErr);
-          SQL = await initSqlJs({
-            locateFile: (file) => `https://sql.js.org/dist/${file}`
-          });
+        } catch (err1) {
+          console.warn('Vite asset WASM loading failed, attempting local public asset:', err1);
+          try {
+            // Tier 2: Local public assets (/sql-wasm.wasm or /sql-wasm-browser.wasm)
+            const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) || '/';
+            const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+            SQL = await initSqlJs({
+              locateFile: (file) => `${cleanBase}${file}`
+            });
+          } catch (err2) {
+            console.warn('Local public WASM loading failed, falling back to CDN:', err2);
+            // Tier 3: Official sql.js CDN
+            SQL = await initSqlJs({
+              locateFile: (file) => `https://sql.js.org/dist/${file}`
+            });
+          }
         }
       }
 
@@ -42,6 +54,7 @@ export async function initDatabase() {
 
       return dbInstance;
     } catch (err) {
+      initPromise = null; // Clear cached promise on error so retry works
       console.error('Failed to initialize database engine:', err);
       throw err;
     }
