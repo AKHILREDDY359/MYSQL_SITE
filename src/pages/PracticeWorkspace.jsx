@@ -265,24 +265,13 @@ export default function PracticeWorkspace({
   return (
     <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-background">
       {/* LEFT PANEL (~38% Width on Desktop) */}
-      <div className="w-full lg:w-[40%] xl:w-[38%] h-1/2 lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-panel-border overflow-hidden">
+      <div className="w-full lg:w-[40%] xl:w-[38%] h-1/2 lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-panel-border overflow-hidden bg-panel">
         {/* Left Sub-Header Switcher */}
         <div className="h-10 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between select-none shrink-0">
           <div className="flex items-center space-x-1.5">
-            {onNavigateToDashboard && (
-              <button
-                onClick={onNavigateToDashboard}
-                title="Return to Dashboard (Esc)"
-                className="flex items-center gap-1.5 py-1 px-2.5 mr-1 rounded-md bg-panel hover:bg-panel-border border border-panel-border text-xs font-semibold text-text-primary hover:text-brand transition-all shadow-xs group cursor-pointer"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-1 transition-transform" />
-                <span>Dashboard</span>
-              </button>
-            )}
-
             <button
               onClick={() => setLeftTab('question')}
-              className={`flex items-center gap-1.5 py-1.5 px-3 rounded text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
                 leftTab === 'question'
                   ? 'bg-panel border border-panel-border text-brand shadow-sm'
                   : 'text-text-secondary hover:text-text-primary'
@@ -293,13 +282,13 @@ export default function PracticeWorkspace({
             </button>
             <button
               onClick={() => setLeftTab('database')}
-              className={`flex items-center gap-1.5 py-1.5 px-3 rounded text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
                 leftTab === 'database'
                   ? 'bg-panel border border-panel-border text-brand shadow-sm'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
-              <Database className="w-3.5 h-3.5 text-amber-400" />
+              <Database className="w-3.5 h-3.5 text-amber-500" />
               <span>Database Explorer</span>
             </button>
           </div>

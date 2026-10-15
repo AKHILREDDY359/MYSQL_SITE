@@ -79,7 +79,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
         </div>
 
         {/* Sub-Tabs & Filter Bar */}
-        <div className="p-3 border-b border-panel-border bg-panel-light/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-3 border-b border-panel-border bg-panel-light flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center space-x-1">
             <button
               onClick={() => setActiveTab('data')}
@@ -181,7 +181,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
                 </thead>
                 <tbody className="divide-y divide-panel-border/60">
                   {currentSchema.columns.map((col) => (
-                    <tr key={col.name} className="hover:bg-panel-light/60">
+                    <tr key={col.name} className="hover:bg-panel-light transition-colors">
                       <td className="py-2 px-4 font-mono font-bold text-text-primary">
                         {col.name}
                       </td>

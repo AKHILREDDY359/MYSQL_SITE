@@ -64,7 +64,7 @@ export default function DatabaseExplorer({ onInsertSql, onResetDb, isDbResetting
   return (
     <div className="h-full flex flex-col bg-panel border-r border-panel-border overflow-hidden select-none">
       {/* Explorer Header */}
-      <div className="p-3 border-b border-panel-border bg-panel-light/60 flex items-center justify-between">
+      <div className="p-3 border-b border-panel-border bg-panel-light flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Database className="w-4 h-4 text-brand" />
           <span className="text-xs font-semibold uppercase tracking-wider text-text-primary">
@@ -137,7 +137,7 @@ export default function DatabaseExplorer({ onInsertSql, onResetDb, isDbResetting
       {/* Table Details Sub-tabs */}
       {selectedTable && (
         <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex items-center border-b border-panel-border bg-panel-light/30 px-3">
+          <div className="flex items-center border-b border-panel-border bg-panel-light px-3">
             <button
               onClick={() => setActiveTab('data')}
               className={`flex items-center gap-1.5 py-2 px-3 text-xs font-medium border-b-2 transition-colors ${

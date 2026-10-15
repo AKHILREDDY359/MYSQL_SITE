@@ -60,7 +60,7 @@ export default function ResultsPanel({
   return (
     <div className="h-full flex flex-col bg-panel overflow-hidden border-t border-panel-border select-none">
       {/* Panel Tab Header */}
-      <div className="h-10 px-3 bg-panel-light/70 border-b border-panel-border flex items-center justify-between">
+      <div className="h-10 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between">
         <div className="flex items-center space-x-1">
           <button
             onClick={() => setActiveTab('results')}

@@ -11,6 +11,7 @@ export default function AppHeader({
   onOpenDatabaseModal,
   theme = 'dark',
   onToggleTheme,
+  onSelectTheme,
   currentQuestionId = 1
 }) {
   const percentage = Math.round((solvedCount / totalCount) * 100) || 0;
@@ -115,24 +116,35 @@ export default function AppHeader({
           <span className="text-[11px] text-brand font-medium">({percentage}%)</span>
         </div>
 
-        {/* Theme Toggle Button */}
-        <button
-          onClick={onToggleTheme}
-          title={theme === 'dark' ? "Switch to White Theme" : "Switch to Dark Theme"}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-panel-light hover:bg-panel-hover border border-panel-border text-text-primary transition-all cursor-pointer shadow-sm hover:border-brand/40 group active:scale-95"
-        >
-          {theme === 'dark' ? (
-            <>
-              <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
-              <span className="text-xs font-semibold text-text-primary">White Theme</span>
-            </>
-          ) : (
-            <>
-              <Moon className="w-4 h-4 text-brand group-hover:-rotate-12 transition-transform" />
-              <span className="text-xs font-semibold text-text-primary">Dark Theme</span>
-            </>
-          )}
-        </button>
+        {/* Segmented Dual Theme Switcher (Zero-confusion: shows current theme active, direct one-click selection) */}
+        <div className="flex items-center p-0.5 rounded-lg bg-panel-light border border-panel-border shadow-xs">
+          <button
+            type="button"
+            onClick={() => onSelectTheme ? onSelectTheme('light') : (theme !== 'light' && onToggleTheme())}
+            title="Clean White Theme"
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+              theme === 'light'
+                ? 'bg-white text-slate-900 shadow-sm ring-1 ring-slate-900/10'
+                : 'text-text-secondary hover:text-text-primary'
+            }`}
+          >
+            <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'text-amber-500 fill-amber-400' : 'text-text-muted'}`} />
+            <span>White</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectTheme ? onSelectTheme('dark') : (theme !== 'dark' && onToggleTheme())}
+            title="Dark Developer Theme"
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-brand text-white shadow-sm ring-1 ring-brand/30'
+                : 'text-text-secondary hover:text-text-primary'
+            }`}
+          >
+            <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? 'fill-white text-white' : 'text-text-muted'}`} />
+            <span>Dark</span>
+          </button>
+        </div>
 
         {/* Quick Reset DB button */}
         <button

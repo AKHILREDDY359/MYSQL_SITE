@@ -47,7 +47,7 @@ export default function TablePreviewCard({ tableName = 'Employees', defaultExpan
       isFullView ? 'fixed inset-4 z-50 shadow-2xl flex flex-col bg-panel-light p-4' : ''
     }`}>
       {/* Header */}
-      <div className="p-2.5 bg-panel-light/80 border-b border-panel-border flex items-center justify-between">
+      <div className="p-2.5 bg-panel-light border-b border-panel-border flex items-center justify-between">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center gap-2 text-left group focus:outline-none flex-1"
@@ -58,12 +58,12 @@ export default function TablePreviewCard({ tableName = 'Employees', defaultExpan
             <ChevronDown className="w-3.5 h-3.5 text-text-secondary group-hover:text-text-primary" />
           )}
           <div className="flex items-center gap-2">
-            <Database className="w-3.5 h-3.5 text-amber-400" />
+            <Database className="w-3.5 h-3.5 text-amber-500" />
             <span className="text-xs font-semibold text-text-primary flex items-center gap-1.5">
               <span>Master Table:</span>
               <span className="font-mono text-brand font-bold">{tableName}</span>
             </span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-panel border border-panel-border text-emerald-400 font-medium">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-panel border border-panel-border text-emerald-700 dark:text-emerald-400 font-semibold shadow-xs">
               {tableData.values.length} records
             </span>
           </div>
@@ -168,7 +168,7 @@ export default function TablePreviewCard({ tableName = 'Employees', defaultExpan
                 </thead>
                 <tbody className="divide-y divide-panel-border/60">
                   {tableSchema.columns.map((col) => (
-                    <tr key={col.name} className="hover:bg-panel-light/60">
+                    <tr key={col.name} className="hover:bg-panel-light transition-colors">
                       <td className="py-1.5 px-3 font-mono font-medium text-text-primary">
                         {col.name}
                       </td>

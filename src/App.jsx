@@ -228,6 +228,7 @@ export default function App() {
           onOpenDatabaseModal={() => setIsDatabaseModalOpen(true)}
           theme={theme}
           onToggleTheme={toggleTheme}
+          onSelectTheme={setTheme}
           currentQuestionId={currentQuestion?.id || 1}
         />
 

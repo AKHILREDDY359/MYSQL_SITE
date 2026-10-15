@@ -111,7 +111,7 @@ export default function QuestionSidebar({
   return (
     <div className="h-full flex flex-col bg-panel border-r border-panel-border overflow-hidden select-none">
       {/* Top Navigation Tabs */}
-      <div className="flex items-center justify-between border-b border-panel-border bg-panel-light/70 px-3">
+      <div className="flex items-center justify-between border-b border-panel-border bg-panel-light px-3">
         <div className="flex items-center space-x-1">
           <button
             onClick={() => setActiveTab('question')}
@@ -247,7 +247,7 @@ export default function QuestionSidebar({
           </div>
 
           {/* Problem Statement Card */}
-          <div className="p-3.5 rounded-lg bg-panel-light/60 border border-panel-border space-y-3">
+          <div className="p-4 rounded-xl bg-panel-light border border-panel-border space-y-3 shadow-xs">
             <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Problem Statement
             </h3>
@@ -307,8 +307,8 @@ export default function QuestionSidebar({
                 <span className="text-[10px] text-text-muted">{showHint ? "Click to collapse" : "Click to view guidance"}</span>
               </button>
               {showHint && (
-                <div className="p-3 border-t border-panel-border bg-panel-light/40 text-xs text-text-primary leading-relaxed">
-                  <p className="font-mono text-amber-300">{currentQuestion?.hint}</p>
+                <div className="p-3 border-t border-panel-border bg-panel-light text-xs text-text-primary leading-relaxed">
+                  <p className="font-mono text-amber-600 dark:text-amber-400 font-medium">{currentQuestion?.hint}</p>
                 </div>
               )}
             </div>
@@ -326,8 +326,8 @@ export default function QuestionSidebar({
                 <span className="text-[10px] text-text-muted">{showSolution ? "Hide" : "Try solving first!"}</span>
               </button>
               {showSolution && (
-                <div className="p-3 border-t border-panel-border bg-panel-light/40 space-y-2">
-                  <pre className="p-2.5 rounded bg-background border border-panel-border font-mono text-xs text-emerald-400 overflow-x-auto">
+                <div className="p-3 border-t border-panel-border bg-panel-light space-y-2">
+                  <pre className="p-2.5 rounded bg-panel border border-panel-border font-mono text-xs text-emerald-700 dark:text-emerald-400 font-semibold overflow-x-auto">
                     {currentQuestion?.expectedSql}
                   </pre>
                   <p className="text-[11px] text-text-secondary">{currentQuestion?.explanation}</p>

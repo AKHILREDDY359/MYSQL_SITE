@@ -37,7 +37,7 @@ export default function QueryToolbar({
   };
 
   return (
-    <div className="h-11 px-3 bg-panel-light/90 border-b border-panel-border flex items-center justify-between select-none">
+    <div className="h-11 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between select-none">
       {/* Left primary execution controls */}
       <div className="flex items-center gap-2">
         <button

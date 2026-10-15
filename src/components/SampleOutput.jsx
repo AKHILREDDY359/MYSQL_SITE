@@ -12,7 +12,7 @@ export default function SampleOutput({ expectedOutput, explanation, questionNumb
   return (
     <div className={`border border-panel-border rounded-lg bg-panel overflow-hidden transition-all duration-200 ${isFullView ? 'fixed inset-4 z-50 shadow-2xl flex flex-col bg-panel-light p-4' : ''}`}>
       {/* Header */}
-      <div className="p-2.5 bg-panel-light/70 border-b border-panel-border flex items-center justify-between">
+      <div className="p-2.5 bg-panel-light border-b border-panel-border flex items-center justify-between">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center gap-2 text-left group focus:outline-none flex-1"

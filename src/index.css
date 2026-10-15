@@ -26,9 +26,9 @@ html.dark, .dark {
   --bg-panel-hover: 27 38 59;
   --border-color: 38 52 73;
   --border-subtle: 30 44 70;
-  --text-primary: 229 231 235;
-  --text-secondary: 148 163 184;
-  --text-muted: 100 116 139;
+  --text-primary: 255 255 255;
+  --text-secondary: 203 213 225;
+  --text-muted: 156 163 175;
   --table-header-bg: 24 35 56;
   --table-row-hover: 26 38 61;
   color-scheme: dark;
@@ -42,7 +42,19 @@ html.dark, .dark {
   html, body {
     background-color: rgb(var(--bg-app));
     color: rgb(var(--text-primary));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  input, select, textarea, button, kbd {
+    font-family: inherit;
+  }
+
+  select, option {
+    background-color: rgb(var(--bg-panel));
+    color: rgb(var(--text-primary));
   }
 }
 
@@ -63,7 +75,14 @@ html.dark, .dark {
   background-color: rgba(var(--bg-panel), 0.90);
 }
 
-.bg-panel-light {
+.bg-panel-light,
+.bg-panel-light\/90,
+.bg-panel-light\/80,
+.bg-panel-light\/70,
+.bg-panel-light\/60,
+.bg-panel-light\/50,
+.bg-panel-light\/40,
+.bg-panel-light\/30 {
   background-color: rgb(var(--bg-panel-light));
 }
 

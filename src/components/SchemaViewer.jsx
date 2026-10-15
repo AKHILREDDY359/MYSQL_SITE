@@ -38,7 +38,7 @@ export default function SchemaViewer({ table }) {
           </thead>
           <tbody className="divide-y divide-panel-border/60">
             {table.columns.map((col) => (
-              <tr key={col.name} className="hover:bg-panel-light/60 transition-colors">
+              <tr key={col.name} className="hover:bg-panel-light transition-colors">
                 <td className="py-2 px-3 font-mono font-medium text-text-primary flex items-center gap-1.5">
                   {getTypeIcon(col.type)}
                   <span>{col.name}</span>

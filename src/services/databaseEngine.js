@@ -1,4 +1,5 @@
 import initSqlJs from 'sql.js';
+import sqlWasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import { TABLES_SCHEMA, DATABASE_NAME } from '../data/schema.js';
 import { SEED_SQL } from '../data/seedData.js';
 import { validateQuerySafety } from './queryValidator.js';
@@ -17,9 +18,16 @@ export async function initDatabase() {
   initPromise = (async () => {
     try {
       if (!SQL) {
-        SQL = await initSqlJs({
-          locateFile: (file) => `/${file}`
-        });
+        try {
+          SQL = await initSqlJs({
+            locateFile: () => sqlWasmUrl
+          });
+        } catch (localWasmErr) {
+          console.warn('Local WASM failed, falling back to CDN:', localWasmErr);
+          SQL = await initSqlJs({
+            locateFile: (file) => `https://sql.js.org/dist/${file}`
+          });
+        }
       }
 
       dbInstance = new SQL.Database();

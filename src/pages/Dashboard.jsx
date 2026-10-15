@@ -60,15 +60,15 @@ export default function Dashboard({
   const getStatusColor = (qid) => {
     const p = progressMap[qid];
     if (!p || p.status === QUESTION_STATUS.NOT_STARTED) {
-      return 'bg-panel-light hover:bg-panel-lighter text-text-muted border-panel-border';
+      return 'bg-panel-light hover:bg-panel-lighter text-text-primary hover:text-brand border-panel-border font-bold shadow-xs';
     }
     if (p.status === QUESTION_STATUS.SOLVED) {
-      return 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-400 dark:border-emerald-500/50 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 shadow-sm';
+      return 'bg-emerald-100 dark:bg-emerald-950/70 border-emerald-400 dark:border-emerald-500/60 text-emerald-900 dark:text-emerald-200 hover:bg-emerald-200 dark:hover:bg-emerald-900/80 shadow-sm font-bold';
     }
     if (p.status === QUESTION_STATUS.NEEDS_REVIEW) {
-      return 'bg-purple-100 dark:bg-purple-950/60 border-purple-400 dark:border-purple-500/50 text-purple-800 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/60 shadow-sm';
+      return 'bg-purple-100 dark:bg-purple-950/70 border-purple-400 dark:border-purple-500/60 text-purple-900 dark:text-purple-200 hover:bg-purple-200 dark:hover:bg-purple-900/80 shadow-sm font-bold';
     }
-    return 'bg-amber-100 dark:bg-amber-950/60 border-amber-400 dark:border-amber-500/50 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 shadow-sm';
+    return 'bg-amber-100 dark:bg-amber-950/70 border-amber-400 dark:border-amber-500/60 text-amber-900 dark:text-amber-200 hover:bg-amber-200 dark:hover:bg-amber-900/80 shadow-sm font-bold';
   };
 
   return (
@@ -221,7 +221,7 @@ export default function Dashboard({
               <span className="w-2.5 h-2.5 rounded bg-purple-500"></span> Review
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded bg-panel-lighter border border-panel-border"></span> Pending
+              <span className="w-2.5 h-2.5 rounded bg-slate-400 dark:bg-slate-500"></span> Pending
             </span>
           </div>
         </div>

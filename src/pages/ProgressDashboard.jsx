@@ -229,7 +229,7 @@ export default function ProgressDashboard({
                   const isBookmarked = bookmarks.includes(q.id);
 
                   return (
-                    <tr key={q.id} className="hover:bg-panel-light/60 transition-colors">
+                    <tr key={q.id} className="hover:bg-panel-light transition-colors">
                       <td className="py-3 px-4 font-mono font-bold text-text-primary">
                         #{q.id}
                       </td>
