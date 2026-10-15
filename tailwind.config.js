@@ -8,13 +8,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'var(--bg-app)',
+        background: 'rgb(var(--bg-app) / <alpha-value>)',
         panel: {
-          DEFAULT: 'var(--bg-panel)',
-          light: 'var(--bg-panel-light)',
-          lighter: 'var(--bg-panel-lighter)',
-          border: 'var(--border-color)',
-          hover: 'var(--bg-panel-hover)'
+          DEFAULT: 'rgb(var(--bg-panel) / <alpha-value>)',
+          light: 'rgb(var(--bg-panel-light) / <alpha-value>)',
+          lighter: 'rgb(var(--bg-panel-lighter) / <alpha-value>)',
+          border: 'rgb(var(--border-color) / <alpha-value>)',
+          hover: 'rgb(var(--bg-panel-hover) / <alpha-value>)'
         },
         brand: {
           DEFAULT: '#4F8CFF',
@@ -38,9 +38,9 @@ export default {
           glow: 'rgba(245, 158, 11, 0.15)'
         },
         text: {
-          primary: 'var(--text-primary)',
-          secondary: 'var(--text-secondary)',
-          muted: 'var(--text-muted)'
+          primary: 'rgb(var(--text-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+          muted: 'rgb(var(--text-muted) / <alpha-value>)'
         }
       },
       fontFamily: {

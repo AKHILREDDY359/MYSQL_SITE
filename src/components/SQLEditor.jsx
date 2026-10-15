@@ -23,12 +23,9 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
     }
   }, [theme]);
 
-  const handleEditorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
-    monacoRef.current = monaco;
-
+  const handleBeforeMount = (monaco) => {
     try {
-      // 1. Dark Theme
+      // 1. Dark Developer Theme
       monaco.editor.defineTheme('sqlSprintDark', {
         base: 'vs-dark',
         inherit: true,
@@ -52,16 +49,16 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
         }
       });
 
-      // 2. Light Theme
+      // 2. Clean White / Light Theme
       monaco.editor.defineTheme('sqlSprintLight', {
         base: 'vs',
         inherit: true,
         rules: [
-          { token: 'keyword', foreground: '2563EB', fontStyle: 'bold' },
-          { token: 'string', foreground: '16A34A' },
-          { token: 'number', foreground: 'D97706' },
-          { token: 'comment', foreground: '94A3B8', fontStyle: 'italic' },
-          { token: 'operator.sql', foreground: '0284C7' },
+          { token: 'keyword', foreground: '1D4ED8', fontStyle: 'bold' },
+          { token: 'string', foreground: '15803D' },
+          { token: 'number', foreground: 'B45309' },
+          { token: 'comment', foreground: '64748B', fontStyle: 'italic' },
+          { token: 'operator.sql', foreground: '0369A1' },
           { token: 'identifier', foreground: '0F172A' }
         ],
         colors: {
@@ -70,12 +67,21 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
           'editorCursor.foreground': '#2563EB',
           'editor.lineHighlightBackground': '#F1F5F9',
           'editorLineNumber.foreground': '#94A3B8',
-          'editorLineNumber.activeForeground': '#475569',
+          'editorLineNumber.activeForeground': '#0F172A',
           'editor.selectionBackground': '#BFDBFE',
           'editor.inactiveSelectionBackground': '#E2E8F0'
         }
       });
+    } catch (e) {
+      console.warn('Monaco defineTheme error:', e);
+    }
+  };
 
+  const handleEditorDidMount = (editor, monaco) => {
+    editorRef.current = editor;
+    monacoRef.current = monaco;
+
+    try {
       monaco.editor.setTheme(theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight');
 
       // Register Cmd+Enter / Ctrl+Enter keybinding
@@ -85,7 +91,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
         }
       });
     } catch (e) {
-      console.warn('Monaco theme setup notice:', e);
+      console.warn('Monaco mount setup notice:', e);
     }
   };
 
@@ -114,7 +120,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
           onKeyDown={handleKeyDown}
           placeholder="-- Write your SQL query here... (e.g. SELECT * FROM Employees;)"
           style={{ fontSize: `${fontSize}px` }}
-          className="flex-1 w-full bg-transparent font-mono text-text-primary p-2 border border-panel-border rounded-md resize-none focus:outline-none focus:border-brand selection:bg-brand selection:text-white leading-relaxed"
+          className="flex-1 w-full bg-panel font-mono text-text-primary p-2 border border-panel-border rounded-md resize-none focus:outline-none focus:border-brand selection:bg-brand selection:text-white leading-relaxed"
           spellCheck="false"
         />
       </div>
@@ -127,8 +133,10 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
         height="100%"
         defaultLanguage="sql"
         language="sql"
+        theme={theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight'}
         value={value}
         onChange={(val) => onChange(val || '')}
+        beforeMount={handleBeforeMount}
         onMount={handleEditorDidMount}
         loading={
           <div className="flex items-center justify-center h-full text-xs text-text-secondary gap-2 bg-panel">

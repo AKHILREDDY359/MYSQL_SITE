@@ -86,7 +86,7 @@ export default function Revision({ onNavigateToTopicQuestions }) {
       </div>
 
       {/* Main Revision Reader Content */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 max-w-4xl">
+      <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 w-full">
         {/* Topic Header */}
         <div className="space-y-2 border-b border-panel-border pb-5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/20 text-xs font-semibold text-brand">
@@ -102,7 +102,7 @@ export default function Revision({ onNavigateToTopicQuestions }) {
         </div>
 
         {/* Detailed Explanation */}
-        <div className="prose prose-invert max-w-none text-sm text-text-primary leading-relaxed whitespace-pre-line">
+        <div className="prose dark:prose-invert max-w-none text-sm text-text-primary leading-relaxed whitespace-pre-line">
           {activeTopic.explanation}
         </div>
 
@@ -118,7 +118,7 @@ export default function Revision({ onNavigateToTopicQuestions }) {
               <span>Copy</span>
             </button>
           </div>
-          <pre className="p-4 rounded-xl bg-panel-light border border-panel-border font-mono text-xs text-blue-300 overflow-x-auto leading-relaxed">
+          <pre className="p-4 rounded-xl bg-panel-light border border-panel-border font-mono text-xs text-blue-700 dark:text-blue-300 overflow-x-auto leading-relaxed font-semibold">
             {activeTopic.syntax}
           </pre>
         </div>
@@ -127,7 +127,7 @@ export default function Revision({ onNavigateToTopicQuestions }) {
         {activeTopic.examples && activeTopic.examples.length > 0 && (
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-text-primary flex items-center gap-2">
-              <Code className="w-4 h-4 text-emerald-400" />
+              <Code className="w-4 h-4 text-emerald-500" />
               <span>Production Interview Examples</span>
             </h3>
 
@@ -135,7 +135,7 @@ export default function Revision({ onNavigateToTopicQuestions }) {
               <div key={idx} className="space-y-1.5">
                 <span className="text-xs text-text-secondary font-medium">{eg.description}</span>
                 <div className="relative group">
-                  <pre className="p-4 rounded-xl bg-panel border border-panel-border font-mono text-xs text-emerald-300 overflow-x-auto">
+                  <pre className="p-4 rounded-xl bg-panel border border-panel-border font-mono text-xs text-emerald-800 dark:text-emerald-300 font-medium overflow-x-auto">
                     {eg.sql}
                   </pre>
                   <button
@@ -153,12 +153,12 @@ export default function Revision({ onNavigateToTopicQuestions }) {
 
         {/* Common Placement Interview Mistakes & Traps */}
         {activeTopic.interviewMistakes && activeTopic.interviewMistakes.length > 0 && (
-          <div className="p-4 sm:p-5 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-3">
-            <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
+          <div className="p-4 sm:p-5 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-500/30 space-y-3">
+            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-bold text-sm">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>Common Placement Traps & Mistakes</span>
             </div>
-            <ul className="list-disc list-inside space-y-2 text-xs text-amber-200/90 leading-relaxed">
+            <ul className="list-disc list-inside space-y-2 text-xs text-amber-900 dark:text-amber-200/90 leading-relaxed font-normal">
               {activeTopic.interviewMistakes.map((mistake, i) => (
                 <li key={i}>{mistake}</li>
               ))}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { 
   Play, Send, RotateCcw, AlignLeft, Copy, Trash2, 
-  Lightbulb, Eye, Check, ChevronLeft, ChevronRight 
+  Lightbulb, Eye, Check, ChevronLeft, ChevronRight, ArrowLeft,
+  Sun, Moon 
 } from 'lucide-react';
 import { useToast } from './Toast.jsx';
 
@@ -19,7 +20,11 @@ export default function QueryToolbar({
   currentQuestionId = 1,
   totalQuestions = 50,
   isRunning = false,
-  isSubmitting = false
+  isSubmitting = false,
+  onNavigateToDashboard,
+  editorTheme = 'auto',
+  effectiveEditorTheme = 'dark',
+  onToggleEditorTheme
 }) {
   const [copied, setCopied] = React.useState(false);
   const { addToast } = useToast();
@@ -83,11 +88,24 @@ export default function QueryToolbar({
       <div className="flex items-center gap-2">
         {/* Forward & Backward Navigator in Toolbar */}
         <div className="flex items-center gap-1 bg-panel border border-panel-border rounded-lg p-0.5">
+          {onNavigateToDashboard && (
+            <button
+              onClick={onNavigateToDashboard}
+              title="Return to Dashboard (Esc)"
+              className="p-1 px-1.5 rounded text-text-secondary hover:text-brand hover:bg-panel-light transition-colors flex items-center gap-1 text-[11px] font-medium cursor-pointer group"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-0.5 transition-transform" />
+              <span className="hidden xl:inline">Dashboard</span>
+            </button>
+          )}
+
+          {onNavigateToDashboard && <div className="h-3 w-px bg-panel-border"></div>}
+
           <button
             onClick={onPrevQuestion}
             disabled={!hasPrev}
             title="Previous question (Alt + Left)"
-            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-3.5 h-3.5" />
           </button>
@@ -98,7 +116,7 @@ export default function QueryToolbar({
             onClick={onNextQuestion}
             disabled={!hasNext}
             title="Next question (Alt + Right)"
-            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+            className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-panel-light disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
           >
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
@@ -106,10 +124,28 @@ export default function QueryToolbar({
 
         <div className="h-4 w-px bg-panel-border"></div>
 
+        {/* Independent Editor Theme Toggle Button */}
+        {onToggleEditorTheme && (
+          <button
+            onClick={onToggleEditorTheme}
+            title={`Code Editor Theme: ${editorTheme === 'auto' ? `Auto (matches ${effectiveEditorTheme})` : editorTheme}. Click to cycle: Auto → Dark → White.`}
+            className="flex items-center gap-1.5 px-2 py-1 rounded bg-panel hover:bg-panel-light border border-panel-border text-text-secondary hover:text-text-primary transition-all text-xs cursor-pointer shadow-xs"
+          >
+            {effectiveEditorTheme === 'dark' ? (
+              <Moon className="w-3.5 h-3.5 text-brand" />
+            ) : (
+              <Sun className="w-3.5 h-3.5 text-amber-500" />
+            )}
+            <span className="text-[11px] font-mono hidden sm:inline">
+              Editor: {editorTheme === 'auto' ? `Auto (${effectiveEditorTheme})` : editorTheme}
+            </span>
+          </button>
+        )}
+
         <button
           onClick={handleCopy}
           title="Copy SQL to clipboard"
-          className="p-1.5 rounded text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent hover:border-panel-border transition-colors"
+          className="p-1.5 rounded text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent hover:border-panel-border transition-colors cursor-pointer"
         >
           {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
         </button>

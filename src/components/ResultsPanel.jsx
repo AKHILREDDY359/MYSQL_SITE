@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   CheckCircle, AlertCircle, Clock, Copy, Download, 
   Terminal, ShieldCheck, Check, Sparkles, ChevronRight, 
-  Database, Table, Search 
+  Database, Table, Search, ArrowLeft 
 } from 'lucide-react';
 import { getTableData } from '../services/databaseEngine.js';
 import { useToast } from './Toast.jsx';
@@ -13,7 +13,8 @@ export default function ResultsPanel({
   activeTab,
   setActiveTab,
   onNextQuestion,
-  hasNext = false
+  hasNext = false,
+  onNavigateToDashboard
 }) {
   const [copied, setCopied] = useState(false);
   const [masterRows, setMasterRows] = useState({ columns: [], values: [] });
@@ -159,12 +160,12 @@ export default function ResultsPanel({
               </div>
             ) : !queryResult.success ? (
               /* SQL Error Display */
-              <div className="p-4 rounded-lg bg-red-950/30 border border-red-500/30 text-xs space-y-2 text-red-200">
+              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/30 text-xs space-y-2 text-red-800 dark:text-red-200">
                 <div className="flex items-center gap-2 font-semibold text-danger">
                   <AlertCircle className="w-4 h-4" />
                   <span>SQL Execution Error</span>
                 </div>
-                <pre className="font-mono bg-background/80 p-3 rounded border border-red-500/20 text-red-300 overflow-x-auto whitespace-pre-wrap">
+                <pre className="font-mono bg-red-100/70 dark:bg-background/80 p-3 rounded border border-red-300/40 dark:border-red-500/20 text-red-900 dark:text-red-300 overflow-x-auto whitespace-pre-wrap">
                   {queryResult.error}
                 </pre>
                 <div className="text-[11px] text-text-secondary">
@@ -198,7 +199,7 @@ export default function ResultsPanel({
                             {cell === null ? (
                               <span className="text-text-muted italic">NULL</span>
                             ) : typeof cell === 'number' ? (
-                              <span className="text-emerald-300 font-mono">{cell}</span>
+                              <span className="text-emerald-700 dark:text-emerald-300 font-mono font-medium">{cell}</span>
                             ) : (
                               String(cell)
                             )}
@@ -224,8 +225,8 @@ export default function ResultsPanel({
             ) : (
               <div className={`p-4 rounded-lg border text-xs space-y-3 ${
                 submissionResult.isCorrect
-                  ? 'bg-emerald-950/20 border-emerald-500/40 text-green-200'
-                  : 'bg-red-950/20 border-red-500/40 text-red-200'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/40 text-emerald-900 dark:text-green-200'
+                  : 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-500/40 text-red-900 dark:text-red-200'
               }`}>
                 <div className="flex items-center gap-2">
                   {submissionResult.isCorrect ? (
@@ -250,22 +251,44 @@ export default function ResultsPanel({
 
                 {submissionResult.isCorrect ? (
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-                    <div className="text-[11px] text-emerald-400 font-medium">
+                    <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">
                       🎉 Excellent work! This question has been marked as <strong>Solved</strong> in your progress tracker.
                     </div>
-                    {hasNext && (
-                      <button
-                        onClick={onNextQuestion}
-                        className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-900/30 transition-all active:scale-95"
-                      >
-                        <span>Next Question</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    )}
+                    <div className="flex items-center gap-2">
+                      {onNavigateToDashboard && (
+                        <button
+                          onClick={onNavigateToDashboard}
+                          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-panel hover:bg-panel-light border border-panel-border text-text-primary hover:text-brand font-semibold text-xs transition-all shadow-sm group cursor-pointer"
+                        >
+                          <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-1 transition-transform" />
+                          <span>Dashboard</span>
+                        </button>
+                      )}
+                      {hasNext && (
+                        <button
+                          onClick={onNextQuestion}
+                          className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md shadow-emerald-900/30 transition-all active:scale-95 cursor-pointer"
+                        >
+                          <span>Next Question</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ) : (
-                  <div className="text-[11px] text-amber-300">
-                    💡 Compare your actual query results with the <strong>Expected Output</strong> table in the left panel to identify discrepancies in rows or columns.
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                    <div className="text-[11px] text-amber-800 dark:text-amber-300">
+                      💡 Compare your actual query results with the <strong>Expected Output</strong> table in the left panel to identify discrepancies in rows or columns.
+                    </div>
+                    {onNavigateToDashboard && (
+                      <button
+                        onClick={onNavigateToDashboard}
+                        className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-panel hover:bg-panel-light border border-panel-border text-text-secondary hover:text-brand font-medium text-xs transition-all cursor-pointer self-start sm:self-auto shrink-0 group"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-0.5 transition-transform" />
+                        <span>Return to Dashboard</span>
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -319,7 +342,7 @@ export default function ResultsPanel({
                             {cell === null ? (
                               <span className="text-text-muted italic">NULL</span>
                             ) : typeof cell === 'number' ? (
-                              <span className="text-emerald-300 font-mono">{cell}</span>
+                              <span className="text-emerald-700 dark:text-emerald-300 font-mono font-medium">{cell}</span>
                             ) : (
                               String(cell)
                             )}

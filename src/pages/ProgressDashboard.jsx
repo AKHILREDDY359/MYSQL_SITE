@@ -85,7 +85,7 @@ export default function ProgressDashboard({
   });
 
   return (
-    <div className="flex-1 overflow-y-auto bg-background p-6 space-y-6 max-w-7xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto bg-background px-6 lg:px-8 xl:px-10 py-6 space-y-6 w-full">
       {/* Hidden File Input for JSON Import */}
       <input
         type="file"
@@ -139,7 +139,7 @@ export default function ProgressDashboard({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-4 rounded-xl bg-panel border border-panel-border">
           <span className="text-xs text-text-secondary font-medium">Solved Questions</span>
-          <div className="text-2xl font-bold font-mono text-emerald-400 mt-1">
+          <div className="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">
             {metrics.solved} / {metrics.total}
           </div>
           <span className="text-[11px] text-text-muted">{metrics.completionPercentage}% Complete</span>
@@ -147,7 +147,7 @@ export default function ProgressDashboard({
 
         <div className="p-4 rounded-xl bg-panel border border-panel-border">
           <span className="text-xs text-text-secondary font-medium">In Progress (Attempted)</span>
-          <div className="text-2xl font-bold font-mono text-amber-400 mt-1">
+          <div className="text-2xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1">
             {metrics.attempted}
           </div>
           <span className="text-[11px] text-text-muted">Requires further attempts</span>
@@ -155,7 +155,7 @@ export default function ProgressDashboard({
 
         <div className="p-4 rounded-xl bg-panel border border-panel-border">
           <span className="text-xs text-text-secondary font-medium">Incorrect Submissions</span>
-          <div className="text-2xl font-bold font-mono text-red-400 mt-1">
+          <div className="text-2xl font-bold font-mono text-red-600 dark:text-red-400 mt-1">
             {metrics.incorrectQuestionsCount}
           </div>
           <span className="text-[11px] text-text-muted">Questions with logged errors</span>
@@ -245,25 +245,25 @@ export default function ProgressDashboard({
                       <td className="py-3 px-4">
                         <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${
                           q.difficulty === 'Easy'
-                            ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
+                            ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
                             : q.difficulty === 'Medium'
-                            ? 'text-amber-400 bg-amber-500/10 border-amber-500/30'
-                            : 'text-red-400 bg-red-500/10 border-red-500/30'
+                            ? 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30'
+                            : 'text-red-700 dark:text-red-400 bg-red-500/10 border-red-500/30'
                         }`}>
                           {q.difficulty}
                         </span>
                       </td>
                       <td className="py-3 px-4">
                         {status === QUESTION_STATUS.SOLVED ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
                             <CheckCircle2 className="w-3.5 h-3.5 text-success" /> Solved
                           </span>
                         ) : status === QUESTION_STATUS.ATTEMPTED ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-400">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 dark:text-amber-400">
                             <AlertCircle className="w-3.5 h-3.5 text-warning" /> Attempted
                           </span>
                         ) : status === QUESTION_STATUS.NEEDS_REVIEW ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-purple-400">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-purple-700 dark:text-purple-400">
                             <Bookmark className="w-3.5 h-3.5 text-purple-400" /> Review
                           </span>
                         ) : (

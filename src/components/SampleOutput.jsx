@@ -46,7 +46,7 @@ export default function SampleOutput({ expectedOutput, explanation, questionNumb
         <div className={`p-3 space-y-3 ${isFullView ? 'flex-1 overflow-auto' : ''}`}>
           {/* Explanation Callout */}
           {explanation && (
-            <div className="flex items-start gap-2 p-2.5 rounded-md bg-brand/10 border border-brand/20 text-xs text-blue-200">
+            <div className="flex items-start gap-2 p-2.5 rounded-md bg-brand/10 border border-brand/20 text-xs text-blue-900 dark:text-blue-200">
               <Info className="w-4 h-4 text-brand shrink-0 mt-0.5" />
               <div className="leading-relaxed">
                 <span className="font-semibold text-brand">Requirement logic: </span>
@@ -80,7 +80,7 @@ export default function SampleOutput({ expectedOutput, explanation, questionNumb
                           {cell === null ? (
                             <span className="text-text-muted italic">NULL</span>
                           ) : typeof cell === 'number' ? (
-                            <span className="text-emerald-300 font-mono">{cell}</span>
+                            <span className="text-emerald-700 dark:text-emerald-300 font-mono font-medium">{cell}</span>
                           ) : (
                             String(cell)
                           )}

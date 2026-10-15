@@ -154,7 +154,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
                             {cell === null ? (
                               <span className="text-text-muted italic">NULL</span>
                             ) : typeof cell === 'number' ? (
-                              <span className="text-emerald-300 font-mono">{cell}</span>
+                              <span className="text-emerald-700 dark:text-emerald-300 font-mono font-medium">{cell}</span>
                             ) : (
                               String(cell)
                             )}

@@ -17,13 +17,51 @@ import {
 import { STORAGE_KEYS, loadFromStorage, saveToStorage } from './utils/storage.js';
 import { initDatabase, resetDatabase } from './services/databaseEngine.js';
 
+// Helper to parse route from URL hash
+function parseHash(hash) {
+  const clean = (hash || '').replace(/^#\/?/, '').trim();
+  if (!clean || clean === 'dashboard') {
+    return { page: 'dashboard', questionId: null };
+  }
+  if (clean.startsWith('practice')) {
+    const match = clean.match(/^practice(?:[\/?]q?=?(\d+))?/i);
+    const qid = match && match[1] ? parseInt(match[1], 10) : null;
+    return { page: 'practice', questionId: qid };
+  }
+  if (clean.startsWith('revision')) {
+    return { page: 'revision', questionId: null };
+  }
+  if (clean.startsWith('progress')) {
+    return { page: 'progress', questionId: null };
+  }
+  if (clean.startsWith('settings')) {
+    return { page: 'settings', questionId: null };
+  }
+  return { page: 'dashboard', questionId: null };
+}
+
 export default function App() {
-  const [activePage, setActivePage] = useState('dashboard');
+  const [activePage, setActivePage] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      return parseHash(window.location.hash).page;
+    }
+    return 'dashboard';
+  });
+
   const [questions] = useState(QUESTIONS);
+
   const [currentQuestion, setCurrentQuestion] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const parsed = parseHash(window.location.hash);
+      if (parsed.questionId) {
+        const found = QUESTIONS.find(q => q.id === parsed.questionId);
+        if (found) return found;
+      }
+    }
     const lastId = getLastActiveQuestion(1);
     return QUESTIONS.find(q => q.id === lastId) || QUESTIONS[0];
   });
+
   const [progressMap, setProgressMap] = useState(() => getAllProgress());
   const [bookmarks, setBookmarks] = useState(() => getBookmarks());
   const [metrics, setMetrics] = useState(() => calculateDashboardMetrics(QUESTIONS));
@@ -34,7 +72,11 @@ export default function App() {
     return loadFromStorage(STORAGE_KEYS.THEME, 'dark');
   });
 
-  // Sync theme with HTML root class and local storage
+  const [editorTheme, setEditorTheme] = useState(() => {
+    return loadFromStorage(STORAGE_KEYS.EDITOR_THEME, 'auto');
+  });
+
+  // Sync site theme with HTML root class and local storage
   useEffect(() => {
     saveToStorage(STORAGE_KEYS.THEME, theme);
     if (theme === 'dark') {
@@ -46,9 +88,66 @@ export default function App() {
     }
   }, [theme]);
 
+  // Sync editor theme with local storage
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.EDITOR_THEME, editorTheme);
+  }, [editorTheme]);
+
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
+
+  // Determine effective editor theme: 'dark' or 'light'
+  const effectiveEditorTheme = editorTheme === 'auto' ? theme : editorTheme;
+
+  const toggleEditorTheme = () => {
+    setEditorTheme(prev => {
+      if (prev === 'auto') return theme === 'dark' ? 'light' : 'dark';
+      if (prev === 'dark') return 'light';
+      return 'auto';
+    });
+  };
+
+  // Navigate to a page and update hash (which automatically pushes to browser history)
+  const navigateTo = useCallback((page, questionId = null) => {
+    let targetHash = `#/${page}`;
+    if (page === 'practice') {
+      const qid = questionId || currentQuestion?.id || 1;
+      targetHash = `#/practice/${qid}`;
+    }
+    if (typeof window !== 'undefined' && window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    } else {
+      setActivePage(page);
+    }
+  }, [currentQuestion?.id]);
+
+  // Listen to browser Back and Forward button events (hashchange and popstate)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const route = parseHash(window.location.hash);
+      setActivePage(route.page);
+      if (route.page === 'practice' && route.questionId) {
+        const found = questions.find(q => q.id === route.questionId);
+        if (found) {
+          setCurrentQuestion(found);
+        }
+      }
+    };
+
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+
+    // If starting on root URL without hash, set initial history entry without reload
+    if (!window.location.hash) {
+      window.history.replaceState(null, '', '#/dashboard');
+    }
+
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, [questions]);
 
   // Refresh progress and metrics from storage
   const refreshProgress = useCallback(() => {
@@ -99,7 +198,7 @@ export default function App() {
 
   const handleNavigateToQuestion = (q) => {
     setCurrentQuestion(q);
-    setActivePage('practice');
+    navigateTo('practice', q.id);
   };
 
   const handleNavigateToTopicQuestions = (topicTitle) => {
@@ -109,7 +208,7 @@ export default function App() {
       topicTitle.toLowerCase().includes(q.topic.toLowerCase())
     ) || questions[0];
     setCurrentQuestion(matchingQ);
-    setActivePage('practice');
+    navigateTo('practice', matchingQ.id);
   };
 
   return (
@@ -117,7 +216,7 @@ export default function App() {
       <div className="flex flex-col h-screen w-screen overflow-hidden bg-background text-text-primary">
         <AppHeader
           activePage={activePage}
-          setActivePage={setActivePage}
+          setActivePage={navigateTo}
           solvedCount={metrics.solved || 0}
           totalCount={questions.length}
           onResetDb={handleResetDb}
@@ -125,6 +224,7 @@ export default function App() {
           onOpenDatabaseModal={() => setIsDatabaseModalOpen(true)}
           theme={theme}
           onToggleTheme={toggleTheme}
+          currentQuestionId={currentQuestion?.id || 1}
         />
 
         <MasterDatabaseModal
@@ -140,7 +240,7 @@ export default function App() {
               metrics={metrics}
               questions={questions}
               onNavigateToQuestion={handleNavigateToQuestion}
-              onNavigateToPractice={() => setActivePage('practice')}
+              onNavigateToPractice={() => navigateTo('practice')}
               progressMap={progressMap}
               bookmarks={bookmarks}
             />
@@ -159,6 +259,11 @@ export default function App() {
               onResetDb={handleResetDb}
               isDbResetting={isDbResetting}
               theme={theme}
+              editorTheme={editorTheme}
+              effectiveEditorTheme={effectiveEditorTheme}
+              onToggleEditorTheme={toggleEditorTheme}
+              setEditorTheme={setEditorTheme}
+              onNavigateToDashboard={() => navigateTo('dashboard')}
             />
           )}
 
@@ -187,6 +292,8 @@ export default function App() {
               theme={theme}
               onToggleTheme={toggleTheme}
               setTheme={setTheme}
+              editorTheme={editorTheme}
+              setEditorTheme={setEditorTheme}
             />
           )}
         </main>

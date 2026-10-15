@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { 
   CheckCircle2, AlertCircle, Clock, Bookmark, Search, Filter, 
   ChevronLeft, ChevronRight, HelpCircle, Eye, EyeOff, Lightbulb, 
-  Database, ListOrdered, BookMarked, Sparkles
+  Database, ListOrdered, BookMarked, Sparkles, ArrowLeft, ArrowRight
 } from 'lucide-react';
 import SampleOutput from './SampleOutput.jsx';
 import TablePreviewCard from './TablePreviewCard.jsx';
@@ -15,7 +15,8 @@ export default function QuestionSidebar({
   progressMap,
   bookmarks,
   onToggleBookmark,
-  onToggleReview
+  onToggleReview,
+  onNavigateToDashboard
 }) {
   const [activeTab, setActiveTab] = useState('question'); // 'question' | 'list'
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,11 +98,11 @@ export default function QuestionSidebar({
   const getDifficultyBadge = (difficulty) => {
     switch (difficulty) {
       case 'Easy':
-        return <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">Easy</span>;
+        return <span className="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">Easy</span>;
       case 'Medium':
-        return <span className="text-[10px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">Medium</span>;
+        return <span className="text-[10px] font-semibold text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">Medium</span>;
       case 'Hard':
-        return <span className="text-[10px] font-semibold text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-0.5 rounded">Hard</span>;
+        return <span className="text-[10px] font-semibold text-red-700 dark:text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-0.5 rounded">Hard</span>;
       default:
         return null;
     }
@@ -163,6 +164,41 @@ export default function QuestionSidebar({
       {/* Main Body */}
       {activeTab === 'question' ? (
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* Top Quick Navigation: Back to Dashboard & Prev/Next Arrows */}
+          <div className="flex items-center justify-between pb-3 border-b border-panel-border/70">
+            {onNavigateToDashboard ? (
+              <button
+                onClick={onNavigateToDashboard}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-panel-light hover:bg-panel-border border border-panel-border text-xs font-semibold text-text-primary hover:text-brand transition-all group cursor-pointer shadow-xs"
+                title="Return to Dashboard (Esc)"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-1 transition-transform" />
+                <span>Dashboard</span>
+              </button>
+            ) : <div />}
+
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => hasPrev && onSelectQuestion(questions[currentIndex - 1])}
+                disabled={!hasPrev}
+                title="Previous Question (Alt + ←)"
+                className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium bg-panel-light hover:bg-panel-border border border-panel-border text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:hover:bg-panel-light transition-all cursor-pointer"
+              >
+                <ArrowLeft className="w-3 h-3" />
+                <span>Prev</span>
+              </button>
+              <button
+                onClick={() => hasNext && onSelectQuestion(questions[currentIndex + 1])}
+                disabled={!hasNext}
+                title="Next Question (Alt + →)"
+                className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium bg-panel-light hover:bg-panel-border border border-panel-border text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:hover:bg-panel-light transition-all cursor-pointer"
+              >
+                <span>Next</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+
           {/* Question Title & Meta Header */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">

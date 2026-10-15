@@ -142,7 +142,7 @@ export default function TablePreviewCard({ tableName = 'Employees', defaultExpan
                               {val === null ? (
                                 <span className="text-text-muted italic">NULL</span>
                               ) : typeof val === 'number' ? (
-                                <span className="text-emerald-300 font-mono">{val}</span>
+                                <span className="text-emerald-700 dark:text-emerald-300 font-mono font-medium">{val}</span>
                               ) : (
                                 String(val)
                               )}

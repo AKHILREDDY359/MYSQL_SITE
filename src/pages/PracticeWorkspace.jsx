@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { format as formatSql } from 'sql-formatter';
 import { 
   Database, HelpCircle, Columns, Maximize2, Minimize2, 
-  RefreshCw, CheckCircle2 
+  RefreshCw, CheckCircle2, ArrowLeft 
 } from 'lucide-react';
 
 import QuestionSidebar from '../components/QuestionSidebar.jsx';
@@ -30,7 +30,12 @@ export default function PracticeWorkspace({
   onProgressUpdated,
   onResetDb,
   isDbResetting,
-  theme = 'dark'
+  theme = 'dark',
+  editorTheme = 'auto',
+  effectiveEditorTheme = 'dark',
+  onToggleEditorTheme,
+  setEditorTheme,
+  onNavigateToDashboard
 }) {
   const [leftTab, setLeftTab] = useState('question'); // 'question' | 'database'
   const [userSql, setUserSql] = useState('');
@@ -46,17 +51,48 @@ export default function PracticeWorkspace({
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < questions.length - 1;
 
+  const handleSelectQuestion = useCallback((q) => {
+    setCurrentQuestion(q);
+    const targetHash = `#/practice/${q.id}`;
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    }
+  }, [setCurrentQuestion]);
+
   const handlePrevQuestion = useCallback(() => {
     if (hasPrev) {
-      setCurrentQuestion(questions[currentIndex - 1]);
+      const prevQ = questions[currentIndex - 1];
+      handleSelectQuestion(prevQ);
     }
-  }, [hasPrev, currentIndex, questions, setCurrentQuestion]);
+  }, [hasPrev, currentIndex, questions, handleSelectQuestion]);
 
   const handleNextQuestion = useCallback(() => {
     if (hasNext) {
-      setCurrentQuestion(questions[currentIndex + 1]);
+      const nextQ = questions[currentIndex + 1];
+      handleSelectQuestion(nextQ);
     }
-  }, [hasNext, currentIndex, questions, setCurrentQuestion]);
+  }, [hasNext, currentIndex, questions, handleSelectQuestion]);
+
+  // Sync URL hash with current question ID
+  useEffect(() => {
+    if (currentQuestion?.id) {
+      const targetHash = `#/practice/${currentQuestion.id}`;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
+      }
+    }
+  }, [currentQuestion?.id]);
+
+  // Esc key shortcut to return to dashboard
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && onNavigateToDashboard) {
+        onNavigateToDashboard();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onNavigateToDashboard]);
 
   // Global Alt+Left / Alt+Right keyboard shortcuts for question navigation
   useEffect(() => {
@@ -232,7 +268,18 @@ export default function PracticeWorkspace({
       <div className="w-full lg:w-[40%] xl:w-[38%] h-1/2 lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-panel-border overflow-hidden">
         {/* Left Sub-Header Switcher */}
         <div className="h-10 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between select-none shrink-0">
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1.5">
+            {onNavigateToDashboard && (
+              <button
+                onClick={onNavigateToDashboard}
+                title="Return to Dashboard (Esc)"
+                className="flex items-center gap-1.5 py-1 px-2.5 mr-1 rounded-md bg-panel hover:bg-panel-border border border-panel-border text-xs font-semibold text-text-primary hover:text-brand transition-all shadow-xs group cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-brand group-hover:-translate-x-1 transition-transform" />
+                <span>Dashboard</span>
+              </button>
+            )}
+
             <button
               onClick={() => setLeftTab('question')}
               className={`flex items-center gap-1.5 py-1.5 px-3 rounded text-xs font-semibold transition-all ${
@@ -268,11 +315,12 @@ export default function PracticeWorkspace({
             <QuestionSidebar
               questions={questions}
               currentQuestion={currentQuestion}
-              onSelectQuestion={setCurrentQuestion}
+              onSelectQuestion={handleSelectQuestion}
               progressMap={progressMap}
               bookmarks={bookmarks}
               onToggleBookmark={onToggleBookmark}
               onToggleReview={onToggleReview}
+              onNavigateToDashboard={onNavigateToDashboard}
             />
           ) : (
             <DatabaseExplorer
@@ -302,6 +350,10 @@ export default function PracticeWorkspace({
           totalQuestions={questions.length}
           isRunning={isRunning}
           isSubmitting={isSubmitting}
+          onNavigateToDashboard={onNavigateToDashboard}
+          editorTheme={editorTheme}
+          effectiveEditorTheme={effectiveEditorTheme}
+          onToggleEditorTheme={onToggleEditorTheme}
         />
 
         {/* SQL Editor Area (Top Half of Right Panel) */}
@@ -311,7 +363,7 @@ export default function PracticeWorkspace({
             onChange={handleSqlChange}
             onRunQuery={handleRunQuery}
             fontSize={editorFontSize}
-            theme={theme}
+            theme={effectiveEditorTheme}
           />
         </div>
 
@@ -324,6 +376,7 @@ export default function PracticeWorkspace({
             setActiveTab={setActiveResultTab}
             onNextQuestion={handleNextQuestion}
             hasNext={hasNext}
+            onNavigateToDashboard={onNavigateToDashboard}
           />
         </div>
       </div>

@@ -60,28 +60,28 @@ export default function Dashboard({
   const getStatusColor = (qid) => {
     const p = progressMap[qid];
     if (!p || p.status === QUESTION_STATUS.NOT_STARTED) {
-      return 'bg-panel-light hover:bg-panel-border text-text-muted border-panel-border';
+      return 'bg-panel-light hover:bg-panel-lighter text-text-muted border-panel-border';
     }
     if (p.status === QUESTION_STATUS.SOLVED) {
-      return 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300 hover:bg-emerald-900/60';
+      return 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-400 dark:border-emerald-500/50 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900/60 shadow-sm';
     }
     if (p.status === QUESTION_STATUS.NEEDS_REVIEW) {
-      return 'bg-purple-950/60 border-purple-500/50 text-purple-300 hover:bg-purple-900/60';
+      return 'bg-purple-100 dark:bg-purple-950/60 border-purple-400 dark:border-purple-500/50 text-purple-800 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/60 shadow-sm';
     }
-    return 'bg-amber-950/60 border-amber-500/50 text-amber-300 hover:bg-amber-900/60';
+    return 'bg-amber-100 dark:bg-amber-950/60 border-amber-400 dark:border-amber-500/50 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900/60 shadow-sm';
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-background p-6 space-y-8 max-w-7xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto bg-background px-6 lg:px-8 xl:px-10 py-6 space-y-6 w-full">
       {/* Hero Welcome Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-panel via-panel-light to-panel border border-panel-border p-6 sm:p-8 shadow-xl">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl">
+          <div className="space-y-2 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/10 border border-brand/30 text-xs font-semibold text-brand">
               <Compass className="w-3.5 h-3.5" />
               <span>Placement Preparation Hub</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight">
               Master SQL Technical Interviews with SQL Sprint
             </h1>
             <p className="text-sm text-text-secondary leading-relaxed">
@@ -102,7 +102,7 @@ export default function Dashboard({
             {incorrectQuestionsCount > 0 && (
               <button
                 onClick={handleReviewIncorrect}
-                className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-panel-light hover:bg-panel-lighter border border-panel-border text-amber-300 hover:text-amber-200 text-xs font-medium transition-all"
+                className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-panel-light hover:bg-panel-lighter border border-panel-border text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 text-xs font-semibold transition-all shadow-sm"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Retry Incorrect ({incorrectQuestionsCount})</span>
@@ -251,7 +251,7 @@ export default function Dashboard({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4">
           {Object.entries(topicStats).map(([topic, stats]) => (
             <TopicProgress
               key={topic}

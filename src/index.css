@@ -3,48 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --bg-app: #F8FAFC;
-  --bg-panel: #FFFFFF;
-  --bg-panel-light: #F1F5F9;
-  --bg-panel-lighter: #E2E8F0;
-  --bg-panel-hover: #F8FAFC;
-  --border-color: #E2E8F0;
-  --border-subtle: #CBD5E1;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
-  --editor-bg: #FFFFFF;
-  --table-header-bg: #F1F5F9;
-  --table-border: #E2E8F0;
-  --table-row-hover: #F8FAFC;
+  --bg-app: 248 250 252;
+  --bg-panel: 255 255 255;
+  --bg-panel-light: 241 245 249;
+  --bg-panel-lighter: 226 232 240;
+  --bg-panel-hover: 241 245 249;
+  --border-color: 226 232 240;
+  --border-subtle: 203 213 225;
+  --text-primary: 15 23 42;
+  --text-secondary: 71 85 105;
+  --text-muted: 100 116 139;
+  --table-header-bg: 241 245 249;
+  --table-row-hover: 248 250 252;
+  color-scheme: light;
 }
 
-.dark {
-  --bg-app: #0B1020;
-  --bg-panel: #121A2B;
-  --bg-panel-light: #182338;
-  --bg-panel-lighter: #1E2C46;
-  --bg-panel-hover: #1B263B;
-  --border-color: #263449;
-  --border-subtle: #1E2C46;
-  --text-primary: #E5E7EB;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --editor-bg: #0E1526;
-  --table-header-bg: #182338;
-  --table-border: #263449;
-  --table-row-hover: #1A263D;
+html.dark {
+  --bg-app: 11 16 32;
+  --bg-panel: 18 26 43;
+  --bg-panel-light: 24 35 56;
+  --bg-panel-lighter: 30 44 70;
+  --bg-panel-hover: 27 38 59;
+  --border-color: 38 52 73;
+  --border-subtle: 30 44 70;
+  --text-primary: 229 231 235;
+  --text-secondary: 148 163 184;
+  --text-muted: 100 116 139;
+  --table-header-bg: 24 35 56;
+  --table-row-hover: 26 38 61;
+  color-scheme: dark;
 }
 
 @layer base {
   * {
-    border-color: var(--border-color);
+    border-color: rgb(var(--border-color));
   }
   
-  body {
-    background-color: var(--bg-app);
-    color: var(--text-primary);
-    transition: background-color 0.2s ease, color 0.2s ease;
+  html, body {
+    background-color: rgb(var(--bg-app));
+    color: rgb(var(--text-primary));
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 }
 
@@ -55,24 +53,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-app);
+  background: rgb(var(--bg-app));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: rgb(var(--border-color));
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: rgb(var(--text-muted));
 }
 
 /* Data Table Grid Styling */
 .sql-table-container {
   overflow-x: auto;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background-color: var(--bg-panel);
+  border: 1px solid rgb(var(--border-color));
+  border-radius: 8px;
+  background-color: rgb(var(--bg-panel));
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .sql-table {
@@ -83,13 +82,13 @@
 }
 
 .sql-table th {
-  background-color: var(--table-header-bg);
-  color: var(--text-secondary);
+  background-color: rgb(var(--table-header-bg));
+  color: rgb(var(--text-secondary));
   font-weight: 600;
   text-align: left;
   padding: 8px 14px;
-  border-bottom: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid rgb(var(--border-color));
+  border-right: 1px solid rgb(var(--border-color));
   white-space: nowrap;
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -98,9 +97,9 @@
 
 .sql-table td {
   padding: 7px 14px;
-  border-bottom: 1px solid var(--border-subtle);
-  border-right: 1px solid var(--border-subtle);
-  color: var(--text-primary);
+  border-bottom: 1px solid rgb(var(--border-color));
+  border-right: 1px solid rgb(var(--border-color));
+  color: rgb(var(--text-primary));
   white-space: nowrap;
 }
 
@@ -109,5 +108,5 @@
 }
 
 .sql-table tr:hover td {
-  background-color: var(--table-row-hover);
+  background-color: rgb(var(--table-row-hover));
 }
