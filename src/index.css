@@ -2,14 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-app: #F8FAFC;
+  --bg-panel: #FFFFFF;
+  --bg-panel-light: #F1F5F9;
+  --bg-panel-lighter: #E2E8F0;
+  --bg-panel-hover: #F8FAFC;
+  --border-color: #E2E8F0;
+  --border-subtle: #CBD5E1;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --editor-bg: #FFFFFF;
+  --table-header-bg: #F1F5F9;
+  --table-border: #E2E8F0;
+  --table-row-hover: #F8FAFC;
+}
+
+.dark {
+  --bg-app: #0B1020;
+  --bg-panel: #121A2B;
+  --bg-panel-light: #182338;
+  --bg-panel-lighter: #1E2C46;
+  --bg-panel-hover: #1B263B;
+  --border-color: #263449;
+  --border-subtle: #1E2C46;
+  --text-primary: #E5E7EB;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --editor-bg: #0E1526;
+  --table-header-bg: #182338;
+  --table-border: #263449;
+  --table-row-hover: #1A263D;
+}
+
 @layer base {
   * {
-    border-color: #263449;
+    border-color: var(--border-color);
   }
   
   body {
-    background-color: #0B1020;
-    color: #E5E7EB;
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
@@ -20,24 +55,24 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B1020;
+  background: var(--bg-app);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #263449;
+  background: var(--border-color);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #394B66;
+  background: var(--text-muted);
 }
 
 /* Data Table Grid Styling */
 .sql-table-container {
   overflow-x: auto;
-  border: 1px solid #263449;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: #121A2B;
+  background-color: var(--bg-panel);
 }
 
 .sql-table {
@@ -48,13 +83,13 @@
 }
 
 .sql-table th {
-  background-color: #182338;
-  color: #94A3B8;
+  background-color: var(--table-header-bg);
+  color: var(--text-secondary);
   font-weight: 600;
   text-align: left;
   padding: 8px 14px;
-  border-bottom: 1px solid #263449;
-  border-right: 1px solid #1E2C46;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-subtle);
   white-space: nowrap;
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -63,9 +98,9 @@
 
 .sql-table td {
   padding: 7px 14px;
-  border-bottom: 1px solid #1E2C46;
-  border-right: 1px solid #1E2C46;
-  color: #E2E8F0;
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
@@ -74,5 +109,5 @@
 }
 
 .sql-table tr:hover td {
-  background-color: #1A263D;
+  background-color: var(--table-row-hover);
 }

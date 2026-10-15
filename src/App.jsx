@@ -14,6 +14,7 @@ import {
   toggleQuestionReview, calculateDashboardMetrics, 
   getLastActiveQuestion 
 } from './services/progressService.js';
+import { STORAGE_KEYS, loadFromStorage, saveToStorage } from './utils/storage.js';
 import { initDatabase, resetDatabase } from './services/databaseEngine.js';
 
 export default function App() {
@@ -29,6 +30,25 @@ export default function App() {
   const [isDbResetting, setIsDbResetting] = useState(false);
   const [isEngineReady, setIsEngineReady] = useState(false);
   const [isDatabaseModalOpen, setIsDatabaseModalOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return loadFromStorage(STORAGE_KEYS.THEME, 'dark');
+  });
+
+  // Sync theme with HTML root class and local storage
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.THEME, theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   // Refresh progress and metrics from storage
   const refreshProgress = useCallback(() => {
@@ -103,6 +123,8 @@ export default function App() {
           onResetDb={handleResetDb}
           isDbResetting={isDbResetting}
           onOpenDatabaseModal={() => setIsDatabaseModalOpen(true)}
+          theme={theme}
+          onToggleTheme={toggleTheme}
         />
 
         <MasterDatabaseModal
@@ -136,6 +158,7 @@ export default function App() {
               onProgressUpdated={refreshProgress}
               onResetDb={handleResetDb}
               isDbResetting={isDbResetting}
+              theme={theme}
             />
           )}
 
@@ -161,6 +184,9 @@ export default function App() {
               onResetDb={handleResetDb}
               isDbResetting={isDbResetting}
               onRefreshData={refreshProgress}
+              theme={theme}
+              onToggleTheme={toggleTheme}
+              setTheme={setTheme}
             />
           )}
         </main>

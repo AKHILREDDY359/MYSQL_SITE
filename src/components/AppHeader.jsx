@@ -1,7 +1,17 @@
 import React from 'react';
-import { Database, Terminal, BookOpen, BarChart3, Settings, LayoutDashboard, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Database, Terminal, BookOpen, BarChart3, Settings, LayoutDashboard, RefreshCw, CheckCircle2, Sun, Moon } from 'lucide-react';
 
-export default function AppHeader({ activePage, setActivePage, solvedCount = 0, totalCount = 50, onResetDb, isDbResetting, onOpenDatabaseModal }) {
+export default function AppHeader({ 
+  activePage, 
+  setActivePage, 
+  solvedCount = 0, 
+  totalCount = 50, 
+  onResetDb, 
+  isDbResetting, 
+  onOpenDatabaseModal,
+  theme = 'dark',
+  onToggleTheme
+}) {
   const percentage = Math.round((solvedCount / totalCount) * 100) || 0;
 
   const navItems = [
@@ -87,6 +97,19 @@ export default function AppHeader({ activePage, setActivePage, solvedCount = 0, 
           </span>
           <span className="text-[11px] text-brand font-medium">({percentage}%)</span>
         </div>
+
+        {/* Theme Toggle Button */}
+        <button
+          onClick={onToggleTheme}
+          title={theme === 'dark' ? "Switch to Light Theme" : "Switch to Dark Theme"}
+          className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-panel-light border border-transparent hover:border-panel-border transition-colors cursor-pointer"
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
+          ) : (
+            <Moon className="w-4 h-4 text-blue-600 hover:-rotate-12 transition-transform" />
+          )}
+        </button>
 
         {/* Quick Reset DB button */}
         <button

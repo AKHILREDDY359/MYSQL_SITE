@@ -8,13 +8,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0B1020',
+        background: 'var(--bg-app)',
         panel: {
-          DEFAULT: '#121A2B',
-          light: '#182338',
-          lighter: '#1E2C46',
-          border: '#263449',
-          hover: '#1B263B'
+          DEFAULT: 'var(--bg-panel)',
+          light: 'var(--bg-panel-light)',
+          lighter: 'var(--bg-panel-lighter)',
+          border: 'var(--border-color)',
+          hover: 'var(--bg-panel-hover)'
         },
         brand: {
           DEFAULT: '#4F8CFF',
@@ -38,9 +38,9 @@ export default {
           glow: 'rgba(245, 158, 11, 0.15)'
         },
         text: {
-          primary: '#E5E7EB',
-          secondary: '#94A3B8',
-          muted: '#64748B'
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)'
         }
       },
       fontFamily: {

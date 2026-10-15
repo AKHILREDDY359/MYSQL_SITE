@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 
-export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }) {
+export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, theme = 'dark' }) {
   const editorRef = useRef(null);
+  const monacoRef = useRef(null);
   const [useFallback, setUseFallback] = useState(false);
 
   // If Monaco CDN is blocked or offline, fallback smoothly after 6s timeout
@@ -15,11 +16,19 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }
     return () => clearTimeout(timer);
   }, []);
 
+  // Update Monaco theme whenever the active theme prop changes
+  useEffect(() => {
+    if (monacoRef.current) {
+      monacoRef.current.editor.setTheme(theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight');
+    }
+  }, [theme]);
+
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
+    monacoRef.current = monaco;
 
     try {
-      // Define custom dark theme matching SQL Sprint palette
+      // 1. Dark Theme
       monaco.editor.defineTheme('sqlSprintDark', {
         base: 'vs-dark',
         inherit: true,
@@ -43,7 +52,31 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }
         }
       });
 
-      monaco.editor.setTheme('sqlSprintDark');
+      // 2. Light Theme
+      monaco.editor.defineTheme('sqlSprintLight', {
+        base: 'vs',
+        inherit: true,
+        rules: [
+          { token: 'keyword', foreground: '2563EB', fontStyle: 'bold' },
+          { token: 'string', foreground: '16A34A' },
+          { token: 'number', foreground: 'D97706' },
+          { token: 'comment', foreground: '94A3B8', fontStyle: 'italic' },
+          { token: 'operator.sql', foreground: '0284C7' },
+          { token: 'identifier', foreground: '0F172A' }
+        ],
+        colors: {
+          'editor.background': '#FFFFFF',
+          'editor.foreground': '#0F172A',
+          'editorCursor.foreground': '#2563EB',
+          'editor.lineHighlightBackground': '#F1F5F9',
+          'editorLineNumber.foreground': '#94A3B8',
+          'editorLineNumber.activeForeground': '#475569',
+          'editor.selectionBackground': '#BFDBFE',
+          'editor.inactiveSelectionBackground': '#E2E8F0'
+        }
+      });
+
+      monaco.editor.setTheme(theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight');
 
       // Register Cmd+Enter / Ctrl+Enter keybinding
       editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
@@ -65,7 +98,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }
 
   if (useFallback) {
     return (
-      <div className="w-full h-full relative overflow-hidden bg-[#0E1526] p-3 flex flex-col">
+      <div className="w-full h-full relative overflow-hidden bg-panel p-3 flex flex-col">
         <div className="flex items-center justify-between text-[11px] text-text-muted mb-1 select-none">
           <span>SQL Editor (Standard Mode • Cmd+Enter to Run)</span>
           <button 
@@ -89,7 +122,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }
   }
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-[#0E1526]">
+    <div className={`w-full h-full relative overflow-hidden ${theme === 'dark' ? 'bg-[#0E1526]' : 'bg-white'}`}>
       <Editor
         height="100%"
         defaultLanguage="sql"
@@ -98,7 +131,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14 }
         onChange={(val) => onChange(val || '')}
         onMount={handleEditorDidMount}
         loading={
-          <div className="flex items-center justify-center h-full text-xs text-text-secondary gap-2 bg-[#0E1526]">
+          <div className="flex items-center justify-center h-full text-xs text-text-secondary gap-2 bg-panel">
             <span className="w-3 h-3 rounded-full border-2 border-brand border-t-transparent animate-spin"></span>
             <span>Initializing SQL Editor...</span>
           </div>

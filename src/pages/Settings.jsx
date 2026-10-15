@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { 
   Settings as SettingsIcon, Database, RefreshCw, 
   ShieldCheck, AlertTriangle, HardDrive, Cpu, ExternalLink, 
-  Check, Server 
+  Check, Server, Sun, Moon 
 } from 'lucide-react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import { resetProgress } from '../services/progressService.js';
 import { useToast } from '../components/Toast.jsx';
 
-export default function Settings({ onResetDb, isDbResetting, onRefreshData }) {
+export default function Settings({ onResetDb, isDbResetting, onRefreshData, theme = 'dark', onToggleTheme, setTheme }) {
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const { addToast } = useToast();
 
@@ -38,6 +38,67 @@ export default function Settings({ onResetDb, isDbResetting, onRefreshData }) {
         <p className="text-xs text-text-secondary mt-1">
           Database engine information, SQLite/MySQL compatibility documentation, and local storage controls.
         </p>
+      </div>
+
+      {/* Theme & Appearance Card */}
+      <div className="p-6 rounded-2xl bg-panel border border-panel-border space-y-4">
+        <div className="flex items-center gap-2">
+          <Sun className="w-5 h-5 text-amber-400" />
+          <h3 className="text-base font-bold text-text-primary">
+            Appearance & Workspace Theme
+          </h3>
+        </div>
+        <p className="text-xs text-text-secondary">
+          Choose your preferred developer theme. Your setting is saved locally and applied across the entire workspace, code editor, and data viewers.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          {/* Dark Theme Option */}
+          <div
+            onClick={() => setTheme('dark')}
+            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
+              theme === 'dark'
+                ? 'bg-brand/10 border-brand ring-1 ring-brand'
+                : 'bg-panel-light hover:bg-panel-hover border-panel-border'
+            }`}
+          >
+            <div className="p-2.5 rounded-lg bg-[#0E1526] text-amber-400 border border-panel-border shrink-0">
+              <Moon className="w-5 h-5" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-text-primary">Dark Developer Theme</span>
+                {theme === 'dark' && <Check className="w-4 h-4 text-brand" />}
+              </div>
+              <p className="text-[11px] text-text-secondary mt-1">
+                Deep navy background (#0B1020) inspired by VS Code and LeetCode for low eye-strain during practice.
+              </p>
+            </div>
+          </div>
+
+          {/* Light Theme Option */}
+          <div
+            onClick={() => setTheme('light')}
+            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
+              theme === 'light'
+                ? 'bg-brand/10 border-brand ring-1 ring-brand'
+                : 'bg-panel-light hover:bg-panel-hover border-panel-border'
+            }`}
+          >
+            <div className="p-2.5 rounded-lg bg-white text-blue-600 border border-gray-200 shrink-0 shadow-sm">
+              <Sun className="w-5 h-5" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-text-primary">Clean Light Theme</span>
+                {theme === 'light' && <Check className="w-4 h-4 text-brand" />}
+              </div>
+              <p className="text-[11px] text-text-secondary mt-1">
+                Crisp daytime interface with high-contrast text, clean borders, and white editor background.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Database Engine Information Card */}

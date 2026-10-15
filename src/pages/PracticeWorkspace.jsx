@@ -29,7 +29,8 @@ export default function PracticeWorkspace({
   onToggleReview,
   onProgressUpdated,
   onResetDb,
-  isDbResetting
+  isDbResetting,
+  theme = 'dark'
 }) {
   const [leftTab, setLeftTab] = useState('question'); // 'question' | 'database'
   const [userSql, setUserSql] = useState('');
@@ -273,6 +274,7 @@ export default function PracticeWorkspace({
             onChange={handleSqlChange}
             onRunQuery={handleRunQuery}
             fontSize={editorFontSize}
+            theme={theme}
           />
         </div>
 
