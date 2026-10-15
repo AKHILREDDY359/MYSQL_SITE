@@ -3,34 +3,42 @@
 @tailwind utilities;
 
 :root, html.light, .light {
-  --bg-app: 248 250 252;
-  --bg-panel: 255 255 255;
-  --bg-panel-light: 241 245 249;
-  --bg-panel-lighter: 226 232 240;
+  --bg-app: 247 249 252;          /* Main background #F7F9FC */
+  --bg-panel: 255 255 255;        /* Cards & Nav #FFFFFF */
+  --bg-panel-light: 241 245 249;  /* Secondary panels #F1F5F9 */
+  --bg-panel-lighter: 226 232 240;/* Subtle slate #E2E8F0 */
   --bg-panel-hover: 241 245 249;
-  --border-color: 226 232 240;
-  --border-subtle: 203 213 225;
-  --text-primary: 15 23 42;
-  --text-secondary: 71 85 105;
-  --text-muted: 100 116 139;
-  --table-header-bg: 241 245 249;
-  --table-row-hover: 248 250 252;
+  --border-color: 226 232 240;    /* Borders #E2E8F0 */
+  --border-subtle: 241 245 249;
+  --text-primary: 32 38 48;       /* Main text #202630 */
+  --text-secondary: 100 116 139;  /* Secondary text #64748B */
+  --text-muted: 148 163 184;      /* #94A3B8 */
+  --brand-primary: 32 197 139;    /* Vivid Green #20C58B */
+  --brand-hover: 22 166 117;      /* Green hover #16A675 */
+  --brand-surface: 232 248 241;   /* Soft Green #E8F8F1 */
+  --code-accent: 53 99 169;       /* Technical Accent #3563A9 */
+  --table-header-bg: 241 245 249; /* #F1F5F9 */
+  --table-row-hover: 247 249 252; /* #F7F9FC */
   color-scheme: light;
 }
 
 html.dark, .dark {
-  --bg-app: 11 16 32;
-  --bg-panel: 18 26 43;
-  --bg-panel-light: 24 35 56;
-  --bg-panel-lighter: 30 44 70;
-  --bg-panel-hover: 27 38 59;
-  --border-color: 38 52 73;
-  --border-subtle: 30 44 70;
-  --text-primary: 255 255 255;
-  --text-secondary: 203 213 225;
-  --text-muted: 156 163 175;
-  --table-header-bg: 24 35 56;
-  --table-row-hover: 26 38 61;
+  --bg-app: 15 23 42;             /* Slate-900 #0F172A */
+  --bg-panel: 30 41 59;           /* Slate-800 #1E293B */
+  --bg-panel-light: 41 55 77;     /* Slate-750 #29374D */
+  --bg-panel-lighter: 51 65 85;   /* Slate-700 #334155 */
+  --bg-panel-hover: 45 59 80;
+  --border-color: 51 65 85;       /* #334155 */
+  --border-subtle: 41 55 77;
+  --text-primary: 248 250 252;    /* #F8FAFC */
+  --text-secondary: 203 213 225;  /* #CBD5E1 */
+  --text-muted: 148 163 184;      /* #94A3B8 */
+  --brand-primary: 32 197 139;    /* #20C58B */
+  --brand-hover: 22 166 117;      /* #16A675 */
+  --brand-surface: 16 77 55;
+  --code-accent: 96 165 250;
+  --table-header-bg: 41 55 77;
+  --table-row-hover: 36 49 69;
   color-scheme: dark;
 }
 
@@ -104,6 +112,28 @@ html.dark, .dark {
 
 .border-panel-border {
   border-color: rgb(var(--border-color));
+}
+
+/* Reference-inspired technical grid background */
+.bg-tech-grid {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
+}
+
+.dark .bg-tech-grid {
+  background-image: 
+    linear-gradient(to right, rgba(51, 65, 85, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(51, 65, 85, 0.4) 1px, transparent 1px);
+}
+
+.bg-brand-surface {
+  background-color: #E8F8F1;
+}
+
+.dark .bg-brand-surface {
+  background-color: rgba(32, 197, 139, 0.12);
 }
 
 /* Custom Scrollbars */

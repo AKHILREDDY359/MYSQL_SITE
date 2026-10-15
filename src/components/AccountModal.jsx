@@ -87,7 +87,7 @@ export default function AccountModal({ isOpen, onClose, onProgressUpdated }) {
       if (authMode === 'signup') {
         const res = await signUpWithEmail(email, password);
         setAuthUser(res.user);
-        addToast('Sign up successful! Welcome to SQL Sprint.', 'success');
+        addToast('Sign up successful! Welcome to SQLForge.', 'success');
       } else {
         const res = await signInWithEmail(email, password);
         setAuthUser(res.user);

@@ -32,10 +32,28 @@ export default function QuestionSidebar({
     setShowSolution(false);
   }, [currentQuestion?.id]);
 
-  // Extract unique topics
+  // Extract unique topics in canonical curriculum order
+  const CANONICAL_TOPICS = [
+    "SQL Fundamentals",
+    "WHERE & Operators",
+    "Sorting & Limiting",
+    "Aggregate Functions",
+    "GROUP BY",
+    "HAVING",
+    "SQL JOINs",
+    "Subqueries",
+    "CASE Expressions",
+    "Interview Ready Questions"
+  ];
+
   const topics = useMemo(() => {
     const set = new Set(questions.map((q) => q.topic));
-    return ['All', ...Array.from(set)];
+    const sorted = Array.from(set).sort((a, b) => {
+      const idxA = CANONICAL_TOPICS.indexOf(a);
+      const idxB = CANONICAL_TOPICS.indexOf(b);
+      return (idxA !== -1 ? idxA : 999) - (idxB !== -1 ? idxB : 999);
+    });
+    return ['All', ...sorted];
   }, [questions]);
 
   // Filtered questions list
@@ -470,6 +488,11 @@ export default function QuestionSidebar({
                       <p className="text-xs font-medium text-text-primary line-clamp-1">
                         {q.title}
                       </p>
+                      {q.subtopic && (
+                        <p className="text-[10px] text-text-muted truncate mt-0.5">
+                          {q.subtopic}
+                        </p>
+                      )}
                     </div>
                   </div>
                 );

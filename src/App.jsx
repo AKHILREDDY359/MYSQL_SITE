@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AppHeader from './components/AppHeader.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import InterviewQuestions from './pages/InterviewQuestions.jsx';
 import PracticeWorkspace from './pages/PracticeWorkspace.jsx';
 import Revision from './pages/Revision.jsx';
 import ProgressDashboard from './pages/ProgressDashboard.jsx';
@@ -25,6 +26,9 @@ function parseHash(hash) {
   const clean = (hash || '').replace(/^#\/?/, '').trim();
   if (!clean || clean === 'dashboard') {
     return { page: 'dashboard', questionId: null };
+  }
+  if (clean.startsWith('interview')) {
+    return { page: 'interview', questionId: null };
   }
   if (clean.startsWith('practice')) {
     const match = clean.match(/^practice(?:[\/?]q?=?(\d+))?/i);
@@ -336,6 +340,17 @@ export default function App() {
               onNavigateToPractice={() => navigateTo('practice')}
               progressMap={progressMap}
               bookmarks={bookmarks}
+            />
+          )}
+
+          {activePage === 'interview' && (
+            <InterviewQuestions
+              questions={questions}
+              progressMap={progressMap}
+              bookmarks={bookmarks}
+              onToggleBookmark={handleToggleBookmark}
+              onNavigateToQuestion={handleNavigateToQuestion}
+              onNavigateToPractice={() => navigateTo('practice')}
             />
           )}
 

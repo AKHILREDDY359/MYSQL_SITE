@@ -293,6 +293,97 @@ LIMIT 3;`
     ]
   },
   {
+    id: 'case-expressions',
+    title: 'CASE Expressions & Conditional Logic',
+    badge: 'Major Interview Topic',
+    summary: 'SQL’s inline IF-THEN-ELSE conditional expression used for data transformation, categorization, and pivot aggregations.',
+    syntax: `CASE 
+  WHEN condition_1 THEN result_1
+  WHEN condition_2 THEN result_2
+  ELSE fallback_result
+END`,
+    explanation: `The CASE expression is ANSI SQL's universal conditional branching construct. It evaluates conditions sequentially from top to bottom and returns the result corresponding to the first truthy condition. If no condition is met, it returns the ELSE value (or NULL if ELSE is omitted).
+Key Interview Applications:
+1. Categorization & Tiers: Transforming continuous numeric metrics (like salary, age, or experience) into qualitative business bands (e.g., 'Low', 'Medium', 'High').
+2. Conditional Aggregation: Embedding CASE inside SUM() or COUNT() to count or sum distinct subsets in a single query pass without multiple subqueries or joins.
+3. Safe Division: Preventing division by zero: \`value / NULLIF(divisor, 0)\` or \`CASE WHEN divisor = 0 THEN 0 ELSE value / divisor END\`.`,
+    examples: [
+      {
+        description: 'Categorizing records into business tiers:',
+        sql: `SELECT emp_name, salary,
+  CASE 
+    WHEN salary < 35000 THEN 'Entry Level'
+    WHEN salary <= 65000 THEN 'Mid Level'
+    ELSE 'Senior Executive'
+  END AS compensation_tier
+FROM Employees;`
+      },
+      {
+        description: 'Conditional aggregation (pivoting subsets in one query):',
+        sql: `SELECT department,
+  SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) AS high_earners_count,
+  SUM(CASE WHEN salary <= 50000 THEN 1 ELSE 0 END) AS standard_earners_count
+FROM Employees
+GROUP BY department;`
+      }
+    ],
+    interviewMistakes: [
+      "Forgetting the terminating END keyword, causing a syntax error.",
+      "Expecting CASE to execute subsequent WHEN blocks after a match; CASE short-circuits on the first true condition.",
+      "Returning inconsistent datatypes across different WHEN clauses (e.g. returning an INT in one branch and a VARCHAR in another)."
+    ]
+  },
+  {
+    id: 'nth-highest-salary',
+    title: 'Finding Nth Highest Salary (Interview Archetype)',
+    badge: 'Classic Interview Problem',
+    summary: 'The most commonly asked SQL interview question, testable both with LIMIT/OFFSET and pure subqueries.',
+    syntax: `-- Method 1: Using LIMIT & OFFSET (MySQL / SQLite / PostgreSQL)
+SELECT DISTINCT salary 
+FROM Employees 
+ORDER BY salary DESC 
+LIMIT 1 OFFSET (N - 1);
+
+-- Method 2: Without LIMIT (Pure ANSI Subquery)
+SELECT MAX(salary) AS second_highest 
+FROM Employees 
+WHERE salary < (SELECT MAX(salary) FROM Employees);
+
+-- Method 3: Using DENSE_RANK() Window Function
+WITH RankedSalaries AS (
+  SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rnk 
+  FROM Employees
+)
+SELECT salary FROM RankedSalaries WHERE rnk = N;`,
+    explanation: `Interviewers ask this question to evaluate if candidates understand:
+1. Distinct vs duplicate values (using DISTINCT or DENSE_RANK so salary ties don't skip ranks).
+2. Dialect portable solutions (using subqueries when LIMIT or window functions are disallowed).
+3. Window functions (\`DENSE_RANK()\` ensures rank 2 represents the second highest distinct salary value, whereas \`RANK()\` can produce gaps).`,
+    examples: [
+      {
+        description: 'Finding the 2nd highest distinct salary without LIMIT:',
+        sql: `SELECT MAX(salary) AS second_highest_salary
+FROM Employees
+WHERE salary < (SELECT MAX(salary) FROM Employees);`
+      },
+      {
+        description: 'Finding the 3rd highest distinct salary without LIMIT:',
+        sql: `SELECT MAX(salary) AS third_highest_salary
+FROM Employees
+WHERE salary < (
+  SELECT MAX(salary)
+  FROM Employees
+  WHERE salary < (SELECT MAX(salary) FROM Employees)
+);`
+      }
+    ],
+    interviewMistakes: [
+      "Using RANK() instead of DENSE_RANK(): if two employees tie for 1st place, RANK() gives them both 1 and assigns the next person 3, skipping rank 2 completely!",
+      "Not handling duplicate salaries with DISTINCT when using LIMIT OFFSET.",
+      "Failing to handle empty tables or tables with fewer than N distinct salaries (the query should return NULL, which MAX() naturally does)."
+    ]
+  },
+  {
     id: 'sqlite-vs-mysql',
     title: 'MySQL vs SQLite Compatibility Guide',
     badge: 'Platform Architecture',

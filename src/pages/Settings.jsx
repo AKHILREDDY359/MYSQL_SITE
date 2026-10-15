@@ -294,7 +294,7 @@ export default function Settings({
         </div>
 
         <p className="text-xs text-text-secondary leading-relaxed">
-          <strong>Important Disclosure:</strong> For zero network latency, instant feedback, and 100% offline client-side safety, SQL Sprint runs an in-memory <strong>SQLite WebAssembly</strong> database engine directly in the user’s browser. All 50 curriculum questions (covering standard ANSI WHERE, comparison operators, IN, BETWEEN, LIKE, aggregates, GROUP BY, HAVING, and ORDER BY) execute identically across both MySQL 8.0 and SQLite 3.
+          <strong>Important Disclosure:</strong> For zero network latency, instant feedback, and 100% offline client-side safety, SQLForge runs an in-memory <strong>SQLite WebAssembly</strong> database engine directly in the user’s browser. All 50 curriculum questions (covering standard ANSI WHERE, comparison operators, IN, BETWEEN, LIKE, aggregates, GROUP BY, HAVING, and ORDER BY) execute identically across both MySQL 8.0 and SQLite 3.
         </p>
 
         <div className="border border-panel-border rounded-xl overflow-hidden bg-panel-light">

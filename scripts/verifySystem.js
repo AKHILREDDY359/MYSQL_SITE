@@ -36,17 +36,55 @@ async function runComprehensiveVerification() {
   const empCount = empCountRes[0].values[0][0];
   assert(empCount === 20, 'Employees table seeded with exactly 20 records', `Got ${empCount}`);
 
-  // 2. Verify all 50 questions exist and have expected outputs
+  const deptCount = db.exec('SELECT COUNT(*) FROM Departments;')[0].values[0][0];
+  assert(deptCount === 8, 'Departments table seeded with exactly 8 records', `Got ${deptCount}`);
+
+  const projCount = db.exec('SELECT COUNT(*) FROM Projects;')[0].values[0][0];
+  assert(projCount === 8, 'Projects table seeded with exactly 8 records', `Got ${projCount}`);
+
+  const epCount = db.exec('SELECT COUNT(*) FROM Employee_Projects;')[0].values[0][0];
+  assert(epCount === 20, 'Employee_Projects junction table seeded with exactly 20 records', `Got ${epCount}`);
+
+  const reviewCount = db.exec('SELECT COUNT(*) FROM Performance_Reviews;')[0].values[0][0];
+  assert(reviewCount === 18, 'Performance_Reviews table seeded with exactly 18 records', `Got ${reviewCount}`);
+
+  // 2. Verify all 375 questions exist and have expected outputs
   console.log('\n2. Question Bank Completeness Verification:');
-  assert(QUESTIONS.length === 50, 'Question bank has exactly 50 questions', `Got ${QUESTIONS.length}`);
+  assert(QUESTIONS.length === 375, 'Question bank has exactly 375 questions', `Got ${QUESTIONS.length}`);
   
   const allHaveOutputs = QUESTIONS.every(q => 
     q.expectedOutput && 
     Array.isArray(q.expectedOutput.columns) && 
     Array.isArray(q.expectedOutput.values) && 
-    typeof q.expectedOutput.rowCount === 'number'
+    typeof q.expectedOutput.rowCount === 'number' &&
+    q.expectedOutput.rowCount > 0
   );
-  assert(allHaveOutputs, 'All 50 questions have precomputed, verified outputs from real database');
+  assert(allHaveOutputs, 'All 375 questions have precomputed, verified outputs with real rows from database');
+
+  const EXPECTED_TOPIC_TARGETS = {
+    'SQL Fundamentals': 25,
+    'WHERE & Operators': 40,
+    'Sorting & Limiting': 20,
+    'Aggregate Functions': 30,
+    'GROUP BY': 35,
+    'HAVING': 25,
+    'SQL JOINs': 75,
+    'Subqueries': 50,
+    'CASE Expressions': 25,
+    'Interview Ready Questions': 50
+  };
+  const topicCounts = {};
+  QUESTIONS.forEach(q => {
+    topicCounts[q.topic] = (topicCounts[q.topic] || 0) + 1;
+  });
+  let allTopicsMatch = true;
+  for (const [topic, target] of Object.entries(EXPECTED_TOPIC_TARGETS)) {
+    if (topicCounts[topic] !== target) {
+      allTopicsMatch = false;
+      console.error(`Mismatch for ${topic}: expected ${target}, got ${topicCounts[topic]}`);
+    }
+  }
+  assert(allTopicsMatch, 'All 10 topics strictly match their exact question targets (375 total)');
 
   // 3. Test Security & Safety Barrier
   console.log('\n3. Query Safety & Sandbox Enforcement:');
@@ -111,6 +149,18 @@ async function runComprehensiveVerification() {
   const lastSalary = q46[0].values[19][4]; // Anil 25000
   assert(firstSalary === 90000 && lastSalary === 25000, 'ORDER BY salary DESC orders highest (90k) to lowest (25k)');
 
+  // INNER JOIN
+  const joinRes = db.exec("SELECT e.emp_name, d.location FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name;");
+  assert(joinRes[0].values.length === 20, 'INNER JOIN between Employees and Departments returns all 20 assigned employees');
+
+  // LEFT JOIN (Anti-join)
+  const unstaffedRes = db.exec("SELECT e.emp_id FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.project_id IS NULL;");
+  assert(unstaffedRes[0].values.length === 3, 'LEFT JOIN anti-join accurately surfaces 3 unstaffed employees (101, 113, 118)');
+
+  // Correlated Subquery
+  const corrRes = db.exec("SELECT e.emp_id FROM Employees e WHERE e.salary > (SELECT AVG(sub.salary) FROM Employees sub WHERE sub.department = e.department);");
+  assert(corrRes[0].values.length > 0, 'Correlated subquery evaluates departmental average salary dynamically');
+
   // 5. Answer Validation Engine (Semantic, Order, Errors)
   console.log('\n5. Answer Validation Logic:');
 
@@ -166,9 +216,9 @@ async function runComprehensiveVerification() {
   ];
   // Pretend Q1 is solved
   const calculatedMetrics = calculateDashboardMetrics(QUESTIONS);
-  assert(calculatedMetrics.total === 50, 'Total questions metric calculated correctly (50)');
+  assert(calculatedMetrics.total === 375, 'Total questions metric calculated correctly (375)');
   assert(typeof calculatedMetrics.accuracy === 'number', 'Accuracy percentage computed');
-  assert(calculatedMetrics.pending === 50, 'Pending count initialized to 50 when no attempts made');
+  assert(calculatedMetrics.pending === 375, 'Pending count initialized to 375 when no attempts made');
 
   // Summary
   console.log(`\n==============================================`);

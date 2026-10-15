@@ -87,8 +87,11 @@ export function validateAnswer(actualResult, expectedResult, question, userSql =
   // 4. Check Order By requirement
   const requiresOrder = question.requiresOrder === true ||
                         question.topic?.toLowerCase().includes('order') ||
-                        (question.tags && question.tags.includes('order-by')) ||
-                        question.id >= 46;
+                        question.topic?.toLowerCase().includes('sorting') ||
+                        question.subtopic?.toLowerCase().includes('order') ||
+                        question.subtopic?.toLowerCase().includes('sorting') ||
+                        (question.tags && (question.tags.includes('order-by') || question.tags.includes('sorting') || question.tags.includes('limit'))) ||
+                        (question.id >= 46 && question.id <= 50);
 
   if (requiresOrder) {
     // Exact row order must match

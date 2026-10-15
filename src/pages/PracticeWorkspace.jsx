@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { format as formatSql } from 'sql-formatter';
 import { 
   Database, HelpCircle, Columns, Maximize2, Minimize2, 
-  RefreshCw, CheckCircle2, ArrowLeft 
+  RefreshCw, CheckCircle2, ArrowLeft, PanelLeftClose, PanelLeftOpen,
+  RotateCcw
 } from 'lucide-react';
 
 import QuestionSidebar from '../components/QuestionSidebar.jsx';
@@ -17,6 +18,7 @@ import {
   getQuestionDraft, saveQuestionDraft, recordQueryRun, 
   recordAnswerSubmission, setLastActiveQuestion 
 } from '../services/progressService.js';
+import { loadFromStorage, saveToStorage, STORAGE_KEYS } from '../utils/storage.js';
 import { useToast } from '../components/Toast.jsx';
 
 export default function PracticeWorkspace({
@@ -37,7 +39,13 @@ export default function PracticeWorkspace({
   setEditorTheme,
   onNavigateToDashboard
 }) {
+  const containerRef = useRef(null);
   const [leftTab, setLeftTab] = useState('question'); // 'question' | 'database'
+  const [leftPercent, setLeftPercent] = useState(() => {
+    return loadFromStorage(STORAGE_KEYS.SIDEBAR_WIDTH, 38);
+  });
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [userSql, setUserSql] = useState('');
   const [queryResult, setQueryResult] = useState(null);
   const [submissionResult, setSubmissionResult] = useState(null);
@@ -254,6 +262,84 @@ export default function PracticeWorkspace({
     navigator.clipboard.writeText(userSql);
   };
 
+  // Save custom sidebar width to localStorage
+  useEffect(() => {
+    saveToStorage(STORAGE_KEYS.SIDEBAR_WIDTH, leftPercent);
+  }, [leftPercent]);
+
+  // Dragging event listeners for resizing question pane
+  const handleMouseDown = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e) => {
+      const container = containerRef.current;
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const newPercent = ((e.clientX - rect.left) / rect.width) * 100;
+      const clamped = Math.min(Math.max(newPercent, 20), 75);
+      setLeftPercent(clamped);
+      if (isCollapsed) setIsCollapsed(false);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isDragging, isCollapsed]);
+
+  // Keyboard shortcut Alt+B toggles question panel collapse
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.altKey || (e.ctrlKey && !e.metaKey)) && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        setIsCollapsed(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Expand / Contract toggle button
+  const handleToggleExpand = () => {
+    if (isCollapsed) {
+      setIsCollapsed(false);
+      return;
+    }
+    if (leftPercent >= 50) {
+      setLeftPercent(38);
+    } else {
+      setLeftPercent(58);
+    }
+  };
+
+  // Collapse / Minimize toggle
+  const handleToggleCollapse = () => {
+    setIsCollapsed(prev => !prev);
+  };
+
+  // Reset to default width (38%)
+  const handleResetWidth = () => {
+    setLeftPercent(38);
+    setIsCollapsed(false);
+    addToast('Question panel reset to default width (38%)', 'info');
+  };
+
   // Insert SQL from Database Explorer (e.g. SELECT * FROM Employees;)
   const handleInsertSql = (sqlText) => {
     setUserSql(sqlText);
@@ -263,66 +349,146 @@ export default function PracticeWorkspace({
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-background">
-      {/* LEFT PANEL (~38% Width on Desktop) */}
-      <div className="w-full lg:w-[40%] xl:w-[38%] h-1/2 lg:h-full flex flex-col border-b lg:border-b-0 lg:border-r border-panel-border overflow-hidden bg-panel">
-        {/* Left Sub-Header Switcher */}
-        <div className="h-10 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between select-none shrink-0">
-          <div className="flex items-center space-x-1.5">
-            <button
-              onClick={() => setLeftTab('question')}
-              className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
-                leftTab === 'question'
-                  ? 'bg-panel border border-panel-border text-brand shadow-sm'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
+    <div ref={containerRef} className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-background relative">
+      {/* LEFT PANEL - DYNAMIC, RESIZABLE, EXPANDABLE & MINIMIZABLE */}
+      {isCollapsed ? (
+        /* Collapsed Minimal Rail on Desktop */
+        <div className="hidden lg:flex w-11 h-full bg-panel border-r border-panel-border flex-col items-center py-3 select-none z-10 shrink-0">
+          <button
+            onClick={handleToggleCollapse}
+            title="Expand Question Panel (Alt+B)"
+            className="p-2 rounded-lg bg-panel-light hover:bg-brand hover:text-white border border-panel-border text-text-primary transition-all cursor-pointer shadow-xs group"
+          >
+            <PanelLeftOpen className="w-4 h-4 text-brand group-hover:text-white transition-colors" />
+          </button>
+
+          <div className="mt-8 flex-1 flex flex-col items-center">
+            <span
+              className="text-xs font-mono font-bold text-text-secondary tracking-widest uppercase cursor-pointer hover:text-brand transition-colors whitespace-nowrap"
+              style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+              onClick={handleToggleCollapse}
             >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>Question Workspace</span>
-            </button>
-            <button
-              onClick={() => setLeftTab('database')}
-              className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
-                leftTab === 'database'
-                  ? 'bg-panel border border-panel-border text-brand shadow-sm'
-                  : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              <Database className="w-3.5 h-3.5 text-amber-500" />
-              <span>Database Explorer</span>
-            </button>
+              Q{currentQuestion?.id} • {currentQuestion?.title?.slice(0, 32)}
+            </span>
           </div>
 
-          <span className="text-[10px] text-text-muted hidden sm:inline-block font-mono">
-            Employees (20 records)
-          </span>
+          <div className="w-7 h-7 rounded-full bg-brand-surface text-brand flex items-center justify-center text-xs font-bold font-mono">
+            Q{currentQuestion?.id}
+          </div>
         </div>
+      ) : (
+        /* Expanded Dynamic Left Panel */
+        <div 
+          style={{ width: `${leftPercent}%` }}
+          className="w-full lg:h-full h-1/2 flex flex-col border-b lg:border-b-0 border-panel-border overflow-hidden bg-panel shrink-0 transition-[width] duration-75"
+        >
+          {/* Left Sub-Header Switcher with Dynamic Controls */}
+          <div className="h-10 px-3 bg-panel-light border-b border-panel-border flex items-center justify-between select-none shrink-0">
+            <div className="flex items-center space-x-1.5">
+              <button
+                onClick={() => setLeftTab('question')}
+                className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  leftTab === 'question'
+                    ? 'bg-panel border border-panel-border text-brand shadow-xs'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Question Workspace</span>
+              </button>
+              <button
+                onClick={() => setLeftTab('database')}
+                className={`flex items-center gap-1.5 py-1 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  leftTab === 'database'
+                    ? 'bg-panel border border-panel-border text-brand shadow-xs'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                <Database className="w-3.5 h-3.5 text-amber-500" />
+                <span>Database Explorer</span>
+              </button>
+            </div>
 
-        {/* Left Content Area */}
-        <div className="flex-1 overflow-hidden">
-          {leftTab === 'question' ? (
-            <QuestionSidebar
-              questions={questions}
-              currentQuestion={currentQuestion}
-              onSelectQuestion={handleSelectQuestion}
-              progressMap={progressMap}
-              bookmarks={bookmarks}
-              onToggleBookmark={onToggleBookmark}
-              onToggleReview={onToggleReview}
-              onNavigateToDashboard={onNavigateToDashboard}
-            />
-          ) : (
-            <DatabaseExplorer
-              onInsertSql={handleInsertSql}
-              onResetDb={onResetDb}
-              isDbResetting={isDbResetting}
-            />
-          )}
+            {/* Dynamic Sizing Controls: Percentage, Reset, Expand, Minimize */}
+            <div className="flex items-center gap-1">
+              <span className="text-[10px] text-text-muted hidden xl:inline-block font-mono mr-1">
+                {Math.round(leftPercent)}%
+              </span>
+
+              {/* Reset to Default 38% */}
+              <button
+                onClick={handleResetWidth}
+                title="Reset panel width to default 38%"
+                className="hidden lg:flex p-1 rounded-md text-text-secondary hover:text-text-primary hover:bg-panel border border-transparent hover:border-panel-border transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-3 h-3" />
+              </button>
+
+              {/* Toggle Wide Expand View */}
+              <button
+                onClick={handleToggleExpand}
+                title={leftPercent >= 50 ? "Contract question panel (38%)" : "Expand question panel wide (58%)"}
+                className="hidden lg:flex p-1 rounded-md text-text-secondary hover:text-brand hover:bg-panel border border-transparent hover:border-panel-border transition-colors cursor-pointer"
+              >
+                {leftPercent >= 50 ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+              </button>
+
+              {/* Minimize / Collapse Panel */}
+              <button
+                onClick={handleToggleCollapse}
+                title="Minimize question panel (Alt+B)"
+                className="hidden lg:flex p-1 rounded-md text-text-secondary hover:text-danger hover:bg-panel border border-transparent hover:border-panel-border transition-colors cursor-pointer"
+              >
+                <PanelLeftClose className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Left Content Area */}
+          <div className="flex-1 overflow-hidden">
+            {leftTab === 'question' ? (
+              <QuestionSidebar
+                questions={questions}
+                currentQuestion={currentQuestion}
+                onSelectQuestion={handleSelectQuestion}
+                progressMap={progressMap}
+                bookmarks={bookmarks}
+                onToggleBookmark={onToggleBookmark}
+                onToggleReview={onToggleReview}
+                onNavigateToDashboard={onNavigateToDashboard}
+              />
+            ) : (
+              <DatabaseExplorer
+                onInsertSql={handleInsertSql}
+                onResetDb={onResetDb}
+                isDbResetting={isDbResetting}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* RIGHT PANEL (~62% Width on Desktop) */}
-      <div className="w-full lg:w-[60%] xl:w-[62%] h-1/2 lg:h-full flex flex-col overflow-hidden bg-panel">
+      {/* DRAGGABLE VERTICAL SPLITTER BAR (Desktop only, when not collapsed) */}
+      {!isCollapsed && (
+        <div
+          onMouseDown={handleMouseDown}
+          onDoubleClick={handleResetWidth}
+          title="Drag to resize question pane | Double click to reset width (38%)"
+          className={`hidden lg:flex w-2.5 hover:w-3 relative group cursor-col-resize z-20 items-center justify-center transition-all select-none border-x border-panel-border/40 ${
+            isDragging 
+              ? 'bg-brand' 
+              : 'bg-panel-border/30 hover:bg-brand/30'
+          }`}
+        >
+          {/* Visual Grip Indicator */}
+          <div className={`w-0.5 h-8 rounded-full transition-colors ${
+            isDragging ? 'bg-white' : 'bg-panel-border group-hover:bg-brand'
+          }`} />
+        </div>
+      )}
+
+      {/* RIGHT PANEL (~Remaining Width on Desktop) */}
+      <div className="flex-1 w-full lg:h-full h-1/2 flex flex-col overflow-hidden bg-panel">
         {/* Toolbar */}
         <QueryToolbar
           onRunQuery={handleRunQuery}

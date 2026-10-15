@@ -19,59 +19,65 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
   // Update Monaco theme whenever the active theme prop changes
   useEffect(() => {
     if (monacoRef.current) {
-      monacoRef.current.editor.setTheme(theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight');
+      monacoRef.current.editor.setTheme(theme === 'dark' ? 'sqlForgeDark' : 'sqlForgeLight');
     }
   }, [theme]);
 
   const handleBeforeMount = (monaco) => {
     try {
-      // 1. Dark Developer Theme
-      monaco.editor.defineTheme('sqlSprintDark', {
+      // 1. SQLForge Dark Developer Theme
+      const forgeDarkTheme = {
         base: 'vs-dark',
         inherit: true,
         rules: [
-          { token: 'keyword', foreground: '4F8CFF', fontStyle: 'bold' },
+          { token: 'keyword', foreground: '60A5FA', fontStyle: 'bold' },
           { token: 'string', foreground: '4ADE80' },
           { token: 'number', foreground: 'FBBF24' },
-          { token: 'comment', foreground: '64748B', fontStyle: 'italic' },
-          { token: 'operator.sql', foreground: '38BDF8' },
-          { token: 'identifier', foreground: 'E5E7EB' }
+          { token: 'comment', foreground: '94A3B8', fontStyle: 'italic' },
+          { token: 'operator.sql', foreground: '20C58B' },
+          { token: 'identifier', foreground: 'F8FAFC' }
         ],
         colors: {
-          'editor.background': '#0E1526',
-          'editor.foreground': '#E5E7EB',
-          'editorCursor.foreground': '#4F8CFF',
-          'editor.lineHighlightBackground': '#16223B',
-          'editorLineNumber.foreground': '#475569',
-          'editorLineNumber.activeForeground': '#94A3B8',
-          'editor.selectionBackground': '#2563EB40',
-          'editor.inactiveSelectionBackground': '#2563EB20'
+          'editor.background': '#0F172A',
+          'editor.foreground': '#F8FAFC',
+          'editorCursor.foreground': '#20C58B',
+          'editor.lineHighlightBackground': '#1E293B',
+          'editorLineNumber.foreground': '#64748B',
+          'editorLineNumber.activeForeground': '#F8FAFC',
+          'editor.selectionBackground': '#20C58B30',
+          'editor.inactiveSelectionBackground': '#33415550'
         }
-      });
+      };
 
-      // 2. Clean White / Light Theme
-      monaco.editor.defineTheme('sqlSprintLight', {
+      // 2. SQLForge Clean White / Light Theme (#FFFFFF, #20C58B cursor, #3563A9 keywords)
+      const forgeLightTheme = {
         base: 'vs',
         inherit: true,
         rules: [
-          { token: 'keyword', foreground: '1D4ED8', fontStyle: 'bold' },
-          { token: 'string', foreground: '15803D' },
-          { token: 'number', foreground: 'B45309' },
+          { token: 'keyword', foreground: '3563A9', fontStyle: 'bold' },
+          { token: 'string', foreground: '16A34A' },
+          { token: 'number', foreground: 'D97706' },
           { token: 'comment', foreground: '64748B', fontStyle: 'italic' },
-          { token: 'operator.sql', foreground: '0369A1' },
-          { token: 'identifier', foreground: '0F172A' }
+          { token: 'operator.sql', foreground: '20C58B' },
+          { token: 'identifier', foreground: '202630' }
         ],
         colors: {
           'editor.background': '#FFFFFF',
-          'editor.foreground': '#0F172A',
-          'editorCursor.foreground': '#2563EB',
-          'editor.lineHighlightBackground': '#F1F5F9',
+          'editor.foreground': '#202630',
+          'editorCursor.foreground': '#20C58B',
+          'editor.lineHighlightBackground': '#F8FAFC',
           'editorLineNumber.foreground': '#94A3B8',
-          'editorLineNumber.activeForeground': '#0F172A',
-          'editor.selectionBackground': '#BFDBFE',
-          'editor.inactiveSelectionBackground': '#E2E8F0'
+          'editorLineNumber.activeForeground': '#202630',
+          'editor.selectionBackground': '#E8F8F1',
+          'editor.inactiveSelectionBackground': '#F1F5F9'
         }
-      });
+      };
+
+      monaco.editor.defineTheme('sqlForgeDark', forgeDarkTheme);
+      monaco.editor.defineTheme('sqlForgeLight', forgeLightTheme);
+      // Backwards-compatible aliases
+      monaco.editor.defineTheme('sqlSprintDark', forgeDarkTheme);
+      monaco.editor.defineTheme('sqlSprintLight', forgeLightTheme);
     } catch (e) {
       console.warn('Monaco defineTheme error:', e);
     }
@@ -82,7 +88,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
     monacoRef.current = monaco;
 
     try {
-      monaco.editor.setTheme(theme === 'dark' ? 'sqlSprintDark' : 'sqlSprintLight');
+      monaco.editor.setTheme(theme === 'dark' ? 'sqlForgeDark' : 'sqlForgeLight');
 
       // Register Cmd+Enter / Ctrl+Enter keybinding
       editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
@@ -106,7 +112,7 @@ export default function SQLEditor({ value, onChange, onRunQuery, fontSize = 14, 
     return (
       <div className="w-full h-full relative overflow-hidden bg-panel p-3 flex flex-col">
         <div className="flex items-center justify-between text-[11px] text-text-muted mb-1 select-none">
-          <span>SQL Editor (Standard Mode • Cmd+Enter to Run)</span>
+          <span>SQLForge Editor (Standard Mode • Cmd+Enter to Run)</span>
           <button 
             onClick={() => setUseFallback(false)} 
             className="text-brand hover:underline"

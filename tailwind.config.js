@@ -17,25 +17,36 @@ export default {
           hover: 'rgb(var(--bg-panel-hover) / <alpha-value>)'
         },
         brand: {
-          DEFAULT: '#4F8CFF',
-          hover: '#3B72E2',
-          glow: 'rgba(79, 140, 255, 0.15)'
+          DEFAULT: '#20C58B',
+          hover: '#16A675',
+          light: '#E8F8F1',
+          surface: '#E8F8F1',
+          glow: 'rgba(32, 197, 139, 0.15)',
+          code: '#3563A9'
+        },
+        forge: {
+          green: '#20C58B',
+          'green-hover': '#16A675',
+          'green-soft': '#E8F8F1',
+          code: '#3563A9',
+          dark: '#202630'
         },
         success: {
-          DEFAULT: '#22C55E',
-          light: '#4ADE80',
-          dark: '#16A34A',
-          glow: 'rgba(34, 197, 94, 0.15)'
+          DEFAULT: '#16A34A',
+          light: '#20C58B',
+          dark: '#15803D',
+          glow: 'rgba(22, 163, 74, 0.15)',
+          surface: '#E8F8F1'
         },
         danger: {
-          DEFAULT: '#EF4444',
-          light: '#F87171',
-          glow: 'rgba(239, 68, 68, 0.15)'
+          DEFAULT: '#DC2626',
+          light: '#EF4444',
+          glow: 'rgba(220, 38, 38, 0.15)'
         },
         warning: {
-          DEFAULT: '#F59E0B',
-          light: '#FBBF24',
-          glow: 'rgba(245, 158, 11, 0.15)'
+          DEFAULT: '#D97706',
+          light: '#F59E0B',
+          glow: 'rgba(217, 119, 6, 0.15)'
         },
         text: {
           primary: 'rgb(var(--text-primary) / <alpha-value>)',

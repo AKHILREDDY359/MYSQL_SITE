@@ -44,11 +44,11 @@ export default function QueryToolbar({
           onClick={onRunQuery}
           disabled={isRunning}
           title="Run SQL Query (Cmd+Enter or Ctrl+Enter)"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-all shadow-md shadow-emerald-900/30 active:scale-95 disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand hover:bg-brand-hover text-white font-semibold text-xs transition-all shadow-xs active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           <Play className={`w-3.5 h-3.5 fill-current ${isRunning ? 'animate-spin' : ''}`} />
           <span>Run Query</span>
-          <kbd className="hidden sm:inline-block ml-1 text-[10px] bg-emerald-700/60 px-1 py-0.5 rounded text-emerald-100 font-mono">
+          <kbd className="hidden sm:inline-block ml-1 text-[10px] bg-black/20 px-1 py-0.5 rounded text-white font-mono">
             ⌘↵
           </kbd>
         </button>
@@ -57,7 +57,7 @@ export default function QueryToolbar({
           onClick={onSubmitAnswer}
           disabled={isSubmitting}
           title="Submit answer for validation against expected result"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-brand hover:bg-brand-hover text-white font-semibold text-xs transition-all shadow-md shadow-brand/20 active:scale-95 disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#3563A9] hover:bg-[#2B528E] text-white font-semibold text-xs transition-all shadow-xs active:scale-95 disabled:opacity-50 cursor-pointer"
         >
           <Send className="w-3.5 h-3.5" />
           <span>Submit Answer</span>

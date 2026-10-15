@@ -5,36 +5,37 @@ import { TABLES_SCHEMA } from '../data/schema.js';
 import { useToast } from './Toast.jsx';
 
 export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbResetting }) {
+  const [selectedTableName, setSelectedTableName] = useState('Employees');
   const [activeTab, setActiveTab] = useState('data'); // 'data' | 'schema' | 'ddl'
   const [tableData, setTableData] = useState({ columns: [], values: [] });
   const [searchQuery, setSearchQuery] = useState('');
   const [copied, setCopied] = useState(false);
   const { addToast } = useToast();
 
-  const currentSchema = TABLES_SCHEMA[0];
+  const currentSchema = TABLES_SCHEMA.find(t => t.name === selectedTableName) || TABLES_SCHEMA[0];
 
   useEffect(() => {
     if (isOpen) {
-      getTableData('Employees').then(res => {
+      getTableData(selectedTableName).then(res => {
         if (res.success) setTableData(res);
       });
     }
-  }, [isOpen, isDbResetting]);
+  }, [isOpen, selectedTableName, isDbResetting]);
 
   if (!isOpen) return null;
 
-  const filteredValues = tableData.values.filter(row => {
+  const filteredValues = (tableData.values || []).filter(row => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
     return row.some(cell => String(cell).toLowerCase().includes(q));
   });
 
   const handleCopyTsv = () => {
-    const headers = tableData.columns.join('\t');
-    const rows = tableData.values.map(r => r.join('\t')).join('\n');
+    const headers = (tableData.columns || []).join('\t');
+    const rows = (tableData.values || []).map(r => r.join('\t')).join('\n');
     navigator.clipboard.writeText(`${headers}\n${rows}`);
     setCopied(true);
-    addToast('Master database table copied to clipboard', 'info');
+    addToast(`${selectedTableName} table copied to clipboard`, 'info');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -53,9 +54,12 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
                 <span className="font-mono text-xs px-2 py-0.5 rounded bg-brand/10 border border-brand/20 text-brand">
                   SQL_Interview_Practice
                 </span>
+                <span className="text-xs px-2 py-0.5 rounded bg-panel border border-panel-border text-text-secondary font-mono">
+                  {TABLES_SCHEMA.length} Tables
+                </span>
               </div>
               <p className="text-xs text-text-secondary mt-0.5">
-                Active Table: <span className="font-mono text-emerald-400 font-semibold">Employees</span> (20 Rows, 8 Columns)
+                Viewing: <span className="font-mono text-emerald-400 font-semibold">{selectedTableName}</span> ({tableData.values?.length || 0} Rows, {currentSchema.columns.length} Columns)
               </p>
             </div>
           </div>
@@ -64,18 +68,45 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
             <button
               onClick={handleCopyTsv}
               title="Copy table data"
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-panel hover:bg-panel-border border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-panel hover:bg-panel-border border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />}
               <span className="hidden sm:inline">Copy Table</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 text-text-secondary hover:text-text-primary rounded-lg hover:bg-panel-border transition-colors"
+              className="p-1.5 text-text-secondary hover:text-text-primary rounded-lg hover:bg-panel-border transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
+        </div>
+
+        {/* Table Selector Pills */}
+        <div className="px-4 py-2 border-b border-panel-border bg-panel flex items-center gap-2 overflow-x-auto">
+          <span className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider shrink-0 mr-1">
+            Tables:
+          </span>
+          {TABLES_SCHEMA.map((t) => {
+            const isSelected = t.name === selectedTableName;
+            return (
+              <button
+                key={t.name}
+                onClick={() => {
+                  setSelectedTableName(t.name);
+                  setSearchQuery('');
+                }}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-brand text-white shadow-sm ring-1 ring-brand/50'
+                    : 'bg-panel-light hover:bg-panel-border text-text-secondary hover:text-text-primary border border-panel-border'
+                }`}
+              >
+                <Table className="w-3.5 h-3.5" />
+                <span>{t.name}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Sub-Tabs & Filter Bar */}
@@ -83,17 +114,17 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
           <div className="flex items-center space-x-1">
             <button
               onClick={() => setActiveTab('data')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'data'
                   ? 'bg-brand text-white shadow-sm'
                   : 'text-text-secondary hover:text-text-primary hover:bg-panel-light'
               }`}
             >
-              Records Grid ({tableData.values.length})
+              Records Grid ({tableData.values?.length || 0})
             </button>
             <button
               onClick={() => setActiveTab('schema')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'schema'
                   ? 'bg-brand text-white shadow-sm'
                   : 'text-text-secondary hover:text-text-primary hover:bg-panel-light'
@@ -103,7 +134,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
             </button>
             <button
               onClick={() => setActiveTab('ddl')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'ddl'
                   ? 'bg-brand text-white shadow-sm'
                   : 'text-text-secondary hover:text-text-primary hover:bg-panel-light'
@@ -118,7 +149,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
               <Search className="w-3.5 h-3.5 text-text-muted absolute left-2.5 top-2" />
               <input
                 type="text"
-                placeholder="Filter 20 employee records..."
+                placeholder={`Filter ${selectedTableName} records...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-8 pr-3 py-1 rounded-lg bg-panel border border-panel-border text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand w-56"
@@ -134,7 +165,7 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
               <table className="sql-table">
                 <thead>
                   <tr>
-                    {tableData.columns.map((c) => (
+                    {(tableData.columns || []).map((c) => (
                       <th key={c}>{c}</th>
                     ))}
                   </tr>
@@ -142,8 +173,8 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
                 <tbody>
                   {filteredValues.length === 0 ? (
                     <tr>
-                      <td colSpan={tableData.columns.length || 8} className="text-center py-8 text-text-muted italic">
-                        No employees found matching "{searchQuery}"
+                      <td colSpan={tableData.columns?.length || 4} className="text-center py-8 text-text-muted italic">
+                        No records found matching "{searchQuery}"
                       </td>
                     </tr>
                   ) : (
@@ -218,10 +249,10 @@ export default function MasterDatabaseModal({ isOpen, onClose, onResetDb, isDbRe
 
         {/* Modal Footer */}
         <div className="p-3 border-t border-panel-border bg-panel-light flex items-center justify-between text-xs text-text-secondary">
-          <span>Table <strong className="text-text-primary">Employees</strong> in <strong className="text-text-primary">SQL_Interview_Practice</strong></span>
+          <span>Table <strong className="text-text-primary">{selectedTableName}</strong> in <strong className="text-text-primary">SQL_Interview_Practice</strong></span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-panel hover:bg-panel-border text-text-primary border border-panel-border font-medium text-xs transition-colors"
+            className="px-4 py-1.5 rounded-lg bg-panel hover:bg-panel-border text-text-primary border border-panel-border font-medium text-xs transition-colors cursor-pointer"
           >
             Close Inspector
           </button>
