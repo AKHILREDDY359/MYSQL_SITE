@@ -5,6 +5,7 @@ import PracticeWorkspace from './pages/PracticeWorkspace.jsx';
 import Revision from './pages/Revision.jsx';
 import ProgressDashboard from './pages/ProgressDashboard.jsx';
 import Settings from './pages/Settings.jsx';
+import MasterDatabaseModal from './components/MasterDatabaseModal.jsx';
 import { ToastProvider } from './components/Toast.jsx';
 
 import { QUESTIONS } from './data/questionBank.js';
@@ -27,6 +28,7 @@ export default function App() {
   const [metrics, setMetrics] = useState(() => calculateDashboardMetrics(QUESTIONS));
   const [isDbResetting, setIsDbResetting] = useState(false);
   const [isEngineReady, setIsEngineReady] = useState(false);
+  const [isDatabaseModalOpen, setIsDatabaseModalOpen] = useState(false);
 
   // Refresh progress and metrics from storage
   const refreshProgress = useCallback(() => {
@@ -98,6 +100,14 @@ export default function App() {
           setActivePage={setActivePage}
           solvedCount={metrics.solved || 0}
           totalCount={questions.length}
+          onResetDb={handleResetDb}
+          isDbResetting={isDbResetting}
+          onOpenDatabaseModal={() => setIsDatabaseModalOpen(true)}
+        />
+
+        <MasterDatabaseModal
+          isOpen={isDatabaseModalOpen}
+          onClose={() => setIsDatabaseModalOpen(false)}
           onResetDb={handleResetDb}
           isDbResetting={isDbResetting}
         />

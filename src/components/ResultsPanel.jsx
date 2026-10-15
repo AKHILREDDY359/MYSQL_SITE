@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   CheckCircle, AlertCircle, Clock, Copy, Download, 
-  Terminal, ShieldCheck, Check, Sparkles, ChevronRight
+  Terminal, ShieldCheck, Check, Sparkles, ChevronRight, 
+  Database, Table, Search 
 } from 'lucide-react';
+import { getTableData } from '../services/databaseEngine.js';
 import { useToast } from './Toast.jsx';
 
 export default function ResultsPanel({
@@ -12,7 +14,23 @@ export default function ResultsPanel({
   setActiveTab
 }) {
   const [copied, setCopied] = useState(false);
+  const [masterRows, setMasterRows] = useState({ columns: [], values: [] });
+  const [masterSearch, setMasterSearch] = useState('');
   const { addToast } = useToast();
+
+  useEffect(() => {
+    async function fetchMaster() {
+      try {
+        const res = await getTableData('Employees');
+        if (res.success) {
+          setMasterRows(res);
+        }
+      } catch (err) {
+        console.error('Failed to fetch master table in results panel:', err);
+      }
+    }
+    fetchMaster();
+  }, []);
 
   const handleCopyResults = () => {
     if (!queryResult?.values || queryResult.values.length === 0) {
@@ -29,6 +47,12 @@ export default function ResultsPanel({
     addToast('Results copied to clipboard (TSV format)', 'info');
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const filteredMasterValues = masterRows.values.filter(row => {
+    if (!masterSearch) return true;
+    const q = masterSearch.toLowerCase();
+    return row.some(cell => String(cell).toLowerCase().includes(q));
+  });
 
   return (
     <div className="h-full flex flex-col bg-panel overflow-hidden border-t border-panel-border select-none">
@@ -66,6 +90,21 @@ export default function ResultsPanel({
           </button>
 
           <button
+            onClick={() => setActiveTab('masterTable')}
+            className={`flex items-center gap-1.5 py-2 px-3 text-xs font-semibold border-b-2 transition-colors ${
+              activeTab === 'masterTable'
+                ? 'border-brand text-brand'
+                : 'border-transparent text-text-secondary hover:text-text-primary'
+            }`}
+          >
+            <Database className="w-3.5 h-3.5 text-amber-400" />
+            <span>Master Table (Employees)</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-panel border border-panel-border text-emerald-400 font-mono">
+              20
+            </span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('safety')}
             className={`flex items-center gap-1.5 py-2 px-3 text-xs font-semibold border-b-2 transition-colors ${
               activeTab === 'safety'
@@ -80,20 +119,20 @@ export default function ResultsPanel({
 
         {/* Right status metrics */}
         <div className="flex items-center gap-3 text-xs">
-          {queryResult?.executionTimeMs !== undefined && (
+          {queryResult?.executionTimeMs !== undefined && activeTab === 'results' && (
             <div className="flex items-center gap-1 text-text-secondary">
               <Clock className="w-3.5 h-3.5 text-text-muted" />
               <span className="font-mono text-[11px]">{queryResult.executionTimeMs} ms</span>
             </div>
           )}
 
-          {queryResult?.success && queryResult.rowCount !== undefined && (
+          {queryResult?.success && queryResult.rowCount !== undefined && activeTab === 'results' && (
             <div className="font-mono text-[11px] px-2 py-0.5 rounded bg-panel border border-panel-border text-text-secondary">
               {queryResult.rowCount} {queryResult.rowCount === 1 ? 'row' : 'rows'}
             </div>
           )}
 
-          {queryResult?.success && queryResult.values?.length > 0 && (
+          {queryResult?.success && queryResult.values?.length > 0 && activeTab === 'results' && (
             <button
               onClick={handleCopyResults}
               title="Copy results as TSV for spreadsheet paste"
@@ -221,7 +260,73 @@ export default function ResultsPanel({
           </div>
         )}
 
-        {/* TAB 3: Engine Architecture & Safety Notice */}
+        {/* TAB 3: Master Table Explorer */}
+        {activeTab === 'masterTable' && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-text-secondary flex items-center gap-2">
+                <Database className="w-4 h-4 text-amber-400" />
+                <span>
+                  Source Database: <strong className="font-mono text-text-primary">SQL_Interview_Practice</strong> • Table: <strong className="font-mono text-brand">Employees</strong>
+                </span>
+              </div>
+              <div className="relative">
+                <Search className="w-3 h-3 text-text-muted absolute left-2.5 top-2" />
+                <input
+                  type="text"
+                  placeholder="Filter employees..."
+                  value={masterSearch}
+                  onChange={(e) => setMasterSearch(e.target.value)}
+                  className="pl-7 pr-2.5 py-1 rounded bg-panel-light border border-panel-border text-[11px] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand w-48"
+                />
+              </div>
+            </div>
+
+            <div className="sql-table-container">
+              <table className="sql-table">
+                <thead>
+                  <tr>
+                    {masterRows.columns.map((col) => (
+                      <th key={col}>{col}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredMasterValues.length === 0 ? (
+                    <tr>
+                      <td colSpan={masterRows.columns.length || 8} className="text-center py-4 text-text-muted italic">
+                        No employees match your filter.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredMasterValues.map((row, idx) => (
+                      <tr key={idx}>
+                        {row.map((cell, cIdx) => (
+                          <td key={cIdx}>
+                            {cell === null ? (
+                              <span className="text-text-muted italic">NULL</span>
+                            ) : typeof cell === 'number' ? (
+                              <span className="text-emerald-300 font-mono">{cell}</span>
+                            ) : (
+                              String(cell)
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="text-[11px] text-text-secondary flex items-center justify-between pt-1">
+              <span>Showing all 20 corporate seed records</span>
+              <span>Columns: emp_id, emp_name, age, department, salary, experience, city, joining_year</span>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 4: Engine Architecture & Safety Notice */}
         {activeTab === 'safety' && (
           <div className="space-y-3 text-xs text-text-secondary p-1">
             <div className="flex items-center gap-2 text-text-primary font-semibold">

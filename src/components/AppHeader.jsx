@@ -1,7 +1,7 @@
 import React from 'react';
 import { Database, Terminal, BookOpen, BarChart3, Settings, LayoutDashboard, RefreshCw, CheckCircle2 } from 'lucide-react';
 
-export default function AppHeader({ activePage, setActivePage, solvedCount = 0, totalCount = 50, onResetDb, isDbResetting }) {
+export default function AppHeader({ activePage, setActivePage, solvedCount = 0, totalCount = 50, onResetDb, isDbResetting, onOpenDatabaseModal }) {
   const percentage = Math.round((solvedCount / totalCount) * 100) || 0;
 
   const navItems = [
@@ -64,10 +64,19 @@ export default function AppHeader({ activePage, setActivePage, solvedCount = 0, 
       {/* Right Controls: Database status & Progress widget */}
       <div className="flex items-center gap-3">
         {/* Active Database Pill */}
-        <div className="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-md bg-panel-light border border-panel-border text-xs text-text-secondary">
+        <button
+          onClick={onOpenDatabaseModal}
+          title="Click to inspect Master Database (SQL_Interview_Practice) & Employees table"
+          className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-md bg-panel-light hover:bg-panel-border border border-panel-border text-xs text-text-secondary hover:text-text-primary transition-all cursor-pointer group"
+        >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="font-mono text-[11px] text-text-primary">DB: SQL_Interview_Practice</span>
-        </div>
+          <span className="font-mono text-[11px] text-text-primary group-hover:text-brand font-medium">
+            DB: SQL_Interview_Practice
+          </span>
+          <span className="text-[10px] text-amber-400 font-mono bg-amber-400/10 px-1.5 py-0.2 rounded border border-amber-400/20">
+            Employees (20)
+          </span>
+        </button>
 
         {/* Progress Counter Pill */}
         <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-panel-light border border-panel-border text-xs">

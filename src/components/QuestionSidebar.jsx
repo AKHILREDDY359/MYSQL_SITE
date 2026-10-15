@@ -5,6 +5,7 @@ import {
   Database, ListOrdered, BookMarked, Sparkles
 } from 'lucide-react';
 import SampleOutput from './SampleOutput.jsx';
+import TablePreviewCard from './TablePreviewCard.jsx';
 import { QUESTION_STATUS } from '../services/progressService.js';
 
 export default function QuestionSidebar({
@@ -244,6 +245,9 @@ export default function QuestionSidebar({
               )}
             </div>
           </div>
+
+          {/* Master Table Preview Card (Input Data) */}
+          <TablePreviewCard tableName={currentQuestion?.tableName || 'Employees'} />
 
           {/* Expected Sample Output component */}
           <SampleOutput
