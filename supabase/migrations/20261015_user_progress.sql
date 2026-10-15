@@ -17,6 +17,15 @@ create table if not exists public.user_progress (
   constraint user_progress_user_question_unique unique (user_id, question_id)
 );
 
+-- Ensure all columns exist non-destructively if the table was created previously
+alter table public.user_progress add column if not exists draft_sql text;
+alter table public.user_progress add column if not exists attempts_count integer default 0;
+alter table public.user_progress add column if not exists is_bookmarked boolean default false;
+alter table public.user_progress add column if not exists last_error text;
+alter table public.user_progress add column if not exists solved_at timestamp with time zone;
+alter table public.user_progress add column if not exists last_attempt_at timestamp with time zone;
+alter table public.user_progress add column if not exists updated_at timestamp with time zone default timezone('utc'::text, now());
+
 -- 2. Performance indexes
 create index if not exists idx_user_progress_user_id on public.user_progress(user_id);
 create index if not exists idx_user_progress_user_question on public.user_progress(user_id, question_id);

@@ -222,9 +222,6 @@ export async function syncProgressToCloud(progressMap) {
         draft_sql: drafts[qid] || null,
         attempts_count: item.attempts || 0,
         is_bookmarked: Array.isArray(bookmarks) && bookmarks.includes(qid),
-        last_error: item.lastError || null,
-        solved_at: item.solvedAt || null,
-        last_attempt_at: item.lastAttemptAt || null,
         updated_at: new Date().toISOString()
       };
     });
@@ -236,9 +233,24 @@ export async function syncProgressToCloud(progressMap) {
       return { synced: true, count: 0 };
     }
 
-    const { error } = await supabase
+    let { error } = await supabase
       .from('user_progress')
       .upsert(recordsToUpsert, { onConflict: 'user_id,question_id' });
+
+    // Defensive fallback: If remote schema lacks any optional column, retry with minimal essential fields
+    if (error && (error.code === '42703' || error.message?.includes('column'))) {
+      console.warn('user_progress column mismatch detected, retrying with core columns only:', error.message);
+      const minimalRecords = recordsToUpsert.map(r => ({
+        user_id: r.user_id,
+        question_id: r.question_id,
+        status: r.status,
+        updated_at: r.updated_at
+      }));
+      const fallbackResult = await supabase
+        .from('user_progress')
+        .upsert(minimalRecords, { onConflict: 'user_id,question_id' });
+      error = fallbackResult.error;
+    }
 
     if (error) {
       currentSyncStatus = 'error';

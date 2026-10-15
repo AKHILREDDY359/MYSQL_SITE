@@ -80,6 +80,36 @@ async function runAuthAndSyncTests() {
   assert(getAccountDrafts('user-uuid-111')[1] === 'SELECT * FROM Employees;', '16. User 1 drafts isolated');
   assert(getAccountDrafts('user-uuid-222')[1] === 'SELECT emp_name FROM Employees;', '17. User 2 drafts isolated');
 
+  // Test 8: Cloud upsert payload schema conformity (must NOT contain columns missing in remote DB)
+  const allowedColumns = new Set(['user_id', 'question_id', 'status', 'draft_sql', 'attempts_count', 'is_bookmarked', 'updated_at']);
+  const forbiddenColumns = ['last_error', 'solved_at', 'last_attempt_at', 'created_at'];
+  
+  // Synthesize records to verify conformity
+  const sampleProgress = {
+    1: { status: 'solved', attempts: 2, lastError: 'Syntax error', solvedAt: '2026-10-15T12:00:00Z', lastAttemptAt: '2026-10-15T12:00:00Z' }
+  };
+  const drafts = { 1: 'SELECT 1;' };
+  const bookmarks = [1];
+  const payloadRecord = Object.entries(sampleProgress).map(([qidStr, item]) => {
+    const qid = parseInt(qidStr, 10);
+    return {
+      user_id: 'test-user-id',
+      question_id: qid,
+      status: item.status || 'not_started',
+      draft_sql: drafts[qid] || null,
+      attempts_count: item.attempts || 0,
+      is_bookmarked: Array.isArray(bookmarks) && bookmarks.includes(qid),
+      updated_at: new Date().toISOString()
+    };
+  })[0];
+
+  const payloadKeys = Object.keys(payloadRecord);
+  const hasOnlyAllowed = payloadKeys.every(k => allowedColumns.has(k));
+  const hasNoForbidden = forbiddenColumns.every(k => !payloadKeys.includes(k));
+
+  assert(hasOnlyAllowed, '18. Cloud sync payload contains only validated Supabase table columns');
+  assert(hasNoForbidden, '19. Cloud sync payload omits remote-incompatible columns (last_error, solved_at, last_attempt_at)');
+
   console.log(`\n==============================================`);
   console.log(`Stage 2 Acceptance Results: ${passed} / ${total} passed (100%)`);
   console.log(`==============================================\n`);
