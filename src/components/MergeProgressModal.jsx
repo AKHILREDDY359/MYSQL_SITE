@@ -10,7 +10,8 @@ export default function MergeProgressModal({
 }) {
   const [isMerging, setIsMerging] = useState(false);
 
-  if (!isOpen || !guestSummary || guestSummary.solved === 0) return null;
+  const solvedCount = guestSummary?.newSolved !== undefined ? guestSummary.newSolved : (guestSummary?.solved || 0);
+  if (!isOpen || !guestSummary || solvedCount === 0) return null;
 
   const handleConfirmMerge = async () => {
     try {
@@ -49,7 +50,7 @@ export default function MergeProgressModal({
         <div className="p-3.5 rounded-xl bg-panel-light border border-panel-border text-xs space-y-2">
           <div className="flex items-center justify-between text-text-primary">
             <span>Solved questions on this browser:</span>
-            <span className="font-mono font-bold text-brand">{guestSummary.solved}</span>
+            <span className="font-mono font-bold text-brand">{solvedCount}</span>
           </div>
           <div className="flex items-center justify-between text-text-secondary text-[11px]">
             <span>Attempted questions:</span>

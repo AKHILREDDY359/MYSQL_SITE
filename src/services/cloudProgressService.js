@@ -421,6 +421,9 @@ export async function mergeGuestProgressIntoUser(userId) {
   saveToStorage(getScopedStorageKey(STORAGE_KEYS.DRAFTS, userId), userDrafts);
   saveToStorage(getScopedStorageKey(STORAGE_KEYS.BOOKMARKS, userId), userBookmarks);
 
+  // Clear guest data from this browser now that it has been safely imported into user account
+  clearGuestProgress();
+
   // Sync merged data to cloud immediately
   await syncProgressToCloud(userProgress);
 
@@ -428,15 +431,46 @@ export async function mergeGuestProgressIntoUser(userId) {
 }
 
 /**
- * Check if there is guest progress with solved questions available to merge.
+ * Completely clears local guest progress, drafts, and bookmarks so that
+ * once merged or dismissed, the browser does not repeatedly prompt on refresh.
  */
-export function getGuestProgressSummary() {
+export function clearGuestProgress() {
+  const guestProgressKey = getScopedStorageKey(STORAGE_KEYS.PROGRESS, null);
+  const guestDraftsKey = getScopedStorageKey(STORAGE_KEYS.DRAFTS, null);
+  const guestBookmarksKey = getScopedStorageKey(STORAGE_KEYS.BOOKMARKS, null);
+
+  saveToStorage(guestProgressKey, {});
+  saveToStorage(guestDraftsKey, {});
+  saveToStorage(guestBookmarksKey, []);
+
+  // Also clear legacy un-scoped keys so fallback doesn't resurrect them
+  saveToStorage(STORAGE_KEYS.PROGRESS, {});
+  saveToStorage(STORAGE_KEYS.DRAFTS, {});
+  saveToStorage(STORAGE_KEYS.BOOKMARKS, []);
+}
+
+/**
+ * Check if there is guest progress with solved questions available to merge.
+ * If targetUserId is provided, calculates how many questions are genuinely new
+ * and not already solved in the user's account.
+ */
+export function getGuestProgressSummary(targetUserId = null) {
   const guestProgress = getAccountProgress(null);
-  const solvedCount = Object.values(guestProgress).filter(p => p.status === 'solved').length;
+  const userProgress = targetUserId ? getAccountProgress(targetUserId) : null;
+
+  const guestSolved = Object.entries(guestProgress).filter(([_, p]) => p.status === 'solved');
+  
+  // Calculate questions that are not already solved in the user account
+  const newSolved = userProgress
+    ? guestSolved.filter(([qid]) => userProgress[qid]?.status !== 'solved')
+    : guestSolved;
+
   const attemptedCount = Object.values(guestProgress).filter(p => p.status === 'attempted').length;
+
   return {
     total: Object.keys(guestProgress).length,
-    solved: solvedCount,
+    solved: guestSolved.length,
+    newSolved: newSolved.length,
     attempted: attemptedCount
   };
 }

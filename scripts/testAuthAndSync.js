@@ -1,7 +1,7 @@
 import { 
   getScopedStorageKey, getAccountProgress, saveAccountProgress,
   getAccountDrafts, saveAccountDrafts, getAccountBookmarks, saveAccountBookmarks,
-  mergeGuestProgressIntoUser, getGuestProgressSummary, retrySync
+  mergeGuestProgressIntoUser, getGuestProgressSummary, retrySync, clearGuestProgress
 } from '../src/services/cloudProgressService.js';
 import { formatAuthError } from '../src/services/authService.js';
 import { STORAGE_KEYS } from '../src/utils/storage.js';
@@ -68,17 +68,19 @@ async function runAuthAndSyncTests() {
   const summary = getGuestProgressSummary();
   assert(summary.solved === 1, '13. getGuestProgressSummary accurately detects solved guest questions');
 
-  // Test 6: Merging guest progress into authenticated account preserves completed status
+  // Test 6: Merging guest progress into authenticated account preserves completed status and cleans guest storage
   const mergedCount = await mergeGuestProgressIntoUser('user-uuid-111');
   const user1Merged = getAccountProgress('user-uuid-111');
   assert(user1Merged[1]?.status === 'solved', '14. Merging guest progress successfully transferred solved question 1 to User 1');
   assert(user1Merged[2]?.status === 'solved', '15. Existing User 1 question 2 remained intact after merge');
+  const postMergeGuestSummary = getGuestProgressSummary('user-uuid-111');
+  assert(postMergeGuestSummary.newSolved === 0, '16. Guest progress has 0 unmerged questions after merge (no repeat prompt on refresh)');
 
   // Test 7: Bookmarks and drafts isolation
   saveAccountDrafts({ 1: 'SELECT * FROM Employees;' }, 'user-uuid-111');
   saveAccountDrafts({ 1: 'SELECT emp_name FROM Employees;' }, 'user-uuid-222');
-  assert(getAccountDrafts('user-uuid-111')[1] === 'SELECT * FROM Employees;', '16. User 1 drafts isolated');
-  assert(getAccountDrafts('user-uuid-222')[1] === 'SELECT emp_name FROM Employees;', '17. User 2 drafts isolated');
+  assert(getAccountDrafts('user-uuid-111')[1] === 'SELECT * FROM Employees;', '17. User 1 drafts isolated');
+  assert(getAccountDrafts('user-uuid-222')[1] === 'SELECT emp_name FROM Employees;', '18. User 2 drafts isolated');
 
   // Test 8: Cloud upsert payload schema conformity (must NOT contain columns missing in remote DB)
   const allowedColumns = new Set(['user_id', 'question_id', 'status', 'draft_sql', 'attempts_count', 'is_bookmarked', 'updated_at']);
@@ -107,8 +109,8 @@ async function runAuthAndSyncTests() {
   const hasOnlyAllowed = payloadKeys.every(k => allowedColumns.has(k));
   const hasNoForbidden = forbiddenColumns.every(k => !payloadKeys.includes(k));
 
-  assert(hasOnlyAllowed, '18. Cloud sync payload contains only validated Supabase table columns');
-  assert(hasNoForbidden, '19. Cloud sync payload omits remote-incompatible columns (last_error, solved_at, last_attempt_at)');
+  assert(hasOnlyAllowed, '19. Cloud sync payload contains only validated Supabase table columns');
+  assert(hasNoForbidden, '20. Cloud sync payload omits remote-incompatible columns (last_error, solved_at, last_attempt_at)');
 
   console.log(`\n==============================================`);
   console.log(`Stage 2 Acceptance Results: ${passed} / ${total} passed (100%)`);

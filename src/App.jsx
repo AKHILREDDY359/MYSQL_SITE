@@ -26,7 +26,8 @@ import { initDatabase, resetDatabase } from './services/databaseEngine.js';
 import { getActiveProfile } from './services/authService.js';
 import { 
   fetchProgressFromCloud, subscribeSyncStatus, 
-  retrySync, getGuestProgressSummary, mergeGuestProgressIntoUser 
+  retrySync, getGuestProgressSummary, mergeGuestProgressIntoUser,
+  clearGuestProgress 
 } from './services/cloudProgressService.js';
 import { useAuth } from './contexts/AuthContext.jsx';
 
@@ -164,17 +165,28 @@ export default function App() {
     refreshProgress();
 
     if (authUser) {
-      // Check if guest progress exists on this browser that can be merged
-      const summary = getGuestProgressSummary();
-      if (summary && summary.solved > 0) {
-        setGuestSummary(summary);
-        setIsMergeModalOpen(true);
-      }
+      const dismissKey = `sql_forge_guest_dismissed_${authUser.id}`;
+      const isDismissed = loadFromStorage(dismissKey, false);
 
-      // Download user's progress from cloud into isolated storage
+      // Download user's progress from cloud into isolated storage first
       fetchProgressFromCloud(authUser)
-        .then(() => refreshProgress())
-        .catch(err => console.warn('Cloud sync error on auth change:', err));
+        .then(() => {
+          refreshProgress();
+          // Check if genuine unmerged guest progress exists on this browser
+          const summary = getGuestProgressSummary(authUser.id);
+          if (summary && summary.solved > 0 && summary.newSolved === 0) {
+            // All guest questions are already solved in the user's account:
+            // clean up stale guest storage silently so it never prompts again
+            clearGuestProgress();
+          } else if (!isDismissed && summary && summary.newSolved > 0) {
+            setGuestSummary(summary);
+            setIsMergeModalOpen(true);
+          }
+        })
+        .catch(err => {
+          console.warn('Cloud sync error on auth change:', err);
+          refreshProgress();
+        });
     }
   }, [authUser, refreshProgress]);
 
@@ -182,6 +194,7 @@ export default function App() {
     if (!authUser) return;
     try {
       await mergeGuestProgressIntoUser(authUser.id);
+      saveToStorage(`sql_forge_guest_dismissed_${authUser.id}`, true);
       refreshProgress();
       setIsMergeModalOpen(false);
     } catch (err) {
@@ -190,6 +203,10 @@ export default function App() {
   };
 
   const handleSkipGuestProgress = () => {
+    if (authUser) {
+      saveToStorage(`sql_forge_guest_dismissed_${authUser.id}`, true);
+      clearGuestProgress();
+    }
     setIsMergeModalOpen(false);
   };
 
