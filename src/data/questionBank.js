@@ -27,17 +27,17 @@ export const QUESTION_TOPICS = [
 const BASE_QUESTIONS = [
   {
     "id": 1,
-    "title": "Identify Technical Department Personnel",
+    "title": "Employees in the IT Department",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The engineering director requires a complete personnel roster for the Information Technology division. Extract all employee records for staff members assigned to the IT department.",
+    "problemStatement": "Find all employees who work in the 'IT' department. Display all employee details.",
     "requirements": [
-      "Include all employee profile fields in the output.",
-      "Limit the records strictly to staff currently working in the 'IT' department."
+      "Select all columns from the Employees table.",
+      "Include only employees whose department is 'IT'."
     ],
     "tableName": "Employees",
-    "hint": "Filter the records by comparing the department column to the string 'IT'.",
+    "hint": "Use an equality check comparing the department column to 'IT'.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'IT';",
     "explanation": "The query filters the Employees table where the department attribute exactly matches the string 'IT'.",
     "tags": [
@@ -115,17 +115,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 2,
-    "title": "High-Compensation Workforce Audit",
+    "title": "Employees Earning Over 50,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The executive compensation committee is reviewing senior payroll across all departments. Generate a report of all employees whose current annual salary strictly exceeds 50,000.",
+    "problemStatement": "Find all employees whose monthly salary is greater than 50,000. Display all details.",
     "requirements": [
-      "Include all employee attributes in the final result.",
-      "Filter for staff members earning strictly more than 50,000."
+      "Select all columns from the Employees table.",
+      "Include only employees with a salary greater than 50,000."
     ],
     "tableName": "Employees",
-    "hint": "Use a comparison operator to test whether the salary value exceeds 50000.",
+    "hint": "Use a comparison operator to test if salary exceeds 50000.",
     "expectedSql": "SELECT * FROM Employees WHERE salary > 50000;",
     "explanation": "The > operator tests numeric values, returning records where salary exceeds 50000.",
     "tags": [
@@ -253,17 +253,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 3,
-    "title": "Early-Career Talent Roster",
+    "title": "Employees Aged 25 or Younger",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The human resources development team is organizing a mentorship cohort targeted at junior professionals. Retrieve all details for employees who are 25 years old or younger.",
+    "problemStatement": "Find all employees who are 25 years old or younger. Display all details.",
     "requirements": [
-      "Display all available employee fields.",
-      "Filter for employees whose age does not exceed 25 years."
+      "Select all columns from the Employees table.",
+      "Include only employees aged 25 or younger."
     ],
     "tableName": "Employees",
-    "hint": "Use a comparison operator that includes values up to and including 25.",
+    "hint": "Use a less-than-or-equal comparison on the age column.",
     "expectedSql": "SELECT * FROM Employees WHERE age <= 25;",
     "explanation": "The <= operator includes employees who are exactly 25 or below.",
     "tags": [
@@ -351,17 +351,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 4,
-    "title": "Human Resources Senior Compensation Review",
+    "title": "HR Employees Earning Over 30,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "Internal audit is reviewing operational spending within human resources. Find all personnel within the HR department who receive a salary strictly above 30,000.",
+    "problemStatement": "Find all employees in the 'HR' department who earn more than 30,000.",
     "requirements": [
-      "Retrieve full employee details across all columns.",
-      "Satisfy both business criteria: assigned to the 'HR' department and earning more than 30,000."
+      "Select all columns from the Employees table.",
+      "Employee must belong to the 'HR' department.",
+      "Salary must be strictly greater than 30,000."
     ],
     "tableName": "Employees",
-    "hint": "Combine the department filter and salary condition so that both must evaluate to true.",
+    "hint": "Combine both filtering conditions using AND.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'HR' AND salary > 30000;",
     "explanation": "The AND operator ensures that only records satisfying both department = 'HR' and salary > 30000 are returned.",
     "tags": [
@@ -419,17 +420,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 5,
-    "title": "Cross-Departmental Roster for IT and Finance",
+    "title": "Employees in IT or Finance",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "Operations needs an updated roster of personnel supporting technical infrastructure and corporate accounting. Retrieve all employees who belong to either the IT or Finance business units.",
+    "problemStatement": "Find all employees who work in either the 'IT' or 'Finance' department.",
     "requirements": [
-      "Return complete employee profile data.",
-      "Include staff belonging to either the 'IT' department or the 'Finance' department."
+      "Select all columns from the Employees table.",
+      "Include employees who belong to either 'IT' or 'Finance'."
     ],
     "tableName": "Employees",
-    "hint": "Connect the two alternative department conditions using a logical operator that returns true if either condition is met.",
+    "hint": "Connect the two alternative department conditions using OR.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'IT' OR department = 'Finance';",
     "explanation": "The OR operator evaluates to true if either condition is met.",
     "tags": [
@@ -547,17 +548,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 6,
-    "title": "Mid-Range Salary Bracket Analysis",
+    "title": "Employees with Salaries Between 30,000 and 60,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The payroll department is analyzing compensation bands for mid-level professionals. Retrieve all employees whose salary falls within the range of 30,000 to 60,000, inclusive of both boundaries.",
+    "problemStatement": "Find all employees whose salary is between 30,000 and 60,000, including both amounts.",
     "requirements": [
-      "Include all employee attributes.",
-      "Filter for salaries between 30,000 and 60,000 inclusive."
+      "Select all columns from the Employees table.",
+      "Salary must fall between 30,000 and 60,000 (inclusive)."
     ],
     "tableName": "Employees",
-    "hint": "Use an operator that tests whether a value falls within an inclusive numeric range.",
+    "hint": "Use an inclusive range operator to test the salary value.",
     "expectedSql": "SELECT * FROM Employees WHERE salary BETWEEN 30000 AND 60000;",
     "explanation": "In SQL, `salary BETWEEN 30000 AND 60000` is equivalent to `salary >= 30000 AND salary <= 60000`.",
     "tags": [
@@ -695,17 +696,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 7,
-    "title": "Multi-Division Operational Staff List",
+    "title": "Employees in IT, HR, or Sales",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The regional operations committee is convening an executive review for staff in Information Technology, Human Resources, and Sales. Generate a roster of all employees currently assigned to any of these three operational divisions.",
+    "problemStatement": "Find all employees who belong to the 'IT', 'HR', or 'Sales' department.",
     "requirements": [
-      "Select all employee attributes across the entire table.",
-      "Include staff members belonging to IT, HR, or Sales."
+      "Select all columns from the Employees table.",
+      "Department must be one of: 'IT', 'HR', or 'Sales'."
     ],
     "tableName": "Employees",
-    "hint": "Check whether the department column matches any value in a specified set of values.",
+    "hint": "Check whether the department matches any value in a list of options.",
     "expectedSql": "SELECT * FROM Employees WHERE department IN ('IT', 'HR', 'Sales');",
     "explanation": "The IN operator checks if a value matches any value in a specified list, providing a concise alternative to chained OR conditions.",
     "tags": [
@@ -863,17 +864,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 8,
-    "title": "Hyderabad Experienced Compensation Audit",
+    "title": "Hyderabad Employees Earning At Least 40,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "Management is assessing living wage adjustments for the Hyderabad regional hub. Identify all employees stationed in Hyderabad who earn at least 40,000.",
+    "problemStatement": "Find all employees located in 'Hyderabad' who earn 40,000 or more.",
     "requirements": [
-      "Include all employee profile columns.",
-      "Ensure the employee is based in 'Hyderabad' and earns a salary of 40,000 or more."
+      "Select all columns from the Employees table.",
+      "City must be 'Hyderabad'.",
+      "Salary must be 40,000 or higher."
     ],
     "tableName": "Employees",
-    "hint": "Join the location equality check with a greater-than-or-equal condition on salary.",
+    "hint": "Combine an equality check on city with a greater-than-or-equal check on salary.",
     "expectedSql": "SELECT * FROM Employees WHERE city = 'Hyderabad' AND salary >= 40000;",
     "explanation": "Combines city text matching with a numeric >= comparison.",
     "tags": [
@@ -941,17 +943,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 9,
-    "title": "Personnel Directory Filter: Prefix A",
+    "title": "Employees Whose Name Starts with 'A'",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The directory administrators are creating an indexed telephone guide. Find all employees whose full name begins with the capital letter 'A'.",
+    "problemStatement": "Find all employees whose full name begins with the capital letter 'A'.",
     "requirements": [
-      "Include all employee attributes in the output.",
-      "Filter for employees whose name starts with 'A'."
+      "Select all columns from the Employees table.",
+      "Employee name must start with the letter 'A'."
     ],
     "tableName": "Employees",
-    "hint": "Use pattern matching with a wildcard that represents any sequence of characters following 'A'.",
+    "hint": "Use pattern matching with a trailing wildcard after 'A'.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE 'A%';",
     "explanation": "The % wildcard represents zero, one, or multiple characters. 'A%' checks for names starting with A.",
     "tags": [
@@ -999,17 +1001,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 10,
-    "title": "Personnel Directory Filter: Suffix a",
+    "title": "Employees Whose Name Ends with 'a'",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "Data quality engineers are verifying transliterated records for name standardization. Find all employees whose name ends with the letter 'a' (case-insensitive).",
+    "problemStatement": "Find all employees whose name ends with the letter 'a' (case-insensitive).",
     "requirements": [
-      "Retrieve all employee details.",
-      "Filter for employee names terminating with the letter 'a'."
+      "Select all columns from the Employees table.",
+      "Employee name must end with the letter 'a'."
     ],
     "tableName": "Employees",
-    "hint": "Use pattern matching with a leading wildcard before the character 'a'.",
+    "hint": "Use pattern matching with a leading wildcard before 'a'.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE '%a';",
     "explanation": "The '%a' pattern matches strings where the final character is 'a'.",
     "tags": [
@@ -1117,17 +1119,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 11,
-    "title": "Personnel Directory Substring Search",
+    "title": "Employees Whose Name Contains 'an'",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The HR search portal must locate staff members by partial name queries. Retrieve all employee records where the name contains the substring 'an' at any position.",
+    "problemStatement": "Find all employees whose name contains the letters 'an' anywhere in the name.",
     "requirements": [
-      "Select all columns.",
-      "Filter for names containing 'an' anywhere in the string."
+      "Select all columns from the Employees table.",
+      "Employee name must contain 'an'."
     ],
     "tableName": "Employees",
-    "hint": "Enclose the substring between wildcard characters on both sides.",
+    "hint": "Enclose 'an' between wildcards on both sides.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE '%an%';",
     "explanation": "The '%an%' pattern matches any string having 'an' as a substring at the start, middle, or end.",
     "tags": [
@@ -1195,14 +1197,14 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 12,
-    "title": "Standard Salary Benchmark Variance",
+    "title": "Employees with Salary Not Equal to 40,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "Compensation analysis is identifying employees who deviate from the standard baseline compensation of 40,000. Retrieve all employees whose salary is not equal to 40,000.",
+    "problemStatement": "Find all employees whose salary is not equal to 40,000.",
     "requirements": [
-      "Include all employee attributes.",
-      "Exclude staff members whose salary is exactly 40,000."
+      "Select all columns from the Employees table.",
+      "Exclude employees whose salary is exactly 40,000."
     ],
     "tableName": "Employees",
     "hint": "Use an inequality comparison operator.",
@@ -1423,17 +1425,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 13,
-    "title": "Young IT Professionals Roster",
+    "title": "IT Employees Aged 25 to 30",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Medium",
-    "problemStatement": "The tech talent accelerator is looking for candidates between the ages of 25 and 30 within the engineering organization. Find all employees working in the IT department who are between 25 and 30 years old, inclusive.",
+    "problemStatement": "Find all employees in the 'IT' department who are between 25 and 30 years old, inclusive.",
     "requirements": [
-      "Return all employee columns.",
-      "Apply two filters: age must be between 25 and 30 inclusive, and department must be 'IT'."
+      "Select all columns from the Employees table.",
+      "Department must be 'IT'.",
+      "Age must be between 25 and 30 (inclusive)."
     ],
     "tableName": "Employees",
-    "hint": "Combine an inclusive age range condition with a department equality check.",
+    "hint": "Combine a range condition on age with an equality check on department.",
     "expectedSql": "SELECT * FROM Employees WHERE age BETWEEN 25 AND 30 AND department = 'IT';",
     "explanation": "Combines range filtering on age with an exact string match on department using AND.",
     "tags": [
@@ -1491,17 +1494,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 14,
-    "title": "Non-HR Operational Workforce",
+    "title": "Employees Not in HR",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The general operations directorate requires a listing of all staff members who do not work in Human Resources. Retrieve all employees who are not assigned to the HR department.",
+    "problemStatement": "Find all employees who do not belong to the 'HR' department.",
     "requirements": [
-      "Retrieve full employee profiles across all columns.",
-      "Exclude employees assigned to the 'HR' department."
+      "Select all columns from the Employees table.",
+      "Exclude employees in the 'HR' department."
     ],
     "tableName": "Employees",
-    "hint": "Use an inequality operator on the department column.",
+    "hint": "Use an inequality comparison on the department column.",
     "expectedSql": "SELECT * FROM Employees WHERE department != 'HR';",
     "explanation": "Filters out records where department equals 'HR'.",
     "tags": [
@@ -1689,18 +1692,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 15,
-    "title": "Southern Hub High-Compensation Staff",
+    "title": "Chennai or Bengaluru High Earners",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Medium",
-    "problemStatement": "Regional leadership is auditing high earners in southern metropolitan branches. Find all employees based in either Chennai or Bengaluru who earn strictly more than 50,000.",
+    "problemStatement": "Find all employees based in either 'Chennai' or 'Bengaluru' who earn strictly more than 50,000.",
     "requirements": [
-      "Select all employee fields.",
-      "Filter for employees located in either 'Chennai' or 'Bengaluru' whose salary exceeds 50,000.",
-      "Ensure proper grouping of logical conditions so location alternatives are evaluated before the salary threshold."
+      "Select all columns from the Employees table.",
+      "City must be 'Chennai' or 'Bengaluru'.",
+      "Salary must be strictly greater than 50,000."
     ],
     "tableName": "Employees",
-    "hint": "Wrap the two city choices in parentheses so the alternative condition is evaluated before the salary threshold.",
+    "hint": "Wrap the city choices in parentheses so the alternative is checked before salary.",
     "expectedSql": "SELECT * FROM Employees WHERE (city = 'Chennai' OR city = 'Bengaluru') AND salary > 50000;",
     "explanation": "AND has higher precedence than OR. Grouping the OR condition inside parentheses ensures the salary threshold applies to both cities.",
     "tags": [
@@ -1798,17 +1801,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 16,
-    "title": "Experienced Below-Ceiling Compensation Audit",
+    "title": "Experienced Employees Earning Under 70,000",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is conducting pay equity analysis for seasoned staff members. Retrieve all employees who possess at least 5 years of professional experience but earn less than 70,000.",
+    "problemStatement": "Find all employees who have at least 5 years of experience and earn less than 70,000.",
     "requirements": [
-      "Include all employee columns.",
-      "Filter for experience of 5 or more years and a salary strictly under 70,000."
+      "Select all columns from the Employees table.",
+      "Experience must be 5 years or more.",
+      "Salary must be strictly less than 70,000."
     ],
     "tableName": "Employees",
-    "hint": "Combine a greater-than-or-equal test on experience with a less-than test on salary.",
+    "hint": "Combine an experience condition (>= 5) with a salary condition (< 70000).",
     "expectedSql": "SELECT * FROM Employees WHERE experience >= 5 AND salary < 70000;",
     "explanation": "Filters records using two simultaneous numeric inequalities joined by AND.",
     "tags": [
@@ -1896,17 +1900,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 17,
-    "title": "Recent Multi-Year Hiring Cohorts",
+    "title": "Employees Hired in 2022, 2023, or 2024",
     "part": "WHERE & Operators",
     "topic": "WHERE & Operators",
     "difficulty": "Easy",
-    "problemStatement": "The talent acquisition team is compiling an onboarding retention report for staff hired during the recent expansion years. Display all employees who joined the company in 2022, 2023, or 2024.",
+    "problemStatement": "Find all employees who joined the company in 2022, 2023, or 2024.",
     "requirements": [
-      "Display all employee details.",
-      "Filter for employees who joined in any of the years: 2022, 2023, or 2024."
+      "Select all columns from the Employees table.",
+      "Joining year must be 2022, 2023, or 2024."
     ],
     "tableName": "Employees",
-    "hint": "Match joining_year against a list of the specified target years.",
+    "hint": "Check whether joining_year matches any year in the list (2022, 2023, 2024).",
     "expectedSql": "SELECT * FROM Employees WHERE joining_year IN (2022, 2023, 2024);",
     "explanation": "The IN operator checks membership against a set of integer values.",
     "tags": [
@@ -2004,14 +2008,14 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 18,
-    "title": "Four-Character Name Identifier",
+    "title": "Employees with Exactly 4-Letter Names",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Medium",
-    "problemStatement": "Identity governance is verifying short badge names for security printing. Find all employees whose first name consists of exactly four characters.",
+    "problemStatement": "Find all employees whose name is exactly four characters long.",
     "requirements": [
-      "Select all employee columns.",
-      "Filter for employee names that have a length of exactly four characters."
+      "Select all columns from the Employees table.",
+      "The employee name must have an exact length of 4 characters."
     ],
     "tableName": "Employees",
     "hint": "Use single-character wildcards to enforce an exact character count.",
@@ -2062,17 +2066,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 19,
-    "title": "Out-of-Band Compensation Outliers",
+    "title": "Salaries Outside 30,000 to 60,000",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Medium",
-    "problemStatement": "Finance is reviewing compensation anomalies outside the core standard pay bracket. Find all employees whose salary falls outside the 30,000 to 60,000 range (strictly less than 30,000 or strictly greater than 60,000).",
+    "problemStatement": "Find all employees whose salary is strictly outside the range of 30,000 to 60,000 (less than 30,000 or greater than 60,000).",
     "requirements": [
-      "Include all employee attributes.",
-      "Filter for salaries outside the range of 30,000 to 60,000 inclusive."
+      "Select all columns from the Employees table.",
+      "Salary must not fall between 30,000 and 60,000 (inclusive)."
     ],
     "tableName": "Employees",
-    "hint": "Negate a range condition or check for values strictly below 30,000 or strictly above 60,000.",
+    "hint": "Use a negated range operator to exclude values between 30000 and 60000.",
     "expectedSql": "SELECT * FROM Employees WHERE salary NOT BETWEEN 30000 AND 60000;",
     "explanation": "NOT BETWEEN excludes values that fall inside the inclusive interval [30000, 60000].",
     "tags": [
@@ -2190,18 +2194,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 20,
-    "title": "Target Departments Outside Chennai",
+    "title": "IT or Sales Employees Outside Chennai",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Medium",
-    "problemStatement": "Business development is planning on-site workshops for IT and Sales personnel stationed outside the Chennai office. Retrieve all employees who work in either IT or Sales and are not based in Chennai.",
+    "problemStatement": "Find all employees who work in either 'IT' or 'Sales' and are not located in 'Chennai'.",
     "requirements": [
-      "Select all employee columns.",
-      "Include employees from the 'IT' or 'Sales' departments.",
-      "Exclude employees located in 'Chennai'."
+      "Select all columns from the Employees table.",
+      "Department must be 'IT' or 'Sales'.",
+      "City must not be 'Chennai'."
     ],
     "tableName": "Employees",
-    "hint": "Check department membership in ('IT', 'Sales') combined with a city inequality check.",
+    "hint": "Filter for departments in ('IT', 'Sales') combined with city != 'Chennai'.",
     "expectedSql": "SELECT * FROM Employees WHERE department IN ('IT', 'Sales') AND city != 'Chennai';",
     "explanation": "Combines set inclusion on department with inequality on city.",
     "tags": [
@@ -2300,17 +2304,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 21,
-    "title": "Total Workforce Census",
+    "title": "Count Total Employees",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "The board of directors requests an official headcount audit of all active staff members across the entire organization. Calculate the total number of employees currently employed.",
+    "problemStatement": "Find the total number of employees in the company.",
     "requirements": [
       "Count all records in the Employees table.",
-      "Alias the aggregated metric as total_employees."
+      "Alias the resulting count as `total_employees`."
     ],
     "tableName": "Employees",
-    "hint": "Use an aggregate counting function across all rows.",
+    "hint": "Use the standard counting aggregate function.",
     "expectedSql": "SELECT COUNT(*) AS total_employees FROM Employees;",
     "explanation": "COUNT(*) returns the total number of rows in the table, including rows with NULL values.",
     "tags": [
@@ -2333,17 +2337,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 22,
-    "title": "Enterprise Monthly Payroll Expenditure",
+    "title": "Calculate Total Payroll",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "The Chief Financial Officer requires the total monthly payroll obligation for all employees combined. Calculate the cumulative sum of all employee salaries.",
+    "problemStatement": "Calculate the total sum of salaries paid to all employees.",
     "requirements": [
-      "Calculate the sum of the salary column across all employees.",
-      "Alias the calculated total as total_salary."
+      "Sum the salary column across all employees.",
+      "Alias the calculated total as `total_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use an aggregation function that sums all values in a numeric column.",
+    "hint": "Apply the sum aggregate function to the salary column.",
     "expectedSql": "SELECT SUM(salary) AS total_salary FROM Employees;",
     "explanation": "SUM(salary) computes the arithmetic sum of all values in the salary column.",
     "tags": [
@@ -2366,17 +2370,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 23,
-    "title": "Company-Wide Average Compensation Benchmark",
+    "title": "Calculate Average Salary",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "Compensation benchmarking requires knowing the overall baseline salary across the enterprise. Calculate the average salary paid to employees.",
+    "problemStatement": "Find the average salary of all employees in the company.",
     "requirements": [
-      "Compute the mathematical mean of all employee salaries.",
-      "Alias the resulting figure as average_salary."
+      "Compute the average of the salary column.",
+      "Alias the result as `average_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use the standard arithmetic mean aggregate function.",
+    "hint": "Use the average aggregate function on salary.",
     "expectedSql": "SELECT AVG(salary) AS average_salary FROM Employees;",
     "explanation": "AVG(salary) computes the mean of the salary values.",
     "tags": [
@@ -2399,17 +2403,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 24,
-    "title": "Peak Compensation Identification",
+    "title": "Find the Highest Salary",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "Executive remuneration analysis needs to verify the maximum base compensation paid to any employee in the company. Find the highest salary recorded in the employee directory.",
+    "problemStatement": "Find the highest salary among all employees in the company.",
     "requirements": [
-      "Determine the maximum value from the salary column.",
-      "Alias the resulting metric as max_salary."
+      "Find the maximum value from the salary column.",
+      "Alias the result as `max_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use the aggregate function that finds the highest value in a column.",
+    "hint": "Use the maximum aggregate function on salary.",
     "expectedSql": "SELECT MAX(salary) AS max_salary FROM Employees;",
     "explanation": "MAX(salary) returns the highest value present in the salary column.",
     "tags": [
@@ -2432,17 +2436,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 25,
-    "title": "Entry-Level Minimum Salary Baseline",
+    "title": "Find the Lowest Salary",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "Human resources is checking compliance with corporate minimum wage standards. Determine the lowest salary currently paid to any employee in the organization.",
+    "problemStatement": "Find the lowest salary among all employees in the company.",
     "requirements": [
-      "Find the minimum value within the salary column.",
-      "Alias the resulting metric as min_salary."
+      "Find the minimum value from the salary column.",
+      "Alias the result as `min_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use the aggregate function that finds the lowest numeric value.",
+    "hint": "Use the minimum aggregate function on salary.",
     "expectedSql": "SELECT MIN(salary) AS min_salary FROM Employees;",
     "explanation": "MIN(salary) returns the minimum value from the salary column.",
     "tags": [
@@ -2465,17 +2469,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 26,
-    "title": "Technical Division Headcount",
+    "title": "Count Employees in the IT Department",
     "part": "Aggregate Functions",
     "topic": "Aggregate Functions",
     "difficulty": "Easy",
-    "problemStatement": "The Chief Technology Officer is assessing engineering capacity. Count the total number of employees currently working in the IT department.",
+    "problemStatement": "Count how many employees work in the 'IT' department.",
     "requirements": [
-      "Count the qualifying employees belonging to the 'IT' department.",
-      "Alias the calculated count as it_employees_count."
+      "Filter for employees where department is 'IT'.",
+      "Alias the count as `it_employees_count`."
     ],
     "tableName": "Employees",
-    "hint": "Combine an aggregate count function with a filter for the IT department.",
+    "hint": "Combine an aggregate count with a filter on department.",
     "expectedSql": "SELECT COUNT(*) AS it_employees_count FROM Employees WHERE department = 'IT';",
     "explanation": "The WHERE clause filters rows prior to the COUNT aggregation.",
     "tags": [
@@ -2499,17 +2503,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 27,
-    "title": "Workforce Mean Age Metric",
+    "title": "Calculate Average Employee Age",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Easy",
-    "problemStatement": "Corporate wellness planning is studying employee demographics to tailor health benefit programs. Calculate the average age of all employees across the company.",
+    "problemStatement": "Find the average age of all employees in the company.",
     "requirements": [
-      "Compute the average value of the age column across all employees.",
-      "Alias the resulting metric as average_age."
+      "Compute the average of the age column.",
+      "Alias the result as `average_age`."
     ],
     "tableName": "Employees",
-    "hint": "Use the average aggregate function on the age attribute.",
+    "hint": "Use the average aggregate function on age.",
     "expectedSql": "SELECT AVG(age) AS average_age FROM Employees;",
     "explanation": "Calculates the arithmetic mean of the age column across all employees.",
     "tags": [
@@ -2532,17 +2536,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 28,
-    "title": "Hyderabad Regional Payroll Budget",
+    "title": "Total Salary Paid in Hyderabad",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Easy",
-    "problemStatement": "The regional accounting office in Hyderabad needs its total monthly payroll commitment. Calculate the cumulative salary expenditure for all employees residing in Hyderabad.",
+    "problemStatement": "Calculate the total salary paid to all employees based in 'Hyderabad'.",
     "requirements": [
-      "Calculate the sum of salaries for staff based in 'Hyderabad'.",
-      "Alias the resulting sum as total_hyderabad_salary."
+      "Sum the salaries for employees whose city is 'Hyderabad'.",
+      "Alias the total as `total_hyderabad_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Filter for Hyderabad before summing the salaries.",
+    "hint": "Filter for city = 'Hyderabad' before summing the salary column.",
     "expectedSql": "SELECT SUM(salary) AS total_hyderabad_salary FROM Employees WHERE city = 'Hyderabad';",
     "explanation": "Filters for employees based in Hyderabad and sums their compensation.",
     "tags": [
@@ -2566,18 +2570,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 29,
-    "title": "Top Compensation for Seasoned Personnel",
+    "title": "Highest Salary with 5+ Years Experience",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee is reviewing salary caps for senior staff. Find the highest salary earned among employees who have at least 5 years of professional experience.",
+    "problemStatement": "Find the highest salary among employees who have at least 5 years of experience.",
     "requirements": [
       "Filter for employees with 5 or more years of experience.",
-      "Determine the highest salary among those qualifying employees.",
-      "Alias the maximum salary as max_salary."
+      "Alias the maximum salary as `max_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use the peak aggregate function on salary alongside a filter on experience.",
+    "hint": "Filter where experience >= 5 and find MAX(salary).",
     "expectedSql": "SELECT MAX(salary) AS max_salary FROM Employees WHERE experience >= 5;",
     "explanation": "The WHERE clause restricts the set of rows to senior employees before finding the maximum salary.",
     "tags": [
@@ -2601,17 +2604,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 30,
-    "title": "High-Earner Cohort Headcount",
+    "title": "Count Employees Earning Over 50,000",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Easy",
-    "problemStatement": "Tax compliance needs to know how many personnel fall into the higher tax brackets. Count how many employees earn a salary strictly greater than 50,000.",
+    "problemStatement": "Count how many employees earn a salary strictly greater than 50,000.",
     "requirements": [
-      "Count the number of employees earning above 50,000.",
-      "Alias the resulting headcount as count_high_earners."
+      "Count employees where salary is greater than 50,000.",
+      "Alias the count as `count_high_earners`."
     ],
     "tableName": "Employees",
-    "hint": "Combine the counting function with a salary filter strictly exceeding 50,000.",
+    "hint": "Filter for salary > 50000 and count the rows.",
     "expectedSql": "SELECT COUNT(*) AS count_high_earners FROM Employees WHERE salary > 50000;",
     "explanation": "Restricts the count to rows where salary exceeds 50000.",
     "tags": [
@@ -2635,18 +2638,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 31,
-    "title": "Departmental Staffing Distribution",
+    "title": "Number of Employees in Each Department",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Workforce management is balancing team sizes across divisions. Display each department name along with the total count of employees working in that department.",
+    "problemStatement": "Find the number of employees working in each department.",
     "requirements": [
       "Group records by department.",
-      "Display the department name and total employee count.",
-      "Alias the employee count as employee_count."
+      "Display department name and employee count.",
+      "Alias the employee count as `employee_count`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and apply the count aggregate function.",
+    "hint": "Group by department and apply the count function.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department;",
     "explanation": "GROUP BY department groups records by their department, and COUNT(*) counts the rows in each group.",
     "tags": [
@@ -2688,18 +2691,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 32,
-    "title": "Departmental Average Compensation Breakdown",
+    "title": "Average Salary in Each Department",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Finance is evaluating relative labor costs between business units. Display each department along with the average salary of employees working in that department.",
+    "problemStatement": "Find the average salary of employees in each department.",
     "requirements": [
       "Group records by department.",
-      "Display the department name and average salary.",
-      "Alias the calculated average as avg_salary."
+      "Display department name and average salary.",
+      "Alias the average as `avg_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and compute the average salary for each group.",
+    "hint": "Group by department and compute the average salary.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department;",
     "explanation": "Groups records by department and computes the average salary per department group.",
     "tags": [
@@ -2741,18 +2744,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 33,
-    "title": "Departmental Total Payroll Expenditure",
+    "title": "Total Salary in Each Department",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "The accounting department is allocating monthly departmental operating budgets. Display each department name along with the total salary expenditure paid to its employees.",
+    "problemStatement": "Calculate the total salary paid by each department.",
     "requirements": [
       "Group records by department.",
-      "Display the department name and total salary expenditure.",
-      "Alias the total salary as total_salary."
+      "Display department name and total salary.",
+      "Alias the total as `total_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and sum the salaries within each group.",
+    "hint": "Group by department and sum the salaries.",
     "expectedSql": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department;",
     "explanation": "Aggregates total salary expenditure grouped by individual departments.",
     "tags": [
@@ -2793,18 +2796,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 34,
-    "title": "Peak Earner per Department",
+    "title": "Highest Salary in Each Department",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Executive recruitment is comparing top compensation ceilings across functional areas. Display each department name along with the highest salary earned within that department.",
+    "problemStatement": "Find the highest salary earned in each department.",
     "requirements": [
       "Group records by department.",
-      "Display the department name and highest salary in that department.",
-      "Alias the peak salary as max_salary."
+      "Display department name and maximum salary.",
+      "Alias the maximum as `max_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and use the maximum aggregate function on salary.",
+    "hint": "Group by department and find the maximum salary.",
     "expectedSql": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department;",
     "explanation": "Finds the peak compensation per department category.",
     "tags": [
@@ -2845,15 +2848,15 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 35,
-    "title": "Entry-Level Salary Floor per Department",
+    "title": "Lowest Salary in Each Department",
     "part": "GROUP BY",
     "topic": "GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is auditing entry-level pay parity across functional teams. Display each department along with the lowest salary earned in that department.",
+    "problemStatement": "Find the lowest salary earned in each department.",
     "requirements": [
       "Group records by department.",
-      "Display the department name and lowest salary in that department.",
-      "Alias the lowest salary as min_salary."
+      "Display department name and minimum salary.",
+      "Alias the minimum as `min_salary`."
     ],
     "tableName": "Employees",
     "hint": "Group by department and find the minimum salary.",
@@ -2897,18 +2900,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 36,
-    "title": "Geographical Workforce Density",
+    "title": "Number of Employees in Each City",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Real estate and facilities planning is sizing regional office spaces. Display each city and the total number of employees residing in that city.",
+    "problemStatement": "Find the total number of employees residing in each city.",
     "requirements": [
       "Group records by city.",
-      "Display the city name and total employee count.",
-      "Alias the employee count as employee_count."
+      "Display city name and employee count.",
+      "Alias the count as `employee_count`."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and calculate the count of employees in each location.",
+    "hint": "Group by city and count the employees.",
     "expectedSql": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city;",
     "explanation": "Partitions the data by city and counts members belonging to each location.",
     "tags": [
@@ -2946,18 +2949,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 37,
-    "title": "Regional Cost of Labor Benchmarking",
+    "title": "Average Salary in Each City",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee is analyzing geographic wage differentials. Calculate the average employee salary for each city where staff are located.",
+    "problemStatement": "Find the average employee salary for each city.",
     "requirements": [
       "Group records by city.",
-      "Display the city name and average salary.",
-      "Alias the average salary as avg_salary."
+      "Display city name and average salary.",
+      "Alias the average as `avg_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and compute the average salary.",
+    "hint": "Group by city and calculate the average salary.",
     "expectedSql": "SELECT city, AVG(salary) AS avg_salary FROM Employees GROUP BY city;",
     "explanation": "Computes location-based compensation averages by grouping on city.",
     "tags": [
@@ -2995,18 +2998,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 38,
-    "title": "Annual Hiring Cohort Velocity",
+    "title": "Number of Employees Hired per Year",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Talent acquisition is reviewing historical hiring volumes over time. Display each employee joining year along with the total number of employees who joined in that year.",
+    "problemStatement": "Find how many employees joined the company in each year.",
     "requirements": [
       "Group records by joining_year.",
-      "Display joining_year and total employee count.",
-      "Alias the count as employee_count."
+      "Display joining_year and employee count.",
+      "Alias the count as `employee_count`."
     ],
     "tableName": "Employees",
-    "hint": "Group by the joining_year attribute and count occurrences.",
+    "hint": "Group by the joining_year column and count records.",
     "expectedSql": "SELECT joining_year, COUNT(*) AS employee_count FROM Employees GROUP BY joining_year;",
     "explanation": "Groups employee records by their year of hire.",
     "tags": [
@@ -3072,18 +3075,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 39,
-    "title": "Identify Major Operating Departments",
+    "title": "Departments with More Than 3 Employees",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Operations management wants to isolate major functional divisions that have substantial staffing. Display departments that have strictly more than 3 employees.",
+    "problemStatement": "Find all departments that have strictly more than 3 employees.",
     "requirements": [
       "Group records by department.",
-      "Display department name and employee count aliased as employee_count.",
-      "Filter the aggregated results to only include departments with more than 3 employees."
+      "Display department name and employee count aliased as `employee_count`.",
+      "Include only departments with more than 3 employees."
     ],
     "tableName": "Employees",
-    "hint": "Use a post-aggregation filter to restrict groups based on their calculated count.",
+    "hint": "Use a post-aggregation filter to restrict groups where count exceeds 3.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department HAVING COUNT(*) > 3;",
     "explanation": "HAVING filters groups after the GROUP BY operation, unlike WHERE which filters individual rows before grouping.",
     "tags": [
@@ -3121,18 +3124,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 40,
-    "title": "High-Compensation Departmental Filter",
+    "title": "Departments with Average Salary Over 50,000",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Finance is reviewing business units where overall compensation exceeds the general norm. Display departments where the average employee salary strictly exceeds 50,000.",
+    "problemStatement": "Find all departments where the average employee salary is strictly greater than 50,000.",
     "requirements": [
       "Group records by department.",
-      "Display department name and average salary aliased as avg_salary.",
-      "Filter groups to only include departments with an average salary greater than 50,000."
+      "Display department name and average salary aliased as `avg_salary`.",
+      "Include only departments where average salary exceeds 50,000."
     ],
     "tableName": "Employees",
-    "hint": "Filter the aggregated groups using a condition on average salary.",
+    "hint": "Filter the grouped departments where average salary is greater than 50000.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) > 50000;",
     "explanation": "Filters the department groups to only include those where the calculated average salary exceeds 50000.",
     "tags": [
@@ -3166,18 +3169,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 41,
-    "title": "High-Budget Payroll Units",
+    "title": "Departments with Total Payroll Over 150,000",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Budget control is flagging business units whose monthly wage bill exceeds standard expenditure limits. Find departments whose cumulative salary expense strictly exceeds 150,000.",
+    "problemStatement": "Find all departments whose total salary expense is strictly greater than 150,000.",
     "requirements": [
       "Group records by department.",
-      "Display department name and total salary aliased as total_salary.",
-      "Filter groups to only keep departments where cumulative salary exceeds 150,000."
+      "Display department name and total salary aliased as `total_salary`.",
+      "Include only departments where total salary exceeds 150,000."
     ],
     "tableName": "Employees",
-    "hint": "Filter group totals using a condition on the sum of salaries.",
+    "hint": "Filter group totals where the sum of salary is greater than 150000.",
     "expectedSql": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department HAVING SUM(salary) > 150000;",
     "explanation": "Groups by department and restricts the output to groups where the sum of salaries exceeds 150000.",
     "tags": [
@@ -3219,18 +3222,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 42,
-    "title": "Departments with Executive-Tier Salaries",
+    "title": "Departments Where Highest Salary is At Least 70,000",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Executive compensation is tracking departments with top-tier earners. Display departments where the highest earned salary is at least 70,000.",
+    "problemStatement": "Find all departments where the top earner receives a salary of 70,000 or more.",
     "requirements": [
       "Group records by department.",
-      "Display department name and maximum salary aliased as max_salary.",
-      "Filter to only include departments where the peak salary is 70,000 or higher."
+      "Display department name and maximum salary aliased as `max_salary`.",
+      "Include only departments where maximum salary is at least 70,000."
     ],
     "tableName": "Employees",
-    "hint": "Filter groups based on the maximum salary value in each department.",
+    "hint": "Filter groups where MAX(salary) is 70000 or higher.",
     "expectedSql": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department HAVING MAX(salary) >= 70000;",
     "explanation": "Filters out departments where the top earner's compensation is below 70000.",
     "tags": [
@@ -3264,18 +3267,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 43,
-    "title": "High-Density Branch Locations",
+    "title": "Cities with At Least 4 Employees",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Corporate administration is evaluating which branch locations warrant dedicated local administrative staff. Display all cities that have at least 4 resident employees.",
+    "problemStatement": "Find all cities that have 4 or more resident employees.",
     "requirements": [
       "Group records by city.",
-      "Display city name and total employee count aliased as employee_count.",
-      "Filter groups to only include cities with 4 or more employees."
+      "Display city name and employee count aliased as `employee_count`.",
+      "Include only cities with 4 or more employees."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and filter groups with a headcount of 4 or greater.",
+    "hint": "Group by city and filter for employee count of at least 4.",
     "expectedSql": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city HAVING COUNT(*) >= 4;",
     "explanation": "Groups employees by city and retains only cities with 4 or more assigned employees.",
     "tags": [
@@ -3313,18 +3316,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 44,
-    "title": "Low-Average Compensation Departmental Audit",
+    "title": "Departments with Average Salary Under 45,000",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is reviewing compensation equity in departments that may be undercompensated. Display departments whose average salary is strictly below 45,000.",
+    "problemStatement": "Find all departments where the average employee salary is strictly below 45,000.",
     "requirements": [
       "Group records by department.",
-      "Display department name and average salary aliased as avg_salary.",
-      "Filter groups to only include departments with an average salary under 45,000."
+      "Display department name and average salary aliased as `avg_salary`.",
+      "Include only departments where average salary is less than 45,000."
     ],
     "tableName": "Employees",
-    "hint": "Apply a filter to group averages for values less than 45000.",
+    "hint": "Filter groups where average salary is under 45000.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) < 45000;",
     "explanation": "Identifies lower-compensating departments by evaluating group averages.",
     "tags": [
@@ -3354,18 +3357,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 45,
-    "title": "Mid-Scale Well-Compensated Departments",
+    "title": "Departments with Over 2 Employees and Average Salary Above 40,000",
     "part": "HAVING",
     "topic": "HAVING",
     "difficulty": "Hard",
-    "problemStatement": "Strategic workforce planning is identifying departments that combine significant staffing with strong compensation levels. Display departments that have more than 2 employees and an average salary above 40,000.",
+    "problemStatement": "Find departments that have more than 2 employees and an average salary strictly greater than 40,000.",
     "requirements": [
       "Group records by department.",
-      "Display department name, employee count aliased as employee_count, and average salary aliased as avg_salary.",
-      "Filter for departments satisfying both criteria: more than 2 employees and average salary greater than 40,000."
+      "Display department name, `employee_count`, and `avg_salary`.",
+      "Include only departments with more than 2 employees and average salary above 40,000."
     ],
     "tableName": "Employees",
-    "hint": "Combine two aggregate conditions in the group filtering clause using AND.",
+    "hint": "Combine two conditions in the group filter using AND.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) > 2 AND AVG(salary) > 40000;",
     "explanation": "Demonstrates combining multiple aggregate criteria in a single HAVING clause using AND.",
     "tags": [
@@ -3414,17 +3417,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 46,
-    "title": "Workforce Compensation Ranking",
+    "title": "Sort Employees by Salary (Highest First)",
     "part": "Sorting & Limiting",
     "topic": "Sorting & Limiting",
     "difficulty": "Easy",
-    "problemStatement": "The payroll department is preparing an annual executive review list. Display all employees ordered by their salary from highest to lowest.",
+    "problemStatement": "Display all employees, ordered by their salary from highest to lowest.",
     "requirements": [
-      "Select all employee columns.",
-      "Sort the results by salary in descending order (highest first)."
+      "Select all columns from the Employees table.",
+      "Sort by salary in descending order (highest first)."
     ],
     "tableName": "Employees",
-    "hint": "Sort the output by the salary attribute in descending direction.",
+    "hint": "Order by salary descending.",
     "expectedSql": "SELECT * FROM Employees ORDER BY salary DESC;",
     "explanation": "ORDER BY salary DESC sorts the result set such that the highest compensation appears at the top.",
     "tags": [
@@ -3653,17 +3656,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 47,
-    "title": "Demographic Seniority Roster",
+    "title": "Sort Employees by Age (Youngest First)",
     "part": "Sorting & Limiting",
     "topic": "Sorting & Limiting",
     "difficulty": "Easy",
-    "problemStatement": "The benefits team is reviewing employee demographics from youngest to oldest. Display all employees sorted by age in ascending order.",
+    "problemStatement": "Display all employees, ordered by age from youngest to oldest.",
     "requirements": [
-      "Select all employee columns.",
-      "Sort the results by age in ascending order (youngest first)."
+      "Select all columns from the Employees table.",
+      "Sort by age in ascending order (youngest first)."
     ],
     "tableName": "Employees",
-    "hint": "Sort the output by age in ascending order.",
+    "hint": "Order by age ascending.",
     "expectedSql": "SELECT * FROM Employees ORDER BY age ASC;",
     "explanation": "ORDER BY age ASC sorts rows from smallest age to largest age.",
     "tags": [
@@ -3892,18 +3895,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 48,
-    "title": "Departmental Payroll Hierarchical Sort",
+    "title": "Sort by Department (A to Z), then Salary (Highest First)",
     "part": "Sorting & Limiting",
     "topic": "Sorting & Limiting",
     "difficulty": "Medium",
-    "problemStatement": "Administrative reporting requires a tidy organizational directory grouped by division and tiered by earnings. Sort all employees primarily by department alphabetically (A to Z), and secondarily by salary in descending order within each department.",
+    "problemStatement": "Display all employees, sorted alphabetically by department name, and then by salary from highest to lowest within each department.",
     "requirements": [
-      "Select all employee attributes across the entire table.",
-      "Apply primary sorting on department in ascending order.",
-      "Apply secondary sorting on salary in descending order."
+      "Select all columns from the Employees table.",
+      "Sort primarily by department in ascending order (A to Z).",
+      "Sort secondarily by salary in descending order (highest first)."
     ],
     "tableName": "Employees",
-    "hint": "Specify multiple sort columns separated by commas with their respective sort directions.",
+    "hint": "Specify department ASC followed by salary DESC in your ordering clause.",
     "expectedSql": "SELECT * FROM Employees ORDER BY department ASC, salary DESC;",
     "explanation": "Multi-column sorting evaluates the first key; ties in department are broken by the second key (salary in descending order).",
     "tags": [
@@ -4132,18 +4135,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 49,
-    "title": "Top Three Enterprise Earners",
+    "title": "Top 3 Highest-Paid Employees",
     "part": "Sorting & Limiting",
     "topic": "Sorting & Limiting",
     "difficulty": "Medium",
-    "problemStatement": "Executive audit requires an extract of the company's highest earners. Display the full records of the three highest-paid employees in the organization.",
+    "problemStatement": "Find the 3 employees with the highest salaries in the company.",
     "requirements": [
-      "Include all employee attributes.",
+      "Select all columns from the Employees table.",
       "Order by salary from highest to lowest.",
-      "Restrict the final output to exactly 3 records."
+      "Limit the output to the top 3 employees."
     ],
     "tableName": "Employees",
-    "hint": "Sort descending by salary and restrict the number of returned rows.",
+    "hint": "Sort descending by salary and limit the result to 3 rows.",
     "expectedSql": "SELECT * FROM Employees ORDER BY salary DESC LIMIT 3;",
     "explanation": "Combining ORDER BY salary DESC with LIMIT 3 extracts the top three records by salary.",
     "tags": [
@@ -4202,19 +4205,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 50,
-    "title": "Major Department Compensation Leaderboard",
+    "title": "Rank Major Departments by Average Salary",
     "part": "Sorting & Limiting",
     "topic": "Sorting & Limiting",
     "difficulty": "Hard",
-    "problemStatement": "The board of directors requests a performance leaderboard of major business units ranked by compensation. Display each department's name, employee count, and average salary. Include only departments with at least 3 employees, and sort the leaderboard by average salary from highest to lowest.",
+    "problemStatement": "For departments with at least 3 employees, display the department name, employee count, and average salary, ordered by average salary from highest to lowest.",
     "requirements": [
       "Group records by department.",
-      "Display department, employee count aliased as employee_count, and average salary aliased as avg_salary.",
-      "Filter to only retain departments with 3 or more employees.",
-      "Sort the resulting departments by average salary in descending order."
+      "Display department name, `employee_count`, and `avg_salary`.",
+      "Include only departments with 3 or more employees.",
+      "Sort by average salary in descending order."
     ],
     "tableName": "Employees",
-    "hint": "Combine grouping, group filtering with HAVING, and sorting on the aggregate metric.",
+    "hint": "Combine grouping, group filtering for count >= 3, and ordering by average salary DESC.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) >= 3 ORDER BY avg_salary DESC;",
     "explanation": "This classic interview question tests the complete SQL query execution lifecycle: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY.",
     "tags": [
@@ -4265,17 +4268,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 51,
-    "title": "Enterprise Workforce Master Directory",
+    "title": "View All Employees",
     "topic": "SQL Fundamentals",
     "subtopic": "Basic SELECT & Column Projection",
     "difficulty": "Beginner",
-    "problemStatement": "The Human Resources Information Systems (HRIS) team needs a full extract of all employee profiles currently registered in the database for a comprehensive system audit. Retrieve all employee records and all columns without filtering.",
+    "problemStatement": "Retrieve all records and all columns from the Employees table.",
     "requirements": [
-      "Select all available columns from the Employees table.",
-      "Include all employee records in the company."
+      "Select all columns from the Employees table.",
+      "Include every employee without filtering."
     ],
     "tableName": "Employees",
-    "hint": "Retrieve all columns from the Employees table without any row filtering conditions.",
+    "hint": "Use the asterisk (*) wildcard in your SELECT statement.",
     "expectedSql": "SELECT * FROM Employees;",
     "explanation": "The asterisk (*) wildcard in a SELECT statement retrieves every column defined in the target table.",
     "tags": [
@@ -4502,17 +4505,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 52,
-    "title": "Basic Compensation Overview",
+    "title": "Employee Names and Salaries",
     "topic": "SQL Fundamentals",
     "subtopic": "Basic SELECT & Column Projection",
     "difficulty": "Beginner",
-    "problemStatement": "The payroll department is reviewing base salaries across the organization. Produce a report displaying each employee's name alongside their current monthly salary.",
+    "problemStatement": "Display the name and monthly salary of all employees.",
     "requirements": [
-      "Display employee name (`emp_name`) and monthly salary (`salary`).",
-      "Include all records from the Employees table."
+      "Select `emp_name` and `salary` from the Employees table.",
+      "Include all employee records."
     ],
     "tableName": "Employees",
-    "hint": "Specify only the employee name and salary columns in your projection.",
+    "hint": "Specify only `emp_name` and `salary` in your SELECT list.",
     "expectedSql": "SELECT emp_name, salary FROM Employees;",
     "explanation": "Explicitly projecting columns reduces network payload and improves query performance over SELECT *.",
     "tags": [
@@ -4613,17 +4616,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 53,
-    "title": "Staff Badge Credentials and Division Alignment",
+    "title": "Employee ID, Name, and Department",
     "topic": "SQL Fundamentals",
     "subtopic": "Basic SELECT & Column Projection",
     "difficulty": "Beginner",
-    "problemStatement": "Facilities administration is issuing updated security access cards. Extract each staff member's unique employee identifier, full name, and assigned operational department.",
+    "problemStatement": "Display the employee ID, name, and department for all employees.",
     "requirements": [
-      "Project employee ID (`emp_id`), full name (`emp_name`), and department (`department`).",
-      "Retrieve data from the Employees table."
+      "Select `emp_id`, `emp_name`, and `department` from the Employees table.",
+      "Include all records."
     ],
     "tableName": "Employees",
-    "hint": "Select the three requested identification attributes from the Employees table.",
+    "hint": "List the three columns separated by commas.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees;",
     "explanation": "Column projections allow retrieving specific business attributes without extraneous information.",
     "tags": [
@@ -4745,17 +4748,16 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 54,
-    "title": "Department Operational Centers and Allocations",
+    "title": "Department Locations and Budgets",
     "topic": "SQL Fundamentals",
     "subtopic": "Basic SELECT & Column Projection",
     "difficulty": "Beginner",
-    "problemStatement": "The executive finance committee requires an overview of corporate divisions. Retrieve the department name, headquarters location, and total operating budget for each department in the organization.",
+    "problemStatement": "Retrieve the department name, location, and budget from the Departments table.",
     "requirements": [
-      "Project department name (`dept_name`), office location (`location`), and budget (`budget`).",
-      "Extract records from the Departments table."
+      "Select `dept_name`, `location`, and `budget` from the Departments table."
     ],
     "tableName": "Departments",
-    "hint": "Query the Departments table selecting the division name, location, and budget fields.",
+    "hint": "Query the Departments table directly.",
     "expectedSql": "SELECT dept_name, location, budget FROM Departments;",
     "explanation": "Queries can target any table in the relational database by naming it in the FROM clause.",
     "tags": [
@@ -4817,17 +4819,16 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 55,
-    "title": "Corporate Project Portfolio Status Tracking",
+    "title": "Project Names and Status",
     "topic": "SQL Fundamentals",
     "subtopic": "Basic SELECT & Column Projection",
     "difficulty": "Beginner",
-    "problemStatement": "The Project Management Office is preparing a portfolio health dashboard. Display the name of each corporate initiative and its current operational status.",
+    "problemStatement": "Display the name and current status of all projects.",
     "requirements": [
-      "Select project name (`project_name`) and execution status (`status`).",
-      "Source data from the Projects table."
+      "Select `project_name` and `status` from the Projects table."
     ],
     "tableName": "Projects",
-    "hint": "Retrieve only the project name and status columns from the Projects table.",
+    "hint": "Select the two columns from the Projects table.",
     "expectedSql": "SELECT project_name, status FROM Projects;",
     "explanation": "Selecting key descriptive columns allows tracking status across projects.",
     "tags": [
@@ -4880,18 +4881,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 56,
-    "title": "Executive Reporting Column Formatting",
+    "title": "Rename Columns with Aliases",
     "topic": "SQL Fundamentals",
     "subtopic": "Column Aliasing & Renaming",
     "difficulty": "Beginner",
-    "problemStatement": "Executive leadership prefers human-friendly headers in analytical reports. Retrieve each employee's name and salary, relabeling the columns to clearly distinguish full name and monthly compensation in the final output.",
+    "problemStatement": "Display employee names and salaries, renaming the columns to `employee_full_name` and `monthly_salary`.",
     "requirements": [
-      "Select employee name aliased as `employee_full_name`.",
-      "Select monthly salary aliased as `monthly_salary`.",
-      "Query from the Employees table."
+      "Select `emp_name` aliased as `employee_full_name`.",
+      "Select `salary` aliased as `monthly_salary`.",
+      "Retrieve from the Employees table."
     ],
     "tableName": "Employees",
-    "hint": "Use column aliasing to assign the requested business-friendly headers to the projected fields.",
+    "hint": "Use the AS keyword to assign new names to columns.",
     "expectedSql": "SELECT emp_name AS employee_full_name, salary AS monthly_salary FROM Employees;",
     "explanation": "The AS keyword creates temporary result column headers without changing the underlying schema.",
     "tags": [
@@ -4992,18 +4993,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 57,
-    "title": "Departmental Financial Summary Labels",
+    "title": "Department Budget with Aliases",
     "topic": "SQL Fundamentals",
     "subtopic": "Column Aliasing & Renaming",
     "difficulty": "Beginner",
-    "problemStatement": "Financial reporting systems require concise standardized column aliases for automated ingestion. Retrieve department names and budgets, formatting them with designated technical headers.",
+    "problemStatement": "Display department names and budgets, renaming them to `dept` and `annual_budget`.",
     "requirements": [
-      "Query the Departments table.",
-      "Alias `dept_name` as `dept`.",
-      "Alias `budget` as `annual_budget`."
+      "Select `dept_name` aliased as `dept`.",
+      "Select `budget` aliased as `annual_budget`.",
+      "Retrieve from the Departments table."
     ],
     "tableName": "Departments",
-    "hint": "Alias the department name column as dept and the budget column as annual_budget.",
+    "hint": "Use AS to rename each column.",
     "expectedSql": "SELECT dept_name AS dept, budget AS annual_budget FROM Departments;",
     "explanation": "Aliasing is standard practice for conforming database columns to application DTO requirements.",
     "tags": [
@@ -5056,17 +5057,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 58,
-    "title": "Annualized Compensation Projection",
+    "title": "Calculate Annual Salary",
     "topic": "SQL Fundamentals",
     "subtopic": "Column Aliasing & Renaming",
     "difficulty": "Beginner",
-    "problemStatement": "Corporate accounting is forecasting annual base compensation obligations. For each employee, display their name and compute their full annual salary based on 12 months of pay.",
+    "problemStatement": "Calculate the annual salary for each employee by multiplying monthly salary by 12.",
     "requirements": [
-      "Display employee name (`emp_name`).",
-      "Calculate monthly salary multiplied by 12, aliasing the result as `annual_salary`."
+      "Display `emp_name`.",
+      "Calculate monthly salary multiplied by 12, aliased as `annual_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Multiply the monthly salary attribute by 12 within the column projection list.",
+    "hint": "Multiply the salary column by 12 using the * operator.",
     "expectedSql": "SELECT emp_name, salary * 12 AS annual_salary FROM Employees;",
     "explanation": "Arithmetic expressions in the SELECT clause compute derived values on-the-fly.",
     "tags": [
@@ -5167,17 +5168,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 59,
-    "title": "Tenure Conversion to Operational Months",
+    "title": "Convert Experience to Months",
     "topic": "SQL Fundamentals",
     "subtopic": "Column Aliasing & Renaming",
     "difficulty": "Beginner",
-    "problemStatement": "Human Resources is calculating seniority milestones on a monthly cadence rather than years. Retrieve each staff member's name and their total career experience expressed in months.",
+    "problemStatement": "Display each employee's name along with their years of experience converted into months.",
     "requirements": [
-      "Select employee name (`emp_name`).",
-      "Convert years of experience into months by multiplying by 12, aliasing the column as `experience_months`."
+      "Display `emp_name`.",
+      "Calculate experience multiplied by 12, aliased as `experience_months`."
     ],
     "tableName": "Employees",
-    "hint": "Multiply the experience field by 12 and assign the specified alias.",
+    "hint": "Multiply the experience column by 12.",
     "expectedSql": "SELECT emp_name, experience * 12 AS experience_months FROM Employees;",
     "explanation": "Multiplication expressions allow unit conversions directly within SQL projection.",
     "tags": [
@@ -5278,18 +5279,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 60,
-    "title": "Project Capital Allocation in Thousands",
+    "title": "Project Budget in Thousands",
     "topic": "SQL Fundamentals",
     "subtopic": "Column Aliasing & Renaming",
     "difficulty": "Beginner",
-    "problemStatement": "Executive slide decks present large budget allocations in thousands of dollars (K) for visual clarity. Display each project name alongside its total budget scaled into thousands.",
+    "problemStatement": "Display each project's name and its budget divided by 1000.",
     "requirements": [
-      "Query the Projects table.",
-      "Select project name (`project_name`).",
-      "Divide the budget by 1000, aliasing the result as `budget_in_thousands`."
+      "Display `project_name`.",
+      "Calculate budget divided by 1000, aliased as `budget_in_thousands`."
     ],
     "tableName": "Projects",
-    "hint": "Perform arithmetic division on the budget column and assign the designated alias.",
+    "hint": "Divide the budget column by 1000 using the / operator.",
     "expectedSql": "SELECT project_name, budget / 1000 AS budget_in_thousands FROM Projects;",
     "explanation": "Division expressions scale large financial figures into readable units.",
     "tags": [
@@ -5342,17 +5342,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 61,
-    "title": "Distinct Functional Divisions Roster",
+    "title": "List Unique Departments",
     "topic": "SQL Fundamentals",
     "subtopic": "DISTINCT & Unique Values",
     "difficulty": "Beginner",
-    "problemStatement": "Organizational design is conducting an inventory of all operational departments that currently employ active personnel. Produce a deduplicated listing of all unique department names.",
+    "problemStatement": "Find all unique departments where employees work, removing duplicates.",
     "requirements": [
-      "Retrieve unique department names from the Employees table.",
-      "Ensure duplicate department names are removed from the result set."
+      "Display the `department` column.",
+      "Exclude duplicate values."
     ],
     "tableName": "Employees",
-    "hint": "Eliminate duplicate values from the output using the distinct projection keyword.",
+    "hint": "Use the DISTINCT keyword before the column name.",
     "expectedSql": "SELECT DISTINCT department FROM Employees;",
     "explanation": "The DISTINCT keyword de-duplicates result sets, keeping only single occurrences of unique values.",
     "tags": [
@@ -5387,17 +5387,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 62,
-    "title": "Corporate Office Footprint Identification",
+    "title": "List Unique Cities",
     "topic": "SQL Fundamentals",
     "subtopic": "DISTINCT & Unique Values",
     "difficulty": "Beginner",
-    "problemStatement": "Facilities and real estate planning is mapping corporate branch locations. Extract a list of all distinct cities where company employees are currently stationed.",
+    "problemStatement": "Find all distinct cities where employees are located.",
     "requirements": [
-      "Extract distinct city names from the Employees table.",
-      "Ensure each office city appears exactly once."
+      "Display the `city` column.",
+      "Exclude duplicate cities."
     ],
     "tableName": "Employees",
-    "hint": "Use distinct row projection on the city column to eliminate repeated locations.",
+    "hint": "Use DISTINCT to return only unique city names.",
     "expectedSql": "SELECT DISTINCT city FROM Employees;",
     "explanation": "DISTINCT works on any scalar data type including strings and locations.",
     "tags": [
@@ -5429,17 +5429,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 63,
-    "title": "Historical Hiring Cohort Years",
+    "title": "List Unique Joining Years",
     "topic": "SQL Fundamentals",
     "subtopic": "DISTINCT & Unique Values",
     "difficulty": "Beginner",
-    "problemStatement": "Talent acquisition is analyzing employee retention across historical hiring cycles. Find all unique calendar years in which active employees joined the company.",
+    "problemStatement": "Find all distinct years in which employees joined the company.",
     "requirements": [
-      "Select distinct joining years from the Employees table.",
-      "Ensure each year appears only once in the final output."
+      "Display the `joining_year` column.",
+      "Remove duplicate years."
     ],
     "tableName": "Employees",
-    "hint": "Retrieve the distinct values present in the joining_year column.",
+    "hint": "Use DISTINCT on the joining_year column.",
     "expectedSql": "SELECT DISTINCT joining_year FROM Employees;",
     "explanation": "DISTINCT on integer columns identifies the unique years of hiring cohorts.",
     "tags": [
@@ -5492,17 +5492,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 64,
-    "title": "Project Lifecycle Status Inventory",
+    "title": "List Unique Project Statuses",
     "topic": "SQL Fundamentals",
     "subtopic": "DISTINCT & Unique Values",
     "difficulty": "Beginner",
-    "problemStatement": "Agile process auditors need to identify all workflow stages currently assigned to corporate projects. Retrieve all distinct operational status designations present in the project portfolio.",
+    "problemStatement": "Find all distinct project statuses currently used in the Projects table.",
     "requirements": [
-      "Query the Projects table.",
-      "Return the unique set of status values without duplicates."
+      "Display the `status` column from Projects.",
+      "Remove duplicate statuses."
     ],
     "tableName": "Projects",
-    "hint": "Apply distinct filtering to the status column in the Projects table.",
+    "hint": "Use DISTINCT on the status column.",
     "expectedSql": "SELECT DISTINCT status FROM Projects;",
     "explanation": "DISTINCT helps discover enum-like categories in business workflows.",
     "tags": [
@@ -5531,18 +5531,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 65,
-    "title": "Departmental Branch Footprint Matrix",
+    "title": "Unique Department and City Pairs",
     "topic": "SQL Fundamentals",
     "subtopic": "DISTINCT & Unique Values",
     "difficulty": "Easy",
-    "problemStatement": "Workforce operations needs to understand which business units operate in which cities. Generate a deduplicated list of all unique department and city pairs represented in the workforce.",
+    "problemStatement": "Find all unique combinations of department and city where employees work.",
     "requirements": [
-      "Project department and city from the Employees table.",
-      "Ensure each unique combination of department and city appears only once.",
-      "Preserve column order: `department`, `city`."
+      "Select distinct combinations of `department` and `city`.",
+      "Retrieve from the Employees table."
     ],
     "tableName": "Employees",
-    "hint": "Apply the distinct keyword across multiple projected columns.",
+    "hint": "Apply DISTINCT across both columns.",
     "expectedSql": "SELECT DISTINCT department, city FROM Employees;",
     "explanation": "When multiple columns follow DISTINCT, uniqueness is evaluated on the tuple of values.",
     "tags": [
@@ -5627,17 +5626,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 66,
-    "title": "Estimated Daily Wage Calculation",
+    "title": "Calculate Daily Wage",
     "topic": "SQL Fundamentals",
     "subtopic": "Arithmetic Calculations & Expressions",
     "difficulty": "Beginner",
-    "problemStatement": "Contract compliance requires an estimate of daily labor costs assuming a standard 30-day billing month. Display each employee's name and their calculated daily wage.",
+    "problemStatement": "Estimate each employee's daily wage by dividing their monthly salary by 30.",
     "requirements": [
-      "Select employee name (`emp_name`).",
-      "Compute daily wage by dividing monthly salary by 30, aliasing the result as `daily_wage`."
+      "Display `emp_name`.",
+      "Calculate salary divided by 30, aliased as `daily_wage`."
     ],
     "tableName": "Employees",
-    "hint": "Divide the salary column by 30 in the select clause and alias the result.",
+    "hint": "Divide salary by 30 in your SELECT clause.",
     "expectedSql": "SELECT emp_name, salary / 30 AS daily_wage FROM Employees;",
     "explanation": "Mathematical operations in SQL support integer and floating-point division.",
     "tags": [
@@ -5738,17 +5737,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 67,
-    "title": "Proposed Cost-of-Living Salary Revision",
+    "title": "Calculate 10% Salary Increase",
     "topic": "SQL Fundamentals",
     "subtopic": "Arithmetic Calculations & Expressions",
     "difficulty": "Easy",
-    "problemStatement": "The compensation committee is modeling a company-wide 10% cost-of-living salary adjustment. For each employee, display their name, current monthly salary, and projected revised salary reflecting a 10% increase.",
+    "problemStatement": "Display each employee's name, current salary, and their new salary after a 10% increase.",
     "requirements": [
-      "Select employee name (`emp_name`) and current salary (`salary`).",
-      "Calculate revised salary as 110% of current salary (multiplying by 1.10), aliased as `revised_salary`."
+      "Select `emp_name` and `salary`.",
+      "Calculate salary increased by 10% (salary * 1.10), aliased as `revised_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Multiply current salary by 1.10 to compute the adjusted compensation.",
+    "hint": "Multiply salary by 1.10 to compute the 10% raise.",
     "expectedSql": "SELECT emp_name, salary, salary * 1.10 AS revised_salary FROM Employees;",
     "explanation": "Multiplying by 1.10 applies a percentage increase directly within SQL.",
     "tags": [
@@ -5870,17 +5869,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 68,
-    "title": "Flat Retention Bonus Projection",
+    "title": "Calculate Salary with 5,000 Bonus",
     "topic": "SQL Fundamentals",
     "subtopic": "Arithmetic Calculations & Expressions",
     "difficulty": "Beginner",
-    "problemStatement": "Human Resources is evaluating the budget impact of a flat 5,000 INR retention supplement added to each employee's monthly pay. Display each employee's name alongside their projected compensation with the increment.",
+    "problemStatement": "Display each employee's name and their salary with an added 5,000 bonus.",
     "requirements": [
-      "Select employee name (`emp_name`).",
-      "Add 5000 to monthly salary, aliasing the calculated result as `incremented_salary`."
+      "Select `emp_name`.",
+      "Add 5,000 to `salary`, aliased as `incremented_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Add 5000 to the salary column and alias the resulting expression.",
+    "hint": "Use the + operator to add 5000 to salary.",
     "expectedSql": "SELECT emp_name, salary + 5000 AS incremented_salary FROM Employees;",
     "explanation": "Addition operators allow applying flat stipends or allowances.",
     "tags": [
@@ -5981,17 +5980,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 69,
-    "title": "Comprehensive Annual Package with Festive Bonus",
+    "title": "Calculate 14-Month Annual Package",
     "topic": "SQL Fundamentals",
     "subtopic": "Arithmetic Calculations & Expressions",
     "difficulty": "Easy",
-    "problemStatement": "Benefits planning models a total annual compensation package structured as 12 monthly salaries plus 2 additional months of festive bonuses (14 months total). Display each employee's name and their total 14-month package.",
+    "problemStatement": "Calculate a 14-month total compensation package for each employee based on their monthly salary.",
     "requirements": [
-      "Select employee name (`emp_name`).",
-      "Multiply monthly salary by 14, aliasing the total package as `total_annual_package`."
+      "Select `emp_name`.",
+      "Calculate monthly salary multiplied by 14, aliased as `total_annual_package`."
     ],
     "tableName": "Employees",
-    "hint": "Calculate salary multiplied by 14 to reflect the 14-month compensation structure.",
+    "hint": "Multiply salary by 14.",
     "expectedSql": "SELECT emp_name, salary * 14 AS total_annual_package FROM Employees;",
     "explanation": "Multiplication models realistic corporate compensation structures.",
     "tags": [
@@ -6092,18 +6091,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 70,
-    "title": "Usable Project Working Capital",
+    "title": "Calculate 80% Usable Budget",
     "topic": "SQL Fundamentals",
     "subtopic": "Arithmetic Calculations & Expressions",
     "difficulty": "Easy",
-    "problemStatement": "Financial risk governance mandates that 20% of every project budget be held back in a contingency reserve. For each corporate initiative, display the project name and the remaining 80% usable working capital.",
+    "problemStatement": "Display each project's name and 80% of its total budget.",
     "requirements": [
-      "Query the Projects table.",
-      "Select project name (`project_name`).",
-      "Calculate 80% of budget (multiplying budget by 0.80), aliasing the figure as `net_usable_budget`."
+      "Select `project_name`.",
+      "Calculate 80% of `budget` (budget * 0.80), aliased as `net_usable_budget`."
     ],
     "tableName": "Projects",
-    "hint": "Multiply budget by 0.80 in your column projection to compute net usable funds.",
+    "hint": "Multiply the budget by 0.80.",
     "expectedSql": "SELECT project_name, budget * 0.80 AS net_usable_budget FROM Projects;",
     "explanation": "Floating point multiplication is commonly used for reserve deductions and financial modeling.",
     "tags": [
@@ -6156,17 +6154,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 71,
-    "title": "Legal Entity Corporate Tagging",
+    "title": "Add Constant Organization Column",
     "topic": "SQL Fundamentals",
     "subtopic": "Literals & NULL Value Handling",
     "difficulty": "Beginner",
-    "problemStatement": "Legal compliance requires generating vendor reports where each staff record includes the formal corporate entity name. Display each employee's name alongside a constant column designating the corporate organization.",
+    "problemStatement": "Display each employee's name along with a static column called `organization` containing the text 'SQL Sprint Corp'.",
     "requirements": [
-      "Select employee name (`emp_name`).",
-      "Include a literal string column with the value 'SQL Sprint Corp', aliased as `organization`."
+      "Select `emp_name`.",
+      "Include a constant literal `'SQL Sprint Corp'` aliased as `organization`."
     ],
     "tableName": "Employees",
-    "hint": "Add a string literal enclosed in single quotes to your select list with the required alias.",
+    "hint": "Include a literal string in the SELECT list with an alias.",
     "expectedSql": "SELECT emp_name, 'SQL Sprint Corp' AS organization FROM Employees;",
     "explanation": "String literals enclosed in single quotes project constant values for every row in the result set.",
     "tags": [
@@ -6267,17 +6265,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 72,
-    "title": "Employment Classification Indicator",
+    "title": "Add Constant Employment Type Column",
     "topic": "SQL Fundamentals",
     "subtopic": "Literals & NULL Value Handling",
     "difficulty": "Beginner",
-    "problemStatement": "HR payroll exports require an explicit employment classification label for benefits processing. Display employee name, department, and a static tag indicating full-time employment status.",
+    "problemStatement": "Display employee names and departments, adding a constant column called `employment_type` with the value 'Full-Time'.",
     "requirements": [
-      "Select employee name (`emp_name`) and department (`department`).",
-      "Include a static string literal 'Full-Time' aliased as `employment_type`."
+      "Select `emp_name` and `department`.",
+      "Include a constant string `'Full-Time'` aliased as `employment_type`."
     ],
     "tableName": "Employees",
-    "hint": "Project the static text 'Full-Time' alongside the employee name and department.",
+    "hint": "Specify `'Full-Time' AS employment_type` in your projection.",
     "expectedSql": "SELECT emp_name, department, 'Full-Time' AS employment_type FROM Employees;",
     "explanation": "Static classification labels are frequently used in union operations and export pipelines.",
     "tags": [
@@ -6399,18 +6397,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 73,
-    "title": "Reviews Lacking Awarded Bonuses",
+    "title": "Find Reviews Without Bonus",
     "topic": "SQL Fundamentals",
     "subtopic": "Literals & NULL Value Handling",
     "difficulty": "Easy",
-    "problemStatement": "Internal audit is reviewing annual performance appraisals where no financial incentive was allocated. Retrieve the review ID, employee ID, and performance rating for all evaluations where the bonus was not awarded.",
+    "problemStatement": "Find all performance reviews where no bonus was awarded (bonus is NULL).",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Filter for evaluations where bonus is unassigned (NULL).",
-      "Display review ID (`review_id`), employee ID (`emp_id`), and rating (`rating`)."
+      "Select `review_id`, `emp_id`, and `rating` from Performance_Reviews.",
+      "Filter for records where `bonus` is NULL."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Check for the absence of a value in the bonus column using the null verification operator.",
+    "hint": "Use IS NULL to check for missing bonus values.",
     "expectedSql": "SELECT review_id, emp_id, rating FROM Performance_Reviews WHERE bonus IS NULL;",
     "explanation": "In SQL, NULL signifies unknown or missing data and cannot be checked with '= NULL'. Use 'IS NULL'.",
     "tags": [
@@ -6437,18 +6434,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 74,
-    "title": "Verified Performance Incentive Payouts",
+    "title": "Find Reviews With Bonus",
     "topic": "SQL Fundamentals",
     "subtopic": "Literals & NULL Value Handling",
     "difficulty": "Easy",
-    "problemStatement": "Payroll finance is preparing incentive disbursement files. Extract review records that have an approved, confirmed bonus payout, showing the review ID, employee ID, rating, and bonus amount.",
+    "problemStatement": "Find all performance reviews where a bonus was awarded.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Filter for evaluations that have a confirmed bonus value.",
-      "Display `review_id`, `emp_id`, `rating`, and `bonus`."
+      "Select `review_id`, `emp_id`, `rating`, and `bonus`.",
+      "Filter for records where `bonus` is NOT NULL."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Filter for records where the bonus column contains an assigned, non-null value.",
+    "hint": "Use IS NOT NULL to filter out empty bonus values.",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE bonus IS NOT NULL;",
     "explanation": "The IS NOT NULL operator filters for populated values, ignoring rows with missing compensation.",
     "tags": [
@@ -6573,18 +6569,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 75,
-    "title": "Default Zero Baseline for Unassigned Bonuses",
+    "title": "Replace Null Bonuses with Zero",
     "topic": "SQL Fundamentals",
     "subtopic": "Literals & NULL Value Handling",
     "difficulty": "Medium",
-    "problemStatement": "Executive performance dashboards require numeric calculations without missing values. Display review ID, employee ID, rating, and bonus for all reviews, substituting 0 whenever a bonus is unassigned.",
+    "problemStatement": "Display all performance reviews, showing a bonus of 0 whenever the bonus is NULL.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Display `review_id`, `emp_id`, `rating`.",
-      "Replace unassigned bonus values with 0, aliasing the result as `final_bonus`."
+      "Select `review_id`, `emp_id`, and `rating`.",
+      "Display bonus with NULL values replaced by 0, aliased as `final_bonus`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use a null-coalescing function to provide a fallback value of 0 when bonus is null.",
+    "hint": "Use the COALESCE function to provide a fallback value of 0.",
     "expectedSql": "SELECT review_id, emp_id, rating, COALESCE(bonus, 0) AS final_bonus FROM Performance_Reviews;",
     "explanation": "COALESCE returns the first non-null argument, safely replacing missing bonus entries with numeric zero.",
     "tags": [
@@ -6715,18 +6710,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 76,
-    "title": "Auditing Unassigned Incentive Reviews",
+    "title": "Reviews with Missing Bonus",
     "topic": "WHERE & Operators",
     "subtopic": "Nullability & Boolean Truth Values",
     "difficulty": "Beginner",
-    "problemStatement": "Internal audit is reviewing appraisal records where no performance incentive was granted. Retrieve all columns for performance evaluations where the bonus is unassigned.",
+    "problemStatement": "Find all performance reviews where the bonus value is missing (NULL). Display all columns.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Filter for evaluations where the bonus is unassigned (NULL).",
-      "Include all columns in the result set."
+      "Select all columns from Performance_Reviews.",
+      "Include only rows where `bonus` is NULL."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use the null check operator on the bonus column.",
+    "hint": "Use the IS NULL operator.",
     "expectedSql": "SELECT * FROM Performance_Reviews WHERE bonus IS NULL;",
     "explanation": "Standard equality (=) with NULL yields UNKNOWN in three-valued SQL logic; IS NULL must be used instead.",
     "tags": [
@@ -6759,18 +6753,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 77,
-    "title": "Active Modern Corporate Initiatives",
+    "title": "Active Projects Started in 2024 or Later",
     "topic": "WHERE & Operators",
     "subtopic": "Nullability & Boolean Truth Values",
     "difficulty": "Easy",
-    "problemStatement": "The strategic planning office needs a list of modern, active projects. Retrieve project ID, project name, budget, and start date for all initiatives currently marked as 'Active' that commenced on or after January 1, 2024.",
+    "problemStatement": "Find all active projects that started on or after January 1, 2024.",
     "requirements": [
       "Select `project_id`, `project_name`, `budget`, and `start_date`.",
-      "Filter for projects with an 'Active' status.",
-      "Ensure start date is on or after January 1, 2024 ('2024-01-01')."
+      "Filter for `status = 'Active'`.",
+      "Filter for `start_date >= '2024-01-01'`."
     ],
     "tableName": "Projects",
-    "hint": "Combine equality on status with a date comparison condition using AND.",
+    "hint": "Combine the status and start_date conditions with AND.",
     "expectedSql": "SELECT project_id, project_name, budget, start_date FROM Projects WHERE status = 'Active' AND start_date >= '2024-01-01';",
     "explanation": "Combines string equality and ISO date comparison using the logical AND operator.",
     "tags": [
@@ -6817,17 +6811,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 78,
-    "title": "Mid-Tier Operational Budget Allocations",
+    "title": "Departments with Budgets Between 500k and 1.2M",
     "topic": "WHERE & Operators",
     "subtopic": "Nullability & Boolean Truth Values",
     "difficulty": "Easy",
-    "problemStatement": "Corporate treasury is reviewing medium-scale operational divisions. Retrieve the department name, office location, and budget for all departments whose annual funding falls between 500,000 and 1,200,000, inclusive of both thresholds.",
+    "problemStatement": "Find all departments with a budget between 500,000 and 1,200,000 (inclusive).",
     "requirements": [
-      "Select `dept_name`, `location`, and `budget` from Departments.",
-      "Filter for budgets between 500,000 and 1,200,000 inclusive."
+      "Select `dept_name`, `location`, and `budget`.",
+      "Budget must be between 500,000 and 1,200,000."
     ],
     "tableName": "Departments",
-    "hint": "Use an inclusive range operator to test the budget value.",
+    "hint": "Use the BETWEEN operator for an inclusive range.",
     "expectedSql": "SELECT dept_name, location, budget FROM Departments WHERE budget BETWEEN 500000 AND 1200000;",
     "explanation": "BETWEEN is inclusive of both lower and upper boundary values.",
     "tags": [
@@ -6874,18 +6868,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 79,
-    "title": "Senior Veteran Staff in Core Divisions",
+    "title": "IT or Finance Employees Joined Before 2020",
     "topic": "WHERE & Operators",
     "subtopic": "Nullability & Boolean Truth Values",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is compiling a recognition list of long-tenured professionals in technology and finance. Find employee ID, name, department, and joining year for employees in IT or Finance who joined the company prior to 2020.",
+    "problemStatement": "Find all employees in the IT or Finance department who joined before the year 2020.",
     "requirements": [
-      "Display `emp_id`, `emp_name`, `department`, and `joining_year`.",
-      "Include staff from either the 'IT' or 'Finance' departments.",
-      "Restrict to employees who joined before calendar year 2020."
+      "Select `emp_id`, `emp_name`, `department`, and `joining_year`.",
+      "Department must be either 'IT' or 'Finance'.",
+      "Joining year must be strictly less than 2020."
     ],
     "tableName": "Employees",
-    "hint": "Check department membership in the target list combined with a less-than condition on joining_year.",
+    "hint": "Use IN ('IT', 'Finance') and a less-than comparison on joining_year.",
     "expectedSql": "SELECT emp_id, emp_name, department, joining_year FROM Employees WHERE department IN ('IT', 'Finance') AND joining_year < 2020;",
     "explanation": "Parenthesizing or grouping set membership with an inequality isolates historical staff from designated divisions.",
     "tags": [
@@ -6933,18 +6927,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 80,
-    "title": "Non-Execution Stage Corporate Initiatives",
+    "title": "Projects in Completed or Planning Status",
     "topic": "WHERE & Operators",
     "subtopic": "Nullability & Boolean Truth Values",
     "difficulty": "Easy",
-    "problemStatement": "Project portfolio managers need visibility into initiatives that are not currently in active development. Display the ID, name, and status of projects that are either completed or in planning.",
+    "problemStatement": "Find all projects that are either completed or currently in planning.",
     "requirements": [
-      "Query the Projects table.",
-      "Display `project_id`, `project_name`, and `status`.",
-      "Filter for projects in 'Completed' or 'Planning' status."
+      "Select `project_id`, `project_name`, and `status`.",
+      "Status must be either 'Completed' or 'Planning'."
     ],
     "tableName": "Projects",
-    "hint": "Check whether status matches any element in the set of target lifecycle states.",
+    "hint": "Use the IN operator with the two status values.",
     "expectedSql": "SELECT project_id, project_name, status FROM Projects WHERE status IN ('Completed', 'Planning');",
     "explanation": "IN acts as shorthand for multiple OR expressions against a common attribute.",
     "tags": [
@@ -6986,17 +6979,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 81,
-    "title": "Alphabetical Staff Directory Filter (P or S)",
+    "title": "Employees with Names Starting with P or S",
     "topic": "WHERE & Operators",
     "subtopic": "String Matching & Wildcards",
     "difficulty": "Easy",
-    "problemStatement": "Administrative personnel are generating index cards for employee directories. Display the employee ID, full name, and department for staff members whose first name begins with either the letter 'P' or 'S'.",
+    "problemStatement": "Find all employees whose name begins with either 'P' or 'S'.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, and `department` from Employees.",
-      "Filter for names starting with capital letter 'P' or capital letter 'S'."
+      "Select `emp_id`, `emp_name`, and `department`.",
+      "Name must start with 'P' or start with 'S'."
     ],
     "tableName": "Employees",
-    "hint": "Combine two pattern matching conditions with wildcard suffixes using OR.",
+    "hint": "Combine two LIKE conditions with OR.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_name LIKE 'P%' OR emp_name LIKE 'S%';",
     "explanation": "The percent wildcard (%) matches zero or more trailing characters.",
     "tags": [
@@ -7033,17 +7026,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 82,
-    "title": "Process Automation Capital Investments",
+    "title": "Projects Containing 'Automation'",
     "topic": "WHERE & Operators",
     "subtopic": "String Matching & Wildcards",
     "difficulty": "Easy",
-    "problemStatement": "The Chief Technology Officer is assessing investments in automated workflows. Retrieve complete project records for any initiative whose title references automation.",
+    "problemStatement": "Find all projects that have the word 'Automation' anywhere in their name. Display all columns.",
     "requirements": [
-      "Select all columns from the Projects table.",
-      "Filter for project names containing the term 'Automation' anywhere within the title."
+      "Select all columns from Projects.",
+      "Project name must contain 'Automation'."
     ],
     "tableName": "Projects",
-    "hint": "Use substring pattern matching with wildcards before and after the keyword 'Automation'.",
+    "hint": "Use LIKE with % wildcards on both sides.",
     "expectedSql": "SELECT * FROM Projects WHERE project_name LIKE '%Automation%';",
     "explanation": "Surrounding the pattern with '%' performs a substring containment search.",
     "tags": [
@@ -7087,17 +7080,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 83,
-    "title": "High-Distinction Performance Feedback Search",
+    "title": "Reviews with Exceptional or Outstanding Feedback",
     "topic": "WHERE & Operators",
     "subtopic": "String Matching & Wildcards",
     "difficulty": "Medium",
-    "problemStatement": "Executive leadership is auditing qualitative appraisal praise. Extract the review ID, employee ID, rating, and written feedback for performance reviews where comments highlight 'Exceptional' or 'Outstanding' contributions.",
+    "problemStatement": "Find all performance reviews whose feedback mentions either 'Exceptional' or 'Outstanding'.",
     "requirements": [
-      "Select `review_id`, `emp_id`, `rating`, and `feedback` from Performance_Reviews.",
-      "Include reviews where feedback contains 'Exceptional' or 'Outstanding'."
+      "Select `review_id`, `emp_id`, `rating`, and `feedback`.",
+      "Feedback must contain 'Exceptional' or 'Outstanding'."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Combine two partial text search patterns with an OR operator.",
+    "hint": "Use two LIKE conditions joined by OR.",
     "expectedSql": "SELECT review_id, emp_id, rating, feedback FROM Performance_Reviews WHERE feedback LIKE '%Exceptional%' OR feedback LIKE '%Outstanding%';",
     "explanation": "Searches free-text appraisal commentary for positive recognition keywords.",
     "tags": [
@@ -7138,17 +7131,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 84,
-    "title": "Department Naming Compliance Audit",
+    "title": "Departments Without the Letter 'e'",
     "topic": "WHERE & Operators",
     "subtopic": "String Matching & Wildcards",
     "difficulty": "Medium",
-    "problemStatement": "Brand communications is auditing department nomenclature. Find the department ID, department name, and location for all departments whose official name does not contain the letter 'e' (case-insensitive).",
+    "problemStatement": "Find all departments whose name does not contain the letter 'e' (case-insensitive).",
     "requirements": [
-      "Select `dept_id`, `dept_name`, and `location` from Departments.",
-      "Exclude departments whose name includes the letter 'e'."
+      "Select `dept_id`, `dept_name`, and `location`.",
+      "Department name must not contain the letter 'e'."
     ],
     "tableName": "Departments",
-    "hint": "Use a negated pattern match to filter out names containing the letter 'e'.",
+    "hint": "Use NOT LIKE '%e%'.",
     "expectedSql": "SELECT dept_id, dept_name, location FROM Departments WHERE dept_name NOT LIKE '%e%';",
     "explanation": "NOT LIKE inverts wildcard pattern matching to exclude rows containing specific characters.",
     "tags": [
@@ -7185,17 +7178,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 85,
-    "title": "Five-Letter Name Pattern Verification",
+    "title": "Five-Letter Names Ending in 'a'",
     "topic": "WHERE & Operators",
     "subtopic": "String Matching & Wildcards",
     "difficulty": "Hard",
-    "problemStatement": "Data management is verifying badge naming formats for 5-letter name structures. Find all employees whose full name is exactly 5 characters long and terminates with the letter 'a'.",
+    "problemStatement": "Find all employees whose name is exactly five characters long and ends with the letter 'a'.",
     "requirements": [
-      "Display `emp_id`, `emp_name`, and `department` from Employees.",
-      "Filter for names of exactly five characters terminating with 'a'."
+      "Select `emp_id`, `emp_name`, and `department`.",
+      "Name must be exactly 5 characters long and end with 'a'."
     ],
     "tableName": "Employees",
-    "hint": "Use four single-character wildcards followed by 'a' in your pattern match.",
+    "hint": "Use four underscore wildcards followed by 'a' in LIKE.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_name LIKE '____a';",
     "explanation": "Each underscore (_) wildcard matches exactly one single character in standard SQL pattern matching.",
     "tags": [
@@ -7242,17 +7235,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 86,
-    "title": "High Annual Base Compensation Staff",
+    "title": "Employees Earning Over 600,000 Annually",
     "topic": "WHERE & Operators",
     "subtopic": "Complex Numeric & Range Conditions",
     "difficulty": "Easy",
-    "problemStatement": "Executive compensation committees monitor high-earning staff. Identify employees whose annualized salary (monthly salary multiplied by 12) strictly exceeds 600,000, displaying their ID, name, monthly salary, and annualized salary.",
+    "problemStatement": "Find all employees whose calculated annual salary (monthly salary * 12) exceeds 600,000.",
     "requirements": [
-      "Display `emp_id`, `emp_name`, `salary`, and computed annual salary aliased as `annual_salary`.",
-      "Filter for records where annual earnings (monthly salary multiplied by 12) exceed 600,000."
+      "Select `emp_id`, `emp_name`, and `salary`.",
+      "Calculate annual salary as `(salary * 12) AS annual_salary`.",
+      "Filter for employees where `(salary * 12) > 600000`."
     ],
     "tableName": "Employees",
-    "hint": "Compute salary * 12 in both the projection and the filtering condition.",
+    "hint": "Use the arithmetic expression in both the SELECT and WHERE clauses.",
     "expectedSql": "SELECT emp_id, emp_name, salary, (salary * 12) AS annual_salary FROM Employees WHERE (salary * 12) > 600000;",
     "explanation": "Mathematical expressions can be calculated and compared directly within the WHERE predicate.",
     "tags": [
@@ -7335,17 +7329,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 87,
-    "title": "Weekly Project Workload Outliers",
+    "title": "Project Assignments Under 20 or Over 35 Hours",
     "topic": "WHERE & Operators",
     "subtopic": "Complex Numeric & Range Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Resource managers are investigating workload distribution anomalies. Identify all project assignments where an employee is allocated either under 20 hours or over 35 hours per week.",
+    "problemStatement": "Find all employee project assignments where weekly hours are either under 20 or over 35.",
     "requirements": [
-      "Display `emp_id`, `project_id`, `assigned_role`, and `hours_allocated` from Employee_Projects.",
-      "Filter for allocations strictly below 20 hours or strictly above 35 hours."
+      "Select `emp_id`, `project_id`, `assigned_role`, and `hours_allocated`.",
+      "Hours must be less than 20 or greater than 35."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Combine two numeric comparison inequalities using OR.",
+    "hint": "Use OR between the two boundary comparisons.",
     "expectedSql": "SELECT emp_id, project_id, assigned_role, hours_allocated FROM Employee_Projects WHERE hours_allocated < 20 OR hours_allocated > 35;",
     "explanation": "Disjunctive bounds locate entries falling outside the standard bell curve of staffing capacity.",
     "tags": [
@@ -7392,18 +7386,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 88,
-    "title": "Southern Metropolitan Mid-Salary Staff",
+    "title": "Chennai or Bengaluru Employees Earning 35k to 70k",
     "topic": "WHERE & Operators",
     "subtopic": "Complex Numeric & Range Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Regional HR directors are reviewing compensation in southern tech hubs. Find all employees based in Chennai or Bengaluru whose monthly salary falls between 35,000 and 70,000, inclusive.",
+    "problemStatement": "Find employees located in Chennai or Bengaluru who earn between 35,000 and 70,000.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `city`, and `salary` from Employees.",
-      "Filter for office locations in 'Chennai' or 'Bengaluru'.",
-      "Filter for salaries between 35,000 and 70,000 inclusive."
+      "Select `emp_id`, `emp_name`, `city`, and `salary`.",
+      "City must be 'Chennai' or 'Bengaluru'.",
+      "Salary must be between 35,000 and 70,000 (inclusive)."
     ],
     "tableName": "Employees",
-    "hint": "Combine a location set check with an inclusive numeric salary range using AND.",
+    "hint": "Combine IN with BETWEEN using AND.",
     "expectedSql": "SELECT emp_id, emp_name, city, salary FROM Employees WHERE city IN ('Chennai', 'Bengaluru') AND salary BETWEEN 35000 AND 70000;",
     "explanation": "Combining discrete location filtering with a bounded salary interval isolates targeted regional talent bands.",
     "tags": [
@@ -7469,18 +7463,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 89,
-    "title": "Merit-Driven High-Bonus Reviews",
+    "title": "Reviews with Rating 4+ and Bonus Over 15k",
     "topic": "WHERE & Operators",
     "subtopic": "Complex Numeric & Range Conditions",
     "difficulty": "Easy",
-    "problemStatement": "The compensation committee is verifying high incentive payouts. Retrieve the review ID, employee ID, rating, and bonus for reviews that earned a high rating (4 or 5) and received a bonus strictly exceeding 15,000.",
+    "problemStatement": "Find all performance reviews with a rating of 4 or higher and a bonus greater than 15,000.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Display `review_id`, `emp_id`, `rating`, and `bonus`.",
-      "Filter for rating of at least 4 and bonus strictly greater than 15,000."
+      "Select `review_id`, `emp_id`, `rating`, and `bonus`.",
+      "Rating must be 4 or higher.",
+      "Bonus must be strictly greater than 15,000."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Combine a greater-than-or-equal condition on rating with a greater-than condition on bonus.",
+    "hint": "Filter using rating >= 4 AND bonus > 15000.",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE rating >= 4 AND bonus > 15000;",
     "explanation": "Joint thresholds ensure both qualitative rating score and quantitative financial payout are high.",
     "tags": [
@@ -7563,17 +7557,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 90,
-    "title": "Rapid-Career Young Professionals",
+    "title": "Employees Under 30 with 5+ Years Experience",
     "topic": "WHERE & Operators",
     "subtopic": "Complex Numeric & Range Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Leadership development is tracking fast-tracked young talent. Identify employees who are under 30 years of age and already possess 5 or more years of professional experience.",
+    "problemStatement": "Find all employees younger than 30 who have at least 5 years of experience.",
     "requirements": [
-      "Display `emp_id`, `emp_name`, `age`, and `experience` from Employees.",
-      "Filter for age strictly less than 30 and experience of at least 5 years."
+      "Select `emp_id`, `emp_name`, `age`, and `experience`.",
+      "Age must be under 30.",
+      "Experience must be 5 or greater."
     ],
     "tableName": "Employees",
-    "hint": "Join an inequality condition on age with a greater-than-or-equal test on experience.",
+    "hint": "Combine age < 30 AND experience >= 5.",
     "expectedSql": "SELECT emp_id, emp_name, age, experience FROM Employees WHERE age < 30 AND experience >= 5;",
     "explanation": "Identifies early-career high achievers who have accumulated extensive domain experience.",
     "tags": [
@@ -7620,18 +7615,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 91,
-    "title": "Tiered Divisional Salary Thresholds",
+    "title": "IT Earning Over 50k or HR Earning Over 35k",
     "topic": "WHERE & Operators",
     "subtopic": "Multi-Condition Logic & Precedence",
     "difficulty": "Hard",
-    "problemStatement": "Compensation review applies different senior benchmarks depending on the division. Find employees who either work in IT and earn over 50,000, or work in HR and earn over 35,000.",
+    "problemStatement": "Find employees who are either in IT earning more than 50,000, or in HR earning more than 35,000.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `department`, and `salary` from Employees.",
-      "Match either condition: IT department with salary exceeding 50,000, or HR department with salary exceeding 35,000.",
-      "Use parentheses to group compound conditions logically."
+      "Select `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Employee must be in IT with salary > 50,000, OR in HR with salary > 35,000."
     ],
     "tableName": "Employees",
-    "hint": "Wrap each department-and-salary pair in parentheses and connect them with OR.",
+    "hint": "Group each department-salary condition with parentheses connected by OR.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE (department = 'IT' AND salary > 50000) OR (department = 'HR' AND salary > 35000);",
     "explanation": "Logical AND has higher precedence than OR. Parentheses eliminate ambiguity and guarantee intended business logic.",
     "tags": [
@@ -7685,17 +7679,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 92,
-    "title": "Strategic Budget Approvals for Core Units",
+    "title": "High-Budget Projects for Dept 1 or Dept 3",
     "topic": "WHERE & Operators",
     "subtopic": "Multi-Condition Logic & Precedence",
     "difficulty": "Medium",
-    "problemStatement": "Finance leadership is auditing high-value projects in key departments. Identify initiatives where either Department 1 has allocated at least 250,000 or Department 3 has allocated at least 300,000.",
+    "problemStatement": "Find projects for department 1 with a budget of at least 250,000, or department 3 with a budget of at least 300,000.",
     "requirements": [
-      "Display `project_id`, `project_name`, `dept_id`, and `budget` from Projects.",
-      "Filter for Department 1 projects with budget of at least 250,000 OR Department 3 projects with budget of at least 300,000."
+      "Select `project_id`, `project_name`, `dept_id`, and `budget`.",
+      "Match dept_id 1 with budget >= 250,000, OR dept_id 3 with budget >= 300,000."
     ],
     "tableName": "Projects",
-    "hint": "Group each department's budget criteria in parentheses and join them with an OR operator.",
+    "hint": "Use parentheses to separate each department's budget criteria.",
     "expectedSql": "SELECT project_id, project_name, dept_id, budget FROM Projects WHERE (dept_id = 1 AND budget >= 250000) OR (dept_id = 3 AND budget >= 300000);",
     "explanation": "Evaluates multi-department capital allocation criteria with distinct departmental expenditure thresholds.",
     "tags": [
@@ -7736,18 +7730,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 93,
-    "title": "Experienced Well-Compensated Branch Personnel",
+    "title": "Experienced Employees Outside Hyderabad Earning Over 40k",
     "topic": "WHERE & Operators",
     "subtopic": "Multi-Condition Logic & Precedence",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is reviewing branch office compensation outside corporate headquarters. Find employees located outside Hyderabad who earn strictly more than 40,000 and possess at least 3 years of experience.",
+    "problemStatement": "Find employees outside Hyderabad who earn more than 40,000 and have at least 3 years of experience.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `city`, `salary`, and `experience` from Employees.",
-      "Exclude staff stationed in 'Hyderabad'.",
-      "Filter for salary strictly above 40,000 and experience of at least 3 years."
+      "Select `emp_id`, `emp_name`, `city`, `salary`, and `experience`.",
+      "City must not be 'Hyderabad'.",
+      "Salary must be greater than 40,000.",
+      "Experience must be 3 or greater."
     ],
     "tableName": "Employees",
-    "hint": "Combine a location inequality with numeric salary and experience conditions using AND.",
+    "hint": "Combine all three conditions using AND.",
     "expectedSql": "SELECT emp_id, emp_name, city, salary, experience FROM Employees WHERE city != 'Hyderabad' AND salary > 40000 AND experience >= 3;",
     "explanation": "Applies negative equality alongside multiple positive numeric constraints across different attributes.",
     "tags": [
@@ -7834,18 +7829,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 94,
-    "title": "Elite Appraisal Benchmarks (2024 Cycle)",
+    "title": "Top 2024 Performance Reviews",
     "topic": "WHERE & Operators",
     "subtopic": "Multi-Condition Logic & Precedence",
     "difficulty": "Hard",
-    "problemStatement": "The executive committee is identifying top performers from the 2024 evaluation cycle. Extract review records from 2024 that earned a perfect rating of 5, OR earned a rating of 4 with a bonus of at least 18,000.",
+    "problemStatement": "Find 2024 reviews where the employee received a rating of 5, or a rating of 4 with a bonus of at least 18,000.",
     "requirements": [
-      "Select `review_id`, `emp_id`, `review_year`, `rating`, and `bonus` from Performance_Reviews.",
-      "Filter strictly for the 2024 review cycle.",
-      "Include reviews with a rating of 5 OR a rating of 4 accompanied by a bonus of 18,000 or higher."
+      "Select `review_id`, `emp_id`, `review_year`, `rating`, and `bonus`.",
+      "Review year must be 2024.",
+      "Rating must be 5, OR rating 4 with bonus >= 18,000."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Enforce review_year = 2024 and wrap the alternative top-performance conditions in parentheses.",
+    "hint": "Combine the 2024 check with parenthesized rating conditions.",
     "expectedSql": "SELECT review_id, emp_id, review_year, rating, bonus FROM Performance_Reviews WHERE review_year = 2024 AND (rating = 5 OR (rating = 4 AND bonus >= 18000));",
     "explanation": "Illustrates nested Boolean evaluation where the top score qualifies automatically, but second-tier scores require compensation verification.",
     "tags": [
@@ -7904,18 +7899,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 95,
-    "title": "Recent Non-Sales Onboarding Cohort",
+    "title": "Non-Sales Employees Joined Between 2020 and 2023",
     "topic": "WHERE & Operators",
     "subtopic": "Multi-Condition Logic & Precedence",
     "difficulty": "Medium",
-    "problemStatement": "Talent acquisition is reviewing hiring retention for recent joiners across core business areas. Find all employees who joined the company between 2020 and 2023, inclusive, excluding the Sales division.",
+    "problemStatement": "Find all employees outside the Sales department who joined between 2020 and 2023.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `department`, and `joining_year` from Employees.",
-      "Filter for joining years between 2020 and 2023 inclusive.",
-      "Exclude employees assigned to the 'Sales' department."
+      "Select `emp_id`, `emp_name`, `department`, and `joining_year`.",
+      "Joining year must be between 2020 and 2023 (inclusive).",
+      "Department must not be 'Sales'."
     ],
     "tableName": "Employees",
-    "hint": "Combine a range condition on joining_year with an inequality condition on department.",
+    "hint": "Combine BETWEEN with != 'Sales' using AND.",
     "expectedSql": "SELECT emp_id, emp_name, department, joining_year FROM Employees WHERE joining_year BETWEEN 2020 AND 2023 AND department != 'Sales';",
     "explanation": "Combines inclusive range filtering on a temporal column with categorical exclusion.",
     "tags": [
@@ -7974,17 +7969,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 96,
-    "title": "Regional Staffing Outside Major Tech Hubs",
+    "title": "Employees Outside Hyderabad and Bengaluru",
     "topic": "WHERE & Operators",
     "subtopic": "Set Membership & Exclusion",
     "difficulty": "Easy",
-    "problemStatement": "Corporate facilities is evaluating staffing levels in satellite branch offices. Retrieve employee ID, name, city, and department for staff members stationed anywhere other than the primary tech hubs of Hyderabad and Bengaluru.",
+    "problemStatement": "Find all employees who are not located in Hyderabad or Bengaluru.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `city`, and `department` from Employees.",
-      "Exclude employees located in 'Hyderabad' or 'Bengaluru'."
+      "Select `emp_id`, `emp_name`, `city`, and `department`.",
+      "City must not be 'Hyderabad' or 'Bengaluru'."
     ],
     "tableName": "Employees",
-    "hint": "Use a negated set membership condition on the city column.",
+    "hint": "Use NOT IN ('Hyderabad', 'Bengaluru').",
     "expectedSql": "SELECT emp_id, emp_name, city, department FROM Employees WHERE city NOT IN ('Hyderabad', 'Bengaluru');",
     "explanation": "NOT IN excludes entire sets of categorical literals in a single clean expression.",
     "tags": [
@@ -8067,17 +8062,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 97,
-    "title": "Active Portfolio Pipeline Initiatives",
+    "title": "Projects Neither Completed nor On Hold",
     "topic": "WHERE & Operators",
     "subtopic": "Set Membership & Exclusion",
     "difficulty": "Easy",
-    "problemStatement": "Project operations is reviewing projects that are currently active in the workflow pipeline. Retrieve project ID, name, and status for projects that are neither completed nor on hold.",
+    "problemStatement": "Find all projects that do not have a status of 'Completed' or 'On Hold'.",
     "requirements": [
-      "Select `project_id`, `project_name`, and `status` from Projects.",
-      "Exclude projects with a status of 'Completed' or 'On Hold'."
+      "Select `project_id`, `project_name`, and `status`.",
+      "Status must not be in 'Completed' or 'On Hold'."
     ],
     "tableName": "Projects",
-    "hint": "Filter out the two terminal lifecycle statuses using a negated set membership condition.",
+    "hint": "Use NOT IN with the two excluded statuses.",
     "expectedSql": "SELECT project_id, project_name, status FROM Projects WHERE status NOT IN ('Completed', 'On Hold');",
     "explanation": "Excludes closed or paused project states to display active workstreams.",
     "tags": [
@@ -8129,17 +8124,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 98,
-    "title": "Bimodal Performance Review Outliers",
+    "title": "Reviews with Ratings of 1, 2, or 5",
     "topic": "WHERE & Operators",
     "subtopic": "Set Membership & Exclusion",
     "difficulty": "Medium",
-    "problemStatement": "Organizational psychologists are examining polarization in performance feedback. Retrieve review records where the evaluation rating is strictly either low-tier (1 or 2) or top-tier (5).",
+    "problemStatement": "Find all performance reviews where the rating is 1, 2, or 5.",
     "requirements": [
-      "Display `review_id`, `emp_id`, `rating`, and `feedback` from Performance_Reviews.",
-      "Filter for evaluations with a rating of 1, 2, or 5."
+      "Select `review_id`, `emp_id`, `rating`, and `feedback`.",
+      "Rating must be one of: 1, 2, or 5."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Check whether the rating column matches any value in the list of target ratings.",
+    "hint": "Use IN (1, 2, 5).",
     "expectedSql": "SELECT review_id, emp_id, rating, feedback FROM Performance_Reviews WHERE rating IN (1, 2, 5);",
     "explanation": "IN matches discrete non-contiguous numeric values to isolate boundary performance outcomes.",
     "tags": [
@@ -8198,17 +8193,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 99,
-    "title": "Geographical Directory of Corporate Divisions",
+    "title": "Sort Departments by Location",
     "topic": "Sorting & Limiting",
     "subtopic": "Single-Column Sorting",
     "difficulty": "Beginner",
-    "problemStatement": "Corporate facilities requires an organized index of operational divisions. Display the department name, office location, and budget from the Departments table, sorted alphabetically by geographical location.",
+    "problemStatement": "Display all departments ordered alphabetically by location.",
     "requirements": [
-      "Select `dept_name`, `location`, and `budget` from Departments.",
-      "Sort the records by location in alphabetical ascending order (A to Z)."
+      "Select `dept_name`, `location`, and `budget`.",
+      "Order rows by `location` in ascending order."
     ],
     "tableName": "Departments",
-    "hint": "Sort the output by the location column in ascending direction.",
+    "hint": "Use ORDER BY location ASC.",
     "expectedSql": "SELECT dept_name, location, budget FROM Departments ORDER BY location ASC;",
     "explanation": "ASC sorts textual data in lexicographical alphabetical sequence from A to Z.",
     "tags": [
@@ -8271,17 +8266,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 100,
-    "title": "Capital Project Investment Ranking",
+    "title": "Rank Projects by Budget",
     "topic": "Sorting & Limiting",
     "subtopic": "Single-Column Sorting",
     "difficulty": "Beginner",
-    "problemStatement": "The investment committee is reviewing corporate capital allocations. Display the project ID, project name, and total budget for all projects, ranked from the highest-funded initiative to the lowest.",
+    "problemStatement": "Display all projects ordered from highest budget to lowest.",
     "requirements": [
-      "Select `project_id`, `project_name`, and `budget` from Projects.",
-      "Order results by budget from largest to smallest (descending)."
+      "Select `project_id`, `project_name`, and `budget`.",
+      "Order rows by `budget` descending."
     ],
     "tableName": "Projects",
-    "hint": "Sort by the budget column in descending order.",
+    "hint": "Use ORDER BY budget DESC.",
     "expectedSql": "SELECT project_id, project_name, budget FROM Projects ORDER BY budget DESC;",
     "explanation": "DESC sorts numeric columns in descending order, placing the largest numbers at the top.",
     "tags": [
@@ -8344,19 +8339,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 101,
-    "title": "Annual Incentive Payout Leaderboard",
+    "title": "Rank Bonuses from Highest to Lowest",
     "topic": "Sorting & Limiting",
     "subtopic": "Single-Column Sorting",
     "difficulty": "Easy",
-    "problemStatement": "Payroll leadership is auditing approved performance bonuses. Retrieve review ID, employee ID, rating, and bonus for all evaluations with an awarded bonus, ordered from the highest bonus amount to the lowest.",
+    "problemStatement": "Display all performance reviews with a bonus, ordered from highest bonus to lowest.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Filter for evaluations that have an awarded bonus.",
-      "Display `review_id`, `emp_id`, `rating`, and `bonus`.",
-      "Sort the records by bonus in descending order."
+      "Select `review_id`, `emp_id`, `rating`, and `bonus`.",
+      "Filter out NULL bonuses.",
+      "Order by `bonus` descending."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Exclude null bonuses and sort descending by the bonus field.",
+    "hint": "Filter with bonus IS NOT NULL and sort with ORDER BY bonus DESC.",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE bonus IS NOT NULL ORDER BY bonus DESC;",
     "explanation": "Filters out unassigned bonuses first, then orders the awarded compensation packages from highest to lowest.",
     "tags": [
@@ -8482,17 +8476,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 102,
-    "title": "Resource Allocation Workload Queue",
+    "title": "Sort Project Assignments by Hours",
     "topic": "Sorting & Limiting",
     "subtopic": "Single-Column Sorting",
     "difficulty": "Easy",
-    "problemStatement": "Project operations is reviewing weekly staffing commitments. Retrieve employee ID, project ID, assigned role, and allocated hours from Employee_Projects, ordered from the lightest weekly commitment to the heaviest.",
+    "problemStatement": "Display all employee project assignments ordered from fewest hours to most hours.",
     "requirements": [
       "Select `emp_id`, `project_id`, `assigned_role`, and `hours_allocated`.",
-      "Order the output by allocated hours in ascending order (lowest first)."
+      "Order by `hours_allocated` in ascending order."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Sort by hours_allocated in ascending direction.",
+    "hint": "Use ORDER BY hours_allocated ASC.",
     "expectedSql": "SELECT emp_id, project_id, assigned_role, hours_allocated FROM Employee_Projects ORDER BY hours_allocated ASC;",
     "explanation": "Ascending sort surfaces part-time or low-commitment assignments before full-time allocations.",
     "tags": [
@@ -8636,18 +8630,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 103,
-    "title": "Hierarchical Departmental Compensation Order",
+    "title": "Sort by Department and Salary",
     "topic": "Sorting & Limiting",
     "subtopic": "Multi-Column Hierarchical Ordering",
     "difficulty": "Easy",
-    "problemStatement": "The executive compensation committee requires an organized workforce directory. Display employee ID, name, department, and salary, organized primarily by department alphabetically (A to Z) and secondarily by salary from highest to lowest within each department.",
+    "problemStatement": "Display employees sorted alphabetically by department, and by salary from highest to lowest within each department.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `department`, and `salary` from Employees.",
-      "Apply primary sorting on department in alphabetical ascending order.",
-      "Apply secondary sorting on salary in descending order."
+      "Select `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Order by `department` ascending, then `salary` descending."
     ],
     "tableName": "Employees",
-    "hint": "Specify multiple sort criteria: department ascending followed by salary descending.",
+    "hint": "Specify multiple sort columns separated by commas.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees ORDER BY department ASC, salary DESC;",
     "explanation": "Multi-column sorting evaluates criteria left-to-right, grouping departments together and ranking internal compensations within each division.",
     "tags": [
@@ -8791,18 +8784,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 104,
-    "title": "Historical Performance Appraisal Chronology",
+    "title": "Sort Reviews by Rating and Year",
     "topic": "Sorting & Limiting",
     "subtopic": "Multi-Column Hierarchical Ordering",
     "difficulty": "Medium",
-    "problemStatement": "Talent development is reviewing employee appraisal trajectories. Display review ID, employee ID, rating, and review year, sorted primarily by rating from highest to lowest, and secondarily chronologically by review year from earliest to latest.",
+    "problemStatement": "Display performance reviews sorted by rating from highest to lowest, then by review year from earliest to latest.",
     "requirements": [
-      "Select `review_id`, `emp_id`, `rating`, and `review_year` from Performance_Reviews.",
-      "Sort primarily by rating in descending order.",
-      "Sort secondarily by review year in ascending order."
+      "Select `review_id`, `emp_id`, `rating`, and `review_year`.",
+      "Order by `rating` descending, then `review_year` ascending."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Sort by rating descending, then by review_year ascending.",
+    "hint": "Sort by rating DESC, review_year ASC.",
     "expectedSql": "SELECT review_id, emp_id, rating, review_year FROM Performance_Reviews ORDER BY rating DESC, review_year ASC;",
     "explanation": "Allows appraisal evaluators to view top performers first, organized chronologically from earliest review to latest.",
     "tags": [
@@ -8934,18 +8926,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 105,
-    "title": "Lifecycle Status Initiative Timeline",
+    "title": "Sort Projects by Status and Start Date",
     "topic": "Sorting & Limiting",
     "subtopic": "Multi-Column Hierarchical Ordering",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reviewing corporate projects grouped by current state. Retrieve project ID, name, status, and start date, ordered primarily by project status alphabetically, and secondarily by start date from most recent to oldest.",
+    "problemStatement": "Display projects sorted alphabetically by status, and by start date from newest to oldest within each status.",
     "requirements": [
-      "Select `project_id`, `project_name`, `status`, and `start_date` from Projects.",
-      "Sort primarily by status in alphabetical ascending order.",
-      "Sort secondarily by start date in descending order (newest first)."
+      "Select `project_id`, `project_name`, `status`, and `start_date`.",
+      "Order by `status` ascending, then `start_date` descending."
     ],
     "tableName": "Projects",
-    "hint": "Order by status ASC and start_date DESC.",
+    "hint": "Use ORDER BY status ASC, start_date DESC.",
     "expectedSql": "SELECT project_id, project_name, status, start_date FROM Projects ORDER BY status ASC, start_date DESC;",
     "explanation": "Clusters projects having the same operational status while displaying recently launched initiatives at the head of each cluster.",
     "tags": [
@@ -9017,17 +9008,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 106,
-    "title": "Tri-Factor Talent Distribution Hierarchy",
+    "title": "Sort by City, Experience, and Name",
     "topic": "Sorting & Limiting",
     "subtopic": "Multi-Column Hierarchical Ordering",
     "difficulty": "Hard",
-    "problemStatement": "HR analytics requires a structured talent roster across office locations. Display employee ID, name, city, and years of experience, ordered primarily by city (A to Z), secondarily by experience from most seasoned to junior, and finally alphabetically by employee name.",
+    "problemStatement": "Display employees sorted by city alphabetically, then by experience descending, and finally by name alphabetically.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `city`, and `experience` from Employees.",
-      "Sort primarily by city ascending, secondarily by experience descending, and thirdly by employee name ascending."
+      "Select `emp_id`, `emp_name`, `city`, and `experience`.",
+      "Order by `city` ASC, `experience` DESC, `emp_name` ASC."
     ],
     "tableName": "Employees",
-    "hint": "Provide three ordering expressions separated by commas with their respective directions.",
+    "hint": "List all three sort keys in the ORDER BY clause.",
     "expectedSql": "SELECT emp_id, emp_name, city, experience FROM Employees ORDER BY city ASC, experience DESC, emp_name ASC;",
     "explanation": "A three-level sort completely eliminates arbitrary row ordering when dealing with identical cities and experience levels.",
     "tags": [
@@ -9171,18 +9162,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 107,
-    "title": "Top Three Capital-Intensive Programs",
+    "title": "Top 3 Highest-Budget Projects",
     "topic": "Sorting & Limiting",
     "subtopic": "Pagination & Offset-based Retrieval",
     "difficulty": "Easy",
-    "problemStatement": "Executive governance requires a briefing on the company's three largest capital commitments. Display the project ID, project name, and budget for the 3 highest-budget projects in the portfolio.",
+    "problemStatement": "Find the 3 projects with the highest budgets.",
     "requirements": [
-      "Display `project_id`, `project_name`, and `budget` from Projects.",
-      "Order projects by budget from highest to lowest.",
-      "Limit the returned records to exactly the top 3 initiatives."
+      "Select `project_id`, `project_name`, and `budget`.",
+      "Order by `budget` descending.",
+      "Limit output to 3 rows."
     ],
     "tableName": "Projects",
-    "hint": "Sort by budget descending and restrict the row count to 3.",
+    "hint": "Sort descending by budget and use LIMIT 3.",
     "expectedSql": "SELECT project_id, project_name, budget FROM Projects ORDER BY budget DESC LIMIT 3;",
     "explanation": "LIMIT restricts the size of the final result set, which is combined with ORDER BY for Top-N analysis.",
     "tags": [
@@ -9220,18 +9211,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 108,
-    "title": "Executive Compensation Pagination (Page 2)",
+    "title": "Employees Ranked 6 to 10 by Salary",
     "topic": "Sorting & Limiting",
     "subtopic": "Pagination & Offset-based Retrieval",
     "difficulty": "Medium",
-    "problemStatement": "The administrative reporting portal displays workforce payroll across multiple pages, with 5 records per page. Produce Page 2 of the company payroll ranking, showing employees ranked by salary descending (records 6 through 10).",
+    "problemStatement": "Display employees ranked 6th through 10th by salary (page 2 of top earners).",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `department`, and `salary` from Employees.",
-      "Sort by salary in descending order.",
-      "Retrieve exactly 5 records, skipping the first 5 highest earners."
+      "Select `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Order by `salary` descending.",
+      "Skip the top 5 earners and return the next 5."
     ],
     "tableName": "Employees",
-    "hint": "Combine a row count limit of 5 with an offset of 5 rows.",
+    "hint": "Use LIMIT 5 OFFSET 5 after sorting by salary DESC.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees ORDER BY salary DESC LIMIT 5 OFFSET 5;",
     "explanation": "OFFSET skips a specified number of leading records before returning rows, which powers web UI pagination.",
     "tags": [
@@ -9285,18 +9276,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 109,
-    "title": "Project Catalog Pagination (Page 2)",
+    "title": "Projects 4 Through 6 by ID",
     "topic": "Sorting & Limiting",
     "subtopic": "Pagination & Offset-based Retrieval",
     "difficulty": "Easy",
-    "problemStatement": "The project tracking system renders initiatives in pages of 3 items sorted by ID ascending. Generate Page 2 of the catalog (projects 4, 5, and 6).",
+    "problemStatement": "Display projects ordered by project ID, skipping the first 3 and returning the next 3.",
     "requirements": [
-      "Display `project_id`, `project_name`, and `status` from Projects.",
-      "Sort by `project_id` in ascending order.",
-      "Fetch 3 records after skipping the first 3."
+      "Select `project_id`, `project_name`, and `status`.",
+      "Order by `project_id` ascending.",
+      "Skip 3 rows and limit to 3 rows."
     ],
     "tableName": "Projects",
-    "hint": "Sort by project_id ascending and use pagination to fetch 3 rows after skipping 3.",
+    "hint": "Use LIMIT 3 OFFSET 3.",
     "expectedSql": "SELECT project_id, project_name, status FROM Projects ORDER BY project_id ASC LIMIT 3 OFFSET 3;",
     "explanation": "Standard deterministic pagination requires ordering by a unique key such as project_id.",
     "tags": [
@@ -9334,18 +9325,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 110,
-    "title": "Lowest Weekly Capacity Allocations",
+    "title": "Bottom 2 Assignments by Hours",
     "topic": "Sorting & Limiting",
     "subtopic": "Pagination & Offset-based Retrieval",
     "difficulty": "Medium",
-    "problemStatement": "Resource management is identifying lightweight project commitments. Find the 2 assignments with the fewest allocated weekly hours in Employee_Projects, breaking ties by employee ID ascending.",
+    "problemStatement": "Find the 2 project assignments with the lowest weekly hours, breaking ties by employee ID.",
     "requirements": [
       "Select `emp_id`, `project_id`, `assigned_role`, and `hours_allocated`.",
-      "Order primarily by allocated hours ascending and secondarily by employee ID ascending.",
-      "Limit the result to the 2 lowest allocations."
+      "Order by `hours_allocated` ascending, then `emp_id` ascending.",
+      "Limit output to 2 rows."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Sort by hours_allocated ASC, emp_id ASC and limit the output to 2 rows.",
+    "hint": "Sort by hours_allocated ASC, emp_id ASC and limit to 2.",
     "expectedSql": "SELECT emp_id, project_id, assigned_role, hours_allocated FROM Employee_Projects ORDER BY hours_allocated ASC, emp_id ASC LIMIT 2;",
     "explanation": "Bottom-N analysis sorts in ascending order with a strict LIMIT threshold and deterministic secondary key.",
     "tags": [
@@ -9381,18 +9372,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 111,
-    "title": "Incentive Leaderboard with Null Deprioritization",
+    "title": "Sort Bonuses Highest First with Nulls Last",
     "topic": "Sorting & Limiting",
     "subtopic": "NULL Precedence & Calculated Expressions in ORDER BY",
     "difficulty": "Hard",
-    "problemStatement": "Executive dashboards rank performance bonuses but require that reviews without any awarded bonus appear at the very bottom of the list. Display review ID, employee ID, rating, and bonus, ordering by bonus from highest to lowest while placing unassigned bonuses last.",
+    "problemStatement": "Display performance reviews sorted by bonus from highest to lowest, placing reviews with no bonus (NULL) at the very end.",
     "requirements": [
-      "Select `review_id`, `emp_id`, `rating`, and `bonus` from Performance_Reviews.",
-      "Order so that reviews with confirmed bonuses appear first, sorted by bonus descending.",
-      "Ensure all evaluations with unassigned bonuses (NULL) appear at the bottom."
+      "Select `review_id`, `emp_id`, `rating`, and `bonus`.",
+      "Order non-null bonuses from highest to lowest.",
+      "Place NULL bonus values at the end of the results."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use a conditional ordering expression to flag null bonuses, followed by bonus descending.",
+    "hint": "Use a CASE expression in ORDER BY to rank NULL values after numbers.",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews ORDER BY CASE WHEN bonus IS NULL THEN 1 ELSE 0 END, bonus DESC;",
     "explanation": "In SQLite/MySQL, ordering by a boolean CASE expression before the target column explicitly controls NULL placement.",
     "tags": [
@@ -9524,17 +9515,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 112,
-    "title": "Annualized Workforce Compensation Ranking",
+    "title": "Sort Employees by Annual Salary",
     "topic": "Sorting & Limiting",
     "subtopic": "NULL Precedence & Calculated Expressions in ORDER BY",
     "difficulty": "Medium",
-    "problemStatement": "Financial modeling is analyzing annualized employee cost rankings. Display each employee's ID, name, monthly salary, and calculated annual salary (salary * 12), ordered from the highest annual compensation to the lowest.",
+    "problemStatement": "Display each employee's monthly salary and annual salary (salary * 12), ordered from highest annual salary to lowest.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `salary`, and computed annual salary aliased as `annual_salary`.",
-      "Sort the records by the computed annual salary in descending order."
+      "Select `emp_id`, `emp_name`, `salary`, and `(salary * 12) AS annual_salary`.",
+      "Order by annual salary descending."
     ],
     "tableName": "Employees",
-    "hint": "Order the output by the calculated annual compensation expression in descending order.",
+    "hint": "Calculate annual salary and order by the calculated expression DESC.",
     "expectedSql": "SELECT emp_id, emp_name, salary, (salary * 12) AS annual_salary FROM Employees ORDER BY (salary * 12) DESC;",
     "explanation": "SQL allows expressions in the ORDER BY clause, computing sorts dynamically on runtime projections.",
     "tags": [
@@ -9678,19 +9669,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 113,
-    "title": "Compensation-to-Experience Efficiency Ratio",
+    "title": "Top 5 Employees by Pay per Year of Experience",
     "topic": "Sorting & Limiting",
     "subtopic": "NULL Precedence & Calculated Expressions in ORDER BY",
     "difficulty": "Hard",
-    "problemStatement": "Compensation analytics evaluates talent return on investment by comparing salary to career tenure. For employees with at least 1 year of experience, calculate the compensation-to-experience ratio (salary divided by experience, rounded to 2 decimal places), and identify the top 5 highest-ratio staff members.",
+    "problemStatement": "Calculate pay per year of experience (salary / experience rounded to 2 decimals) for employees with experience > 0. Return the top 5.",
     "requirements": [
-      "Query the Employees table, filtering for employees with `experience > 0`.",
-      "Display `emp_id`, `emp_name`, `salary`, `experience`, and the calculated ratio aliased as `pay_per_year_exp`.",
-      "Order by the pay-to-experience ratio in descending order.",
-      "Limit the final output to the top 5 records."
+      "Select `emp_id`, `emp_name`, `salary`, `experience`, and `ROUND(salary / experience, 2) AS pay_per_year_exp`.",
+      "Filter for `experience > 0`.",
+      "Order by `(salary / experience)` descending.",
+      "Limit output to 5 rows."
     ],
     "tableName": "Employees",
-    "hint": "Compute salary / experience, sort descending by the expression, and limit to 5 rows.",
+    "hint": "Divide salary by experience, round to 2 decimal places, and limit to 5.",
     "expectedSql": "SELECT emp_id, emp_name, salary, experience, ROUND(salary / experience, 2) AS pay_per_year_exp FROM Employees WHERE experience > 0 ORDER BY (salary / experience) DESC LIMIT 5;",
     "explanation": "Computes pay yield per unit of experience and retrieves the 5 steepest compensation-to-tenure trajectories.",
     "tags": [
@@ -9751,20 +9742,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 114,
-    "title": "Enterprise Payroll Comprehensive Statistical Overview",
+    "title": "Overall Salary Summary",
     "topic": "Aggregate Functions",
     "subtopic": "Multi-Metric Aggregate Summaries",
     "difficulty": "Beginner",
-    "problemStatement": "The executive compensation committee requires a top-level statistical snapshot of workforce compensation. Produce a single-row executive summary displaying the minimum salary, maximum salary, average salary (rounded to 2 decimal places), and total cumulative payroll expenditure across all employees.",
+    "problemStatement": "Calculate the minimum, maximum, average (rounded to 2 decimal places), and total sum of salaries across all employees.",
     "requirements": [
       "Calculate minimum salary aliased as `min_sal`.",
       "Calculate maximum salary aliased as `max_sal`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_sal`.",
-      "Calculate total payroll expenditure aliased as `total_payroll`.",
-      "Return a single summary record from the Employees table."
+      "Calculate average salary rounded to 2 decimals aliased as `avg_sal`.",
+      "Calculate sum of salaries aliased as `total_payroll`."
     ],
     "tableName": "Employees",
-    "hint": "Use MIN, MAX, AVG (with ROUND), and SUM aggregate functions across the salary column.",
+    "hint": "Use MIN, MAX, ROUND(AVG(), 2), and SUM functions on the salary column.",
     "expectedSql": "SELECT MIN(salary) AS min_sal, MAX(salary) AS max_sal, ROUND(AVG(salary), 2) AS avg_sal, SUM(salary) AS total_payroll FROM Employees;",
     "explanation": "Multiple aggregate functions can be executed in a single query to compute comprehensive statistical benchmarks across a table.",
     "tags": [
@@ -9795,19 +9785,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 115,
-    "title": "Departmental Operating Budget Benchmark Summary",
+    "title": "Department Budget Summary",
     "topic": "Aggregate Functions",
     "subtopic": "Multi-Metric Aggregate Summaries",
     "difficulty": "Beginner",
-    "problemStatement": "The corporate finance directorate is auditing annual operating budgets across all corporate divisions. Produce a consolidated summary showing the cumulative budget allocation, average departmental budget (rounded to 2 decimal places), and the single largest departmental budget.",
+    "problemStatement": "Calculate the total, average (rounded to 2 decimals), and maximum budget across all departments.",
     "requirements": [
-      "Query the Departments table.",
-      "Calculate total budget across all departments aliased as `total_dept_budget`.",
-      "Calculate average departmental budget rounded to 2 decimal places aliased as `avg_dept_budget`.",
-      "Identify the highest budget allocation aliased as `max_dept_budget`."
+      "Calculate total budget aliased as `total_dept_budget`.",
+      "Calculate average budget rounded to 2 decimals aliased as `avg_dept_budget`.",
+      "Calculate maximum budget aliased as `max_dept_budget`."
     ],
     "tableName": "Departments",
-    "hint": "Apply SUM, AVG with ROUND, and MAX on the budget attribute.",
+    "hint": "Use SUM, ROUND(AVG(), 2), and MAX on the budget column of the Departments table.",
     "expectedSql": "SELECT SUM(budget) AS total_dept_budget, ROUND(AVG(budget), 2) AS avg_dept_budget, MAX(budget) AS max_dept_budget FROM Departments;",
     "explanation": "Aggregates numerical budget allocations to summarize overall enterprise operational capital.",
     "tags": [
@@ -9835,19 +9824,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 116,
-    "title": "Annual Performance Incentive Pool Audit",
+    "title": "Bonus Payout Statistics",
     "topic": "Aggregate Functions",
     "subtopic": "Multi-Metric Aggregate Summaries",
     "difficulty": "Easy",
-    "problemStatement": "Corporate accounting is auditing annual incentive payments. Compute the total number of reviews where an incentive was paid, the cumulative bonus pool distributed, and the average bonus payout (rounded to 2 decimal places).",
+    "problemStatement": "Find the count of awarded bonuses, total bonus payout, and average bonus amount (rounded to 2 decimal places).",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Count the number of non-null bonus payouts aliased as `bonus_count`.",
-      "Calculate the sum of all distributed bonuses aliased as `total_bonus_payout`.",
-      "Calculate the average bonus payout rounded to 2 decimal places aliased as `avg_bonus_payout`."
+      "Count non-null bonuses aliased as `bonus_count`.",
+      "Calculate total bonus amount aliased as `total_bonus_payout`.",
+      "Calculate average bonus rounded to 2 decimals aliased as `avg_bonus_payout`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Apply COUNT, SUM, and AVG on the bonus column; remember COUNT(column) ignores null values.",
+    "hint": "COUNT(bonus) automatically ignores NULL values.",
     "expectedSql": "SELECT COUNT(bonus) AS bonus_count, SUM(bonus) AS total_bonus_payout, ROUND(AVG(bonus), 2) AS avg_bonus_payout FROM Performance_Reviews;",
     "explanation": "COUNT(column) automatically ignores NULL values, contrasting with COUNT(*) which counts all rows.",
     "tags": [
@@ -9876,18 +9864,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 117,
-    "title": "Active Portfolio Capital Commitment",
+    "title": "Active Projects Count and Budget",
     "topic": "Aggregate Functions",
     "subtopic": "Multi-Metric Aggregate Summaries",
     "difficulty": "Easy",
-    "problemStatement": "The investment committee needs an assessment of corporate capital currently committed to in-progress initiatives. For projects marked as 'Active', calculate the total number of active initiatives and the combined capital budget committed to them.",
+    "problemStatement": "Find the total number of active projects and their combined budget.",
     "requirements": [
-      "Query the Projects table filtering strictly for projects with 'Active' status.",
-      "Count the active initiatives aliased as `active_projects`.",
-      "Sum the budget commitments for active projects aliased as `total_active_budget`."
+      "Count active projects aliased as `active_projects`.",
+      "Calculate total budget of active projects aliased as `total_active_budget`.",
+      "Filter for `status = 'Active'`."
     ],
     "tableName": "Projects",
-    "hint": "Filter for status = 'Active' in the WHERE clause, then calculate COUNT(*) and SUM(budget).",
+    "hint": "Apply COUNT(*) and SUM(budget) with a WHERE clause filtering for 'Active'.",
     "expectedSql": "SELECT COUNT(*) AS active_projects, SUM(budget) AS total_active_budget FROM Projects WHERE status = 'Active';",
     "explanation": "Applies a WHERE filter before aggregating to restrict calculations strictly to active corporate projects.",
     "tags": [
@@ -9913,18 +9901,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 118,
-    "title": "Enterprise Weekly Staff Allocation Totals",
+    "title": "Total and Average Weekly Project Hours",
     "topic": "Aggregate Functions",
     "subtopic": "Multi-Metric Aggregate Summaries",
     "difficulty": "Easy",
-    "problemStatement": "Resource management is monitoring corporate utilization across initiatives. Calculate the total cumulative weekly hours committed across all assignments and the average hours allocated per assignment (rounded to 2 decimal places).",
+    "problemStatement": "Calculate the total weekly hours and the average weekly hours (rounded to 2 decimals) allocated across all project assignments.",
     "requirements": [
-      "Query the Employee_Projects table.",
-      "Calculate total allocated weekly hours aliased as `total_weekly_hours`.",
-      "Calculate average hours allocated per assignment rounded to 2 decimal places aliased as `avg_weekly_hours`."
+      "Sum total hours aliased as `total_weekly_hours`.",
+      "Calculate average hours rounded to 2 decimals aliased as `avg_weekly_hours`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Apply SUM and AVG with ROUND to the hours_allocated column.",
+    "hint": "Use SUM and ROUND(AVG(), 2) on hours_allocated.",
     "expectedSql": "SELECT SUM(hours_allocated) AS total_weekly_hours, ROUND(AVG(hours_allocated), 2) AS avg_weekly_hours FROM Employee_Projects;",
     "explanation": "Measures aggregate human resource capacity committed across active initiatives.",
     "tags": [
@@ -9950,19 +9937,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 119,
-    "title": "Technical vs Non-Technical Workforce Breakdown",
+    "title": "Count IT vs Non-IT Employees",
     "topic": "Aggregate Functions",
     "subtopic": "Conditional Aggregation & CASE in Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Workforce analytics requires a single-row headcount comparison between technical and business staff. In one summary record, display the count of employees in the IT department alongside the count of employees in all other departments combined.",
+    "problemStatement": "Count how many employees work in IT compared to all other departments.",
     "requirements": [
-      "Query the Employees table.",
-      "Count staff members in the 'IT' department aliased as `it_count`.",
-      "Count staff members outside the 'IT' department aliased as `non_it_count`.",
-      "Return both metrics in a single summary row."
+      "Count IT employees aliased as `it_count`.",
+      "Count non-IT employees aliased as `non_it_count`."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional aggregation with SUM and CASE to evaluate each group into separate columns.",
+    "hint": "Use conditional aggregation with SUM(CASE WHEN ... THEN 1 ELSE 0 END).",
     "expectedSql": "SELECT SUM(CASE WHEN department = 'IT' THEN 1 ELSE 0 END) AS it_count, SUM(CASE WHEN department != 'IT' THEN 1 ELSE 0 END) AS non_it_count FROM Employees;",
     "explanation": "Conditional aggregation (CASE inside SUM/COUNT) pivots categorical counts into dedicated output columns.",
     "tags": [
@@ -9987,18 +9972,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 120,
-    "title": "Senior vs Junior Payroll Allocation Analysis",
+    "title": "Senior vs Junior Payroll Spend",
     "topic": "Aggregate Functions",
     "subtopic": "Conditional Aggregation & CASE in Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Finance leadership is comparing corporate wage expenditure between experienced professionals and junior staff. Generate a single summary row displaying total payroll for seasoned personnel (5 or more years of experience) versus junior personnel (under 5 years of experience).",
+    "problemStatement": "Calculate the total monthly salary spend for senior employees (5+ years experience) versus junior employees (< 5 years experience).",
     "requirements": [
-      "Query the Employees table.",
-      "Calculate cumulative payroll for staff with `experience >= 5`, aliased as `senior_payroll`.",
-      "Calculate cumulative payroll for staff with `experience < 5`, aliased as `junior_payroll`."
+      "Sum salary for employees with `experience >= 5` aliased as `senior_payroll`.",
+      "Sum salary for employees with `experience < 5` aliased as `junior_payroll`."
     ],
     "tableName": "Employees",
-    "hint": "Use SUM with CASE expressions to conditionally accumulate salary based on years of experience.",
+    "hint": "Use SUM(CASE WHEN experience >= 5 THEN salary ELSE 0 END).",
     "expectedSql": "SELECT SUM(CASE WHEN experience >= 5 THEN salary ELSE 0 END) AS senior_payroll, SUM(CASE WHEN experience < 5 THEN salary ELSE 0 END) AS junior_payroll FROM Employees;",
     "explanation": "Conditionally sums quantitative values based on logical boundary conditions.",
     "tags": [
@@ -10024,18 +10008,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 121,
-    "title": "Performance Rating Tier Comparison",
+    "title": "Count Top vs Low-to-Mid Ratings",
     "topic": "Aggregate Functions",
     "subtopic": "Conditional Aggregation & CASE in Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is examining the balance between exceptional and standard performance appraisals. In a single row, count the total number of evaluations that received the top rating of 5 versus those that received a rating of 3 or lower.",
+    "problemStatement": "Count the number of reviews with a perfect rating of 5, and reviews with a rating of 3 or below.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Count evaluations with a rating of 5 aliased as `top_ratings`.",
-      "Count evaluations with a rating of 3 or below aliased as `low_or_mid_ratings`."
+      "Count reviews where `rating = 5` aliased as `top_ratings`.",
+      "Count reviews where `rating <= 3` aliased as `low_or_mid_ratings`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Apply conditional aggregation using SUM and CASE expressions based on the rating value.",
+    "hint": "Use conditional aggregation with CASE expressions.",
     "expectedSql": "SELECT SUM(CASE WHEN rating = 5 THEN 1 ELSE 0 END) AS top_ratings, SUM(CASE WHEN rating <= 3 THEN 1 ELSE 0 END) AS low_or_mid_ratings FROM Performance_Reviews;",
     "explanation": "Produces a distribution summary of employee appraisal ratings in a single query.",
     "tags": [
@@ -10060,19 +10043,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 122,
-    "title": "Initiative Lifecycle Pipeline Distribution",
+    "title": "Count Projects by Status in Columns",
     "topic": "Aggregate Functions",
     "subtopic": "Conditional Aggregation & CASE in Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reporting project portfolio health in a horizontal scorecard. In a single row, calculate the count of initiatives in 'Completed' status, 'Active' status, and 'Planning' status.",
+    "problemStatement": "Count the number of projects in 'Completed', 'Active', and 'Planning' status as separate columns.",
     "requirements": [
-      "Query the Projects table.",
       "Count completed projects aliased as `completed_count`.",
       "Count active projects aliased as `active_count`.",
       "Count planning projects aliased as `planning_count`."
     ],
     "tableName": "Projects",
-    "hint": "Use three conditional SUM(CASE ...) expressions to pivot the counts of each status into columns.",
+    "hint": "Use SUM(CASE WHEN status = '...' THEN 1 ELSE 0 END) for each status.",
     "expectedSql": "SELECT SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) AS completed_count, SUM(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) AS active_count, SUM(CASE WHEN status = 'Planning' THEN 1 ELSE 0 END) AS planning_count FROM Projects;",
     "explanation": "Pivots discrete categorical statuses into columnar metrics without requiring multiple queries.",
     "tags": [
@@ -10099,18 +10081,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 123,
-    "title": "Headquarters vs Branch Payroll Expenditure Split",
+    "title": "Hyderabad vs Other Cities Payroll",
     "topic": "Aggregate Functions",
     "subtopic": "Conditional Aggregation & CASE in Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Corporate treasury is comparing headquarters wage expense against regional branches. Produce a single-row summary showing total payroll paid to employees stationed in Hyderabad headquarters versus all other office cities combined.",
+    "problemStatement": "Calculate the total salary spend for employees in Hyderabad compared to all other cities.",
     "requirements": [
-      "Query the Employees table.",
-      "Calculate total payroll for staff based in 'Hyderabad' aliased as `hyd_payroll`.",
-      "Calculate total payroll for staff based in all other cities aliased as `other_payroll`."
+      "Sum salary for employees in 'Hyderabad' aliased as `hyd_payroll`.",
+      "Sum salary for employees outside 'Hyderabad' aliased as `other_payroll`."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional SUM aggregation evaluating whether city equals 'Hyderabad' or not.",
+    "hint": "Use conditional SUM with CASE WHEN checking city.",
     "expectedSql": "SELECT SUM(CASE WHEN city = 'Hyderabad' THEN salary ELSE 0 END) AS hyd_payroll, SUM(CASE WHEN city != 'Hyderabad' THEN salary ELSE 0 END) AS other_payroll FROM Employees;",
     "explanation": "Facilitates geographic financial reporting by segmenting expenditures based on regional criteria.",
     "tags": [
@@ -10135,19 +10116,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 124,
-    "title": "Organizational Breadth and Headcount Census",
+    "title": "Count Unique Departments, Cities, and Total Employees",
     "topic": "Aggregate Functions",
     "subtopic": "Distinct Value Aggregations & Deduplication",
     "difficulty": "Beginner",
-    "problemStatement": "Executive leadership is evaluating corporate diversification. Produce a summary showing the count of unique operational departments, the count of unique office branch cities, and the total workforce headcount.",
+    "problemStatement": "Find the number of distinct departments, distinct cities, and total employees in the company.",
     "requirements": [
-      "Query the Employees table.",
-      "Count distinct operational departments aliased as `unique_departments`.",
-      "Count distinct office branch cities aliased as `unique_cities`.",
-      "Count total employee records aliased as `total_employees`."
+      "Count distinct departments aliased as `unique_departments`.",
+      "Count distinct cities aliased as `unique_cities`.",
+      "Count total employees aliased as `total_employees`."
     ],
     "tableName": "Employees",
-    "hint": "Apply COUNT(DISTINCT ...) on department and city, alongside COUNT(*) for overall headcount.",
+    "hint": "Use COUNT(DISTINCT column) for unique counts and COUNT(*) for total rows.",
     "expectedSql": "SELECT COUNT(DISTINCT department) AS unique_departments, COUNT(DISTINCT city) AS unique_cities, COUNT(*) AS total_employees FROM Employees;",
     "explanation": "COUNT(DISTINCT column) strips duplicate occurrences before evaluating aggregate cardinality.",
     "tags": [
@@ -10174,18 +10154,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 125,
-    "title": "Distinct Staff Active on Corporate Initiatives",
+    "title": "Count Distinct Employees Assigned to Projects",
     "topic": "Aggregate Functions",
     "subtopic": "Distinct Value Aggregations & Deduplication",
     "difficulty": "Easy",
-    "problemStatement": "Project operations is determining the reach of initiatives across the company. Calculate the exact number of unique employees who have at least one active assignment in Employee_Projects.",
+    "problemStatement": "Find the total number of unique employees who are currently assigned to at least one project.",
     "requirements": [
-      "Query the Employee_Projects table.",
-      "Count the number of distinct employee IDs assigned to projects.",
-      "Alias the resulting metric as `staffed_employees`."
+      "Count distinct employee IDs aliased as `staffed_employees`.",
+      "Query the Employee_Projects table."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Use COUNT(DISTINCT emp_id) to eliminate duplicate employee records from multiple assignments.",
+    "hint": "Use COUNT(DISTINCT emp_id).",
     "expectedSql": "SELECT COUNT(DISTINCT emp_id) AS staffed_employees FROM Employee_Projects;",
     "explanation": "Since some employees are assigned to multiple projects, COUNT(DISTINCT) ensures each employee is counted only once.",
     "tags": [
@@ -10208,18 +10187,16 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 126,
-    "title": "Historical Appraisal Cycle Inventory",
+    "title": "Count Distinct Review Years",
     "topic": "Aggregate Functions",
     "subtopic": "Distinct Value Aggregations & Deduplication",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is verifying the historical span of digital performance records. Count how many distinct calendar years are represented in the performance reviews repository.",
+    "problemStatement": "Find how many distinct years have performance reviews recorded in the database.",
     "requirements": [
-      "Query the Performance_Reviews table.",
-      "Count the distinct review years recorded.",
-      "Alias the count as `evaluated_years`."
+      "Count distinct review years aliased as `evaluated_years`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Apply the distinct counting function to the review_year column.",
+    "hint": "Use COUNT(DISTINCT review_year).",
     "expectedSql": "SELECT COUNT(DISTINCT review_year) AS evaluated_years FROM Performance_Reviews;",
     "explanation": "Evaluates the historical span of recorded appraisal cycles by deduplicating appraisal years.",
     "tags": [
@@ -10242,18 +10219,16 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 127,
-    "title": "Active Project Lifecycle State Tally",
+    "title": "Count Distinct Project Statuses",
     "topic": "Aggregate Functions",
     "subtopic": "Distinct Value Aggregations & Deduplication",
     "difficulty": "Easy",
-    "problemStatement": "Governance is checking standardization across initiative workflows. Determine the total number of distinct lifecycle status classifications currently utilized in the Projects table.",
+    "problemStatement": "Find the total number of unique status values across all projects.",
     "requirements": [
-      "Query the Projects table.",
-      "Count distinct status values.",
-      "Alias the metric as `unique_statuses`."
+      "Count distinct statuses aliased as `unique_statuses`."
     ],
     "tableName": "Projects",
-    "hint": "Count distinct values in the status column.",
+    "hint": "Use COUNT(DISTINCT status).",
     "expectedSql": "SELECT COUNT(DISTINCT status) AS unique_statuses FROM Projects;",
     "explanation": "Identifies the variety of project lifecycle states currently occupied across corporate projects.",
     "tags": [
@@ -10275,18 +10250,16 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 128,
-    "title": "Mean Distinct Compensation Tier Evaluation",
+    "title": "Average of Distinct Salaries",
     "topic": "Aggregate Functions",
     "subtopic": "Distinct Value Aggregations & Deduplication",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics is evaluating wage distribution by analyzing distinct pay points. Calculate the average of all unique salary values present in the company (rounded to 2 decimal places), removing duplicate salary figures before averaging.",
+    "problemStatement": "Calculate the average of unique salary values in the company, rounded to 2 decimal places.",
     "requirements": [
-      "Query the Employees table.",
-      "Calculate the average of unique salary values, rounded to 2 decimal places.",
-      "Alias the calculated metric as `avg_unique_salary`."
+      "Calculate the average of distinct salary values, rounded to 2 decimal places, aliased as `avg_unique_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Apply AVG(DISTINCT salary) wrapped in ROUND to 2 decimal places.",
+    "hint": "Use ROUND(AVG(DISTINCT salary), 2).",
     "expectedSql": "SELECT ROUND(AVG(DISTINCT salary), 2) AS avg_unique_salary FROM Employees;",
     "explanation": "Averaging distinct salaries removes frequency weighting from identical compensation levels.",
     "tags": [
@@ -10309,18 +10282,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 129,
-    "title": "Chennai Regional Office Payroll and Tenure Profile",
+    "title": "Chennai Office Total Payroll and Average Experience",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Easy",
-    "problemStatement": "Regional management is reviewing labor costs and seniority for the Chennai branch. Calculate the cumulative payroll expenditure and average professional experience (rounded to 2 decimal places) for all employees located in Chennai.",
+    "problemStatement": "Calculate total salary spend and average years of experience (rounded to 2 decimals) for employees in Chennai.",
     "requirements": [
-      "Query the Employees table filtering for staff in 'Chennai'.",
-      "Calculate total salary for Chennai employees aliased as `chennai_payroll`.",
-      "Calculate average years of experience rounded to 2 decimal places aliased as `avg_chennai_exp`."
+      "Sum salaries aliased as `chennai_payroll`.",
+      "Calculate average experience rounded to 2 decimals aliased as `avg_chennai_exp`.",
+      "Filter for `city = 'Chennai'`."
     ],
     "tableName": "Employees",
-    "hint": "Filter with city = 'Chennai' in the WHERE clause, then compute SUM(salary) and ROUND(AVG(experience), 2).",
+    "hint": "Filter by city with WHERE and apply SUM and AVG.",
     "expectedSql": "SELECT SUM(salary) AS chennai_payroll, ROUND(AVG(experience), 2) AS avg_chennai_exp FROM Employees WHERE city = 'Chennai';",
     "explanation": "Aggregates key human resources metrics for a specific geographical branch.",
     "tags": [
@@ -10347,18 +10320,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 130,
-    "title": "Appraisal Incentive Spread (2024 Cycle)",
+    "title": "Highest and Lowest Bonus in 2024",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Easy",
-    "problemStatement": "The compensation committee is analyzing incentive variance for the 2024 appraisal cycle. Find the highest and lowest bonus amounts awarded during the 2024 review year.",
+    "problemStatement": "Find the highest and lowest bonus awarded in the year 2024.",
     "requirements": [
-      "Query the Performance_Reviews table filtering for `review_year = 2024`.",
-      "Find the maximum bonus awarded in 2024 aliased as `max_2024_bonus`.",
-      "Find the minimum bonus awarded in 2024 aliased as `min_2024_bonus`."
+      "Find maximum bonus aliased as `max_2024_bonus`.",
+      "Find minimum bonus aliased as `min_2024_bonus`.",
+      "Filter for `review_year = 2024`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Filter for review_year = 2024 and apply MAX and MIN to the bonus column.",
+    "hint": "Use MAX(bonus) and MIN(bonus) with WHERE review_year = 2024.",
     "expectedSql": "SELECT MAX(bonus) AS max_2024_bonus, MIN(bonus) AS min_2024_bonus FROM Performance_Reviews WHERE review_year = 2024;",
     "explanation": "MIN() automatically ignores NULL values when calculating the lowest non-null payout.",
     "tags": [
@@ -10384,18 +10357,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 131,
-    "title": "Engineering Division Internal Pay Disparity",
+    "title": "Salary Range in IT Department",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Medium",
-    "problemStatement": "Workforce equity is reviewing compensation spreads within the technology division. Calculate the absolute salary difference between the highest-paid and lowest-paid employee in the IT department.",
+    "problemStatement": "Calculate the difference between the highest and lowest salary in the IT department.",
     "requirements": [
-      "Query the Employees table filtering strictly for the 'IT' department.",
-      "Subtract the minimum salary from the maximum salary.",
-      "Alias the calculated compensation spread as `it_salary_range`."
+      "Calculate MAX(salary) minus MIN(salary) aliased as `it_salary_range`.",
+      "Filter for `department = 'IT'`."
     ],
     "tableName": "Employees",
-    "hint": "Subtract MIN(salary) from MAX(salary) within the IT department.",
+    "hint": "Subtract MIN(salary) from MAX(salary) in your SELECT clause.",
     "expectedSql": "SELECT (MAX(salary) - MIN(salary)) AS it_salary_range FROM Employees WHERE department = 'IT';",
     "explanation": "Subtracting MIN from MAX produces the range or disparity between the highest and lowest earners in a division.",
     "tags": [
@@ -10419,18 +10391,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 132,
-    "title": "Post-2020 High-Earning Talent Cohort",
+    "title": "Count High-Earning Recent Hires",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Easy",
-    "problemStatement": "Talent acquisition is tracking the hiring of well-compensated lateral recruits. Count how many employees joined the company after calendar year 2020 and earn a salary strictly greater than 40,000.",
+    "problemStatement": "Count the number of employees who joined after 2020 and earn more than 40,000.",
     "requirements": [
-      "Query the Employees table.",
-      "Filter for `joining_year > 2020` and `salary > 40000`.",
-      "Count the matching employees, aliasing the total as `high_earning_recent_joiners`."
+      "Count matching employees aliased as `high_earning_recent_joiners`.",
+      "Filter for `joining_year > 2020` and `salary > 40000`."
     ],
     "tableName": "Employees",
-    "hint": "Combine two filter conditions on joining_year and salary, then calculate COUNT(*).",
+    "hint": "Combine the two filtering conditions in WHERE and count the rows.",
     "expectedSql": "SELECT COUNT(*) AS high_earning_recent_joiners FROM Employees WHERE joining_year > 2020 AND salary > 40000;",
     "explanation": "Counts personnel matching multiple criteria across temporal and compensation dimensions.",
     "tags": [
@@ -10453,18 +10424,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 133,
-    "title": "Capital Expenditure on Finalized Initiatives",
+    "title": "Total Budget of Completed Projects",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Easy",
-    "problemStatement": "The finance committee is reconciling historical investments in delivered programs. Calculate the total cumulative budget expended on all projects that have achieved 'Completed' status.",
+    "problemStatement": "Calculate the total budget spent on all completed projects.",
     "requirements": [
-      "Query the Projects table filtering for `status = 'Completed'`.",
-      "Sum the budget allocations for these completed initiatives.",
-      "Alias the total as `completed_project_spend`."
+      "Sum project budgets aliased as `completed_project_spend`.",
+      "Filter for `status = 'Completed'`."
     ],
     "tableName": "Projects",
-    "hint": "Filter for status = 'Completed' and apply SUM on budget.",
+    "hint": "Use SUM(budget) WHERE status = 'Completed'.",
     "expectedSql": "SELECT SUM(budget) AS completed_project_spend FROM Projects WHERE status = 'Completed';",
     "explanation": "Sums financial expenditures of successfully finalized enterprise initiatives.",
     "tags": [
@@ -10488,18 +10458,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 134,
-    "title": "Core Administrative Demographic Overview",
+    "title": "Average Age and Experience in HR and Finance",
     "topic": "Aggregate Functions",
     "subtopic": "Filtered Aggregations & Boundary Metrics",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is comparing demographic averages across corporate administrative functions. For employees in the HR and Finance departments combined, calculate the average employee age and average professional experience, each rounded to 1 decimal place.",
+    "problemStatement": "Calculate the average age and average experience (both rounded to 1 decimal place) for employees in HR or Finance.",
     "requirements": [
-      "Query the Employees table filtering for staff in 'HR' or 'Finance'.",
-      "Calculate average age rounded to 1 decimal place aliased as `avg_age`.",
-      "Calculate average experience rounded to 1 decimal place aliased as `avg_exp`."
+      "Calculate average age rounded to 1 decimal aliased as `avg_age`.",
+      "Calculate average experience rounded to 1 decimal aliased as `avg_exp`.",
+      "Filter for `department IN ('HR', 'Finance')`."
     ],
     "tableName": "Employees",
-    "hint": "Filter with department IN ('HR', 'Finance') and apply AVG with ROUND to 1 decimal place.",
+    "hint": "Use ROUND(AVG(...), 1) with an IN filter on department.",
     "expectedSql": "SELECT ROUND(AVG(age), 1) AS avg_age, ROUND(AVG(experience), 1) AS avg_exp FROM Employees WHERE department IN ('HR', 'Finance');",
     "explanation": "Computes rounded demographic averages across multiple corporate business divisions.",
     "tags": [
@@ -10525,19 +10495,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 135,
-    "title": "Workforce Geographical Distribution by Department and City",
+    "title": "Employee Count and Average Salary by Department and City",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Easy",
-    "problemStatement": "Organizational planning is mapping team placement across corporate office locations. For every unique combination of department and branch city, calculate the total employee headcount and average monthly salary (rounded to 2 decimal places).",
+    "problemStatement": "Group employees by department and city. Display the department, city, employee count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Group records by `department` and `city`.",
-      "Calculate employee count aliased as `emp_count`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_salary`.",
-      "Display `department`, `city`, `emp_count`, and `avg_salary`."
+      "Select `department`, `city`, `COUNT(*) AS emp_count`, and `ROUND(AVG(salary), 2) AS avg_salary`.",
+      "Group by `department, city`."
     ],
     "tableName": "Employees",
-    "hint": "Group by both department and city, then calculate COUNT(*) and ROUND(AVG(salary), 2).",
+    "hint": "Use GROUP BY department, city.",
     "expectedSql": "SELECT department, city, COUNT(*) AS emp_count, ROUND(AVG(salary), 2) AS avg_salary FROM Employees GROUP BY department, city;",
     "explanation": "Grouping by multiple attributes partitions the dataset into composite cross-tabulated buckets.",
     "tags": [
@@ -10656,19 +10624,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 136,
-    "title": "Portfolio Budget Exposure by Department and Status",
+    "title": "Project Count and Total Budget by Department and Status",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Medium",
-    "problemStatement": "The finance governance committee is reviewing capital exposure across business units. For each department and project status combination in Projects, calculate the total number of initiatives and cumulative budget allocation.",
+    "problemStatement": "Group projects by department ID and status. Display the department ID, status, project count, and total budget.",
     "requirements": [
-      "Group records in Projects by `dept_id` and `status`.",
-      "Count initiatives in each grouping aliased as `project_count`.",
-      "Sum the budget commitments aliased as `total_budget`.",
-      "Display `dept_id`, `status`, `project_count`, and `total_budget`."
+      "Select `dept_id`, `status`, `COUNT(*) AS project_count`, and `SUM(budget) AS total_budget`.",
+      "Group by `dept_id, status`."
     ],
     "tableName": "Projects",
-    "hint": "Apply GROUP BY on dept_id and status, calculating COUNT(*) and SUM(budget).",
+    "hint": "Use GROUP BY dept_id, status.",
     "expectedSql": "SELECT dept_id, status, COUNT(*) AS project_count, SUM(budget) AS total_budget FROM Projects GROUP BY dept_id, status;",
     "explanation": "Breaks down project investments within each department according to operational workflow status.",
     "tags": [
@@ -10740,19 +10706,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 137,
-    "title": "Historical Appraisal Rating and Bonus Distribution Matrix",
+    "title": "Review Count and Total Bonuses by Year and Rating",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics is evaluating annual rating distributions and incentive payouts. For each review year and performance rating tier, calculate the total count of appraisals and cumulative bonuses distributed (defaulting unassigned bonuses to 0).",
+    "problemStatement": "Group performance reviews by review year and rating. Display the year, rating, review count, and total bonuses (replacing NULL with 0).",
     "requirements": [
-      "Group records in Performance_Reviews by `review_year` and `rating`.",
-      "Count evaluations aliased as `review_count`.",
-      "Calculate sum of bonuses substituting 0 for nulls, aliased as `total_bonuses`.",
-      "Display `review_year`, `rating`, `review_count`, and `total_bonuses`."
+      "Select `review_year`, `rating`, `COUNT(*) AS review_count`, and `COALESCE(SUM(bonus), 0) AS total_bonuses`.",
+      "Group by `review_year, rating`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Group by review_year and rating, and use COALESCE(SUM(bonus), 0) for bonus aggregation.",
+    "hint": "Use GROUP BY review_year, rating with COALESCE(SUM(bonus), 0).",
     "expectedSql": "SELECT review_year, rating, COUNT(*) AS review_count, COALESCE(SUM(bonus), 0) AS total_bonuses FROM Performance_Reviews GROUP BY review_year, rating;",
     "explanation": "Reveals how performance tiers evolved each year alongside their corresponding financial reward totals.",
     "tags": [
@@ -10818,19 +10782,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 138,
-    "title": "Project Role Allocation and Capacity Utilization",
+    "title": "Staff Count and Hours by Project and Role",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Medium",
-    "problemStatement": "Resource management is analyzing role distribution across projects. For each project and assigned role combination in Employee_Projects, calculate the total number of staff assignments and cumulative weekly hours allocated.",
+    "problemStatement": "Group project assignments by project ID and assigned role. Display project ID, role, staff count, and total weekly hours.",
     "requirements": [
-      "Group by `project_id` and `assigned_role`.",
-      "Count assigned staff records aliased as `role_staff_count`.",
-      "Sum allocated weekly hours aliased as `total_role_hours`.",
-      "Display `project_id`, `assigned_role`, `role_staff_count`, and `total_role_hours`."
+      "Select `project_id`, `assigned_role`, `COUNT(*) AS role_staff_count`, and `SUM(hours_allocated) AS total_role_hours`.",
+      "Group by `project_id, assigned_role`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Group by project_id and assigned_role, computing COUNT(*) and SUM(hours_allocated).",
+    "hint": "Use GROUP BY project_id, assigned_role.",
     "expectedSql": "SELECT project_id, assigned_role, COUNT(*) AS role_staff_count, SUM(hours_allocated) AS total_role_hours FROM Employee_Projects GROUP BY project_id, assigned_role;",
     "explanation": "Tracks job function allocations across active enterprise project rosters.",
     "tags": [
@@ -10974,18 +10936,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 139,
-    "title": "Departmental Hiring Cohort Timeline",
+    "title": "Hires Count by Joining Year and Department",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Medium",
-    "problemStatement": "Talent acquisition is tracking historical hiring volume across departments. For every joining year and department combination, display the joining year, department name, and total number of staff hired in that year.",
+    "problemStatement": "Group employees by joining year and department to see how many people were hired in each department per year.",
     "requirements": [
-      "Group records by `joining_year` and `department`.",
-      "Count hires aliased as `hires_count`.",
-      "Display `joining_year`, `department`, and `hires_count`."
+      "Select `joining_year`, `department`, and `COUNT(*) AS hires_count`.",
+      "Group by `joining_year, department`."
     ],
     "tableName": "Employees",
-    "hint": "Group by joining_year and department, calculating COUNT(*) for each group.",
+    "hint": "Use GROUP BY joining_year, department.",
     "expectedSql": "SELECT joining_year, department, COUNT(*) AS hires_count FROM Employees GROUP BY joining_year, department;",
     "explanation": "Visualizes organizational expansion history by charting annual headcount additions per team.",
     "tags": [
@@ -11103,18 +11064,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 140,
-    "title": "Regional Office Experience Cluster Census",
+    "title": "Employee Count by City and Experience",
     "topic": "GROUP BY",
     "subtopic": "Multi-Column Grouping",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is mapping seniority profiles across branch offices. For each city and years of experience pair, calculate the total employee headcount.",
+    "problemStatement": "Group employees by city and years of experience. Display city, experience, and the employee count.",
     "requirements": [
-      "Group records by `city` and `experience`.",
-      "Count staff members aliased as `head_count`.",
-      "Display `city`, `experience`, and `head_count`."
+      "Select `city`, `experience`, and `COUNT(*) AS head_count`.",
+      "Group by `city, experience`."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and experience, counting records with COUNT(*).",
+    "hint": "Use GROUP BY city, experience.",
     "expectedSql": "SELECT city, experience, COUNT(*) AS head_count FROM Employees GROUP BY city, experience;",
     "explanation": "Highlights seniority patterns and regional talent distribution across office sites.",
     "tags": [
@@ -11231,20 +11191,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 141,
-    "title": "Departmental Wage Spread Analysis",
+    "title": "Salary Spread by Department",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Easy",
-    "problemStatement": "The compensation committee is reviewing salary disparity within each business unit. For every department, calculate the lowest salary, highest salary, and the absolute salary spread (maximum minus minimum salary).",
+    "problemStatement": "For each department, find the minimum salary, maximum salary, and the salary spread (max salary minus min salary).",
     "requirements": [
-      "Group records by `department`.",
-      "Find minimum salary aliased as `min_salary`.",
-      "Find maximum salary aliased as `max_salary`.",
-      "Calculate salary spread (max_salary minus min_salary) aliased as `salary_spread`.",
-      "Display `department`, `min_salary`, `max_salary`, and `salary_spread`."
+      "Select `department`, `MIN(salary) AS min_salary`, `MAX(salary) AS max_salary`, and `(MAX(salary) - MIN(salary)) AS salary_spread`.",
+      "Group by `department`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and compute MIN(salary), MAX(salary), and MAX(salary) - MIN(salary).",
+    "hint": "Group by department and subtract MIN(salary) from MAX(salary).",
     "expectedSql": "SELECT department, MIN(salary) AS min_salary, MAX(salary) AS max_salary, (MAX(salary) - MIN(salary)) AS salary_spread FROM Employees GROUP BY department;",
     "explanation": "Performs mathematical operations on aggregate results to compute internal compensation spreads.",
     "tags": [
@@ -11298,20 +11255,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 142,
-    "title": "Project Staffing Footprint and Weekly Utilization",
+    "title": "Staffing and Workload per Project",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Easy",
-    "problemStatement": "The Project Management Office needs a resource utilization audit for each initiative. For every project in the assignments registry, calculate the total number of distinct staff members assigned, cumulative weekly hours committed, and the average weekly hours per team member (rounded to two decimal places).",
+    "problemStatement": "For each project, calculate the number of unique employees assigned, total hours, and average hours per employee (rounded to 2 decimals).",
     "requirements": [
-      "Group records by `project_id`.",
-      "Calculate distinct assigned employees, aliasing the count as `assigned_staff`.",
-      "Calculate total weekly hours committed, aliased as `total_hours`.",
-      "Calculate the average hours per member rounded to 2 decimal places, aliased as `avg_hours_per_member`.",
-      "Display `project_id`, `assigned_staff`, `total_hours`, and `avg_hours_per_member`."
+      "Select `project_id`, `COUNT(DISTINCT emp_id) AS assigned_staff`, `SUM(hours_allocated) AS total_hours`, and `ROUND(AVG(hours_allocated), 2) AS avg_hours_per_member`.",
+      "Group by `project_id`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Group by project_id and apply COUNT(DISTINCT emp_id), SUM(hours_allocated), and ROUND(AVG(hours_allocated), 2).",
+    "hint": "Use GROUP BY project_id with aggregate functions.",
     "expectedSql": "SELECT project_id, COUNT(DISTINCT emp_id) AS assigned_staff, SUM(hours_allocated) AS total_hours, ROUND(AVG(hours_allocated), 2) AS avg_hours_per_member FROM Employee_Projects GROUP BY project_id;",
     "explanation": "Synthesizes staffing cardinality and resource commitment per project initiative.",
     "tags": [
@@ -11371,20 +11325,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 143,
-    "title": "Individual Appraisal Historical Performance Profile",
+    "title": "Review Statistics per Employee",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is summarizing appraisal histories for individual employees. For each reviewed employee in Performance_Reviews, display their employee ID, total number of evaluations completed, average rating (rounded to 2 decimal places), and highest bonus awarded (defaulting to 0 if none).",
+    "problemStatement": "For each employee, calculate their total number of reviews, average rating (rounded to 2 decimals), and highest bonus received (or 0 if none).",
     "requirements": [
-      "Group records by `emp_id`.",
-      "Count total reviews aliased as `total_reviews`.",
-      "Calculate average rating rounded to 2 decimal places aliased as `avg_rating`.",
-      "Find highest bonus received substituting 0 for nulls, aliased as `highest_bonus`.",
-      "Display `emp_id`, `total_reviews`, `avg_rating`, and `highest_bonus`."
+      "Select `emp_id`, `COUNT(*) AS total_reviews`, `ROUND(AVG(rating), 2) AS avg_rating`, and `COALESCE(MAX(bonus), 0) AS highest_bonus`.",
+      "Group by `emp_id`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Group by emp_id and compute COUNT(*), ROUND(AVG(rating), 2), and COALESCE(MAX(bonus), 0).",
+    "hint": "Use GROUP BY emp_id.",
     "expectedSql": "SELECT emp_id, COUNT(*) AS total_reviews, ROUND(AVG(rating), 2) AS avg_rating, COALESCE(MAX(bonus), 0) AS highest_bonus FROM Performance_Reviews GROUP BY emp_id;",
     "explanation": "Summarizes longitudinal evaluation metrics for each reviewed employee.",
     "tags": [
@@ -11492,20 +11443,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 144,
-    "title": "Regional Hub Payroll and High-Earner Density",
+    "title": "Staff Count, Total Payroll, and High Earners by City",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Medium",
-    "problemStatement": "Corporate treasury is assessing geographical labor spending and high-earner presence. For each branch city, display the city name, total employee count, cumulative payroll expenditure, and count of high earners earning strictly over 50,000.",
+    "problemStatement": "For each city, calculate total staff, total salary spend, and the count of employees earning over 50,000.",
     "requirements": [
-      "Group records by `city`.",
-      "Count total staff aliased as `total_staff`.",
-      "Calculate total payroll aliased as `total_payroll`.",
-      "Count employees earning over 50,000 using conditional aggregation, aliased as `high_earners_count`.",
-      "Display `city`, `total_staff`, `total_payroll`, and `high_earners_count`."
+      "Select `city`, `COUNT(*) AS total_staff`, `SUM(salary) AS total_payroll`, and `SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) AS high_earners_count`.",
+      "Group by `city`."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and use SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) for the high earner tally.",
+    "hint": "Group by city and use a conditional SUM for high earners.",
     "expectedSql": "SELECT city, COUNT(*) AS total_staff, SUM(salary) AS total_payroll, SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) AS high_earners_count FROM Employees GROUP BY city;",
     "explanation": "Combines standard grouping with conditional aggregation inside each branch city.",
     "tags": [
@@ -11552,20 +11500,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 145,
-    "title": "Capital Investment Profile by Project Lifecycle Stage",
+    "title": "Budget Statistics by Project Status",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Easy",
-    "problemStatement": "Portfolio governance is benchmarking funding levels across workflow stages. For each project lifecycle status, calculate the total count of initiatives, minimum budget, maximum budget, and average budget allocation (rounded to 2 decimal places).",
+    "problemStatement": "For each project status, calculate the number of projects, minimum budget, maximum budget, and average budget rounded to 2 decimals.",
     "requirements": [
-      "Group records in Projects by `status`.",
-      "Count initiatives aliased as `projects_count`.",
-      "Find minimum budget aliased as `min_budget` and maximum budget aliased as `max_budget`.",
-      "Calculate average budget rounded to 2 decimal places aliased as `avg_budget`.",
-      "Display `status`, `projects_count`, `min_budget`, `max_budget`, and `avg_budget`."
+      "Select `status`, `COUNT(*) AS projects_count`, `MIN(budget) AS min_budget`, `MAX(budget) AS max_budget`, and `ROUND(AVG(budget), 2) AS avg_budget`.",
+      "Group by `status`."
     ],
     "tableName": "Projects",
-    "hint": "Group by status and compute COUNT(*), MIN(budget), MAX(budget), and ROUND(AVG(budget), 2).",
+    "hint": "Use GROUP BY status with MIN, MAX, and ROUND(AVG(), 2).",
     "expectedSql": "SELECT status, COUNT(*) AS projects_count, MIN(budget) AS min_budget, MAX(budget) AS max_budget, ROUND(AVG(budget), 2) AS avg_budget FROM Projects GROUP BY status;",
     "explanation": "Benchmarks budgetary parameters across project statuses.",
     "tags": [
@@ -11610,19 +11555,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 146,
-    "title": "Regional Department Density and Cumulative Budgets",
+    "title": "Department Count and Total Budget by Location",
     "topic": "GROUP BY",
     "subtopic": "Complex Aggregations per Category",
     "difficulty": "Easy",
-    "problemStatement": "Corporate administration is analyzing departmental distribution across headquarters cities. For each location in Departments, display the office location, count of departments headquartered there, and cumulative regional budget.",
+    "problemStatement": "For each location, calculate the total number of departments and their combined budget.",
     "requirements": [
-      "Group records in Departments by `location`.",
-      "Count departments aliased as `dept_count`.",
-      "Calculate total budget aliased as `total_regional_budget`.",
-      "Display `location`, `dept_count`, and `total_regional_budget`."
+      "Select `location`, `COUNT(*) AS dept_count`, and `SUM(budget) AS total_regional_budget`.",
+      "Group by `location`."
     ],
     "tableName": "Departments",
-    "hint": "Group by location and apply COUNT(*) and SUM(budget).",
+    "hint": "Use GROUP BY location.",
     "expectedSql": "SELECT location, COUNT(*) AS dept_count, SUM(budget) AS total_regional_budget FROM Departments GROUP BY location;",
     "explanation": "Summarizes departmental infrastructure presence and operating capital per location.",
     "tags": [
@@ -11659,20 +11602,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 147,
-    "title": "Post-2020 Recruitment Payroll by Division",
+    "title": "Recent Hires and Average Salary by Department",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Easy",
-    "problemStatement": "Talent acquisition is assessing compensation trends for post-pandemic recruitment cohorts. For employees hired after calendar year 2020, display each department, count of recent recruits, and their average monthly salary (rounded to 2 decimal places).",
+    "problemStatement": "For employees who joined after 2020, calculate the number of hires and average salary (rounded to 2 decimals) by department.",
     "requirements": [
-      "Filter for employees where `joining_year > 2020` before grouping.",
-      "Group records by `department`.",
-      "Count recent recruits aliased as `recent_hires`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_recent_salary`.",
-      "Display `department`, `recent_hires`, and `avg_recent_salary`."
+      "Select `department`, `COUNT(*) AS recent_hires`, and `ROUND(AVG(salary), 2) AS avg_recent_salary`.",
+      "Filter for `joining_year > 2020` before grouping.",
+      "Group by `department`."
     ],
     "tableName": "Employees",
-    "hint": "Filter with joining_year > 2020 in the WHERE clause, then group by department.",
+    "hint": "Use WHERE before GROUP BY.",
     "expectedSql": "SELECT department, COUNT(*) AS recent_hires, ROUND(AVG(salary), 2) AS avg_recent_salary FROM Employees WHERE joining_year > 2020 GROUP BY department;",
     "explanation": "WHERE filters rows before the aggregation phase, leaving only post-2020 joiners in each group.",
     "tags": [
@@ -11719,20 +11660,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 148,
-    "title": "Active Capital Commitments by Department",
+    "title": "Pending Projects and Budget by Department",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Medium",
-    "problemStatement": "The Chief Financial Officer needs visibility into unfinished project commitments per department. For all projects not yet completed, display the department ID, count of pending initiatives, and cumulative pending budget.",
+    "problemStatement": "For unfinished projects (status != 'Completed'), find the number of projects and total budget grouped by department ID.",
     "requirements": [
-      "Filter Projects for `status != 'Completed'`.",
-      "Group by `dept_id`.",
-      "Count pending projects aliased as `pending_projects`.",
-      "Calculate cumulative budget aliased as `pending_budget`.",
-      "Display `dept_id`, `pending_projects`, and `pending_budget`."
+      "Select `dept_id`, `COUNT(*) AS pending_projects`, and `SUM(budget) AS pending_budget`.",
+      "Filter for `status != 'Completed'`.",
+      "Group by `dept_id`."
     ],
     "tableName": "Projects",
-    "hint": "Filter with status != 'Completed' before grouping by dept_id.",
+    "hint": "Use WHERE status != 'Completed' GROUP BY dept_id.",
     "expectedSql": "SELECT dept_id, COUNT(*) AS pending_projects, SUM(budget) AS pending_budget FROM Projects WHERE status != 'Completed' GROUP BY dept_id;",
     "explanation": "Filters out completed milestones prior to computing active capital obligations.",
     "tags": [
@@ -11784,20 +11723,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 149,
-    "title": "High-Performance Appraisal and Bonus Summary by Staff",
+    "title": "Top Reviews and Total Bonus for Highly-Rated Employees",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Medium",
-    "problemStatement": "Executive leadership is identifying consistently high-performing employees. For evaluations that achieved a high rating of 4 or 5, display the employee ID, count of top reviews, and total merit bonuses awarded.",
+    "problemStatement": "For reviews with a rating of 4 or higher, calculate the count of reviews and total bonus received per employee.",
     "requirements": [
-      "Filter Performance_Reviews for `rating >= 4`.",
-      "Group by `emp_id`.",
-      "Count qualifying reviews aliased as `top_reviews`.",
-      "Sum awarded bonuses aliased as `total_merit_bonus`.",
-      "Display `emp_id`, `top_reviews`, and `total_merit_bonus`."
+      "Select `emp_id`, `COUNT(*) AS top_reviews`, and `SUM(bonus) AS total_merit_bonus`.",
+      "Filter for `rating >= 4`.",
+      "Group by `emp_id`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Filter for rating >= 4 before grouping by emp_id, then calculate COUNT(*) and SUM(bonus).",
+    "hint": "Filter with WHERE rating >= 4 before grouping by emp_id.",
     "expectedSql": "SELECT emp_id, COUNT(*) AS top_reviews, SUM(bonus) AS total_merit_bonus FROM Performance_Reviews WHERE rating >= 4 GROUP BY emp_id;",
     "explanation": "Isolates top-quartile appraisal outcomes prior to computing merit bonus sums.",
     "tags": [
@@ -11864,20 +11801,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 150,
-    "title": "Branch Density of Seasoned Compensation Staff",
+    "title": "Count and Average Experience by City for Higher Earners",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is examining geographic distribution of experienced staff earning competitive compensation. For employees earning at least 40,000, display each city, count of qualifying staff, and their average professional experience (rounded to 2 decimal places).",
+    "problemStatement": "For employees earning 40,000 or more, calculate the employee count and average experience (rounded to 2 decimals) by city.",
     "requirements": [
-      "Filter Employees for `salary >= 40000`.",
-      "Group by `city`.",
-      "Count matching staff aliased as `mid_to_senior_count`.",
-      "Calculate average years of experience rounded to 2 decimal places aliased as `avg_experience`.",
-      "Display `city`, `mid_to_senior_count`, and `avg_experience`."
+      "Select `city`, `COUNT(*) AS mid_to_senior_count`, and `ROUND(AVG(experience), 2) AS avg_experience`.",
+      "Filter for `salary >= 40000`.",
+      "Group by `city`."
     ],
     "tableName": "Employees",
-    "hint": "Filter for salary >= 40000 in WHERE, then group by city and compute aggregate metrics.",
+    "hint": "Filter with WHERE salary >= 40000 then GROUP BY city.",
     "expectedSql": "SELECT city, COUNT(*) AS mid_to_senior_count, ROUND(AVG(experience), 2) AS avg_experience FROM Employees WHERE salary >= 40000 GROUP BY city;",
     "explanation": "Computes seniority metrics for premium salary brackets in each operating location.",
     "tags": [
@@ -11919,19 +11854,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 151,
-    "title": "Project Management and Leadership Assignment Counts",
+    "title": "Count Leadership Roles per Project",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Medium",
-    "problemStatement": "Workforce governance is monitoring the assignment of leadership and oversight roles across corporate projects. For each project in Employee_Projects, count how many staff assignments carry managerial or leadership designations (titles containing 'Lead', 'Manager', or 'Director').",
+    "problemStatement": "Count how many leadership assignments (role contains 'Lead', 'Manager', or 'Director') exist for each project.",
     "requirements": [
-      "Filter for assignments where `assigned_role` contains 'Lead', 'Manager', or 'Director'.",
-      "Group by `project_id`.",
-      "Count matching leadership assignments aliased as `leadership_roles`.",
-      "Display `project_id` and `leadership_roles`."
+      "Select `project_id` and `COUNT(*) AS leadership_roles`.",
+      "Filter for assigned_role containing 'Lead', 'Manager', or 'Director'.",
+      "Group by `project_id`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Filter using partial text matching on assigned_role before grouping by project_id.",
+    "hint": "Combine LIKE checks with OR in WHERE, then GROUP BY project_id.",
     "expectedSql": "SELECT project_id, COUNT(*) AS leadership_roles FROM Employee_Projects WHERE assigned_role LIKE '%Lead%' OR assigned_role LIKE '%Manager%' OR assigned_role LIKE '%Director%' GROUP BY project_id;",
     "explanation": "Identifies the depth of leadership oversight dedicated to each operational initiative.",
     "tags": [
@@ -11972,20 +11906,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 152,
-    "title": "Early-Career Talent Deployment by Department",
+    "title": "Young Employees Count and Minimum Salary by Department",
     "topic": "GROUP BY",
     "subtopic": "Filtered Grouping (WHERE before GROUP BY)",
     "difficulty": "Easy",
-    "problemStatement": "The talent development team is tracking junior workforce distribution across business units. For employees under 30 years old, display each department, count of young professionals, and lowest salary in that young cohort.",
+    "problemStatement": "For employees under 30, calculate the headcount and minimum salary by department.",
     "requirements": [
-      "Filter Employees for `age < 30`.",
-      "Group by `department`.",
-      "Count young staff aliased as `young_talent_count`.",
-      "Find the minimum salary in that cohort aliased as `min_young_salary`.",
-      "Display `department`, `young_talent_count`, and `min_young_salary`."
+      "Select `department`, `COUNT(*) AS young_talent_count`, and `MIN(salary) AS min_young_salary`.",
+      "Filter for `age < 30`.",
+      "Group by `department`."
     ],
     "tableName": "Employees",
-    "hint": "Filter with age < 30 in WHERE, then group by department and compute COUNT(*) and MIN(salary).",
+    "hint": "Filter using WHERE age < 30 then GROUP BY department.",
     "expectedSql": "SELECT department, COUNT(*) AS young_talent_count, MIN(salary) AS min_young_salary FROM Employees WHERE age < 30 GROUP BY department;",
     "explanation": "Pre-filters workforce by age criteria to analyze base compensation among early-career talent.",
     "tags": [
@@ -12032,19 +11964,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 153,
-    "title": "Categorical Compensation Tier Distribution",
+    "title": "Group Employees by Salary Tier",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Compensation planning is segmenting the workforce into three broad salary tiers: 'Entry' for salaries under 35,000, 'Mid' for salaries from 35,000 to 60,000 inclusive, and 'Executive' for salaries above 60,000. Group all employees into these tiers and display each tier name with its total headcount.",
+    "problemStatement": "Classify employees into salary tiers ('Entry' for < 35,000, 'Mid' for 35,000 to 60,000, 'Executive' for > 60,000) and count employees in each tier.",
     "requirements": [
-      "Categorize each employee into 'Entry', 'Mid', or 'Executive' based on salary thresholds, aliased as `salary_tier`.",
-      "Group records by the categorical salary tier expression.",
+      "Classify salary into 'Entry', 'Mid', or 'Executive' aliased as `salary_tier`.",
       "Count employees in each tier aliased as `tier_count`.",
-      "Display `salary_tier` and `tier_count`."
+      "Group by the salary tier CASE expression."
     ],
     "tableName": "Employees",
-    "hint": "Use identical CASE expressions in the SELECT projection and the GROUP BY clause.",
+    "hint": "Use the same CASE expression in both SELECT and GROUP BY.",
     "expectedSql": "SELECT CASE WHEN salary < 35000 THEN 'Entry' WHEN salary <= 60000 THEN 'Mid' ELSE 'Executive' END AS salary_tier, COUNT(*) AS tier_count FROM Employees GROUP BY CASE WHEN salary < 35000 THEN 'Entry' WHEN salary <= 60000 THEN 'Mid' ELSE 'Executive' END;",
     "explanation": "SQL allows grouping directly by dynamic CASE expressions to generate custom dimensional buckets.",
     "tags": [
@@ -12077,20 +12008,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 154,
-    "title": "Seniority Band Compensation Benchmarking",
+    "title": "Employee Count and Average Salary by Experience Band",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources segments workforce tenure into three professional bands: 'Junior' for under 3 years of experience, 'Intermediate' for 3 to 6 years inclusive, and 'Senior' for more than 6 years. Group employees by these experience bands and display the band name, headcount, and average monthly salary (rounded to 2 decimal places).",
+    "problemStatement": "Group employees into experience bands ('Junior' for < 3, 'Intermediate' for 3 to 6, 'Senior' for > 6). Display band, count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Classify employees into 'Junior', 'Intermediate', or 'Senior' aliased as `experience_band`.",
-      "Group records by the experience band expression.",
-      "Count employees in each band aliased as `count_in_band`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_band_salary`.",
-      "Display `experience_band`, `count_in_band`, and `avg_band_salary`."
+      "Categorize experience into 'Junior', 'Intermediate', or 'Senior' aliased as `experience_band`.",
+      "Count employees aliased as `count_in_band`.",
+      "Calculate average salary rounded to 2 decimals aliased as `avg_band_salary`.",
+      "Group by the experience band CASE expression."
     ],
     "tableName": "Employees",
-    "hint": "Group by the CASE expression that defines the experience bands and calculate COUNT(*) and ROUND(AVG(salary), 2).",
+    "hint": "Group by the CASE expression on experience.",
     "expectedSql": "SELECT CASE WHEN experience < 3 THEN 'Junior' WHEN experience <= 6 THEN 'Intermediate' ELSE 'Senior' END AS experience_band, COUNT(*) AS count_in_band, ROUND(AVG(salary), 2) AS avg_band_salary FROM Employees GROUP BY CASE WHEN experience < 3 THEN 'Junior' WHEN experience <= 6 THEN 'Intermediate' ELSE 'Senior' END;",
     "explanation": "Demonstrates experience band stratification and compensation progression analysis.",
     "tags": [
@@ -12128,20 +12058,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 155,
-    "title": "Appraisal Evaluation by Bonus Allocation Category",
+    "title": "Review Stats by Bonus Award Status",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee is comparing performance ratings between evaluations that received an incentive payout and those that did not. Classify appraisals as 'Bonus Awarded' if a bonus exists, or 'No Bonus Awarded' if unassigned, displaying the status, review count, and average rating (rounded to 2 decimal places).",
+    "problemStatement": "Group reviews by whether a bonus was awarded ('Bonus Awarded' vs 'No Bonus Awarded'). Display status, review count, and average rating rounded to 2 decimals.",
     "requirements": [
-      "Classify reviews into 'Bonus Awarded' or 'No Bonus Awarded' aliased as `bonus_status`.",
-      "Group records by this bonus status category.",
-      "Count evaluations in each category aliased as `reviews_count`.",
-      "Calculate average rating rounded to 2 decimal places aliased as `avg_group_rating`.",
-      "Display `bonus_status`, `reviews_count`, and `avg_group_rating`."
+      "Display bonus status ('Bonus Awarded' or 'No Bonus Awarded') aliased as `bonus_status`.",
+      "Count reviews aliased as `reviews_count`.",
+      "Calculate average rating rounded to 2 decimals aliased as `avg_group_rating`.",
+      "Group by the bonus status CASE expression."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Group by a CASE expression testing whether bonus IS NOT NULL.",
+    "hint": "Use CASE WHEN bonus IS NOT NULL in SELECT and GROUP BY.",
     "expectedSql": "SELECT CASE WHEN bonus IS NOT NULL THEN 'Bonus Awarded' ELSE 'No Bonus Awarded' END AS bonus_status, COUNT(*) AS reviews_count, ROUND(AVG(rating), 2) AS avg_group_rating FROM Performance_Reviews GROUP BY CASE WHEN bonus IS NOT NULL THEN 'Bonus Awarded' ELSE 'No Bonus Awarded' END;",
     "explanation": "Groups records by boolean nullability status to assess rating differences between compensated and uncompensated reviews.",
     "tags": [
@@ -12173,19 +12102,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 156,
-    "title": "Capital Investment Scale Segmentation",
+    "title": "Project Count by Budget Tier",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Project portfolio managers classify corporate initiatives into funding tiers: 'Small' for budgets under 150,000, 'Medium' for budgets from 150,000 to 350,000 inclusive, and 'Enterprise' for budgets exceeding 350,000. Group projects by these investment tiers and display the tier name along with the count of projects.",
+    "problemStatement": "Group projects into budget tiers ('Small' for < 150k, 'Medium' for 150k to 350k, 'Enterprise' for > 350k) and count projects in each tier.",
     "requirements": [
-      "Classify projects into 'Small', 'Medium', or 'Enterprise' aliased as `budget_tier`.",
-      "Group by the budget classification expression.",
-      "Count initiatives in each tier aliased as `project_count`.",
-      "Display `budget_tier` and `project_count`."
+      "Categorize budget into 'Small', 'Medium', or 'Enterprise' aliased as `budget_tier`.",
+      "Count projects aliased as `project_count`.",
+      "Group by the budget tier CASE expression."
     ],
     "tableName": "Projects",
-    "hint": "Use a CASE expression to categorize budget ranges, grouping by the same expression.",
+    "hint": "Group by the CASE expression evaluating budget.",
     "expectedSql": "SELECT CASE WHEN budget < 150000 THEN 'Small' WHEN budget <= 350000 THEN 'Medium' ELSE 'Enterprise' END AS budget_tier, COUNT(*) AS project_count FROM Projects GROUP BY CASE WHEN budget < 150000 THEN 'Small' WHEN budget <= 350000 THEN 'Medium' ELSE 'Enterprise' END;",
     "explanation": "Partitions initiatives into size buckets for portfolio management.",
     "tags": [
@@ -12218,19 +12146,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 157,
-    "title": "Name Character Length Demographic Grouping",
+    "title": "Count Employees by Name Length",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Data management is analyzing the distribution of employee name lengths for badge printing formatting. Group employees by the number of characters in their full name, displaying the name length and the total employee count.",
+    "problemStatement": "Group employees by the length of their name (character count) and count how many employees have each name length.",
     "requirements": [
-      "Calculate character length of `emp_name` aliased as `name_length`.",
-      "Group records by the name length expression.",
-      "Count employees with each length aliased as `employee_count`.",
-      "Display `name_length` and `employee_count`."
+      "Calculate name length using `LENGTH(emp_name)` aliased as `name_length`.",
+      "Count employees aliased as `employee_count`.",
+      "Group by `LENGTH(emp_name)`."
     ],
     "tableName": "Employees",
-    "hint": "Group by the string length function applied to emp_name and calculate COUNT(*).",
+    "hint": "Use GROUP BY LENGTH(emp_name).",
     "expectedSql": "SELECT LENGTH(emp_name) AS name_length, COUNT(*) AS employee_count FROM Employees GROUP BY LENGTH(emp_name);",
     "explanation": "Demonstrates grouping by string function outputs.",
     "tags": [
@@ -12267,20 +12194,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 158,
-    "title": "Tenure Era Payroll Expenditure Comparison",
+    "title": "Payroll Comparison for Pre-2022 vs Later Hires",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "The Chief Financial Officer is comparing payroll commitments between legacy employees and recent additions. Group employees into two hiring eras: 'Pre-2022' for joiners before 2022, and '2022-and-Later' for everyone else. Display the cohort name, headcount, and cumulative payroll.",
+    "problemStatement": "Group employees into two cohorts: 'Pre-2022' (joined before 2022) and '2022-and-Later'. Display cohort name, employee count, and total salary.",
     "requirements": [
-      "Classify joining year into 'Pre-2022' or '2022-and-Later' aliased as `cohort_name`.",
-      "Group by the cohort classification expression.",
-      "Count employees in each cohort aliased as `head_count`.",
-      "Calculate total payroll aliased as `total_cohort_payroll`.",
-      "Display `cohort_name`, `head_count`, and `total_cohort_payroll`."
+      "Categorize joining year into 'Pre-2022' or '2022-and-Later' aliased as `cohort_name`.",
+      "Count employees aliased as `head_count`.",
+      "Sum salaries aliased as `total_cohort_payroll`.",
+      "Group by the cohort CASE expression."
     ],
     "tableName": "Employees",
-    "hint": "Group by a conditional CASE expression on joining_year, calculating COUNT(*) and SUM(salary).",
+    "hint": "Use a CASE expression on joining_year in SELECT and GROUP BY.",
     "expectedSql": "SELECT CASE WHEN joining_year < 2022 THEN 'Pre-2022' ELSE '2022-and-Later' END AS cohort_name, COUNT(*) AS head_count, SUM(salary) AS total_cohort_payroll FROM Employees GROUP BY CASE WHEN joining_year < 2022 THEN 'Pre-2022' ELSE '2022-and-Later' END;",
     "explanation": "Splits enterprise workforce chronologically to contrast legacy salary weights with recent hiring costs.",
     "tags": [
@@ -12312,20 +12238,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 159,
-    "title": "Weekly Commitment Classification Distribution",
+    "title": "Assignments and Hours by Workload Type",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Hard",
-    "problemStatement": "Resource scheduling categorizes project allocations as 'Part-Time' for under 25 hours per week, or 'Full-Time' for 25 hours and above. Group all assignments in Employee_Projects by this workload classification, displaying the workload type, total assignment count, and cumulative weekly hours.",
+    "problemStatement": "Group project assignments into 'Part-Time' (< 25 hours) and 'Full-Time' (>= 25 hours). Display workload type, total assignments, and sum of weekly hours.",
     "requirements": [
-      "Classify assignments into 'Part-Time' or 'Full-Time' based on weekly hours, aliased as `workload_type`.",
-      "Group by the workload classification expression.",
-      "Count total assignments aliased as `total_assignments`.",
-      "Sum allocated weekly hours aliased as `sum_weekly_hours`.",
-      "Display `workload_type`, `total_assignments`, and `sum_weekly_hours`."
+      "Categorize hours into 'Part-Time' or 'Full-Time' aliased as `workload_type`.",
+      "Count assignments aliased as `total_assignments`.",
+      "Sum hours aliased as `sum_weekly_hours`.",
+      "Group by the workload CASE expression."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Use a CASE expression on hours_allocated in both SELECT and GROUP BY.",
+    "hint": "Group by CASE WHEN hours_allocated < 25 THEN 'Part-Time' ELSE 'Full-Time' END.",
     "expectedSql": "SELECT CASE WHEN hours_allocated < 25 THEN 'Part-Time' ELSE 'Full-Time' END AS workload_type, COUNT(*) AS total_assignments, SUM(hours_allocated) AS sum_weekly_hours FROM Employee_Projects GROUP BY CASE WHEN hours_allocated < 25 THEN 'Part-Time' ELSE 'Full-Time' END;",
     "explanation": "Segments project staffing models into workload categories.",
     "tags": [
@@ -12357,20 +12282,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 160,
-    "title": "Enterprise Departmental Capital Classification",
+    "title": "Departments by Budget Classification",
     "topic": "GROUP BY",
     "subtopic": "Expressions & Transformations in GROUP BY",
     "difficulty": "Medium",
-    "problemStatement": "Corporate treasury groups corporate divisions by funding magnitude: 'Mega Budget' for allocations of 1,000,000 or greater, and 'Standard Budget' for under 1,000,000. Group departments by this capital tier, displaying the tier name, department count, and combined budget.",
+    "problemStatement": "Group departments into 'Mega Budget' (>= 1,000,000) and 'Standard Budget' (< 1,000,000). Display tier, department count, and combined budget.",
     "requirements": [
-      "Classify departments into 'Mega Budget' or 'Standard Budget' aliased as `budget_tier`.",
-      "Group by the budget tier classification expression.",
+      "Classify budget as 'Mega Budget' or 'Standard Budget' aliased as `budget_tier`.",
       "Count departments aliased as `dept_count`.",
-      "Sum combined budgets aliased as `combined_budget`.",
-      "Display `budget_tier`, `dept_count`, and `combined_budget`."
+      "Sum budgets aliased as `combined_budget`.",
+      "Group by the budget classification CASE expression."
     ],
     "tableName": "Departments",
-    "hint": "Group by a CASE expression testing budget >= 1000000, computing COUNT(*) and SUM(budget).",
+    "hint": "Group by the CASE expression evaluating department budget.",
     "expectedSql": "SELECT CASE WHEN budget >= 1000000 THEN 'Mega Budget' ELSE 'Standard Budget' END AS budget_tier, COUNT(*) AS dept_count, SUM(budget) AS combined_budget FROM Departments GROUP BY CASE WHEN budget >= 1000000 THEN 'Mega Budget' ELSE 'Standard Budget' END;",
     "explanation": "Summarizes the concentration of operating capital between major budget tiers.",
     "tags": [
@@ -12402,20 +12326,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 161,
-    "title": "Departmental Headcount and Compensation Dual Benchmark",
+    "title": "Departments with at Least 3 Employees and Avg Salary Over 45k",
     "topic": "HAVING",
     "subtopic": "HAVING with Multiple Aggregate Predicates",
     "difficulty": "Easy",
-    "problemStatement": "The executive compensation committee wants to identify major divisions that maintain competitive salary standards. Group employees by department, calculating headcount and average monthly salary (rounded to 2 decimal places), and filter for departments that employ at least 3 people and maintain an average salary strictly exceeding 45,000.",
+    "problemStatement": "Find departments that have at least 3 employees and an average salary strictly greater than 45,000. Display department, employee count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate employee count aliased as `emp_count`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_salary`.",
-      "Filter groups where headcount is 3 or more AND average salary strictly exceeds 45,000.",
-      "Display `department`, `emp_count`, and `avg_salary`."
+      "Select `department`, `COUNT(*) AS emp_count`, and `ROUND(AVG(salary), 2) AS avg_salary`.",
+      "Group by `department`.",
+      "Filter groups having `COUNT(*) >= 3` and `AVG(salary) > 45000`."
     ],
     "tableName": "Employees",
-    "hint": "Use HAVING with both COUNT(*) and AVG(salary) conditions connected by AND.",
+    "hint": "Use HAVING COUNT(*) >= 3 AND AVG(salary) > 45000.",
     "expectedSql": "SELECT department, COUNT(*) AS emp_count, ROUND(AVG(salary), 2) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) >= 3 AND AVG(salary) > 45000;",
     "explanation": "HAVING filters groups post-aggregation using boolean combinations of aggregate functions.",
     "tags": [
@@ -12453,20 +12375,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 162,
-    "title": "High-Commitment Multi-Staff Project Allocations",
+    "title": "Projects with 2+ Staff and 40+ Total Hours",
     "topic": "HAVING",
     "subtopic": "HAVING with Multiple Aggregate Predicates",
     "difficulty": "Medium",
-    "problemStatement": "Resource management is monitoring major project commitments in Employee_Projects. For each project, calculate the count of distinct team members assigned and total weekly hours committed, filtering for initiatives that have at least 2 distinct staff members and a combined workload of at least 40 weekly hours.",
+    "problemStatement": "Find projects that have at least 2 distinct employees assigned and a total of 40 or more allocated hours. Display project ID, staff count, and total hours.",
     "requirements": [
-      "Group by `project_id` in Employee_Projects.",
-      "Count distinct assigned staff aliased as `staff_count`.",
-      "Sum allocated weekly hours aliased as `total_hours`.",
-      "Filter groups where distinct staff count is at least 2 AND total hours is at least 40.",
-      "Display `project_id`, `staff_count`, and `total_hours`."
+      "Select `project_id`, `COUNT(DISTINCT emp_id) AS staff_count`, and `SUM(hours_allocated) AS total_hours`.",
+      "Group by `project_id`.",
+      "Filter groups having `COUNT(DISTINCT emp_id) >= 2` and `SUM(hours_allocated) >= 40`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Apply HAVING COUNT(DISTINCT emp_id) >= 2 AND SUM(hours_allocated) >= 40.",
+    "hint": "Apply HAVING with conditions on COUNT(DISTINCT emp_id) and SUM(hours_allocated).",
     "expectedSql": "SELECT project_id, COUNT(DISTINCT emp_id) AS staff_count, SUM(hours_allocated) AS total_hours FROM Employee_Projects GROUP BY project_id HAVING COUNT(DISTINCT emp_id) >= 2 AND SUM(hours_allocated) >= 40;",
     "explanation": "Enforces multi-metric group constraints across distinct entity counts and cumulative sums.",
     "tags": [
@@ -12519,20 +12439,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 163,
-    "title": "Consistently High-Performing Multi-Review Personnel",
+    "title": "Employees with 2+ Reviews and Average Rating of 4.0+",
     "topic": "HAVING",
     "subtopic": "HAVING with Multiple Aggregate Predicates",
     "difficulty": "Medium",
-    "problemStatement": "Talent development is identifying employees with sustained top-tier performance over time. For each evaluated employee in Performance_Reviews, display their employee ID, total evaluation count, and average rating (rounded to 2 decimal places), keeping only employees who have at least 2 completed reviews and an average rating of 4.0 or higher.",
+    "problemStatement": "Find employees who have at least 2 performance reviews and an average rating of 4.0 or higher. Display employee ID, review count, and average rating rounded to 2 decimals.",
     "requirements": [
-      "Group by `emp_id` in Performance_Reviews.",
-      "Count total reviews aliased as `review_count`.",
-      "Calculate average rating rounded to 2 decimal places aliased as `avg_rating`.",
-      "Filter groups with 2 or more reviews and an average rating of 4.0 or above.",
-      "Display `emp_id`, `review_count`, and `avg_rating`."
+      "Select `emp_id`, `COUNT(*) AS review_count`, and `ROUND(AVG(rating), 2) AS avg_rating`.",
+      "Group by `emp_id`.",
+      "Filter groups having `COUNT(*) >= 2` and `AVG(rating) >= 4.0`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use HAVING COUNT(*) >= 2 AND AVG(rating) >= 4.0 after grouping by emp_id.",
+    "hint": "Use HAVING COUNT(*) >= 2 AND AVG(rating) >= 4.0.",
     "expectedSql": "SELECT emp_id, COUNT(*) AS review_count, ROUND(AVG(rating), 2) AS avg_rating FROM Performance_Reviews GROUP BY emp_id HAVING COUNT(*) >= 2 AND AVG(rating) >= 4.0;",
     "explanation": "Isolates repeated high performers by verifying both evaluation volume and sustained rating excellence.",
     "tags": [
@@ -12570,20 +12488,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 164,
-    "title": "Major Metropolitan Hubs with Substantial Wage Footprints",
+    "title": "Cities with 4+ Employees and Total Payroll Over 200k",
     "topic": "HAVING",
     "subtopic": "HAVING with Multiple Aggregate Predicates",
     "difficulty": "Easy",
-    "problemStatement": "Corporate treasury is reviewing regional offices with significant headcount and payroll exposure. For each city, calculate the total employee count and cumulative monthly payroll, keeping only office locations that have at least 4 employees and a monthly wage bill strictly exceeding 200,000.",
+    "problemStatement": "Find cities that have at least 4 employees and a total salary payroll exceeding 200,000. Display city, employee count, and total payroll.",
     "requirements": [
-      "Group records by `city` in Employees.",
-      "Count staff members aliased as `emp_count`.",
-      "Calculate total payroll expenditure aliased as `total_payroll`.",
-      "Filter groups where headcount is 4 or more AND cumulative payroll exceeds 200,000.",
-      "Display `city`, `emp_count`, and `total_payroll`."
+      "Select `city`, `COUNT(*) AS emp_count`, and `SUM(salary) AS total_payroll`.",
+      "Group by `city`.",
+      "Filter groups having `COUNT(*) >= 4` and `SUM(salary) > 200000`."
     ],
     "tableName": "Employees",
-    "hint": "Filter the grouped city records with HAVING COUNT(*) >= 4 AND SUM(salary) > 200000.",
+    "hint": "Use HAVING COUNT(*) >= 4 AND SUM(salary) > 200000.",
     "expectedSql": "SELECT city, COUNT(*) AS emp_count, SUM(salary) AS total_payroll FROM Employees GROUP BY city HAVING COUNT(*) >= 4 AND SUM(salary) > 200000;",
     "explanation": "Surfaces enterprise operational centers where both organizational headcount and total payroll pass critical thresholds.",
     "tags": [
@@ -12621,20 +12537,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 165,
-    "title": "Departmental Density of Modern Hiring Cohorts",
+    "title": "Departments with 3+ Hires After 2018",
     "topic": "HAVING",
     "subtopic": "Combining WHERE and HAVING in the Pipeline",
     "difficulty": "Medium",
-    "problemStatement": "Talent acquisition is tracking departments that have expanded aggressively in recent years. For staff who joined the company after calendar year 2018, group by department and count recent additions, displaying only departments that have hired at least 3 people during this era.",
+    "problemStatement": "Find departments that hired 3 or more employees after the year 2018. Display department and the recent hire count.",
     "requirements": [
-      "Filter for `joining_year > 2018` before grouping.",
-      "Group records by `department`.",
-      "Count recent recruits aliased as `recent_count`.",
-      "Filter groups where recent recruit count is 3 or greater.",
-      "Display `department` and `recent_count`."
+      "Select `department` and `COUNT(*) AS recent_count`.",
+      "Filter rows with `joining_year > 2018` before grouping.",
+      "Group by `department`.",
+      "Filter groups having `COUNT(*) >= 3`."
     ],
     "tableName": "Employees",
-    "hint": "Combine a pre-aggregation WHERE filter on joining_year with a post-aggregation HAVING filter on COUNT(*).",
+    "hint": "Combine WHERE joining_year > 2018 with HAVING COUNT(*) >= 3.",
     "expectedSql": "SELECT department, COUNT(*) AS recent_count FROM Employees WHERE joining_year > 2018 GROUP BY department HAVING COUNT(*) >= 3;",
     "explanation": "Illustrates the exact SQL execution pipeline: WHERE filters individual records before grouping; HAVING filters aggregated groups.",
     "tags": [
@@ -12668,21 +12583,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 166,
-    "title": "Departments with High Unfinished Project Commitments",
+    "title": "Departments with Pending Project Budgets of 300k+",
     "topic": "HAVING",
     "subtopic": "Combining WHERE and HAVING in the Pipeline",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reviewing capital tied up in unfinished initiatives per department. For projects that are not completed, group by department ID and calculate the count of pending projects and total pending budget, retaining only departments where cumulative pending budget is at least 300,000.",
+    "problemStatement": "Find departments whose uncompleted projects have a combined budget of at least 300,000. Display department ID, pending project count, and total pending budget.",
     "requirements": [
-      "Filter Projects for `status != 'Completed'` in the WHERE clause.",
+      "Select `dept_id`, `COUNT(*) AS pending_projects`, and `SUM(budget) AS total_pending_budget`.",
+      "Filter for `status != 'Completed'` in WHERE.",
       "Group by `dept_id`.",
-      "Count pending projects aliased as `pending_projects`.",
-      "Calculate cumulative pending budget aliased as `total_pending_budget`.",
-      "Filter groups where cumulative budget is 300,000 or greater.",
-      "Display `dept_id`, `pending_projects`, and `total_pending_budget`."
+      "Filter groups having `SUM(budget) >= 300000`."
     ],
     "tableName": "Projects",
-    "hint": "Use WHERE status != 'Completed' followed by HAVING SUM(budget) >= 300000.",
+    "hint": "Use WHERE status != 'Completed' GROUP BY dept_id HAVING SUM(budget) >= 300000.",
     "expectedSql": "SELECT dept_id, COUNT(*) AS pending_projects, SUM(budget) AS total_pending_budget FROM Projects WHERE status != 'Completed' GROUP BY dept_id HAVING SUM(budget) >= 300000;",
     "explanation": "Applies pre-aggregation exclusion on project completion status before testing cumulative capital commitments.",
     "tags": [
@@ -12715,20 +12628,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 167,
-    "title": "Personnel Averaging Premium Incentives (2024 Cycle)",
+    "title": "Employees with Average 2024 Bonus Over 15k",
     "topic": "HAVING",
     "subtopic": "Combining WHERE and HAVING in the Pipeline",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee is auditing high-earning incentive recipients from the 2024 appraisal cycle. For appraisals conducted in 2024, group by employee ID and compute the average bonus awarded (rounded to 2 decimal places), displaying only employees whose average 2024 bonus strictly exceeded 15,000.",
+    "problemStatement": "Find employees whose average bonus in 2024 was greater than 15,000. Display employee ID and average bonus rounded to 2 decimals.",
     "requirements": [
-      "Filter Performance_Reviews for `review_year = 2024`.",
+      "Select `emp_id` and `ROUND(AVG(bonus), 2) AS avg_2024_bonus`.",
+      "Filter for `review_year = 2024`.",
       "Group by `emp_id`.",
-      "Calculate average bonus rounded to 2 decimal places aliased as `avg_2024_bonus`.",
-      "Filter groups where average bonus is strictly greater than 15,000.",
-      "Display `emp_id` and `avg_2024_bonus`."
+      "Filter groups having `AVG(bonus) > 15000`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Filter for review_year = 2024 in WHERE, then apply HAVING AVG(bonus) > 15000.",
+    "hint": "Use WHERE review_year = 2024 GROUP BY emp_id HAVING AVG(bonus) > 15000.",
     "expectedSql": "SELECT emp_id, ROUND(AVG(bonus), 2) AS avg_2024_bonus FROM Performance_Reviews WHERE review_year = 2024 GROUP BY emp_id HAVING AVG(bonus) > 15000;",
     "explanation": "Filters for a single appraisal year in WHERE, then isolates standout bonus averages in HAVING.",
     "tags": [
@@ -12774,21 +12686,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 168,
-    "title": "Branch Hubs with Premium Senior Staff Earnings",
+    "title": "Cities with Experienced Staff Averaging Over 50k",
     "topic": "HAVING",
     "subtopic": "Combining WHERE and HAVING in the Pipeline",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is examining compensation levels for seasoned personnel across branch cities. For employees who possess at least 3 years of experience, group by city and calculate the count of seasoned staff and their average monthly salary (rounded to 2 decimal places), displaying only cities where seasoned staff average strictly more than 50,000.",
+    "problemStatement": "For employees with at least 3 years experience, find cities where their average salary exceeds 50,000. Display city, employee count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Filter Employees for `experience >= 3` in WHERE.",
-      "Group records by `city`.",
-      "Count seasoned staff aliased as `seasoned_staff`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_seasoned_salary`.",
-      "Filter groups where average salary strictly exceeds 50,000.",
-      "Display `city`, `seasoned_staff`, and `avg_seasoned_salary`."
+      "Select `city`, `COUNT(*) AS seasoned_staff`, and `ROUND(AVG(salary), 2) AS avg_seasoned_salary`.",
+      "Filter for `experience >= 3` in WHERE.",
+      "Group by `city`.",
+      "Filter groups having `AVG(salary) > 50000`."
     ],
     "tableName": "Employees",
-    "hint": "Filter with experience >= 3 before grouping, then use HAVING AVG(salary) > 50000.",
+    "hint": "Filter by experience in WHERE, group by city, and filter average salary with HAVING.",
     "expectedSql": "SELECT city, COUNT(*) AS seasoned_staff, ROUND(AVG(salary), 2) AS avg_seasoned_salary FROM Employees WHERE experience >= 3 GROUP BY city HAVING AVG(salary) > 50000;",
     "explanation": "Filters the employee base by minimum tenure before testing whether regional compensation exceeds 50000.",
     "tags": [
@@ -12826,20 +12736,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 169,
-    "title": "Boutique Units or Premium Compensation Divisions",
+    "title": "Departments with at Most 3 Staff or Avg Salary Over 65k",
     "topic": "HAVING",
     "subtopic": "Boundary & Disjunctive Aggregate Filters",
     "difficulty": "Medium",
-    "problemStatement": "Organizational strategy monitors both boutique specialized teams and high-earning units. Group employees by department and calculate headcount and average salary (rounded to 2 decimal places), displaying departments that either have a small team (3 or fewer employees) OR maintain an average salary strictly exceeding 65,000.",
+    "problemStatement": "Find departments that either have 3 or fewer employees, or have an average salary greater than 65,000. Display department, employee count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate employee count aliased as `emp_count`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_salary`.",
-      "Filter groups where headcount is 3 or fewer OR average salary exceeds 65,000.",
-      "Display `department`, `emp_count`, and `avg_salary`."
+      "Select `department`, `COUNT(*) AS emp_count`, and `ROUND(AVG(salary), 2) AS avg_salary`.",
+      "Group by `department`.",
+      "Filter groups having `COUNT(*) <= 3 OR AVG(salary) > 65000`."
     ],
     "tableName": "Employees",
-    "hint": "Use an OR condition within the HAVING clause connecting the headcount and average salary checks.",
+    "hint": "Use OR between conditions in the HAVING clause.",
     "expectedSql": "SELECT department, COUNT(*) AS emp_count, ROUND(AVG(salary), 2) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) <= 3 OR AVG(salary) > 65000;",
     "explanation": "Applies disjunctive logic (OR) inside HAVING to capture either small teams or high-average compensation departments.",
     "tags": [
@@ -12871,20 +12779,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 170,
-    "title": "Resource Allocation Outliers: Lean or Heavy Rosters",
+    "title": "Projects with Under 40 Hours or 4+ Staff",
     "topic": "HAVING",
     "subtopic": "Boundary & Disjunctive Aggregate Filters",
     "difficulty": "Hard",
-    "problemStatement": "The PMO is identifying initiatives with atypical staffing profiles in Employee_Projects. For each project, calculate the distinct team headcount and total allocated weekly hours, keeping projects that have either a light total workload (under 40 hours) OR a large roster (4 or more distinct team members).",
+    "problemStatement": "Find projects that have either total hours under 40, or 4 or more distinct staff members. Display project ID, staff count, and total hours.",
     "requirements": [
-      "Group by `project_id` in Employee_Projects.",
-      "Count distinct assigned staff aliased as `staff_count`.",
-      "Sum allocated weekly hours aliased as `total_hours`.",
-      "Filter groups where total hours is strictly under 40 OR distinct staff count is at least 4.",
-      "Display `project_id`, `staff_count`, and `total_hours`."
+      "Select `project_id`, `COUNT(DISTINCT emp_id) AS staff_count`, and `SUM(hours_allocated) AS total_hours`.",
+      "Group by `project_id`.",
+      "Filter groups having `SUM(hours_allocated) < 40 OR COUNT(DISTINCT emp_id) >= 4`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Apply HAVING SUM(hours_allocated) < 40 OR COUNT(DISTINCT emp_id) >= 4.",
+    "hint": "Combine the two aggregate conditions using OR in HAVING.",
     "expectedSql": "SELECT project_id, COUNT(DISTINCT emp_id) AS staff_count, SUM(hours_allocated) AS total_hours FROM Employee_Projects GROUP BY project_id HAVING SUM(hours_allocated) < 40 OR COUNT(DISTINCT emp_id) >= 4;",
     "explanation": "Captures both under-allocated projects and broad-staff initiatives using aggregate OR logic.",
     "tags": [
@@ -12917,21 +12823,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 171,
-    "title": "High-Disbursement or Superior Rating Review Cycles",
+    "title": "Review Years with Bonuses Over 100k or Avg Rating 4.0+",
     "topic": "HAVING",
     "subtopic": "Boundary & Disjunctive Aggregate Filters",
     "difficulty": "Medium",
-    "problemStatement": "Executive leadership is auditing standout performance review years. For each review year, calculate total reviews, cumulative bonus payout (substituting 0 for nulls), and average rating (rounded to 2 decimal places), displaying only review cycles where total bonuses exceeded 100,000 OR the average rating reached at least 4.0.",
+    "problemStatement": "Find review years where total bonuses exceeded 100,000 or the average rating was at least 4.0. Display review year, total reviews, total bonus, and average rating rounded to 2 decimals.",
     "requirements": [
-      "Group Performance_Reviews by `review_year`.",
-      "Count reviews aliased as `total_reviews`.",
-      "Sum bonuses substituting 0 for nulls aliased as `total_bonus`.",
-      "Calculate average rating rounded to 2 decimal places aliased as `avg_rating`.",
-      "Filter groups where cumulative bonus exceeds 100,000 OR average rating is 4.0 or higher.",
-      "Display `review_year`, `total_reviews`, `total_bonus`, and `avg_rating`."
+      "Select `review_year`, `COUNT(*) AS total_reviews`, `COALESCE(SUM(bonus), 0) AS total_bonus`, and `ROUND(AVG(rating), 2) AS avg_rating`.",
+      "Group by `review_year`.",
+      "Filter groups having `SUM(bonus) > 100000 OR AVG(rating) >= 4.0`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use HAVING SUM(bonus) > 100000 OR AVG(rating) >= 4.0 after grouping by review_year.",
+    "hint": "Use HAVING SUM(bonus) > 100000 OR AVG(rating) >= 4.0.",
     "expectedSql": "SELECT review_year, COUNT(*) AS total_reviews, COALESCE(SUM(bonus), 0) AS total_bonus, ROUND(AVG(rating), 2) AS avg_rating FROM Performance_Reviews GROUP BY review_year HAVING SUM(bonus) > 100000 OR AVG(rating) >= 4.0;",
     "explanation": "Applies disjunctive aggregate thresholds to annual corporate appraisal summaries.",
     "tags": [
@@ -12972,20 +12875,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 172,
-    "title": "Cities with High Wage Baselines and Top Ceilings",
+    "title": "Cities with Min Salary >= 30k and Max Salary > 70k",
     "topic": "HAVING",
     "subtopic": "Boundary & Disjunctive Aggregate Filters",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics is evaluating wage distribution extremes in branch cities. For each city in Employees, calculate the lowest and highest monthly salaries, displaying only cities where the salary floor is at least 30,000 AND the salary ceiling strictly exceeds 70,000.",
+    "problemStatement": "Find cities where the minimum salary is at least 30,000 and the maximum salary is strictly greater than 70,000. Display city, min salary, and max salary.",
     "requirements": [
-      "Group records by `city` in Employees.",
-      "Find minimum salary aliased as `min_sal`.",
-      "Find maximum salary aliased as `max_sal`.",
-      "Filter groups where minimum salary is at least 30,000 AND maximum salary strictly exceeds 70,000.",
-      "Display `city`, `min_sal`, and `max_sal`."
+      "Select `city`, `MIN(salary) AS min_sal`, and `MAX(salary) AS max_sal`.",
+      "Group by `city`.",
+      "Filter groups having `MIN(salary) >= 30000 AND MAX(salary) > 70000`."
     ],
     "tableName": "Employees",
-    "hint": "Apply HAVING MIN(salary) >= 30000 AND MAX(salary) > 70000.",
+    "hint": "Use HAVING MIN(salary) >= 30000 AND MAX(salary) > 70000.",
     "expectedSql": "SELECT city, MIN(salary) AS min_sal, MAX(salary) AS max_sal FROM Employees GROUP BY city HAVING MIN(salary) >= 30000 AND MAX(salary) > 70000;",
     "explanation": "Constrains both lower and upper boundary aggregates across grouped geographical entities.",
     "tags": [
@@ -13013,22 +12914,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 173,
-    "title": "Top Two Highest-Paying Established Departments",
+    "title": "Top 2 Departments by Avg Salary (3+ Employees)",
     "topic": "HAVING",
     "subtopic": "HAVING with Sorting & Limiting",
     "difficulty": "Medium",
-    "problemStatement": "The executive compensation committee wants to identify the top 2 highest-paying established departments. For departments with at least 3 employees, calculate headcount and average salary (rounded to 2 decimal places), ordered by average salary from highest to lowest, restricted to the top 2 departments.",
+    "problemStatement": "Find the top 2 departments with at least 3 employees, ordered by highest average salary. Display department, employee count, and average salary rounded to 2 decimals.",
     "requirements": [
-      "Group records by `department` in Employees.",
-      "Calculate employee count aliased as `emp_count`.",
-      "Calculate average salary rounded to 2 decimal places aliased as `avg_sal`.",
-      "Filter for departments with 3 or more employees.",
-      "Sort by average salary in descending order.",
-      "Limit the final result set to exactly 2 records.",
-      "Display `department`, `emp_count`, and `avg_sal`."
+      "Select `department`, `COUNT(*) AS emp_count`, and `ROUND(AVG(salary), 2) AS avg_sal`.",
+      "Group by `department`.",
+      "Filter groups having `COUNT(*) >= 3`.",
+      "Order by `avg_sal` descending and limit to 2."
     ],
     "tableName": "Employees",
-    "hint": "Combine GROUP BY, HAVING COUNT(*) >= 3, ORDER BY avg_sal DESC, and LIMIT 2.",
+    "hint": "Combine GROUP BY, HAVING, ORDER BY, and LIMIT.",
     "expectedSql": "SELECT department, COUNT(*) AS emp_count, ROUND(AVG(salary), 2) AS avg_sal FROM Employees GROUP BY department HAVING COUNT(*) >= 3 ORDER BY avg_sal DESC LIMIT 2;",
     "explanation": "Combines aggregation, group filtering, sort ordering, and Top-N limiting into a complete analytical query.",
     "tags": [
@@ -13062,22 +12960,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 174,
-    "title": "Single Most Labor-Intensive Multi-Member Initiative",
+    "title": "Project with Most Hours (3+ Staff)",
     "topic": "HAVING",
     "subtopic": "HAVING with Sorting & Limiting",
     "difficulty": "Medium",
-    "problemStatement": "Project operations is identifying the single most demanding team initiative in the portfolio. For initiatives in Employee_Projects that have at least 3 distinct assigned team members, find the project with the highest cumulative weekly hours committed, displaying the project ID, staff count, and total hours.",
+    "problemStatement": "Find the project with the highest total weekly hours among projects that have at least 3 distinct staff members. Display project ID, staff count, and total hours.",
     "requirements": [
-      "Group by `project_id` in Employee_Projects.",
-      "Count distinct assigned staff aliased as `staff_count`.",
-      "Sum allocated weekly hours aliased as `total_hours`.",
-      "Filter groups where distinct staff count is at least 3.",
-      "Order by total weekly hours in descending order.",
-      "Limit the result to the single top project.",
-      "Display `project_id`, `staff_count`, and `total_hours`."
+      "Select `project_id`, `COUNT(DISTINCT emp_id) AS staff_count`, and `SUM(hours_allocated) AS total_hours`.",
+      "Group by `project_id`.",
+      "Filter groups having `COUNT(DISTINCT emp_id) >= 3`.",
+      "Order by `total_hours` descending and limit to 1."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Use HAVING COUNT(DISTINCT emp_id) >= 3, ORDER BY total_hours DESC, and LIMIT 1.",
+    "hint": "Filter with HAVING COUNT(DISTINCT emp_id) >= 3, then ORDER BY total_hours DESC LIMIT 1.",
     "expectedSql": "SELECT project_id, COUNT(DISTINCT emp_id) AS staff_count, SUM(hours_allocated) AS total_hours FROM Employee_Projects GROUP BY project_id HAVING COUNT(DISTINCT emp_id) >= 3 ORDER BY total_hours DESC LIMIT 1;",
     "explanation": "Retrieves the single highest-capacity project meeting minimum staffing requirements.",
     "tags": [
@@ -13106,22 +13001,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 175,
-    "title": "Top Lifetime Incentive Recipient with Multiple Reviews",
+    "title": "Employee with Highest Total Bonus (2+ Reviews)",
     "topic": "HAVING",
     "subtopic": "HAVING with Sorting & Limiting",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is recognizing the employee who has accumulated the largest total performance bonus payout across multiple appraisal cycles. For reviewed employees with at least 2 completed reviews, identify the individual with the highest cumulative bonus, displaying their employee ID, review count, and total bonus pool.",
+    "problemStatement": "Find the employee with at least 2 reviews who received the highest total bonus payout. Display employee ID, review count, and total bonus.",
     "requirements": [
-      "Group by `emp_id` in Performance_Reviews.",
-      "Count total evaluations completed aliased as `review_count`.",
-      "Sum total bonuses received aliased as `total_bonus`.",
-      "Filter for employees with 2 or more reviews and a non-null bonus sum.",
-      "Order by total bonus in descending order.",
-      "Limit to the single top rewarded employee.",
-      "Display `emp_id`, `review_count`, and `total_bonus`."
+      "Select `emp_id`, `COUNT(*) AS review_count`, and `SUM(bonus) AS total_bonus`.",
+      "Group by `emp_id`.",
+      "Filter groups having `COUNT(*) >= 2 AND SUM(bonus) IS NOT NULL`.",
+      "Order by `total_bonus` descending and limit to 1."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Combine HAVING COUNT(*) >= 2 AND SUM(bonus) IS NOT NULL with ORDER BY total_bonus DESC and LIMIT 1.",
+    "hint": "Use HAVING with COUNT and IS NOT NULL, then sort descending and LIMIT 1.",
     "expectedSql": "SELECT emp_id, COUNT(*) AS review_count, SUM(bonus) AS total_bonus FROM Performance_Reviews GROUP BY emp_id HAVING COUNT(*) >= 2 AND SUM(bonus) IS NOT NULL ORDER BY total_bonus DESC LIMIT 1;",
     "explanation": "Finds the employee with the greatest cumulative bonus compensation across multiple appraisal cycles.",
     "tags": [
@@ -13150,17 +13042,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 176,
-    "title": "Departmental Headquarters and Budget Alignment",
+    "title": "Employee Department and Location",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Beginner",
-    "problemStatement": "The facilities planning committee needs to cross-reference staff with official department records. Retrieve the employee name, department name, headquarters location, and annual departmental budget for all employees whose department is registered in the Departments table.",
+    "problemStatement": "Find the department location and budget for each employee by joining Employees with Departments.",
     "requirements": [
-      "Combine records from Employees and Departments based on matching department name.",
-      "Display `emp_name`, `department`, `location`, and `budget`."
+      "Display `emp_name`, `department`, `location`, and `budget`.",
+      "Join Employees and Departments on department name."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Connect Employees and Departments on the matching department name attribute.",
+    "hint": "Use an INNER JOIN on e.department = d.dept_name.",
     "expectedSql": "SELECT e.emp_name, e.department, d.location, d.budget FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name;",
     "explanation": "Equi-join on department name pairs employee records with their departmental headquarters and budget.",
     "tags": [
@@ -13303,17 +13195,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 177,
-    "title": "Active Staff Project Assignments",
+    "title": "Projects and Department Names",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Beginner",
-    "problemStatement": "The PMO is reviewing staff deployed to initiatives. Display employee name, department, assigned project ID, assigned role, and weekly allocated hours for all staff members who have an active project assignment.",
+    "problemStatement": "Display each project's ID, name, assigned department name, and budget.",
     "requirements": [
-      "Combine Employees and Employee_Projects based on matching employee ID.",
-      "Display `emp_name`, `department`, `project_id`, `assigned_role`, and `hours_allocated`."
+      "Display `project_id`, `project_name`, `dept_name`, and `budget`.",
+      "Join Projects and Departments on dept_id."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Join Employees with Employee_Projects on emp_id.",
+    "hint": "INNER JOIN Projects with Departments on p.dept_id = d.dept_id.",
     "expectedSql": "SELECT p.project_id, p.project_name, d.dept_name, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id;",
     "explanation": "Standard primary-key to foreign-key equi-join connects projects with owning organizational units.",
     "tags": [
@@ -13384,17 +13276,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 178,
-    "title": "Project Ownership and Divisional Budgets",
+    "title": "Employee Project Roles and Hours",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Corporate governance needs an overview linking projects to their sponsoring departments. For each initiative, display the project name, project budget, sponsoring department name, and department office location.",
+    "problemStatement": "Display the employee name, project ID, assigned role, and weekly allocated hours for all project assignments.",
     "requirements": [
-      "Combine Projects and Departments based on matching department ID (`dept_id`).",
-      "Display `project_name`, project `budget`, `dept_name`, and `location`."
+      "Display `emp_name`, `project_id`, `assigned_role`, and `hours_allocated`.",
+      "Join Employees with Employee_Projects on emp_id."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Join Projects and Departments on dept_id.",
+    "hint": "INNER JOIN Employees with Employee_Projects on e.emp_id = ep.emp_id.",
     "expectedSql": "SELECT e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     "explanation": "Resolves employee names for project staffing records via the junction table.",
     "tags": [
@@ -13537,17 +13429,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 179,
-    "title": "Employee Appraisal History Record",
+    "title": "Employee Performance Review History",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is compiling historical performance ratings alongside employee profiles. Display each employee's name, evaluation year, rating, and awarded bonus for all completed performance appraisals.",
+    "problemStatement": "Display each employee's name along with their review year, rating, and bonus.",
     "requirements": [
-      "Combine Employees and Performance_Reviews on matching employee ID.",
-      "Display `emp_name`, `review_year`, `rating`, and `bonus`."
+      "Display `emp_name`, `review_year`, `rating`, and `bonus`.",
+      "Join Employees with Performance_Reviews on emp_id."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join Employees and Performance_Reviews on emp_id.",
+    "hint": "INNER JOIN Employees and Performance_Reviews on emp_id.",
     "expectedSql": "SELECT e.emp_name, pr.review_year, pr.rating, pr.bonus FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Combines employee biographical names with historical performance appraisals.",
     "tags": [
@@ -13678,17 +13570,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 180,
-    "title": "Initiative Staffing and Operational Status",
+    "title": "Project Staffing Details",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Resource allocation reviews need to correlate project status with assigned personnel. Display project name, execution status, assigned employee ID, and assigned role for all current project assignments.",
+    "problemStatement": "Display each project's name alongside assigned employee IDs, roles, and allocated hours.",
     "requirements": [
-      "Combine Projects and Employee_Projects based on matching project ID.",
-      "Display `project_name`, `status`, `emp_id`, and `assigned_role`."
+      "Display `project_name`, `emp_id`, `assigned_role`, and `hours_allocated`.",
+      "Join Projects with Employee_Projects on project_id."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Join Projects with Employee_Projects on project_id.",
+    "hint": "INNER JOIN Projects and Employee_Projects on project_id.",
     "expectedSql": "SELECT p.project_name, ep.emp_id, ep.assigned_role, ep.hours_allocated FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     "explanation": "Exposes project team composition by joining the project dimension with staffing assignments.",
     "tags": [
@@ -13831,18 +13723,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 181,
-    "title": "Hyderabad Division Personnel Roster",
+    "title": "Hyderabad Employees and Department Heads",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Corporate administration is compiling a directory of staff members whose departments are headquartered in Hyderabad. Display employee name, department, and office location for all employees working in departments located in Hyderabad.",
+    "problemStatement": "Find all employees whose department is located in Hyderabad. Display the employee name, department, and department head.",
     "requirements": [
-      "Combine Employees and Departments on department name.",
-      "Filter for departments situated in 'Hyderabad'.",
-      "Display `emp_name`, `department`, and `location`."
+      "Display `emp_name`, `department`, and `dept_head`.",
+      "Join Employees with Departments.",
+      "Filter for departments located in 'Hyderabad'."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Join on department name and filter for location = 'Hyderabad' in the WHERE clause.",
+    "hint": "INNER JOIN on department name and filter with WHERE d.location = 'Hyderabad'.",
     "expectedSql": "SELECT e.emp_name, e.department, d.dept_head FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE d.location = 'Hyderabad';",
     "explanation": "Combines join logic with WHERE filtering on department headquarters location.",
     "tags": [
@@ -13904,18 +13796,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 182,
-    "title": "High-Rated Appraisals in the 2024 Cycle",
+    "title": "Active Projects and Department Names",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Executive management is recognizing top performers from the 2024 review cycle. Retrieve employee name, department, rating, and bonus for reviews conducted in 2024 where the employee achieved a rating of 4 or higher.",
+    "problemStatement": "Find all active projects along with their department name and budget.",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Filter for evaluations in calendar year 2024 with a rating of 4 or 5.",
-      "Display `emp_name`, `department`, `rating`, and `bonus`."
+      "Display `project_name`, `dept_name`, and `budget`.",
+      "Join Projects with Departments on dept_id.",
+      "Filter for `status = 'Active'`."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Join on emp_id and filter for review_year = 2024 and rating >= 4.",
+    "hint": "INNER JOIN on dept_id and add WHERE p.status = 'Active'.",
     "expectedSql": "SELECT p.project_name, d.dept_name, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id WHERE p.status = 'Active';",
     "explanation": "Filters active project status across joined departmental relations.",
     "tags": [
@@ -13957,18 +13849,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 183,
-    "title": "Substantial Workload Commitments on Active Initiatives",
+    "title": "Employees with Rating 5 and Feedback",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Project operations is monitoring intensive resource commitments on active projects. Display project name, assigned employee ID, role, and allocated weekly hours for all assignments on 'Active' projects where weekly hours strictly exceed 20.",
+    "problemStatement": "Find all employees who received a rating of 5 in any review. Display employee name, department, rating, bonus, and feedback.",
     "requirements": [
-      "Join Projects and Employee_Projects on project ID.",
-      "Filter for active projects and weekly workload exceeding 20 hours.",
-      "Display `project_name`, `emp_id`, `assigned_role`, and `hours_allocated`."
+      "Display `emp_name`, `department`, `rating`, `bonus`, and `feedback`.",
+      "Join Employees with Performance_Reviews on emp_id.",
+      "Filter for `rating = 5`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join on project_id and filter for status = 'Active' and hours_allocated > 20.",
+    "hint": "INNER JOIN on emp_id with WHERE pr.rating = 5.",
     "expectedSql": "SELECT e.emp_name, e.department, pr.rating, pr.bonus, pr.feedback FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.rating = 5;",
     "explanation": "Isolates top-rated staff members and details their compensation rewards.",
     "tags": [
@@ -14027,18 +13919,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 184,
-    "title": "High-Earner Divisional Placement and Budgets",
+    "title": "Project Assignments with 35+ Hours",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics is evaluating high-earning staff relative to departmental funding. For employees earning strictly more than 50,000, display employee name, salary, department name, and departmental operating budget.",
+    "problemStatement": "Find project assignments where the weekly allocated hours are 35 or more. Display employee ID, project name, role, and hours.",
     "requirements": [
-      "Join Employees and Departments on matching department name.",
-      "Filter for employees earning strictly more than 50,000.",
-      "Display `emp_name`, `salary`, `dept_name`, and `budget`."
+      "Display `emp_id`, `project_name`, `assigned_role`, and `hours_allocated`.",
+      "Join Employee_Projects with Projects on project_id.",
+      "Filter for `hours_allocated >= 35`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Join on department name and filter for salary > 50000 in the WHERE clause.",
+    "hint": "INNER JOIN on project_id and filter by hours_allocated >= 35.",
     "expectedSql": "SELECT ep.emp_id, p.project_name, ep.assigned_role, ep.hours_allocated FROM Employee_Projects ep INNER JOIN Projects p ON ep.project_id = p.project_id WHERE ep.hours_allocated >= 35;",
     "explanation": "Pairs project names with intensive staffing commitments.",
     "tags": [
@@ -14097,18 +13989,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 185,
-    "title": "Completed Capital Initiatives by Department",
+    "title": "High-Earning Employees and Department Heads",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "The PMO is reporting delivered programs alongside their sponsoring division. Display project name, budget, department name, and office location for all projects that have reached 'Completed' status.",
+    "problemStatement": "Find employees earning more than 50,000 and display their name, salary, department name, and department head.",
     "requirements": [
-      "Join Projects and Departments on department ID (`dept_id`).",
-      "Filter for initiatives marked as 'Completed'.",
-      "Display `project_name`, project `budget`, `dept_name`, and `location`."
+      "Display `emp_name`, `salary`, `dept_name`, and `dept_head`.",
+      "Join Employees with Departments on department name.",
+      "Filter for `salary > 50000`."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Join on dept_id and filter for status = 'Completed'.",
+    "hint": "INNER JOIN on department name and filter by salary > 50000.",
     "expectedSql": "SELECT e.emp_name, e.salary, d.dept_name, d.dept_head FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE e.salary > 50000;",
     "explanation": "Surfaces executive leadership associated with high-earning staff members.",
     "tags": [
@@ -14191,18 +14083,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 186,
-    "title": "Leadership Assignments Across Projects",
+    "title": "Employees with Lead Roles",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Workforce governance is tracking personnel serving in managerial and lead capacities on corporate initiatives. Display employee name, department, project ID, and assigned role for assignments where the role title contains 'Lead' or 'Manager'.",
+    "problemStatement": "Find employees who are assigned a role containing 'Lead'. Display employee name, department, project ID, and assigned role.",
     "requirements": [
-      "Join Employees and Employee_Projects on employee ID.",
-      "Filter for assigned roles containing 'Lead' or 'Manager'.",
-      "Display `emp_name`, `department`, `project_id`, and `assigned_role`."
+      "Display `emp_name`, `department`, `project_id`, and `assigned_role`.",
+      "Join Employees with Employee_Projects on emp_id.",
+      "Filter for assigned_role containing 'Lead'."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Join on emp_id and use partial string matching on assigned_role with OR.",
+    "hint": "INNER JOIN on emp_id and filter using LIKE '%Lead%'.",
     "expectedSql": "SELECT e.emp_name, e.department, ep.project_id, ep.assigned_role FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.assigned_role LIKE '%Lead%';",
     "explanation": "Joins staffing records with biographical details to highlight lead project contributors.",
     "tags": [
@@ -14243,18 +14135,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 187,
-    "title": "Substantial Merit Bonus Disbursements",
+    "title": "2024 Bonus Recipients by City",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Finance is auditing significant incentive disbursements. Display employee name, evaluation year, rating, and bonus for all performance reviews where the awarded bonus strictly exceeds 10,000.",
+    "problemStatement": "Find employees who received a bonus in 2024. Display employee name, city, rating, and bonus amount.",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Filter for appraisals with a bonus strictly greater than 10,000.",
-      "Display `emp_name`, `review_year`, `rating`, and `bonus`."
+      "Display `emp_name`, `city`, `rating`, and `bonus`.",
+      "Join Employees with Performance_Reviews on emp_id.",
+      "Filter for `review_year = 2024` and `bonus IS NOT NULL`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join on emp_id and filter for bonus > 10000.",
+    "hint": "INNER JOIN on emp_id and filter with review_year = 2024 AND bonus IS NOT NULL.",
     "expectedSql": "SELECT e.emp_name, e.city, pr.rating, pr.bonus FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_year = 2024 AND pr.bonus IS NOT NULL;",
     "explanation": "Correlates regional office branches with recent appraisal compensation.",
     "tags": [
@@ -14355,18 +14247,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 188,
-    "title": "Major Capital Investments by Division",
+    "title": "Projects with Budget Over 200,000",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Easy",
-    "problemStatement": "Corporate treasury is reviewing capital-intensive programs. Retrieve project name, budget, department name, and location for all initiatives with a project budget strictly exceeding 250,000.",
+    "problemStatement": "Find all projects with a budget greater than 200,000 along with their department name and department head.",
     "requirements": [
-      "Join Projects and Departments on department ID.",
-      "Filter for project budgets exceeding 250,000.",
-      "Display `project_name`, project `budget`, `dept_name`, and `location`."
+      "Display `project_name`, `dept_name`, `dept_head`, and `budget`.",
+      "Join Projects with Departments on dept_id.",
+      "Filter for `budget > 200000`."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Join on dept_id and filter for Projects.budget > 250000.",
+    "hint": "INNER JOIN on dept_id and filter with p.budget > 200000.",
     "expectedSql": "SELECT p.project_name, d.dept_name, d.dept_head, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id WHERE p.budget > 200000;",
     "explanation": "Joins project capital data with departmental executive leadership.",
     "tags": [
@@ -14419,18 +14311,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 189,
-    "title": "Staff Assignment Workload Leaderboard",
+    "title": "Employees Living in Their Department Location",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Resource scheduling requires a leaderboard of project assignments ranked by weekly commitment. Display employee name, department, project ID, and allocated hours, ordered from the highest weekly workload to the lowest.",
+    "problemStatement": "Find all employees who live in the same city where their department is located.",
     "requirements": [
-      "Join Employees and Employee_Projects on employee ID.",
-      "Order results by allocated hours in descending order.",
-      "Display `emp_name`, `department`, `project_id`, and `hours_allocated`."
+      "Display `emp_name`, employee `city`, `department`, and department `location`.",
+      "Join Employees with Departments on department name.",
+      "Filter for rows where employee city equals department location."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Join on emp_id and apply ORDER BY hours_allocated DESC.",
+    "hint": "INNER JOIN on department and check WHERE e.city = d.location.",
     "expectedSql": "SELECT e.emp_name, e.city, e.department, d.location FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE e.city = d.location;",
     "explanation": "Verifies whether an employee's work base aligns with their division's central headquarters.",
     "tags": [
@@ -14489,18 +14381,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 190,
-    "title": "Appraisal Excellence Leaderboard",
+    "title": "Employees with Bonus and Rating",
     "topic": "SQL JOINs",
     "subtopic": "Inner Joins & Relational Equi-Joins",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is compiling an honor roll of employee performance appraisals. Display employee name, department, review year, rating, and bonus, sorted primarily by rating from highest to lowest, and secondarily by bonus amount descending.",
+    "problemStatement": "Display employee name, salary, bonus, and rating for all employees who have received a bonus.",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Order primarily by rating descending, and secondarily by bonus descending.",
-      "Display `emp_name`, `department`, `review_year`, `rating`, and `bonus`."
+      "Display `emp_name`, `salary`, `bonus`, and `rating`.",
+      "Join Employees with Performance_Reviews on emp_id.",
+      "Filter for `bonus IS NOT NULL`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join on emp_id and sort by rating DESC, bonus DESC.",
+    "hint": "INNER JOIN on emp_id and filter with pr.bonus IS NOT NULL.",
     "expectedSql": "SELECT e.emp_name, e.salary, pr.bonus, pr.rating FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.bonus IS NOT NULL;",
     "explanation": "Juxtaposes recurring monthly compensation against one-time merit bonus awards.",
     "tags": [
@@ -14625,17 +14517,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 191,
-    "title": "Comprehensive Project Staffing Audit",
+    "title": "All Employees and Their Projects",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Easy",
-    "problemStatement": "The Project Management Office is conducting a full staffing inventory. Generate a report listing every single employee in the company along with their assigned project ID and role. Crucially, employees who are not currently assigned to any project must still appear in the report.",
+    "problemStatement": "Display all employees and any project assignments they have, including unassigned employees.",
     "requirements": [
-      "Include employee ID (`emp_id`), full name (`emp_name`), assigned project ID (`project_id`), and assigned role (`assigned_role`).",
-      "Ensure all company employees are retained in the results, displaying NULL for project details when an employee has no active assignment."
+      "Display `emp_id`, `emp_name`, `project_id`, and `assigned_role`.",
+      "Use a LEFT JOIN from Employees to Employee_Projects."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use an outer join that preserves all rows from the primary employee table.",
+    "hint": "LEFT JOIN Employees with Employee_Projects on emp_id.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, ep.project_id, ep.assigned_role FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     "explanation": "Preserves all employees in the result set; employees with no project assignments return NULL for project attributes.",
     "tags": [
@@ -14796,17 +14688,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 192,
-    "title": "Workforce Appraisal Coverage Inventory",
+    "title": "Employees Not Assigned to Any Project",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "HR governance is auditing review completion across the workforce. Produce a roster listing all employees alongside their review year, rating, and bonus, ensuring that staff members who have never received a performance appraisal are preserved in the list.",
+    "problemStatement": "Find all employees who are not assigned to any project.",
     "requirements": [
-      "Combine Employees and Performance_Reviews preserving all employees.",
-      "Display `emp_id`, `emp_name`, `review_year`, `rating`, and `bonus`."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "LEFT JOIN Employees with Employee_Projects.",
+      "Filter for rows where `project_id IS NULL`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use a left outer join from Employees to Performance_Reviews on emp_id.",
+    "hint": "Use a LEFT JOIN anti-join checking WHERE ep.project_id IS NULL.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.project_id IS NULL;",
     "explanation": "Classic SQL anti-join: LEFT JOIN combined with IS NULL on the right table's key identifies unmatched records.",
     "tags": [
@@ -14844,17 +14737,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 193,
-    "title": "Departmental Project Ownership Directory",
+    "title": "All Departments and Their Projects",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Easy",
-    "problemStatement": "Corporate strategy is auditing project sponsorship across all divisions. Display department name, office location, project ID, and project name, ensuring departments that currently sponsor zero projects are still listed.",
+    "problemStatement": "Display all departments and any projects associated with them, including departments without projects.",
     "requirements": [
-      "Combine Departments and Projects preserving all departments.",
-      "Display `dept_name`, `location`, `project_id`, and `project_name`."
+      "Display `dept_name`, `location`, `project_name`, and `status`.",
+      "LEFT JOIN Departments with Projects on dept_id."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use a left join from Departments to Projects on dept_id.",
+    "hint": "Use a LEFT JOIN from Departments to Projects.",
     "expectedSql": "SELECT d.dept_name, d.location, p.project_name, p.status FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id;",
     "explanation": "Preserves departments even if they have no ongoing or planned projects.",
     "tags": [
@@ -14931,17 +14824,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 194,
-    "title": "Initiative Resource Deployment Audit",
+    "title": "Departments with No Projects",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is verifying team assignments across the project portfolio. Display project name, status, assigned employee ID, and weekly hours, ensuring initiatives with zero assigned team members are preserved in the report.",
+    "problemStatement": "Find all departments that currently have no projects assigned to them.",
     "requirements": [
-      "Combine Projects and Employee_Projects preserving all projects.",
-      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "LEFT JOIN Departments with Projects on dept_id.",
+      "Filter for rows where `project_id IS NULL`."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Left join Projects to Employee_Projects on project_id.",
+    "hint": "LEFT JOIN Departments to Projects and check WHERE p.project_id IS NULL.",
     "expectedSql": "SELECT d.dept_id, d.dept_name, d.location FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id WHERE p.project_id IS NULL;",
     "explanation": "Surfaces departments that lack project activity using an anti-join pattern.",
     "tags": [
@@ -14968,17 +14862,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 195,
-    "title": "Employee Department Registration Verification",
+    "title": "All Employees and Their Reviews",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Easy",
-    "problemStatement": "Data management is verifying organizational alignment between staff and registered departments. Display employee name, department, office location, and budget, preserving all employee records even if their department is unlisted in official department records.",
+    "problemStatement": "Display all employees along with any performance review year and rating they received.",
     "requirements": [
-      "Combine Employees and Departments preserving all employees.",
-      "Display `emp_name`, `department`, `location`, and `budget`."
+      "Display `emp_id`, `emp_name`, `department`, `review_year`, and `rating`.",
+      "LEFT JOIN Employees with Performance_Reviews on emp_id."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Left join Employees with Departments matching department to dept_name.",
+    "hint": "LEFT JOIN Employees to Performance_Reviews on emp_id.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, pr.review_year, pr.rating FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Lists every corporate employee while including appraisal data for those who have been evaluated.",
     "tags": [
@@ -15170,17 +15064,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 196,
-    "title": "Unassigned Personnel Identification",
+    "title": "Employees with No Performance Reviews",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Operations management needs to deploy unallocated talent to new initiatives. Identify all employees who currently have zero project assignments in Employee_Projects, displaying their ID, name, department, and salary.",
+    "problemStatement": "Find all employees who have never received a performance review.",
     "requirements": [
-      "Identify employees who have no corresponding record in Employee_Projects.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "LEFT JOIN Employees with Performance_Reviews on emp_id.",
+      "Filter for rows where `review_id IS NULL`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use a left outer join and filter where the joined project assignment attribute is null.",
+    "hint": "LEFT JOIN on emp_id and check WHERE pr.review_id IS NULL.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, e.salary FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_id IS NULL;",
     "explanation": "Isolates unreviewed personnel to schedule pending evaluations.",
     "tags": [
@@ -15239,17 +15134,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 197,
-    "title": "Unreviewed Staff Identification",
+    "title": "All Projects and Assigned Employees",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is scheduling evaluations for staff who have never been reviewed. Find all employees who do not have any performance reviews recorded in the system, displaying their employee ID, name, department, and joining year.",
+    "problemStatement": "Display all projects along with any assigned employee IDs and roles, including unstaffed projects.",
     "requirements": [
-      "Find employees who do not appear in Performance_Reviews.",
-      "Display `emp_id`, `emp_name`, `department`, and `joining_year`."
+      "Display `project_id`, `project_name`, `emp_id`, and `assigned_role`.",
+      "LEFT JOIN Projects with Employee_Projects on project_id."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Left join Employees to Performance_Reviews and filter where review_id is null.",
+    "hint": "LEFT JOIN Projects to Employee_Projects on project_id.",
     "expectedSql": "SELECT p.project_id, p.project_name, ep.emp_id, ep.assigned_role FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     "explanation": "Retains all initiatives, including newly planned initiatives that have no staff assigned yet.",
     "tags": [
@@ -15404,17 +15299,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 198,
-    "title": "Divisions Lacking Project Sponsorship",
+    "title": "Projects with No Assigned Staff",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Corporate strategy is identifying departments that currently have no active capital initiatives. Display the department ID, department name, and location for all departments that sponsor zero projects.",
+    "problemStatement": "Find all projects that currently have no staff assigned to them.",
     "requirements": [
-      "Find departments with no corresponding records in Projects.",
-      "Display `dept_id`, `dept_name`, and `location` from Departments."
+      "Display `project_id`, `project_name`, and `status`.",
+      "LEFT JOIN Projects with Employee_Projects on project_id.",
+      "Filter for rows where `emp_id IS NULL`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Left join Departments to Projects on dept_id and filter where project_id is null.",
+    "hint": "LEFT JOIN on project_id and check WHERE ep.emp_id IS NULL.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.status FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id WHERE ep.emp_id IS NULL;",
     "explanation": "Detects unstaffed initiatives requiring human resource allocation.",
     "tags": [
@@ -15446,17 +15342,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 199,
-    "title": "Unstaffed Initiative Identification",
+    "title": "All Departments and Staff Members",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Easy",
-    "problemStatement": "The PMO is identifying projects that are currently operating without any assigned staff. Display the project ID, project name, and status for all initiatives in Projects that have zero assignments in Employee_Projects.",
+    "problemStatement": "Display all departments and the names of employees in them, including empty departments.",
     "requirements": [
-      "Find projects that have no corresponding records in Employee_Projects.",
-      "Display `project_id`, `project_name`, and `status` from Projects."
+      "Display `dept_name`, `dept_head`, and `emp_name`.",
+      "LEFT JOIN Departments with Employees on department name."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Left join Projects to Employee_Projects on project_id and filter where emp_id is null.",
+    "hint": "LEFT JOIN Departments to Employees on d.dept_name = e.department.",
     "expectedSql": "SELECT d.dept_name, d.dept_head, e.emp_name FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department;",
     "explanation": "Preserves departments with zero staff (e.g. Legal, Operations, R&D) with NULL employee names.",
     "tags": [
@@ -15593,17 +15489,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 200,
-    "title": "Staff Project Allocation with Default Indicators",
+    "title": "Departments with Zero Employees",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Reporting systems require a clean display without empty project cells. Display employee name and assigned project ID for all employees, substituting 0 whenever an employee has no project assigned, aliasing the column as `assigned_project_id`.",
+    "problemStatement": "Find all departments that have no employees currently assigned.",
     "requirements": [
-      "Left join Employees with Employee_Projects on employee ID.",
-      "Display `emp_name` and project ID with nulls replaced by 0, aliased as `assigned_project_id`."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "LEFT JOIN Departments with Employees on department name.",
+      "Filter for rows where `emp_id IS NULL`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Use COALESCE on the project_id column from the preserved outer join.",
+    "hint": "LEFT JOIN Departments to Employees and check WHERE e.emp_id IS NULL.",
     "expectedSql": "SELECT d.dept_id, d.dept_name, d.location FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department WHERE e.emp_id IS NULL;",
     "explanation": "Locates unpopulated or newly formed corporate organizational units.",
     "tags": [
@@ -15640,18 +15537,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 201,
-    "title": "Comprehensive Staffing with 2024 Appraisal Overlay",
+    "title": "All Employees and Their 2024 Review Status",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Hard",
-    "problemStatement": "Management is compiling a complete workforce roster showing 2024 appraisal data where available. Display employee name, department, rating, and bonus for all employees, showing 2024 review metrics for employees who completed a 2024 review and null for all others.",
+    "problemStatement": "Display all employees and their 2024 review rating and bonus (if any), preserving employees who had no review in 2024.",
     "requirements": [
-      "Preserve all employees in the result set.",
-      "Correlate 2024 review ratings and bonuses by placing the 2024 year filter directly in the join condition.",
-      "Display `emp_name`, `department`, `rating`, and `bonus`."
+      "Display `emp_name`, `department`, `rating`, and `bonus`.",
+      "LEFT JOIN Employees with Performance_Reviews matching review_year = 2024."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Include review_year = 2024 directly in the ON clause of the left join.",
+    "hint": "Put the year filter in the ON clause: ON e.emp_id = pr.emp_id AND pr.review_year = 2024.",
     "expectedSql": "SELECT e.emp_name, e.department, pr.rating, pr.bonus FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id AND pr.review_year = 2024;",
     "explanation": "Placing a condition in the ON clause filters the right table while preserving all rows of the left table.",
     "tags": [
@@ -15794,17 +15690,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 202,
-    "title": "Staff Performance Incentive Overview with Zero Default",
+    "title": "Employee Roles with 'Unassigned' Fallback",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Payroll reporting requires a full staff list displaying incentive bonuses, substituting 0 for staff who did not receive a bonus. Display employee ID, name, rating, and bonus with null bonuses replaced by 0, aliased as `final_bonus`.",
+    "problemStatement": "Display each employee's ID, name, and project role, replacing NULL roles with 'Unassigned'.",
     "requirements": [
-      "Left join Employees and Performance_Reviews on employee ID.",
-      "Display `emp_id`, `emp_name`, `rating`, and bonus defaulting to 0 aliased as `final_bonus`."
+      "Display `emp_id`, `emp_name`, and project role aliased as `project_role`.",
+      "Replace NULL role values with `'Unassigned'` using COALESCE.",
+      "LEFT JOIN Employees with Employee_Projects."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use COALESCE(bonus, 0) on the joined bonus column.",
+    "hint": "Use COALESCE(ep.assigned_role, 'Unassigned').",
     "expectedSql": "SELECT e.emp_id, e.emp_name, COALESCE(ep.assigned_role, 'Unassigned') AS project_role FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     "explanation": "Replaces NULL results in unassigned left-join records with informative default labels.",
     "tags": [
@@ -15941,18 +15838,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 203,
-    "title": "Initiative Resource Allocation on Active Projects",
+    "title": "Total Hours per Project Including Unassigned",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is tracking staffing on active corporate initiatives. Display project name, status, assigned employee ID, and allocated hours, preserving all active projects even if they currently have no staff assigned.",
+    "problemStatement": "Calculate total weekly hours for each project, displaying 0 for projects with no assigned staff.",
     "requirements": [
-      "Filter Projects for `status = 'Active'`.",
-      "Left join with Employee_Projects on project ID.",
-      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
+      "Display `project_id`, `project_name`, and total hours aliased as `total_hours`.",
+      "Replace NULL total hours with 0 using COALESCE.",
+      "LEFT JOIN Projects with Employee_Projects.",
+      "Group by `project_id, project_name`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Filter Projects for status = 'Active' and left join with Employee_Projects.",
+    "hint": "Use COALESCE(SUM(ep.hours_allocated), 0) with LEFT JOIN and GROUP BY.",
     "expectedSql": "SELECT p.project_id, p.project_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name;",
     "explanation": "Calculates resource allocation across all initiatives, reporting 0 hours for unstaffed projects.",
     "tags": [
@@ -16015,18 +15913,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 204,
-    "title": "Staff Requiring Performance Coaching or Initial Review",
+    "title": "Staff Count per Department Including Empty Ones",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Talent development is identifying employees who either received low ratings (under 3) or have never been reviewed. Display employee name, department, rating, and review year for employees whose rating is either null or strictly less than 3.",
+    "problemStatement": "Count the number of employees in each department, including departments with 0 staff.",
     "requirements": [
-      "Left join Employees with Performance_Reviews on employee ID.",
-      "Filter for records where rating is null OR rating is strictly less than 3.",
-      "Display `emp_name`, `department`, `rating`, and `review_year`."
+      "Display `dept_name` and count of employees aliased as `staff_count`.",
+      "LEFT JOIN Departments with Employees on department name.",
+      "Group by `dept_name`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Left join on emp_id and filter with rating IS NULL OR rating < 3 in WHERE.",
+    "hint": "Use COUNT(e.emp_id) with LEFT JOIN so NULL rows count as 0.",
     "expectedSql": "SELECT d.dept_name, COUNT(e.emp_id) AS staff_count FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name;",
     "explanation": "COUNT(column) properly outputs 0 for NULL matches, whereas COUNT(*) would falsely report 1 for unmatched rows.",
     "tags": [
@@ -16080,18 +15978,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 205,
-    "title": "Unassigned Senior Personnel Identification",
+    "title": "Review Count per Employee Including Zero",
     "topic": "SQL JOINs",
     "subtopic": "Left Outer Joins & Unmatched Preservations",
     "difficulty": "Medium",
-    "problemStatement": "Resource planning is identifying seasoned personnel available for major new projects. Find all employees with at least 5 years of professional experience who currently have zero project assignments.",
+    "problemStatement": "Count how many performance reviews each employee has received, including employees with 0 reviews.",
     "requirements": [
-      "Left join Employees with Employee_Projects on employee ID.",
-      "Filter for `experience >= 5` and unassigned project status.",
-      "Display `emp_id`, `emp_name`, `department`, and `experience`."
+      "Display `emp_id`, `emp_name`, and count of reviews aliased as `review_count`.",
+      "LEFT JOIN Employees with Performance_Reviews on emp_id.",
+      "Group by `emp_id, emp_name`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Filter for experience >= 5 and ep.project_id IS NULL after left joining.",
+    "hint": "Use COUNT(pr.review_id) with LEFT JOIN.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, COUNT(pr.review_id) AS review_count FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.emp_id, e.emp_name;",
     "explanation": "Guarantees every employee appears in the tally, correctly reporting zero reviews for unreviewed staff.",
     "tags": [
@@ -16214,17 +16112,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 206,
-    "title": "Preserving All Departments in Project Sourcing",
+    "title": "Departments and Employees (Right Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Medium",
-    "problemStatement": "Auditors are verifying divisional project portfolios while ensuring every registered department is represented. Display department name, location, project ID, and project name, preserving all departments from Departments regardless of whether projects exist.",
+    "problemStatement": "Display employee name, department name, and location using a RIGHT JOIN from Employees to Departments.",
     "requirements": [
-      "Query Departments and Projects ensuring all departments are retained.",
-      "Display `dept_name`, `location`, `project_id`, and `project_name`."
+      "Display `emp_name`, `dept_name`, and `location`.",
+      "RIGHT JOIN Employees to Departments on department name."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Use an outer join that preserves all rows from Departments.",
+    "hint": "Use RIGHT JOIN Departments d ON e.department = d.dept_name.",
     "expectedSql": "SELECT e.emp_name, d.dept_name, d.location FROM Employees e RIGHT JOIN Departments d ON e.department = d.dept_name;",
     "explanation": "RIGHT JOIN guarantees that every row from the right-hand table (Departments) is included in the output.",
     "tags": [
@@ -16361,17 +16259,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 207,
-    "title": "Preserving Complete Workforce in Allocation Records",
+    "title": "Projects and Assigned Staff (Right Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Medium",
-    "problemStatement": "Workforce governance is auditing assignment records while guaranteeing that all employees appear. Display employee name, department, project ID, and allocated hours, ensuring all staff members from Employees are preserved.",
+    "problemStatement": "Display employee ID, assigned role, project ID, and project name using a RIGHT JOIN to preserve all projects.",
     "requirements": [
-      "Query Employee_Projects and Employees ensuring all employees are retained.",
-      "Display `emp_name`, `department`, `project_id`, and `hours_allocated`."
+      "Display `emp_id`, `assigned_role`, `project_id`, and `project_name`.",
+      "RIGHT JOIN Employee_Projects to Projects on project_id."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use an outer join preserving the Employees table.",
+    "hint": "Use RIGHT JOIN Projects p ON ep.project_id = p.project_id.",
     "expectedSql": "SELECT ep.emp_id, ep.assigned_role, p.project_id, p.project_name FROM Employee_Projects ep RIGHT JOIN Projects p ON ep.project_id = p.project_id;",
     "explanation": "Ensures projects without assigned personnel remain in the result with NULL staffing fields.",
     "tags": [
@@ -16526,17 +16424,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 208,
-    "title": "Preserving Complete Workforce in Appraisal Roster",
+    "title": "Reviews and Employee Names (Right Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Medium",
-    "problemStatement": "HR compliance requires a comprehensive appraisal ledger that includes all personnel. Display employee name, department, review year, and rating, ensuring all employees from Employees are represented in the output.",
+    "problemStatement": "Display employee name, review ID, rating, and bonus using a RIGHT JOIN to preserve all reviews.",
     "requirements": [
-      "Query Performance_Reviews and Employees ensuring all employees are retained.",
-      "Display `emp_name`, `department`, `review_year`, and `rating`."
+      "Display `emp_name`, `review_id`, `rating`, and `bonus`.",
+      "RIGHT JOIN Employees to Performance_Reviews on emp_id."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use an outer join preserving all records from the Employees table.",
+    "hint": "Use RIGHT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id.",
     "expectedSql": "SELECT e.emp_name, pr.review_id, pr.rating, pr.bonus FROM Employees e RIGHT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Guarantees every review is represented even if employee foreign keys were unassigned.",
     "tags": [
@@ -16667,17 +16565,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 209,
-    "title": "Preserving Complete Project Portfolio in Assignments",
+    "title": "Departments and Projects (Right Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reporting all projects alongside team members, ensuring projects without staff are retained. Display project name, status, assigned employee ID, and assigned role, preserving all projects from Projects.",
+    "problemStatement": "Display project name, department name, and budget using a RIGHT JOIN to preserve all departments.",
     "requirements": [
-      "Query Employee_Projects and Projects ensuring all projects are retained.",
-      "Display `project_name`, `status`, `emp_id`, and `assigned_role`."
+      "Display `project_name`, `dept_name`, and `budget`.",
+      "RIGHT JOIN Projects to Departments on dept_id."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Ensure all records from Projects are preserved in the outer join.",
+    "hint": "Use RIGHT JOIN Departments d ON p.dept_id = d.dept_id.",
     "expectedSql": "SELECT p.project_name, d.dept_name, d.budget FROM Projects p RIGHT JOIN Departments d ON p.dept_id = d.dept_id;",
     "explanation": "Preserves departments with no current project commitments in the right-join result.",
     "tags": [
@@ -16744,17 +16642,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 210,
-    "title": "Preserving Complete Workforce in Department Cross-Reference",
+    "title": "Project Assignments and Employees (Right Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Medium",
-    "problemStatement": "Workforce records are cross-referenced with department data, ensuring every employee is listed. Display employee name, salary, department name, and location, preserving all employees from Employees.",
+    "problemStatement": "Display employee name, project ID, role, and hours using a RIGHT JOIN from Employees to Employee_Projects.",
     "requirements": [
-      "Query Departments and Employees ensuring all employees are retained.",
-      "Display `emp_name`, `salary`, `dept_name`, and `location`."
+      "Display `emp_name`, `project_id`, `assigned_role`, and `hours_allocated`.",
+      "RIGHT JOIN Employees to Employee_Projects on emp_id."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Preserve all records from the Employees table in the join.",
+    "hint": "Use RIGHT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id.",
     "expectedSql": "SELECT e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated FROM Employees e RIGHT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     "explanation": "Maintains all junction table records on the right side of the join.",
     "tags": [
@@ -16897,17 +16795,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 211,
-    "title": "Full Bidirectional Reconciliation: Employees and Departments",
+    "title": "Departments and Employees (Full Outer Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Hard",
-    "problemStatement": "Data quality engineers are performing a bidirectional reconciliation between employees and departments. Produce a consolidated view that includes all matched records, unmatched employees, and unmatched departments, displaying employee name, department, and department headquarters location.",
+    "problemStatement": "Display department name, location, employee name, and salary across all departments and employees using a FULL OUTER JOIN.",
     "requirements": [
-      "Combine Employees and Departments preserving unmatched records from both tables.",
-      "Display `emp_name`, `department`, and `location`."
+      "Display `dept_name`, `location`, `emp_name`, and `salary`.",
+      "FULL OUTER JOIN Departments with Employees on department name."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Combine a left outer join and an anti-join or right outer join using UNION.",
+    "hint": "Use FULL OUTER JOIN Departments d ON d.dept_name = e.department.",
     "expectedSql": "SELECT d.dept_name, d.location, e.emp_name, e.salary FROM Departments d FULL OUTER JOIN Employees e ON d.dept_name = e.department;",
     "explanation": "Returns all records from both tables, filling with NULL wherever matches do not exist on either side.",
     "tags": [
@@ -17068,17 +16966,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 212,
-    "title": "Full Bidirectional Reconciliation: Projects and Assignments",
+    "title": "Projects and Assignments (Full Outer Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Hard",
-    "problemStatement": "Resource governance requires a complete reconciliation between projects and assignment records. Display project name, status, assigned employee ID, and allocated hours, preserving both unstaffed projects and any unlinked assignment records.",
+    "problemStatement": "Display project ID, project name, employee ID, and assigned role using a FULL OUTER JOIN.",
     "requirements": [
-      "Reconcile Projects and Employee_Projects preserving unmatched records from both sides.",
-      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
+      "Display `project_id`, `project_name`, `emp_id`, and `assigned_role`.",
+      "FULL OUTER JOIN Projects with Employee_Projects on project_id."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use UNION to merge left and right outer join projections.",
+    "hint": "Use FULL OUTER JOIN Projects p with Employee_Projects ep.",
     "expectedSql": "SELECT p.project_id, p.project_name, ep.emp_id, ep.assigned_role FROM Projects p FULL OUTER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     "explanation": "Surfaces both unstaffed projects and any orphaned staffing records.",
     "tags": [
@@ -17233,17 +17131,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 213,
-    "title": "Departments with No Assigned Personnel",
+    "title": "Unmatched Departments or Employees (Full Outer Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Hard",
-    "problemStatement": "Organization design is identifying registered corporate departments that currently have zero assigned staff members. Display the department name and location for all departments that do not match any employees.",
+    "problemStatement": "Find departments without employees, or employees without a matching department, using FULL OUTER JOIN.",
     "requirements": [
-      "Identify departments from Departments that have no matching records in Employees.",
-      "Display `dept_name` and `location`."
+      "Display `dept_name` and `emp_name`.",
+      "FULL OUTER JOIN Departments and Employees on department name.",
+      "Filter for rows where `dept_id IS NULL OR emp_id IS NULL`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Use an outer join from Departments to Employees and filter where the employee attribute is null.",
+    "hint": "Filter with WHERE d.dept_id IS NULL OR e.emp_id IS NULL.",
     "expectedSql": "SELECT d.dept_name, e.emp_name FROM Departments d FULL OUTER JOIN Employees e ON d.dept_name = e.department WHERE d.dept_id IS NULL OR e.emp_id IS NULL;",
     "explanation": "Identifies symmetric differences (rows present in one table but not the other) across two relational domains.",
     "tags": [
@@ -17276,18 +17175,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 214,
-    "title": "Department Initiatives Filtered by Leadership Roles",
+    "title": "Projects and Department Budgets (Full Outer Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Hard",
-    "problemStatement": "Governance is tracking managerial assignments within department projects. Display department name, project name, employee ID, and assigned role for projects where the assigned role contains 'Manager', while preserving all departments.",
+    "problemStatement": "Display project name, department name, project budget, and department budget using a FULL OUTER JOIN.",
     "requirements": [
-      "Combine Departments, Projects, and Employee_Projects.",
-      "Filter for roles containing 'Manager' while preserving departmental structures.",
-      "Display `dept_name`, `project_name`, `emp_id`, and `assigned_role`."
+      "Display `project_name`, `dept_name`, `p.budget AS project_budget`, and `d.budget AS dept_budget`.",
+      "FULL OUTER JOIN Projects and Departments on dept_id."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Join Departments, Projects, and Employee_Projects with appropriate outer joins.",
+    "hint": "Use FULL OUTER JOIN Projects p ON p.dept_id = d.dept_id.",
     "expectedSql": "SELECT p.project_name, d.dept_name, p.budget AS project_budget, d.budget AS dept_budget FROM Projects p FULL OUTER JOIN Departments d ON p.dept_id = d.dept_id;",
     "explanation": "Compares project budgets against overall departmental capital allocations with complete outer preservation.",
     "tags": [
@@ -17364,18 +17262,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 215,
-    "title": "High-Budget Project Resource Allocations",
+    "title": "Employees and Reviews (Full Outer Join)",
     "topic": "SQL JOINs",
     "subtopic": "Right Outer Joins & Full Outer Joins",
     "difficulty": "Hard",
-    "problemStatement": "Finance leadership is auditing staffing on initiatives with budgets of at least 200,000. Display project name, budget, assigned employee ID, and allocated hours, ensuring all qualifying high-budget projects are preserved.",
+    "problemStatement": "Display employee name, salary, review year, and rating using a FULL OUTER JOIN.",
     "requirements": [
-      "Filter Projects for `budget >= 200000`.",
-      "Preserve qualifying projects while joining with Employee_Projects.",
-      "Display `project_name`, `budget`, `emp_id`, and `hours_allocated`."
+      "Display `emp_name`, `salary`, `review_year`, and `rating`.",
+      "FULL OUTER JOIN Employees with Performance_Reviews on emp_id."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join high-budget projects with Employee_Projects preserving projects.",
+    "hint": "Use FULL OUTER JOIN Employees e ON e.emp_id = pr.emp_id.",
     "expectedSql": "SELECT e.emp_name, e.salary, pr.review_year, pr.rating FROM Employees e FULL OUTER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Integrates complete employee rosters and appraisal records in a single outer query.",
     "tags": [
@@ -17542,17 +17439,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 216,
-    "title": "Tri-Table Relational Link: Staff, Departments, and Projects",
+    "title": "Employee, Project, and Role (3-Table Join)",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Medium",
-    "problemStatement": "Corporate reporting requires an integrated view connecting employees with their department and associated departmental projects. For each employee, display employee name, department name, department location, and project name for projects belonging to that department.",
+    "problemStatement": "Display employee name, project name, assigned role, and weekly allocated hours by joining Employees, Employee_Projects, and Projects.",
     "requirements": [
-      "Join Employees, Departments (matching on department name), and Projects (matching on department ID).",
-      "Display `emp_name`, `dept_name`, `location`, and `project_name`."
+      "Display `emp_name`, `project_name`, `assigned_role`, and `hours_allocated`.",
+      "Join Employees, Employee_Projects, and Projects."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Chain inner joins: Employees to Departments on department name, and Departments to Projects on dept_id.",
+    "hint": "Chain two INNER JOINs on emp_id and project_id.",
     "expectedSql": "SELECT e.emp_name, p.project_name, ep.assigned_role, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id;",
     "explanation": "Traverses a classic many-to-many relationship using a bridging associative junction table.",
     "tags": [
@@ -17695,17 +17592,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 217,
-    "title": "Tri-Table Staffing Pipeline: Employee, Role, and Project Details",
+    "title": "Active Project Assignments (3-Table Join)",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is generating an assignment roster with project context. Display employee name, department, assigned project name, project status, and weekly hours allocated for all active project assignments.",
+    "problemStatement": "Find assignments on active projects. Display employee name, project name, status, and allocated hours.",
     "requirements": [
-      "Join Employees, Employee_Projects (on emp_id), and Projects (on project_id).",
-      "Display `emp_name`, `department`, `project_name`, `status`, and `hours_allocated`."
+      "Display `emp_name`, `project_name`, `status`, and `hours_allocated`.",
+      "Join Employees, Employee_Projects, and Projects.",
+      "Filter for `status = 'Active'`."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Join Employees with Employee_Projects on emp_id, then join with Projects on project_id.",
+    "hint": "Join the three tables and add WHERE p.status = 'Active'.",
     "expectedSql": "SELECT e.emp_name, p.project_name, p.status, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.status = 'Active';",
     "explanation": "Navigates multi-table joins while constraining results to active initiatives.",
     "tags": [
@@ -17812,17 +17710,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 218,
-    "title": "Tri-Table Governance Link: Division, Project, and Team Member",
+    "title": "Projects, Departments, and Roles (3-Table Join)",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Medium",
-    "problemStatement": "Corporate governance tracks project staffing back to sponsoring divisions. Display department name, project name, assigned employee ID, and assigned role for all current assignments.",
+    "problemStatement": "Display project name, department name, department head, and assigned role across all active assignments.",
     "requirements": [
-      "Join Departments, Projects (on dept_id), and Employee_Projects (on project_id).",
-      "Display `dept_name`, `project_name`, `emp_id`, and `assigned_role`."
+      "Display `project_name`, `dept_name`, `dept_head`, and `assigned_role`.",
+      "Join Projects, Departments, and Employee_Projects."
     ],
     "tableName": "Projects, Departments, Employee_Projects",
-    "hint": "Chain inner joins across Departments, Projects, and Employee_Projects.",
+    "hint": "Join Projects to Departments on dept_id and to Employee_Projects on project_id.",
     "expectedSql": "SELECT p.project_name, d.dept_name, d.dept_head, ep.assigned_role FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     "explanation": "Connects operational project assignments with departmental governance.",
     "tags": [
@@ -17965,17 +17863,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 219,
-    "title": "Tri-Table Personnel Synthesis: Assignments and Appraisals",
+    "title": "Employee Department and Review Details",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is correlating project workload with appraisal ratings. For employees who have both a project assignment and a performance review, display employee name, project ID, hours allocated, review rating, and bonus.",
+    "problemStatement": "Display employee name, department name, location, review rating, and bonus.",
     "requirements": [
-      "Join Employees, Employee_Projects (on emp_id), and Performance_Reviews (on emp_id).",
-      "Display `emp_name`, `project_id`, `hours_allocated`, `rating`, and `bonus`."
+      "Display `emp_name`, `dept_name`, `location`, `rating`, and `bonus`.",
+      "Join Employees, Departments, and Performance_Reviews."
     ],
     "tableName": "Employees, Departments, Performance_Reviews",
-    "hint": "Join Employees with Employee_Projects and Performance_Reviews on emp_id.",
+    "hint": "Join Employees with Departments on department name and with Performance_Reviews on emp_id.",
     "expectedSql": "SELECT e.emp_name, d.dept_name, d.location, pr.rating, pr.bonus FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Synthesizes biographical employee identity, departmental origin, and evaluation scores.",
     "tags": [
@@ -18125,17 +18023,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 220,
-    "title": "Tri-Table Project Staffing Directory with Employee Names",
+    "title": "Employee Roles and Review Ratings",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Medium",
-    "problemStatement": "The project directory displays project names alongside the full names of assigned personnel. Retrieve project name, employee full name, assigned role, and weekly hours for all assigned team members.",
+    "problemStatement": "Display employee name, assigned project role, review year, and rating.",
     "requirements": [
-      "Join Projects, Employee_Projects (on project_id), and Employees (on emp_id).",
-      "Display `project_name`, `emp_name`, `assigned_role`, and `hours_allocated`."
+      "Display `emp_name`, `assigned_role`, `review_year`, and `rating`.",
+      "Join Employees, Employee_Projects, and Performance_Reviews on emp_id."
     ],
     "tableName": "Employees, Employee_Projects, Performance_Reviews",
-    "hint": "Connect Projects to Employee_Projects on project_id and then to Employees on emp_id.",
+    "hint": "Join Employees to Employee_Projects and Performance_Reviews on emp_id.",
     "expectedSql": "SELECT e.emp_name, ep.assigned_role, pr.review_year, pr.rating FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Links tactical project duties directly to appraisal outcomes.",
     "tags": [
@@ -18290,17 +18188,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 221,
-    "title": "Four-Table Enterprise Integration: Staff, Unit, Project, and Role",
+    "title": "Employee, Department, and Project Name",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "Enterprise reporting requires a comprehensive operational view uniting four business entities. For all project assignments, display employee name, department location, project name, project budget, and assigned role.",
+    "problemStatement": "Display employee name, department name, project name, and assigned role.",
     "requirements": [
-      "Join Employees, Departments (on department name), Employee_Projects (on emp_id), and Projects (on project_id).",
-      "Display `emp_name`, `location`, `project_name`, project `budget`, and `assigned_role`."
+      "Display `emp_name`, `dept_name`, `project_name`, and `assigned_role`.",
+      "Join Employees, Departments, Employee_Projects, and Projects."
     ],
     "tableName": "Employees, Departments, Employee_Projects, Projects",
-    "hint": "Join Employees to Departments, Employee_Projects, and Projects using their respective foreign keys.",
+    "hint": "Chain INNER JOINs across Employees, Departments, Employee_Projects, and Projects.",
     "expectedSql": "SELECT e.emp_name, d.dept_name, p.project_name, ep.assigned_role FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id;",
     "explanation": "Traverses four relational entities in the enterprise schema to construct an operational staffing view.",
     "tags": [
@@ -18443,18 +18341,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 222,
-    "title": "Four-Table Executive Audit: Staff, Division, Appraisal, and Initiative",
+    "title": "Projects and Bonus Recipients",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "An executive compensation and project audit synthesizes multiple data points. Display employee name, department, office location, 2024 appraisal rating, and project name for staff assigned to projects who completed a 2024 review.",
+    "problemStatement": "Display employee name, project name, review year, and bonus for employees who received a bonus.",
     "requirements": [
-      "Join Employees, Departments, Performance_Reviews, and Employee_Projects with Projects.",
-      "Filter for `review_year = 2024`.",
-      "Display `emp_name`, `dept_name`, `location`, `rating`, and `project_name`."
+      "Display `emp_name`, `project_name`, `review_year`, and `bonus`.",
+      "Join Employees, Employee_Projects, Projects, and Performance_Reviews.",
+      "Filter for `bonus IS NOT NULL`."
     ],
     "tableName": "Employees, Employee_Projects, Projects, Performance_Reviews",
-    "hint": "Join across the four tables and filter for review_year = 2024.",
+    "hint": "Join the four tables and filter for pr.bonus IS NOT NULL.",
     "expectedSql": "SELECT e.emp_name, p.project_name, pr.review_year, pr.bonus FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.bonus IS NOT NULL;",
     "explanation": "Reconciles project delivery commitments against confirmed merit bonuses.",
     "tags": [
@@ -18603,17 +18501,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 223,
-    "title": "Multi-Table Outer Join: Preserving Unassigned Staff Across Projects",
+    "title": "All Employees and Their Projects (Multi-Table Left Join)",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is compiling a master assignment inventory that retains all employees regardless of whether they have project assignments. Display employee name, department, assigned project name, and hours allocated, preserving staff with zero assignments.",
+    "problemStatement": "Display all employees and any project names they are assigned to, including unassigned employees.",
     "requirements": [
-      "Left join Employees to Employee_Projects (on emp_id), then left join to Projects (on project_id).",
-      "Display `emp_name`, `department`, `project_name`, and `hours_allocated`."
+      "Display `emp_id`, `emp_name`, and `project_name`.",
+      "LEFT JOIN Employees with Employee_Projects, then LEFT JOIN Projects."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Chain two left outer joins starting from Employees.",
+    "hint": "Chain two LEFT JOINs.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, p.project_name FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id LEFT JOIN Projects p ON ep.project_id = p.project_id;",
     "explanation": "Cascading LEFT JOIN preserves all employees, including unassigned individuals who return NULL project names.",
     "tags": [
@@ -18751,17 +18649,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 224,
-    "title": "Multi-Table Outer Join: Department to Project Cascade",
+    "title": "All Departments, Projects, and Assigned Staff",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "The PMO is auditing the organizational project hierarchy from departments down to project team members. Display department name, project name, and assigned employee ID, preserving departments with no projects and projects with no staff.",
+    "problemStatement": "Display all departments, any associated project names, and assigned employee IDs.",
     "requirements": [
-      "Left join Departments to Projects (on dept_id), then left join to Employee_Projects (on project_id).",
-      "Display `dept_name`, `project_name`, and `emp_id`."
+      "Display `dept_name`, `project_name`, and `emp_id`.",
+      "LEFT JOIN Departments with Projects, then LEFT JOIN Employee_Projects."
     ],
     "tableName": "Departments, Projects, Employee_Projects",
-    "hint": "Chain two left joins from Departments through Projects to Employee_Projects.",
+    "hint": "Chain two LEFT JOINs starting from Departments.",
     "expectedSql": "SELECT d.dept_name, p.project_name, ep.emp_id FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     "explanation": "Preserves departments without projects, as well as projects without assigned employees.",
     "tags": [
@@ -18898,18 +18796,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 225,
-    "title": "High-Earner Deliveries on Completed Initiatives",
+    "title": "High Earners on Completed Projects",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "The compensation committee is reviewing high-earning staff deployed to delivered projects. For employees earning strictly more than 40,000 who worked on projects marked as 'Completed', display employee name, salary, department name, and project name.",
+    "problemStatement": "Find employees earning over 40,000 who worked on completed projects. Display name, salary, department name, and project name.",
     "requirements": [
+      "Display `emp_name`, `salary`, `dept_name`, and `project_name`.",
       "Join Employees, Departments, Employee_Projects, and Projects.",
-      "Filter for `status = 'Completed'` and `salary > 40000`.",
-      "Display `emp_name`, `salary`, `dept_name`, and `project_name`."
+      "Filter for `p.status = 'Completed'` and `e.salary > 40000`."
     ],
     "tableName": "Employees, Departments, Employee_Projects, Projects",
-    "hint": "Join the four tables and filter for p.status = 'Completed' and e.salary > 40000.",
+    "hint": "Combine 4-table join with the two filter conditions.",
     "expectedSql": "SELECT e.emp_name, e.salary, d.dept_name, p.project_name FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.status = 'Completed' AND e.salary > 40000;",
     "explanation": "Constrains a four-table relational query across both project state and individual compensation.",
     "tags": [
@@ -18968,18 +18866,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 226,
-    "title": "Heavy Workload Contributors on Active Programs",
+    "title": "High-Hours Staff on Active Projects",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "Resource governance is monitoring staff carrying heavy weekly commitments on active initiatives. For active projects where an employee is allocated strictly more than 25 weekly hours, display employee name, department location, project name, and allocated hours.",
+    "problemStatement": "Find employees working more than 25 hours on active projects. Display name, department location, project name, and hours.",
     "requirements": [
+      "Display `emp_name`, `location`, `project_name`, and `hours_allocated`.",
       "Join Employees, Departments, Employee_Projects, and Projects.",
-      "Filter for `status = 'Active'` and `hours_allocated > 25`.",
-      "Display `emp_name`, `location`, `project_name`, and `hours_allocated`."
+      "Filter for `hours_allocated > 25` and `status = 'Active'`."
     ],
     "tableName": "Employees, Departments, Employee_Projects, Projects",
-    "hint": "Join the four tables and filter for ep.hours_allocated > 25 and p.status = 'Active'.",
+    "hint": "Join the 4 tables and filter by hours and project status.",
     "expectedSql": "SELECT e.emp_name, d.location, p.project_name, ep.hours_allocated FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE ep.hours_allocated > 25 AND p.status = 'Active';",
     "explanation": "Identifies heavy resource investments on live business priorities.",
     "tags": [
@@ -19050,18 +18948,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 227,
-    "title": "Comprehensive Staff Profile: Unit, Project, and 2024 Appraisal",
+    "title": "2024 Employee Reviews Across Projects",
     "topic": "SQL JOINs",
     "subtopic": "Multi-Table Relational Joins (3 to 4 tables)",
     "difficulty": "Hard",
-    "problemStatement": "Executive dashboards require a complete cross-functional profile for active staff. For employees who completed a 2024 review and are assigned to a project, display employee name, department name, project name, and 2024 performance rating.",
+    "problemStatement": "Display employee name, department name, project name, and 2024 review rating.",
     "requirements": [
+      "Display `emp_name`, `dept_name`, `project_name`, and `rating`.",
       "Join Employees, Departments, Employee_Projects, Projects, and Performance_Reviews.",
-      "Filter for `review_year = 2024`.",
-      "Display `emp_name`, `dept_name`, `project_name`, and `rating`."
+      "Filter for `review_year = 2024`."
     ],
     "tableName": "Employees, Departments, Employee_Projects, Projects, Performance_Reviews",
-    "hint": "Join across the relevant tables and filter for pr.review_year = 2024.",
+    "hint": "Join the 5 tables and filter with WHERE pr.review_year = 2024.",
     "expectedSql": "SELECT e.emp_name, d.dept_name, p.project_name, pr.rating FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_year = 2024;",
     "explanation": "Assembles a 360-degree operational profile connecting organization, initiative, and appraisal rating.",
     "tags": [
@@ -19186,18 +19084,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 228,
-    "title": "Intra-Departmental Peer Pairings",
+    "title": "Pairs of Employees in the Same Department",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Organizational network analysis is studying collaboration pairs within business units. Find all unique pairs of employees who work in the same department, displaying the first employee name as `employee_1`, second employee name as `employee_2`, and the department name, ensuring each unique pair appears only once.",
+    "problemStatement": "Find all unique pairs of employees who work in the same department.",
     "requirements": [
-      "Join Employees with itself on matching department.",
-      "Enforce `e1.emp_id < e2.emp_id` to eliminate self-matches and duplicate mirror pairs.",
-      "Display employee 1 aliased as `employee_1`, employee 2 aliased as `employee_2`, and `department`."
+      "Display `e1.emp_name AS employee_1`, `e2.emp_name AS employee_2`, and `department`.",
+      "Self-join Employees on department where `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Use a self-join on department with e1.emp_id < e2.emp_id.",
+    "hint": "Use a self-join with e1.emp_id < e2.emp_id to avoid duplicate and self pairs.",
     "expectedSql": "SELECT e1.emp_name AS employee_1, e2.emp_name AS employee_2, e1.department FROM Employees e1 INNER JOIN Employees e2 ON e1.department = e2.department WHERE e1.emp_id < e2.emp_id;",
     "explanation": "e1.emp_id < e2.emp_id prevents pairing an employee with themselves and prevents mirror duplicates (A, B and B, A).",
     "tags": [
@@ -19374,18 +19271,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 229,
-    "title": "Colleague Pairings Sharing Office Cities",
+    "title": "Pairs of Colleagues in the Same City",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Facilities is setting up local peer mentorships within branch offices. Find all unique pairs of colleagues who are stationed in the same office city, displaying colleague 1 as `colleague_1`, colleague 2 as `colleague_2`, and city name, preventing duplicate pairs.",
+    "problemStatement": "Find all unique pairs of employees who are located in the same city.",
     "requirements": [
-      "Join Employees with itself on matching city.",
-      "Enforce `e1.emp_id < e2.emp_id`.",
-      "Display `colleague_1`, `colleague_2`, and `city`."
+      "Display `e1.emp_name AS colleague_1`, `e2.emp_name AS colleague_2`, and `city`.",
+      "Self-join Employees on city where `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Self-join Employees on city with e1.emp_id < e2.emp_id.",
+    "hint": "Self-join Employees on e1.city = e2.city AND e1.emp_id < e2.emp_id.",
     "expectedSql": "SELECT e1.emp_name AS colleague_1, e2.emp_name AS colleague_2, e1.city FROM Employees e1 INNER JOIN Employees e2 ON e1.city = e2.city WHERE e1.emp_id < e2.emp_id;",
     "explanation": "Groups colleagues stationed in identical office hubs using self-join pairs.",
     "tags": [
@@ -19617,18 +19513,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 230,
-    "title": "Colleague Compensation Disparity Comparison",
+    "title": "Colleagues with Salary Gap of 20,000+",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Compensation equity is analyzing salary gaps between colleagues in the same division. Find pairs of colleagues in the same department where one employee out-earns the other by at least 20,000, displaying the higher earner name (`higher_earner`), higher salary (`high_sal`), lower earner name (`lower_earner`), lower salary (`low_sal`), and department name.",
+    "problemStatement": "In each department, find pairs of employees where one earns at least 20,000 more than the other.",
     "requirements": [
-      "Join Employees with itself on matching department.",
-      "Filter for records where `e1.salary >= e2.salary + 20000`.",
-      "Display `higher_earner`, `high_sal`, `lower_earner`, `low_sal`, and `department`."
+      "Display `higher_earner`, `high_sal`, `lower_earner`, `low_sal`, and `department`.",
+      "Self-join Employees on department where `e1.salary >= e2.salary + 20000`."
     ],
     "tableName": "Employees",
-    "hint": "Self-join on department and compare e1.salary to e2.salary + 20000.",
+    "hint": "Self-join on department and filter for e1.salary >= e2.salary + 20000.",
     "expectedSql": "SELECT e1.emp_name AS higher_earner, e1.salary AS high_sal, e2.emp_name AS lower_earner, e2.salary AS low_sal, e1.department FROM Employees e1 INNER JOIN Employees e2 ON e1.department = e2.department WHERE e1.salary >= e2.salary + 20000;",
     "explanation": "Performs intra-departmental compensation comparisons between pairs of colleagues.",
     "tags": [
@@ -19771,18 +19666,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 231,
-    "title": "Same-Year Hiring Cohort Pairings",
+    "title": "Employees Who Joined in the Same Year",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Talent acquisition is organizing anniversary cohorts for staff hired in the same year. Find all unique pairs of employees who joined the company in the same calendar year, displaying joiner 1 as `joiner_1`, joiner 2 as `joiner_2`, and the joining year, without duplicate mirror pairs.",
+    "problemStatement": "Find unique pairs of employees who joined the company in the exact same year.",
     "requirements": [
-      "Join Employees with itself on matching joining year.",
-      "Enforce `e1.emp_id < e2.emp_id`.",
-      "Display `joiner_1`, `joiner_2`, and `joining_year`."
+      "Display `joiner_1`, `joiner_2`, and `joining_year`.",
+      "Self-join Employees on joining_year where `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Self-join Employees on joining_year with e1.emp_id < e2.emp_id.",
+    "hint": "Self-join on joining_year with e1.emp_id < e2.emp_id.",
     "expectedSql": "SELECT e1.emp_name AS joiner_1, e2.emp_name AS joiner_2, e1.joining_year FROM Employees e1 INNER JOIN Employees e2 ON e1.joining_year = e2.joining_year WHERE e1.emp_id < e2.emp_id;",
     "explanation": "Detects hiring cohort cohorts through temporal equality self-joining.",
     "tags": [
@@ -19859,15 +19753,14 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 232,
-    "title": "Same-Department Project Initiative Pairings",
+    "title": "Projects in the Same Department",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reviewing project portfolios within sponsoring divisions. Find all unique pairs of projects that are sponsored by the same department, displaying project 1 as `project_1`, project 2 as `project_2`, and the department ID (`dept_id`), avoiding duplicate pairs.",
+    "problemStatement": "Find unique pairs of projects that belong to the same department.",
     "requirements": [
-      "Join Projects with itself on matching department ID.",
-      "Enforce `p1.project_id < p2.project_id`.",
-      "Display `project_1`, `project_2`, and `dept_id`."
+      "Display `project_1`, `project_2`, and `dept_id`.",
+      "Self-join Projects on dept_id where `p1.project_id < p2.project_id`."
     ],
     "tableName": "Projects",
     "hint": "Self-join Projects on dept_id with p1.project_id < p2.project_id.",
@@ -19897,18 +19790,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 233,
-    "title": "Year-over-Year Performance Appraisal Trajectory",
+    "title": "Consecutive Year Performance Ratings",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "HR analytics is tracking individual rating progression across consecutive review cycles. For employees evaluated in consecutive calendar years, display employee ID, previous review year (`prev_year`), previous rating (`prev_rating`), subsequent review year (`next_year`), and subsequent rating (`next_rating`).",
+    "problemStatement": "Find employees who had reviews in consecutive years, showing their rating in each year.",
     "requirements": [
-      "Join Performance_Reviews with itself on matching employee ID.",
-      "Filter for consecutive years where `r1.review_year = r2.review_year - 1`.",
-      "Display `emp_id`, `prev_year`, `prev_rating`, `next_year`, and `next_rating`."
+      "Display `emp_id`, `prev_year`, `prev_rating`, `next_year`, and `next_rating`.",
+      "Self-join Performance_Reviews where `r1.emp_id = r2.emp_id` and `r1.review_year = r2.review_year - 1`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Self-join Performance_Reviews on emp_id and r1.review_year = r2.review_year - 1.",
+    "hint": "Self-join Performance_Reviews on emp_id and consecutive years.",
     "expectedSql": "SELECT r1.emp_id, r1.review_year AS prev_year, r1.rating AS prev_rating, r2.review_year AS next_year, r2.rating AS next_rating FROM Performance_Reviews r1 INNER JOIN Performance_Reviews r2 ON r1.emp_id = r2.emp_id WHERE r1.review_year = r2.review_year - 1;",
     "explanation": "Tracks year-over-year rating trends by matching an appraisal record with its consecutive-year successor.",
     "tags": [
@@ -19961,18 +19853,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 234,
-    "title": "Colleague Pairings with Identical Career Experience",
+    "title": "Employees with the Same Years of Experience",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Professional development is pairing colleagues with matching career seniority. Find all unique pairs of employees who have the exact same number of years of experience, displaying peer 1 as `peer_1`, peer 2 as `peer_2`, and years of experience, without duplicate pairs.",
+    "problemStatement": "Find unique pairs of employees who have the exact same number of years of experience.",
     "requirements": [
-      "Join Employees with itself on matching experience.",
-      "Enforce `e1.emp_id < e2.emp_id`.",
-      "Display `peer_1`, `peer_2`, and `experience`."
+      "Display `peer_1`, `peer_2`, and `experience`.",
+      "Self-join Employees on experience where `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Self-join Employees on experience with e1.emp_id < e2.emp_id.",
+    "hint": "Self-join on experience with e1.emp_id < e2.emp_id.",
     "expectedSql": "SELECT e1.emp_name AS peer_1, e2.emp_name AS peer_2, e1.experience FROM Employees e1 INNER JOIN Employees e2 ON e1.experience = e2.experience WHERE e1.emp_id < e2.emp_id;",
     "explanation": "Finds peer experience equivalents across the organization.",
     "tags": [
@@ -20049,15 +19940,14 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 235,
-    "title": "Project Teammate Collaboration Pairings",
+    "title": "Teammates on the Same Project",
     "topic": "SQL JOINs",
     "subtopic": "Self Joins & Hierarchical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Resource management is mapping collaboration networks across project initiatives. Find all unique pairs of employees who are assigned to the same project, displaying the project ID, teammate 1 ID as `team_member_1`, and teammate 2 ID as `team_member_2`, without duplicate pairs.",
+    "problemStatement": "Find unique pairs of employees who are assigned to the same project.",
     "requirements": [
-      "Join Employee_Projects with itself on matching project ID.",
-      "Enforce `ep1.emp_id < ep2.emp_id`.",
-      "Display `project_id`, `team_member_1`, and `team_member_2`."
+      "Display `project_id`, `team_member_1`, and `team_member_2`.",
+      "Self-join Employee_Projects on project_id where `ep1.emp_id < ep2.emp_id`."
     ],
     "tableName": "Employee_Projects",
     "hint": "Self-join Employee_Projects on project_id with ep1.emp_id < ep2.emp_id.",
@@ -20212,17 +20102,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 236,
-    "title": "Comprehensive Department and Status Matrix",
+    "title": "All Combinations of Departments and Project Statuses",
     "topic": "SQL JOINs",
     "subtopic": "Cross Joins & Cartesian Combinations",
     "difficulty": "Medium",
-    "problemStatement": "Strategic planning is generating an empty matrix grid of all theoretical combinations between corporate departments and project statuses. Generate all unique combinations of distinct department names and distinct project statuses.",
+    "problemStatement": "Generate all possible combinations of distinct department names and distinct project statuses.",
     "requirements": [
-      "Generate the cartesian product of distinct department names and distinct project statuses.",
-      "Display department name as `dept_name` and status aliased as `project_status`."
+      "Display `dept_name` and `project_status`.",
+      "CROSS JOIN distinct department names with distinct project statuses."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use a cross join between distinct department names and distinct project statuses.",
+    "hint": "Use CROSS JOIN between subqueries selecting DISTINCT values.",
     "expectedSql": "SELECT d.dept_name, s.status AS project_status FROM (SELECT DISTINCT dept_name FROM Departments) d CROSS JOIN (SELECT DISTINCT status FROM Projects) s;",
     "explanation": "Cartesian product generates every possible combination of departments and project operational states.",
     "tags": [
@@ -20339,17 +20229,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 237,
-    "title": "Branch City and Division Operational Grid",
+    "title": "All Combinations of Cities and Departments",
     "topic": "SQL JOINs",
     "subtopic": "Cross Joins & Cartesian Combinations",
     "difficulty": "Medium",
-    "problemStatement": "Facilities planning is evaluating the potential expansion of any department into any existing city. Generate all possible combinations between distinct office branch cities and distinct corporate department names.",
+    "problemStatement": "Generate all possible combinations of distinct employee cities and distinct department names.",
     "requirements": [
-      "Generate the cartesian product of unique cities from Employees and unique department names from Departments.",
-      "Display `city` and `dept_name`."
+      "Display `city` and `dept_name`.",
+      "CROSS JOIN distinct cities with distinct departments."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Cross join distinct cities with distinct department names.",
+    "hint": "Use CROSS JOIN between distinct cities and distinct department names.",
     "expectedSql": "SELECT c.city, d.dept_name FROM (SELECT DISTINCT city FROM Employees) c CROSS JOIN (SELECT DISTINCT dept_name FROM Departments) d;",
     "explanation": "Creates an expansion matrix to audit departmental presence across all office locations.",
     "tags": [
@@ -20498,17 +20388,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 238,
-    "title": "Employee Salary Variance Relative to Company Average",
+    "title": "Employee Salary Compared to Company Average",
     "topic": "SQL JOINs",
     "subtopic": "Cross Joins & Cartesian Combinations",
     "difficulty": "Hard",
-    "problemStatement": "Compensation benchmarking requires measuring each employee's salary against the organization-wide average. Display each employee's name, monthly salary, overall average salary across all employees (rounded to 2 decimal places as `avg_sal`), and the difference (salary minus average salary) aliased as `salary_diff`.",
+    "problemStatement": "Display each employee's name, salary, the company average salary, and the difference (salary minus company average).",
     "requirements": [
-      "Cross join Employees with a scalar aggregate subquery computing overall average salary rounded to 2 decimal places.",
-      "Display `emp_name`, `salary`, `avg_sal`, and computed difference aliased as `salary_diff`."
+      "Display `emp_name`, `salary`, `avg_sal`, and `(e.salary - a.avg_sal) AS salary_diff`.",
+      "CROSS JOIN Employees with a subquery calculating average salary rounded to 2 decimals."
     ],
     "tableName": "Employees",
-    "hint": "Cross join Employees with (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees).",
+    "hint": "CROSS JOIN Employees with (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees).",
     "expectedSql": "SELECT e.emp_name, e.salary, a.avg_sal, (e.salary - a.avg_sal) AS salary_diff FROM Employees e CROSS JOIN (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees) a;",
     "explanation": "A single-row subquery CROSS JOIN appends overall benchmark statistics to every individual row without GROUP BY restrictions.",
     "tags": [
@@ -20652,18 +20542,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 239,
-    "title": "Project Share of Total Portfolio Budget",
+    "title": "Project Budget as Percentage of Total Budget",
     "topic": "SQL JOINs",
     "subtopic": "Cross Joins & Cartesian Combinations",
     "difficulty": "Hard",
-    "problemStatement": "Capital governance evaluates the proportional size of each project relative to total corporate investment. For each initiative, display the project name, project budget, and the percentage of the total portfolio budget it represents (rounded to 2 decimal places, aliased as `budget_pct`).",
+    "problemStatement": "Display each project's name, budget, and its percentage of the total company project budget (rounded to 2 decimals).",
     "requirements": [
-      "Cross join Projects with a scalar aggregate subquery calculating total portfolio budget.",
-      "Calculate percentage share as `(p.budget * 100.0) / total_budget`, rounded to 2 decimal places, aliased as `budget_pct`.",
-      "Display `project_name`, `budget`, and `budget_pct`."
+      "Display `project_name`, `budget`, and `ROUND((p.budget * 100.0) / t.total_budget, 2) AS budget_pct`.",
+      "CROSS JOIN Projects with a subquery calculating total project budget."
     ],
     "tableName": "Projects",
-    "hint": "Cross join Projects with (SELECT SUM(budget) AS total_budget FROM Projects).",
+    "hint": "CROSS JOIN Projects with (SELECT SUM(budget) AS total_budget FROM Projects).",
     "expectedSql": "SELECT p.project_name, p.budget, ROUND((p.budget * 100.0) / t.total_budget, 2) AS budget_pct FROM Projects p CROSS JOIN (SELECT SUM(budget) AS total_budget FROM Projects) t;",
     "explanation": "Allows calculating percentage share of a whole by appending aggregate portfolio capital across all records.",
     "tags": [
@@ -20726,17 +20615,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 240,
-    "title": "Department and Evaluation Rating Matrix",
+    "title": "All Department and Rating Combinations",
     "topic": "SQL JOINs",
     "subtopic": "Cross Joins & Cartesian Combinations",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is setting up appraisal distribution tables across departments. Generate a grid showing all combinations of distinct department names and all distinct rating values (1 through 5) present in the reviews table.",
+    "problemStatement": "Generate all possible combinations of distinct department names and distinct performance review ratings.",
     "requirements": [
-      "Generate the cartesian product of distinct department names and distinct rating values.",
-      "Display department name as `dept_name` and rating value aliased as `rating_slot`."
+      "Display `dept_name` and `rating_slot`.",
+      "CROSS JOIN distinct department names with distinct ratings."
     ],
     "tableName": "Departments, Performance_Reviews",
-    "hint": "Cross join distinct department names from Departments with distinct ratings from Performance_Reviews.",
+    "hint": "Use CROSS JOIN between distinct departments and distinct ratings.",
     "expectedSql": "SELECT d.dept_name, r.rating_slot FROM (SELECT DISTINCT dept_name FROM Departments) d CROSS JOIN (SELECT DISTINCT rating AS rating_slot FROM Performance_Reviews) r;",
     "explanation": "Generates template matrices to report rating distributions across all corporate divisions.",
     "tags": [
@@ -20885,19 +20774,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 241,
-    "title": "Departmental Headcount and Payroll vs Budget",
+    "title": "Department Headcount, Payroll, and Budget",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "Corporate finance is comparing departmental wage bills against allocated operating budgets. For each department, calculate the total active employee count and cumulative monthly payroll, displaying the department name, headcount, payroll, and departmental budget.",
+    "problemStatement": "For each department, display the department name, employee count, total monthly payroll, and department budget.",
     "requirements": [
-      "Join Departments and Employees on matching department name.",
-      "Group records by department name and budget.",
-      "Calculate employee count aliased as `emp_count` and total payroll aliased as `total_payroll`.",
-      "Display `dept_name`, `emp_count`, `total_payroll`, and `budget`."
+      "Display `dept_name`, `emp_count`, `total_payroll`, and `budget`.",
+      "Join Departments with Employees.",
+      "Group by `dept_name, budget`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Join Departments and Employees on department name, group by dept_name and budget, and aggregate.",
+    "hint": "INNER JOIN Departments and Employees, then GROUP BY dept_name, budget.",
     "expectedSql": "SELECT d.dept_name, COUNT(e.emp_id) AS emp_count, SUM(e.salary) AS total_payroll, d.budget FROM Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget;",
     "explanation": "Aggregates employee counts and salary totals while reporting departmental operating budgets.",
     "tags": [
@@ -20951,19 +20839,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 242,
-    "title": "Initiative Staffing Roster and Weekly Workload Summary",
+    "title": "Project Staffing and Total Weekly Hours",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is reporting resource utilization for each project initiative. For each project in Projects that has assigned personnel, display the project name, execution status, total assigned headcount, and cumulative weekly hours allocated.",
+    "problemStatement": "For each project, display project name, status, assigned staff count, and total weekly hours.",
     "requirements": [
-      "Join Projects and Employee_Projects on project ID.",
-      "Group by project ID, project name, and status.",
-      "Count assigned staff aliased as `assigned_staff` and sum weekly hours aliased as `total_weekly_hours`.",
-      "Display `project_name`, `status`, `assigned_staff`, and `total_weekly_hours`."
+      "Display `project_name`, `status`, `assigned_staff`, and `total_weekly_hours`.",
+      "Join Projects with Employee_Projects.",
+      "Group by `project_id, project_name, status`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Join Projects to Employee_Projects on project_id and group by project attributes.",
+    "hint": "INNER JOIN Projects with Employee_Projects and GROUP BY project attributes.",
     "expectedSql": "SELECT p.project_name, p.status, COUNT(ep.emp_id) AS assigned_staff, SUM(ep.hours_allocated) AS total_weekly_hours FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name, p.status;",
     "explanation": "Aggregates project staff counts and weekly labor hours by project.",
     "tags": [
@@ -21022,19 +20909,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 243,
-    "title": "Departmental Project Investment and Portfolio Count",
+    "title": "Project Count and Total Budget per Department",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "Strategic planning is aggregating capital project sponsorship per department. For each department sponsoring projects, display the department name, count of projects sponsored, and cumulative capital budget committed.",
+    "problemStatement": "For each department, display the department name, count of projects, and total project budget.",
     "requirements": [
-      "Join Departments and Projects on department ID (`dept_id`).",
-      "Group records by department name.",
-      "Count projects aliased as `projects_count` and sum budgets aliased as `total_project_budget`.",
-      "Display `dept_name`, `projects_count`, and `total_project_budget`."
+      "Display `dept_name`, `projects_count`, and `total_project_budget`.",
+      "Join Departments with Projects.",
+      "Group by `dept_name`."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Join Departments and Projects on dept_id, group by dept_name, and aggregate.",
+    "hint": "INNER JOIN Departments and Projects on dept_id, then GROUP BY dept_name.",
     "expectedSql": "SELECT d.dept_name, COUNT(p.project_id) AS projects_count, SUM(p.budget) AS total_project_budget FROM Departments d INNER JOIN Projects p ON d.dept_id = p.dept_id GROUP BY d.dept_name;",
     "explanation": "Summarizes departmental project portfolios and total budget commitments.",
     "tags": [
@@ -21091,20 +20977,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 244,
-    "title": "Heavy Cross-Project Workload Contributors",
+    "title": "Employees with Over 30 Total Project Hours",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is identifying employees whose cumulative project workload exceeds full-time capacity. Find all employees whose total weekly allocated hours across all projects strictly exceed 30, displaying employee ID, name, department, and total weekly hours.",
+    "problemStatement": "Find employees whose total weekly project hours exceed 30. Display employee ID, name, department, and total hours.",
     "requirements": [
-      "Join Employees and Employee_Projects on employee ID.",
-      "Group by employee ID, name, and department.",
-      "Sum allocated weekly hours aliased as `total_weekly_hours`.",
-      "Filter groups where cumulative hours strictly exceed 30.",
-      "Display `emp_id`, `emp_name`, `department`, and `total_weekly_hours`."
+      "Display `emp_id`, `emp_name`, `department`, and `total_weekly_hours`.",
+      "Join Employees with Employee_Projects.",
+      "Group by employee and filter with `HAVING SUM(ep.hours_allocated) > 30`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Join on emp_id, group by employee attributes, and apply HAVING SUM(hours_allocated) > 30.",
+    "hint": "GROUP BY e.emp_id, e.emp_name, e.department HAVING SUM(ep.hours_allocated) > 30.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, SUM(ep.hours_allocated) AS total_weekly_hours FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name, e.department HAVING SUM(ep.hours_allocated) > 30;",
     "explanation": "Aggregates across junction table assignments and applies HAVING to highlight overloaded team members.",
     "tags": [
@@ -21175,20 +21059,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 245,
-    "title": "Departmental Annual Payroll Burn Audit",
+    "title": "Departments Where Annual Payroll Exceeds Half the Budget",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Hard",
-    "problemStatement": "Finance leadership is auditing departmental payroll burn relative to annual operating budgets. For departments where annualized payroll (monthly payroll multiplied by 12) exceeds 50% of the departmental budget, display department name, annualized payroll (`annual_payroll`), and annual budget (`annual_budget`).",
+    "problemStatement": "Find departments where total annual payroll (monthly payroll * 12) exceeds 50% of the department's annual budget.",
     "requirements": [
-      "Join Departments and Employees on department name.",
-      "Group by department name and budget.",
-      "Calculate annualized payroll as `SUM(e.salary) * 12` aliased as `annual_payroll`.",
-      "Filter groups where annualized payroll exceeds 50% of department budget (`budget * 0.5`).",
-      "Display `dept_name`, `annual_payroll`, and `annual_budget`."
+      "Display `dept_name`, `annual_payroll`, and `annual_budget`.",
+      "Join Departments with Employees.",
+      "Group by department and filter with `HAVING (SUM(e.salary) * 12) > (d.budget * 0.5)`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Group by dept_name and budget, and filter with HAVING (SUM(salary) * 12) > (budget * 0.5).",
+    "hint": "Use HAVING to compare annual payroll to 50% of budget.",
     "expectedSql": "SELECT d.dept_name, (SUM(e.salary) * 12) AS annual_payroll, d.budget AS annual_budget FROM Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget HAVING (SUM(e.salary) * 12) > (d.budget * 0.5);",
     "explanation": "Evaluates whether total annual payroll consumes more than 50% of the departmental operating budget.",
     "tags": [
@@ -21236,20 +21118,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 246,
-    "title": "Project Team Experience and Compensation Benchmarks",
+    "title": "Average Team Experience and Salary per Project",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Hard",
-    "problemStatement": "Resource analytics evaluates talent seniority and cost per project. For each initiative, calculate the average years of experience (rounded to 1 decimal place) and average monthly salary (rounded to 2 decimal places) of all assigned team members, displaying project name, average experience, and average salary.",
+    "problemStatement": "For each project, calculate the average experience (rounded to 1 decimal) and average salary (rounded to 2 decimals) of assigned team members.",
     "requirements": [
-      "Join Projects, Employee_Projects (on project_id), and Employees (on emp_id).",
-      "Group by project ID and project name.",
-      "Calculate average team experience rounded to 1 decimal place aliased as `avg_team_exp`.",
-      "Calculate average team salary rounded to 2 decimal places aliased as `avg_team_salary`.",
-      "Display `project_name`, `avg_team_exp`, and `avg_team_salary`."
+      "Display `project_name`, `avg_team_exp`, and `avg_team_salary`.",
+      "Join Projects, Employee_Projects, and Employees.",
+      "Group by `project_id, project_name`."
     ],
     "tableName": "Projects, Employee_Projects, Employees",
-    "hint": "Join Projects to Employee_Projects and Employees, group by project_name, and compute averages.",
+    "hint": "Join the three tables and apply ROUND(AVG(...)) grouped by project.",
     "expectedSql": "SELECT p.project_name, ROUND(AVG(e.experience), 1) AS avg_team_exp, ROUND(AVG(e.salary), 2) AS avg_team_salary FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id INNER JOIN Employees e ON ep.emp_id = e.emp_id GROUP BY p.project_id, p.project_name;",
     "explanation": "Profiles project team seniority and compensation through multi-table joins.",
     "tags": [
@@ -21301,19 +21181,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 247,
-    "title": "Dual Engagement Audit: Projects Assigned and Reviews Received",
+    "title": "Projects and Reviews Counts per Employee",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is summarizing employee engagement in projects and appraisal cycles. For all employees, display employee name, count of distinct projects assigned (aliased as `projects_assigned`), and count of distinct reviews completed (aliased as `reviews_received`), preserving employees with zero in either category.",
+    "problemStatement": "For each employee, count how many distinct projects they are assigned to and how many distinct reviews they have received.",
     "requirements": [
-      "Left join Employees with Employee_Projects (on emp_id) and Performance_Reviews (on emp_id).",
-      "Group by employee ID and employee name.",
-      "Count distinct projects aliased as `projects_assigned` and distinct reviews aliased as `reviews_received`.",
-      "Display `emp_name`, `projects_assigned`, and `reviews_received`."
+      "Display `emp_name`, `projects_assigned`, and `reviews_received`.",
+      "LEFT JOIN Employees with Employee_Projects and Performance_Reviews.",
+      "Group by `emp_id, emp_name`."
     ],
     "tableName": "Employees, Employee_Projects, Performance_Reviews",
-    "hint": "Use left outer joins from Employees and apply COUNT(DISTINCT ...) for projects and reviews.",
+    "hint": "Use COUNT(DISTINCT ep.project_id) and COUNT(DISTINCT pr.review_id).",
     "expectedSql": "SELECT e.emp_name, COUNT(DISTINCT ep.project_id) AS projects_assigned, COUNT(DISTINCT pr.review_id) AS reviews_received FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.emp_id, e.emp_name;",
     "explanation": "COUNT(DISTINCT) is essential when joining multiple one-to-many child tables to prevent inflated counts.",
     "tags": [
@@ -21435,21 +21314,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 248,
-    "title": "Top Three Workload Contributors Across Initiatives",
+    "title": "Top 3 Employees by Weekly Project Hours",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "Project operations is recognizing the three hardest-working contributors across all company initiatives. Find the 3 employees with the highest cumulative weekly hours committed to projects, displaying employee name, department, and total hours.",
+    "problemStatement": "Find the 3 employees with the highest total weekly project hours. Display employee name, department, and total hours.",
     "requirements": [
-      "Join Employees and Employee_Projects on employee ID.",
-      "Group by employee ID, name, and department.",
-      "Sum weekly hours aliased as `total_hours`.",
-      "Order by total hours in descending order.",
-      "Limit the result to the top 3 employees.",
-      "Display `emp_name`, `department`, and `total_hours`."
+      "Display `emp_name`, `department`, and `total_hours`.",
+      "Join Employees with Employee_Projects.",
+      "Group by employee, sort by total hours descending, and limit to 3."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Join on emp_id, group by employee, sum hours, sort descending, and limit to 3.",
+    "hint": "GROUP BY employee, ORDER BY total_hours DESC LIMIT 3.",
     "expectedSql": "SELECT e.emp_name, e.department, SUM(ep.hours_allocated) AS total_hours FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name, e.department ORDER BY total_hours DESC LIMIT 3;",
     "explanation": "Highlights top contributors by aggregated project commitments across the company.",
     "tags": [
@@ -21488,19 +21364,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 249,
-    "title": "Departmental Incentive Payout Pool Totals",
+    "title": "Total Reviews and Bonuses by Department",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee is summarizing performance bonuses distributed by business unit. For each department with reviewed employees, display the department name, count of reviews completed, and cumulative bonus pool awarded.",
+    "problemStatement": "For each department, calculate the total number of reviews received and total bonus amount awarded to its employees.",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Group records by department name.",
-      "Count reviews aliased as `reviewed_count` and sum awarded bonuses aliased as `total_department_bonuses`.",
-      "Display `department`, `reviewed_count`, and `total_department_bonuses`."
+      "Display `department`, `reviewed_count`, and `total_department_bonuses`.",
+      "Join Employees with Performance_Reviews on emp_id.",
+      "Group by `department`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join Employees and Performance_Reviews on emp_id, group by department, and aggregate.",
+    "hint": "INNER JOIN Employees and Performance_Reviews, then GROUP BY department.",
     "expectedSql": "SELECT e.department, COUNT(pr.review_id) AS reviewed_count, SUM(pr.bonus) AS total_department_bonuses FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.department;",
     "explanation": "Aggregates performance bonuses paid to employees by department.",
     "tags": [
@@ -21547,21 +21422,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 250,
-    "title": "Initiatives Staffed by Elite High-Rated Teams",
+    "title": "Projects with Average Team Rating of 4.0+",
     "topic": "SQL JOINs",
     "subtopic": "Aggregations & Analytical Filtering over Joined Relations",
     "difficulty": "Hard",
-    "problemStatement": "Executive governance tracks projects staffed by high-performing personnel. Identify initiatives where the assigned team members have an average performance rating of at least 4.0, displaying project name, distinct assigned staff count, and team average rating (rounded to 2 decimal places).",
+    "problemStatement": "Find projects where the average performance rating of assigned team members is at least 4.0. Display project name, staff count, and average rating rounded to 2 decimals.",
     "requirements": [
-      "Join Projects, Employee_Projects (on project_id), and Performance_Reviews (on emp_id).",
-      "Group by project ID and project name.",
-      "Count distinct assigned staff aliased as `staff_count`.",
-      "Calculate average rating rounded to 2 decimal places aliased as `avg_team_rating`.",
-      "Filter groups where average rating is at least 4.0.",
-      "Display `project_name`, `staff_count`, and `avg_team_rating`."
+      "Display `project_name`, `staff_count`, and `avg_team_rating`.",
+      "Join Projects, Employee_Projects, and Performance_Reviews.",
+      "Group by project and filter with `HAVING AVG(pr.rating) >= 4.0`."
     ],
     "tableName": "Projects, Employee_Projects, Performance_Reviews",
-    "hint": "Join the three tables, group by project, and filter with HAVING AVG(rating) >= 4.0.",
+    "hint": "Join the three tables, group by project, and apply HAVING AVG(pr.rating) >= 4.0.",
     "expectedSql": "SELECT p.project_name, COUNT(DISTINCT ep.emp_id) AS staff_count, ROUND(AVG(pr.rating), 2) AS avg_team_rating FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id INNER JOIN Performance_Reviews pr ON ep.emp_id = pr.emp_id GROUP BY p.project_id, p.project_name HAVING AVG(pr.rating) >= 4.0;",
     "explanation": "Assesses project staffing quality by filtering for initiatives where assigned team members hold elite appraisal scores.",
     "tags": [
@@ -21598,18 +21470,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 251,
-    "title": "Workforce Above-Average Compensation Filter",
+    "title": "Employees Earning Above Average Salary",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Beginner",
-    "problemStatement": "The executive compensation committee is identifying staff members whose base earnings surpass the company-wide average. Find all employees whose monthly salary strictly exceeds the overall average salary calculated across all employees in the organization.",
+    "problemStatement": "Find all employees whose salary is strictly greater than the overall company average salary.",
     "requirements": [
-      "Dynamically compute the organization-wide average employee salary.",
-      "Filter for employees whose salary strictly exceeds that calculated benchmark.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter where `salary > (SELECT AVG(salary) FROM Employees)`."
     ],
     "tableName": "Employees",
-    "hint": "Compare each employee's salary against a scalar subquery calculating the overall average salary.",
+    "hint": "Use a scalar subquery with AVG(salary) in the WHERE clause.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);",
     "explanation": "A scalar subquery evaluates to a single value, allowing dynamic comparisons against table-wide metrics.",
     "tags": [
@@ -21693,18 +21564,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 252,
-    "title": "Above-Average Funded Capital Initiatives",
+    "title": "Projects with Above-Average Budget",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Beginner",
-    "problemStatement": "The investment committee is auditing initiatives that receive greater funding than the standard portfolio baseline. Retrieve project ID, project name, and budget for all projects whose capital budget strictly exceeds the average budget across all corporate projects.",
+    "problemStatement": "Find all projects whose budget is greater than the average project budget.",
     "requirements": [
-      "Calculate the average budget across all projects in the portfolio.",
-      "Filter for initiatives whose budget is strictly greater than this average.",
-      "Display `project_id`, `project_name`, and `budget` from Projects."
+      "Display `project_id`, `project_name`, and `budget`.",
+      "Filter where `budget > (SELECT AVG(budget) FROM Projects)`."
     ],
     "tableName": "Projects",
-    "hint": "Use a scalar subquery to find the portfolio mean budget and filter in the WHERE clause.",
+    "hint": "Compare budget against a subquery calculating AVG(budget).",
     "expectedSql": "SELECT project_id, project_name, budget FROM Projects WHERE budget > (SELECT AVG(budget) FROM Projects);",
     "explanation": "Dynamically filters capital allocations against the calculated portfolio average.",
     "tags": [
@@ -21741,18 +21611,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 253,
-    "title": "Organization Top Compensation Recipient",
+    "title": "Highest-Paid Employee in the Company",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Beginner",
-    "problemStatement": "Executive remuneration analysis is verifying the record for the single highest-paid employee in the company. Find the employee ID, name, department, and salary for the individual earning the maximum salary in the organization.",
+    "problemStatement": "Find the employee(s) who earn the highest salary in the entire company.",
     "requirements": [
-      "Determine the highest salary value in the Employees table.",
-      "Filter for the employee record that matches this peak compensation.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter for salary equal to the maximum salary in Employees."
     ],
     "tableName": "Employees",
-    "hint": "Filter for salary equal to a scalar subquery computing MAX(salary).",
+    "hint": "Filter with WHERE salary = (SELECT MAX(salary) FROM Employees).",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE salary = (SELECT MAX(salary) FROM Employees);",
     "explanation": "Using a scalar MAX subquery accommodates ties without hardcoding compensation amounts.",
     "tags": [
@@ -21781,17 +21650,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 254,
-    "title": "Individual Compensation Compared to Company Mean",
+    "title": "Display Company Average Alongside Each Employee",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Easy",
-    "problemStatement": "Payroll reporting presents individual earnings alongside the corporate benchmark. For each employee, display their name, monthly salary, and a column showing the company-wide average salary rounded to 2 decimal places, aliased as `company_avg_salary`.",
+    "problemStatement": "Display each employee's name and salary alongside the company-wide average salary rounded to 2 decimals.",
     "requirements": [
-      "Query the Employees table for `emp_name` and `salary`.",
-      "Include a scalar subquery projecting the overall average salary rounded to 2 decimal places, aliased as `company_avg_salary`."
+      "Display `emp_name` and `salary`.",
+      "Include a scalar subquery calculating `company_avg_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Place a scalar subquery calculating ROUND(AVG(salary), 2) directly in the SELECT list.",
+    "hint": "Place (SELECT ROUND(AVG(salary), 2) FROM Employees) in your SELECT list.",
     "expectedSql": "SELECT emp_name, salary, (SELECT ROUND(AVG(salary), 2) FROM Employees) AS company_avg_salary FROM Employees;",
     "explanation": "Scalar subqueries in SELECT broadcast a constant computed value across every projected record.",
     "tags": [
@@ -21913,19 +21782,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 255,
-    "title": "Capital Funding Gap from Peak Initiative",
+    "title": "Budget Gap from the Maximum Project Budget",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Easy",
-    "problemStatement": "Portfolio governance evaluates the funding disparity between each initiative and the flagship project. For each project, display the project name, project budget, and the deficit (maximum project budget minus this project's budget), aliased as `budget_gap`.",
+    "problemStatement": "For each project, calculate the difference between the maximum project budget and its own budget.",
     "requirements": [
-      "Query the Projects table.",
-      "Subtract each project's budget from the maximum budget in the portfolio.",
-      "Alias the calculated funding deficit as `budget_gap`.",
-      "Display `project_name`, `budget`, and `budget_gap`."
+      "Display `project_name` and `budget`.",
+      "Calculate the difference from maximum budget aliased as `budget_gap`."
     ],
     "tableName": "Projects",
-    "hint": "Subtract budget from a scalar subquery calculating MAX(budget) in the SELECT list.",
+    "hint": "Subtract budget from a scalar subquery returning MAX(budget).",
     "expectedSql": "SELECT project_name, budget, ((SELECT MAX(budget) FROM Projects) - budget) AS budget_gap FROM Projects;",
     "explanation": "Performs arithmetic against a scalar subquery to calculate variance from the top benchmark.",
     "tags": [
@@ -21987,18 +21854,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 256,
-    "title": "Performance Appraisals with Above-Average Bonuses",
+    "title": "Reviews with Above-Average Bonus",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Easy",
-    "problemStatement": "The compensation committee is reviewing standout appraisal incentives. Retrieve review ID, employee ID, rating, and bonus for all performance reviews where the awarded bonus strictly exceeds the average bonus across all reviews.",
+    "problemStatement": "Find all performance reviews where the bonus amount is greater than the average bonus across all reviews.",
     "requirements": [
-      "Calculate the average bonus across all performance evaluations.",
-      "Filter for reviews where the awarded bonus strictly exceeds that average.",
-      "Display `review_id`, `emp_id`, `rating`, and `bonus` from Performance_Reviews."
+      "Display `review_id`, `emp_id`, `rating`, and `bonus`.",
+      "Filter where `bonus > (SELECT AVG(bonus) FROM Performance_Reviews)`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Filter where bonus is greater than a scalar subquery computing AVG(bonus).",
+    "hint": "Compare bonus to the subquery AVG(bonus).",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE bonus > (SELECT AVG(bonus) FROM Performance_Reviews);",
     "explanation": "Filters reviews using the dynamically calculated mean bonus award.",
     "tags": [
@@ -22076,18 +21942,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 257,
-    "title": "Staff Earning Above the IT Department Benchmark",
+    "title": "Employees Earning More Than IT Department Average",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Medium",
-    "problemStatement": "Workforce analytics is comparing compensation against the technology division baseline. Find all employees across the entire company whose salary strictly exceeds the average salary of employees in the IT department.",
+    "problemStatement": "Find all employees who earn more than the average salary of the IT department.",
     "requirements": [
-      "Calculate the average salary specifically for the 'IT' department.",
-      "Filter employees whose salary strictly exceeds that IT departmental benchmark.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter where salary is greater than the average salary of the 'IT' department."
     ],
     "tableName": "Employees",
-    "hint": "Compare salary against a subquery calculating AVG(salary) WHERE department = 'IT'.",
+    "hint": "Use a subquery calculating AVG(salary) WHERE department = 'IT'.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees WHERE department = 'IT');",
     "explanation": "Compares individual salaries from any department against the specific average of the IT team.",
     "tags": [
@@ -22170,18 +22035,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 258,
-    "title": "Divisions Endowed with Above-Average Budgets",
+    "title": "Departments with Above-Average Budget",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Easy",
-    "problemStatement": "Corporate treasury is reviewing high-budget operational divisions. Retrieve the department ID, department name, location, and budget for all departments whose operating budget strictly exceeds the average budget across all corporate departments.",
+    "problemStatement": "Find all departments whose budget exceeds the average department budget.",
     "requirements": [
-      "Compute the average operating budget across all departments.",
-      "Filter for departments whose budget exceeds this calculated average.",
-      "Display `dept_id`, `dept_name`, `location`, and `budget` from Departments."
+      "Display `dept_id`, `dept_name`, `location`, and `budget`.",
+      "Filter where `budget > (SELECT AVG(budget) FROM Departments)`."
     ],
     "tableName": "Departments",
-    "hint": "Filter where budget is greater than a subquery computing AVG(budget) from Departments.",
+    "hint": "Use a subquery calculating AVG(budget) from Departments.",
     "expectedSql": "SELECT dept_id, dept_name, location, budget FROM Departments WHERE budget > (SELECT AVG(budget) FROM Departments);",
     "explanation": "Filters departmental units based on the enterprise-wide average budget.",
     "tags": [
@@ -22222,18 +22086,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 259,
-    "title": "Workforce Entry-Level Seniority Cohort",
+    "title": "Employees with Minimum Experience",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Beginner",
-    "problemStatement": "Talent development is identifying entry-level personnel with the lowest tenure recorded in the enterprise. Retrieve employee ID, name, department, and years of experience for all employees whose experience equals the minimum experience found in the company.",
+    "problemStatement": "Find all employees who have the lowest years of experience in the company.",
     "requirements": [
-      "Determine the minimum years of experience across all employees.",
-      "Filter for staff members matching this baseline tenure.",
-      "Display `emp_id`, `emp_name`, `department`, and `experience` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `experience`.",
+      "Filter for experience equal to the minimum experience."
     ],
     "tableName": "Employees",
-    "hint": "Filter where experience equals a subquery computing MIN(experience).",
+    "hint": "Use WHERE experience = (SELECT MIN(experience) FROM Employees).",
     "expectedSql": "SELECT emp_id, emp_name, department, experience FROM Employees WHERE experience = (SELECT MIN(experience) FROM Employees);",
     "explanation": "Locates all staff holding the floor tenure value.",
     "tags": [
@@ -22274,18 +22137,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 260,
-    "title": "Initiatives Launched Prior to Cloud Migration Kickoff",
+    "title": "Projects Started Before 'Cloud Migration'",
     "topic": "Subqueries",
     "subtopic": "Scalar Subqueries in WHERE & SELECT",
     "difficulty": "Medium",
-    "problemStatement": "Project portfolio managers are sequencing initiatives launched prior to a flagship program. Retrieve project ID, name, department ID, and start date for all corporate initiatives that commenced strictly before the start date of the 'Cloud Migration' project.",
+    "problemStatement": "Find all projects that started before the 'Cloud Migration' project.",
     "requirements": [
-      "Determine the start date of the project named 'Cloud Migration'.",
-      "Filter for projects whose start date is strictly earlier than that milestone date.",
-      "Display `project_id`, `project_name`, `dept_id`, and `start_date` from Projects."
+      "Display `project_id`, `project_name`, `dept_id`, and `start_date`.",
+      "Filter for `start_date` earlier than the start date of 'Cloud Migration'."
     ],
     "tableName": "Projects",
-    "hint": "Compare start_date with a subquery selecting start_date WHERE project_name = 'Cloud Migration'.",
+    "hint": "Use a subquery to find the start_date of 'Cloud Migration'.",
     "expectedSql": "SELECT project_id, project_name, dept_id, start_date FROM Projects WHERE start_date < (SELECT start_date FROM Projects WHERE project_name = 'Cloud Migration');",
     "explanation": "Evaluates dates against a scalar start date retrieved dynamically for a specific project.",
     "tags": [
@@ -22320,18 +22182,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 261,
-    "title": "Personnel in Bengaluru-Headquartered Divisions",
+    "title": "Employees in Departments Located in Bengaluru",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Easy",
-    "problemStatement": "Facilities is identifying staff attached to divisions based in the Bengaluru regional office. Find the employee ID, name, and department for employees whose department is headquartered in Bengaluru.",
+    "problemStatement": "Find all employees whose department is located in Bengaluru using an IN subquery.",
     "requirements": [
-      "Identify the list of department names located in 'Bengaluru' from Departments.",
-      "Filter employees whose department belongs to that list.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter with `department IN (SELECT dept_name FROM Departments WHERE location = 'Bengaluru')`."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Use the IN operator matching department against a subquery of department names in Bengaluru.",
+    "hint": "Use WHERE department IN (SELECT dept_name FROM Departments WHERE location = 'Bengaluru').",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE department IN (SELECT dept_name FROM Departments WHERE location = 'Bengaluru');",
     "explanation": "IN matches the outer column against the list of values returned by the multi-row subquery.",
     "tags": [
@@ -22398,18 +22259,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 262,
-    "title": "Personnel Deployed to Active Initiatives",
+    "title": "Employees Assigned to Active Projects",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is tracking staff actively committed to in-progress initiatives. Retrieve employee ID, name, and department for all employees who are assigned to at least one project marked as 'Active'.",
+    "problemStatement": "Find all employees who are assigned to at least one active project using an IN subquery.",
     "requirements": [
-      "Identify employee IDs assigned to projects whose status is 'Active'.",
-      "Filter employees whose ID matches that list.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter for employees whose ID is in the list of staff on active projects."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Use IN with a subquery joining Employee_Projects and Projects on project_id WHERE status = 'Active'.",
+    "hint": "Use an IN subquery joining Employee_Projects and Projects where status = 'Active'.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_id IN (SELECT ep.emp_id FROM Employee_Projects ep INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.status = 'Active');",
     "explanation": "Filters outer employees against a subquery joining the project assignment and status relations.",
     "tags": [
@@ -22497,18 +22357,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 263,
-    "title": "Personnel Lacking Performance Appraisals",
+    "title": "Employees Without Performance Reviews (NOT IN)",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is identifying employees who have never completed an annual performance appraisal. Find the employee ID, name, department, and salary for all employees who do not appear in the performance reviews table.",
+    "problemStatement": "Find all employees who have no records in Performance_Reviews using a NOT IN subquery.",
     "requirements": [
-      "Identify the set of employee IDs present in Performance_Reviews.",
-      "Filter for employees whose ID does not appear in that set.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter for `emp_id NOT IN (SELECT emp_id FROM Performance_Reviews)`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use the NOT IN operator with a subquery selecting emp_id from Performance_Reviews.",
+    "hint": "Use NOT IN with a subquery selecting emp_id from Performance_Reviews.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE emp_id NOT IN (SELECT emp_id FROM Performance_Reviews);",
     "explanation": "NOT IN identifies records absent from the target set, isolating unreviewed personnel.",
     "tags": [
@@ -22567,18 +22426,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 264,
-    "title": "Initiatives Operating with Zero Assigned Staff",
+    "title": "Projects with No Assigned Staff (NOT IN)",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Easy",
-    "problemStatement": "The PMO is identifying projects that currently lack assigned human resources. Retrieve project ID, name, and status for all initiatives in Projects that have zero assignment records in Employee_Projects.",
+    "problemStatement": "Find all projects that have no assigned staff in Employee_Projects using a NOT IN subquery.",
     "requirements": [
-      "Retrieve all project IDs from Employee_Projects.",
-      "Filter for projects in Projects whose ID is not in that list.",
-      "Display `project_id`, `project_name`, and `status`."
+      "Display `project_id`, `project_name`, and `status`.",
+      "Filter for `project_id NOT IN (SELECT project_id FROM Employee_Projects)`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use NOT IN with a subquery selecting project_id from Employee_Projects.",
+    "hint": "Use NOT IN selecting project_id from Employee_Projects.",
     "expectedSql": "SELECT project_id, project_name, status FROM Projects WHERE project_id NOT IN (SELECT project_id FROM Employee_Projects);",
     "explanation": "Surfaces unstaffed initiatives by excluding any project ID present in the junction table.",
     "tags": [
@@ -22610,18 +22468,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 265,
-    "title": "Personnel Achieving Top-Tier Performance Ratings",
+    "title": "Employees with at Least One Rating 5 Review",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Easy",
-    "problemStatement": "Executive management is recognizing staff who have demonstrated top performance. Find employee ID, name, and department for all employees who have achieved a rating of 5 in at least one performance evaluation.",
+    "problemStatement": "Find all employees who have received a performance rating of 5 in any review.",
     "requirements": [
-      "Select employee IDs from Performance_Reviews that received a rating of 5.",
-      "Filter for employees whose ID appears in that high-rating cohort.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter for `emp_id IN (SELECT emp_id FROM Performance_Reviews WHERE rating = 5)`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use IN with a subquery selecting emp_id from Performance_Reviews WHERE rating = 5.",
+    "hint": "Use an IN subquery filtering for rating = 5.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_id IN (SELECT emp_id FROM Performance_Reviews WHERE rating = 5);",
     "explanation": "Filters outer employees matching the set of high-performing review recipients.",
     "tags": [
@@ -22658,18 +22515,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 266,
-    "title": "Divisions Currently Lacking Assigned Personnel",
+    "title": "Departments with No Employees (NOT IN)",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Medium",
-    "problemStatement": "Organization design is identifying registered corporate departments that have zero active staff. Display department ID, department name, and location for all departments that do not match any employee's department in the Employees table.",
+    "problemStatement": "Find departments that currently have no employees using a NOT IN subquery.",
     "requirements": [
-      "Identify distinct non-null department names assigned to employees.",
-      "Filter for departments in Departments whose name does not appear in that list.",
-      "Display `dept_id`, `dept_name`, and `location`."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "Filter for `dept_name NOT IN (SELECT department FROM Employees WHERE department IS NOT NULL)`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Use NOT IN with a subquery selecting department from Employees WHERE department IS NOT NULL.",
+    "hint": "Use NOT IN selecting department from Employees.",
     "expectedSql": "SELECT dept_id, dept_name, location FROM Departments WHERE dept_name NOT IN (SELECT department FROM Employees WHERE department IS NOT NULL);",
     "explanation": "Filtering out NULL in the NOT IN subquery is a critical best practice to avoid empty result sets in SQL.",
     "tags": [
@@ -22706,18 +22562,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 267,
-    "title": "Personnel Assigned to High-Budget Initiatives",
+    "title": "Employees Working on 300k+ Budget Projects",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is tracking talent assigned to major capital initiatives. Display employee ID, name, and monthly salary for all staff members assigned to projects with a capital budget of at least 300,000.",
+    "problemStatement": "Find all employees who are assigned to projects with a budget of 300,000 or more.",
     "requirements": [
-      "Identify employee IDs assigned to projects with a budget of 300,000 or greater.",
-      "Filter employees whose ID matches that list.",
-      "Display `emp_id`, `emp_name`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, and `salary`.",
+      "Filter for employees working on projects with budget >= 300,000."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Use IN with a subquery joining Employee_Projects and Projects WHERE p.budget >= 300000.",
+    "hint": "Use an IN subquery joining Employee_Projects with Projects.",
     "expectedSql": "SELECT emp_id, emp_name, salary FROM Employees WHERE emp_id IN (SELECT ep.emp_id FROM Employee_Projects ep INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.budget >= 300000);",
     "explanation": "Links staff members to large-budget initiatives via a multi-row subquery.",
     "tags": [
@@ -22774,18 +22629,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 268,
-    "title": "Initiatives Staffed by Senior High Earners",
+    "title": "Projects Staffed by High Earners (>70k)",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Medium",
-    "problemStatement": "Project operations is identifying projects that utilize high-earning senior talent. Retrieve project ID, name, and status for all initiatives that have at least one assigned team member earning strictly more than 70,000.",
+    "problemStatement": "Find all projects that have at least one team member earning more than 70,000.",
     "requirements": [
-      "Identify project IDs staffed by employees whose monthly salary exceeds 70,000.",
-      "Filter for projects whose ID appears in that set.",
-      "Display `project_id`, `project_name`, and `status` from Projects."
+      "Display `project_id`, `project_name`, and `status`.",
+      "Filter for project IDs in a subquery of assignments with employee salary > 70,000."
     ],
     "tableName": "Projects, Employee_Projects, Employees",
-    "hint": "Use IN with a subquery joining Employee_Projects and Employees WHERE e.salary > 70000.",
+    "hint": "Use an IN subquery joining Employee_Projects and Employees.",
     "expectedSql": "SELECT project_id, project_name, status FROM Projects WHERE project_id IN (SELECT ep.project_id FROM Employee_Projects ep INNER JOIN Employees e ON ep.emp_id = e.emp_id WHERE e.salary > 70000);",
     "explanation": "Identifies projects that leverage senior highly compensated specialists.",
     "tags": [
@@ -22817,18 +22671,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 269,
-    "title": "Unstaffed Employees via Set Exclusion",
+    "title": "Employees Not Assigned to Any Project (NOT IN)",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Easy",
-    "problemStatement": "Resource management is identifying employees who currently have zero project assignments. Find employee ID, name, and department for all employees whose employee ID does not appear in Employee_Projects.",
+    "problemStatement": "Find all employees who are not assigned to any project using a NOT IN subquery.",
     "requirements": [
-      "Retrieve all employee IDs assigned in Employee_Projects.",
-      "Filter for employees whose ID is excluded from that list.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter for `emp_id NOT IN (SELECT emp_id FROM Employee_Projects)`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use NOT IN with a subquery selecting emp_id from Employee_Projects.",
+    "hint": "Use NOT IN with a subquery from Employee_Projects.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_id NOT IN (SELECT emp_id FROM Employee_Projects);",
     "explanation": "Filters the employee workforce for individuals currently unassigned to any initiative.",
     "tags": [
@@ -22865,18 +22718,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 270,
-    "title": "Departments Without Any Active Initiatives",
+    "title": "Departments with No Active Projects",
     "topic": "Subqueries",
     "subtopic": "Multi-Row Subqueries (IN, NOT IN)",
     "difficulty": "Medium",
-    "problemStatement": "Strategic planning is auditing divisions that currently sponsor zero active projects. Display department ID, department name, and location for all departments that have no projects with an 'Active' status.",
+    "problemStatement": "Find all departments that do not have any currently active projects.",
     "requirements": [
-      "Select non-null department IDs from Projects where `status = 'Active'`.",
-      "Filter Departments for department IDs not in that active list.",
-      "Display `dept_id`, `dept_name`, and `location`."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "Filter for departments whose ID is not in active projects."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use NOT IN with a subquery selecting dept_id from Projects WHERE status = 'Active' AND dept_id IS NOT NULL.",
+    "hint": "Use NOT IN selecting dept_id from Projects where status = 'Active'.",
     "expectedSql": "SELECT dept_id, dept_name, location FROM Departments WHERE dept_id NOT IN (SELECT dept_id FROM Projects WHERE status = 'Active' AND dept_id IS NOT NULL);",
     "explanation": "Isolates departments that lack ongoing operational project streams.",
     "tags": [
@@ -22918,17 +22770,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 271,
-    "title": "Assigned Staff Verification via Correlated Existence",
+    "title": "Employees Assigned to Projects (EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Resource management is verifying staff engagement using existence tests. For each employee, verify whether at least one assignment record exists in Employee_Projects, displaying employee ID, name, and department for all assigned personnel.",
+    "problemStatement": "Find all employees who are assigned to at least one project using an EXISTS clause.",
     "requirements": [
-      "Test for the existence of matching assignments in Employee_Projects for each employee.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Use `WHERE EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id)`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use the correlated EXISTS operator matching on employee ID.",
+    "hint": "Use EXISTS with a correlated subquery checking Employee_Projects.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id);",
     "explanation": "EXISTS tests for the presence of at least one matching row in the correlated subquery, short-circuiting on the first match.",
     "tags": [
@@ -23035,17 +22887,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 272,
-    "title": "Unassigned Personnel via Correlated Non-Existence",
+    "title": "Employees Without Projects (NOT EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Operations is finding unassigned talent using non-existence checks. For each employee, verify that no corresponding record exists in Employee_Projects, displaying employee ID, name, and department for unallocated staff.",
+    "problemStatement": "Find all employees who are not assigned to any project using a NOT EXISTS clause.",
     "requirements": [
-      "Test for the non-existence of matching assignment records in Employee_Projects.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Use `WHERE NOT EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id)`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use the correlated NOT EXISTS operator matching on employee ID.",
+    "hint": "Use NOT EXISTS with a correlated subquery.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE NOT EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id);",
     "explanation": "NOT EXISTS evaluates to true when the correlated subquery returns zero rows, robustly handling NULL values.",
     "tags": [
@@ -23082,17 +22934,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 273,
-    "title": "Divisions Sponsoring Active Programs via Correlated Existence",
+    "title": "Departments with Active Projects (EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Corporate governance is confirming which departments currently sponsor active initiatives. Display department ID, department name, and budget for all departments where there exists at least one project marked as 'Active' linked to that department.",
+    "problemStatement": "Find all departments that have at least one active project using an EXISTS clause.",
     "requirements": [
-      "Verify the existence of an active project linked to each department's ID.",
-      "Display `dept_id`, `dept_name`, and `budget` from Departments."
+      "Display `dept_id`, `dept_name`, and `budget`.",
+      "Use EXISTS to check for active projects in the department."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use EXISTS with a correlated subquery checking Projects WHERE p.dept_id = d.dept_id AND p.status = 'Active'.",
+    "hint": "Correlate Projects with Departments on dept_id and status = 'Active'.",
     "expectedSql": "SELECT d.dept_id, d.dept_name, d.budget FROM Departments d WHERE EXISTS (SELECT 1 FROM Projects p WHERE p.dept_id = d.dept_id AND p.status = 'Active');",
     "explanation": "Checks existence of active projects correlated with the outer department record.",
     "tags": [
@@ -23135,17 +22987,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 274,
-    "title": "Divisions Without Any Projects via Correlated Non-Existence",
+    "title": "Departments with No Projects (NOT EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Strategic planning is auditing inactive divisions. Display department ID, department name, and location for all departments where there exists zero registered projects in the Projects table.",
+    "problemStatement": "Find all departments that have no projects using a NOT EXISTS clause.",
     "requirements": [
-      "Verify that no project exists in Projects matching each department's ID.",
-      "Display `dept_id`, `dept_name`, and `location` from Departments."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "Use NOT EXISTS to verify no projects exist for the department."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use NOT EXISTS with a correlated subquery matching on dept_id.",
+    "hint": "Correlate Projects with Departments on dept_id.",
     "expectedSql": "SELECT d.dept_id, d.dept_name, d.location FROM Departments d WHERE NOT EXISTS (SELECT 1 FROM Projects p WHERE p.dept_id = d.dept_id);",
     "explanation": "Efficiently identifies departments devoid of any associated capital initiatives.",
     "tags": [
@@ -23173,17 +23025,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 275,
-    "title": "Staff Awarded Top Rating with Substantial Bonus",
+    "title": "Employees with Rating 5 and Bonus Over 20k (EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Executive recognition tracks elite performers. Find employee ID, name, and department for employees who have at least one performance evaluation with a perfect rating of 5 and a bonus strictly exceeding 20,000.",
+    "problemStatement": "Find all employees who received a review with a rating of 5 and a bonus greater than 20,000 using EXISTS.",
     "requirements": [
-      "Verify the existence of a review with rating = 5 and bonus > 20,000 for each employee.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Use EXISTS checking for rating = 5 and bonus > 20000."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use EXISTS with a correlated subquery on Performance_Reviews checking rating = 5 and bonus > 20000.",
+    "hint": "Correlate Performance_Reviews with Employees on emp_id.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE EXISTS (SELECT 1 FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id AND pr.rating = 5 AND pr.bonus > 20000);",
     "explanation": "Verifies existence of multi-attribute criteria in child evaluation records.",
     "tags": [
@@ -23221,17 +23073,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 276,
-    "title": "Staff Never Awarded Any Financial Bonus",
+    "title": "Employees Who Never Received a Bonus (NOT EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Hard",
-    "problemStatement": "Compensation equity is identifying staff who have never received a cash bonus. Display employee ID, name, department, and salary for all employees for whom no performance review with a non-null bonus exists.",
+    "problemStatement": "Find all employees who have never received a bonus using a NOT EXISTS clause.",
     "requirements": [
-      "Verify the non-existence of any review record with a non-null bonus for each employee.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Use NOT EXISTS to check for any review with bonus IS NOT NULL."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use NOT EXISTS with a correlated subquery checking pr.bonus IS NOT NULL.",
+    "hint": "Correlate Performance_Reviews checking bonus IS NOT NULL.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, e.salary FROM Employees e WHERE NOT EXISTS (SELECT 1 FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id AND pr.bonus IS NOT NULL);",
     "explanation": "Captures employees who either have no reviews at all or whose reviews contained NULL bonus awards.",
     "tags": [
@@ -23297,17 +23149,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 277,
-    "title": "Initiatives with High-Commitment Staffing Allocations",
+    "title": "Projects with Heavy Workload Assignments (EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Project governance is monitoring initiatives that require heavy individual staff commitments. Display project ID, name, and status for all projects that have at least one team member allocated 35 or more weekly hours.",
+    "problemStatement": "Find all projects that have at least one assignment with 35 or more weekly hours using EXISTS.",
     "requirements": [
-      "Verify the existence of an assignment in Employee_Projects with allocated hours of 35 or more.",
-      "Display `project_id`, `project_name`, and `status` from Projects."
+      "Display `project_id`, `project_name`, and `status`.",
+      "Use EXISTS checking Employee_Projects for hours_allocated >= 35."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use EXISTS with a correlated subquery on Employee_Projects checking hours_allocated >= 35.",
+    "hint": "Correlate Employee_Projects on project_id and hours_allocated >= 35.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.status FROM Projects p WHERE EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.project_id = p.project_id AND ep.hours_allocated >= 35);",
     "explanation": "Locates initiatives sustained by intensive individual workloads.",
     "tags": [
@@ -23355,17 +23207,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 278,
-    "title": "Unstaffed Initiatives via Correlated Non-Existence",
+    "title": "Projects with Zero Staff (NOT EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is identifying projects that have zero team members allocated. Display project ID, name, and budget for all initiatives in Projects for which no assignment record exists in Employee_Projects.",
+    "problemStatement": "Find all projects that have no assigned staff members using a NOT EXISTS clause.",
     "requirements": [
-      "Verify that no record exists in Employee_Projects matching each project's ID.",
-      "Display `project_id`, `project_name`, and `budget` from Projects."
+      "Display `project_id`, `project_name`, and `budget`.",
+      "Use NOT EXISTS on Employee_Projects matching project_id."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use NOT EXISTS with a correlated subquery matching on project_id.",
+    "hint": "Use NOT EXISTS with a correlated check on Employee_Projects.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.budget FROM Projects p WHERE NOT EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.project_id = p.project_id);",
     "explanation": "Detects orphaned or unstaffed initiatives using correlated NOT EXISTS.",
     "tags": [
@@ -23398,17 +23250,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 279,
-    "title": "Staff in Mega-Budget Divisions via Correlated Existence",
+    "title": "Employees in High-Budget Departments (EXISTS)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Medium",
-    "problemStatement": "Corporate treasury is identifying staff assigned to well-funded corporate divisions. Display employee ID, name, and department for employees whose assigned department has an annual operating budget of at least 1,200,000.",
+    "problemStatement": "Find all employees whose department has a budget of 1,200,000 or more using EXISTS.",
     "requirements": [
-      "Verify the existence of a matching department in Departments with a budget of 1,200,000 or greater.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Use EXISTS checking Departments for budget >= 1,200,000."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Use EXISTS with a correlated subquery matching department name and testing budget >= 1200000.",
+    "hint": "Correlate Departments on dept_name = e.department and budget >= 1200000.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE EXISTS (SELECT 1 FROM Departments d WHERE d.dept_name = e.department AND d.budget >= 1200000);",
     "explanation": "Correlates parent employee records with department budgetary thresholds.",
     "tags": [
@@ -23476,18 +23328,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 280,
-    "title": "Staff with Multiple Completed Performance Appraisals",
+    "title": "Employees with 2+ Reviews (Scalar Subquery)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries (EXISTS & NOT EXISTS)",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is compiling a cohort of seasoned staff who have undergone recurring evaluations. Display employee ID, name, and department for all employees who have completed 2 or more performance evaluations.",
+    "problemStatement": "Find all employees who have 2 or more performance reviews using a correlated count subquery in WHERE.",
     "requirements": [
-      "Count performance reviews matching each employee using a correlated scalar subquery.",
-      "Filter for employees where this count is 2 or greater.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter where the correlated count of reviews is at least 2."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Compare a correlated subquery computing COUNT(*) from Performance_Reviews to >= 2.",
+    "hint": "Check WHERE (SELECT COUNT(*) FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id) >= 2.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE (SELECT COUNT(*) FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id) >= 2;",
     "explanation": "Uses a correlated COUNT subquery in the WHERE clause to filter outer records by child entity frequency.",
     "tags": [
@@ -23525,18 +23376,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 281,
-    "title": "Staff Earning Above Their Own Department's Average",
+    "title": "Employees Earning Above Their Department Average",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Workforce compensation is reviewing intra-departmental pay equity. Find all employees whose salary strictly exceeds the average salary of colleagues working within their own department, displaying employee ID, name, department, and salary.",
+    "problemStatement": "Find all employees whose salary is greater than the average salary of their own department.",
     "requirements": [
-      "Correlate each employee's salary against the average salary computed for their specific department.",
-      "Filter for employees earning strictly more than that departmental average.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Compare employee salary against a correlated subquery calculating the department's average salary."
     ],
     "tableName": "Employees",
-    "hint": "Use a correlated subquery calculating AVG(salary) WHERE sub.department = e.department.",
+    "hint": "Use a correlated subquery matching sub.department = e.department.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, e.salary FROM Employees e WHERE e.salary > (SELECT AVG(sub.salary) FROM Employees sub WHERE sub.department = e.department);",
     "explanation": "Classic interview question: correlated subquery computes dynamic group benchmarks specific to each outer row.",
     "tags": [
@@ -23620,18 +23470,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 282,
-    "title": "Highest Earner in Each Corporate Department",
+    "title": "Highest-Paid Employee in Each Department",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Executive remuneration is identifying the top compensation recipient within every division. Retrieve employee ID, name, department, and salary for the highest-paid employee in each department.",
+    "problemStatement": "Find the highest-paid employee in each department using a correlated subquery.",
     "requirements": [
-      "For each employee, compare their salary against the maximum salary in their own department.",
-      "Filter for staff members matching that departmental maximum.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter for employees whose salary equals the maximum salary in their department."
     ],
     "tableName": "Employees",
-    "hint": "Filter where e.salary equals a correlated subquery computing MAX(salary) for that department.",
+    "hint": "Filter with WHERE e.salary = (SELECT MAX(sub.salary) FROM Employees sub WHERE sub.department = e.department).",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, e.salary FROM Employees e WHERE e.salary = (SELECT MAX(sub.salary) FROM Employees sub WHERE sub.department = e.department);",
     "explanation": "Locates department-level salary leaders using correlated maximum equality.",
     "tags": [
@@ -23684,18 +23533,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 283,
-    "title": "Most Seasoned Professional in Each Branch City",
+    "title": "Most Experienced Employee in Each City",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is identifying the seniority leader in every branch office location. Display employee ID, name, city, and years of experience for the employee with the maximum experience in their resident city.",
+    "problemStatement": "Find the employee(s) with the most experience in each city.",
     "requirements": [
-      "Compare each employee's experience against the maximum experience recorded for their city.",
-      "Filter for the employee matching that local peak tenure.",
-      "Display `emp_id`, `emp_name`, `city`, and `experience` from Employees."
+      "Display `emp_id`, `emp_name`, `city`, and `experience`.",
+      "Filter for employees whose experience equals the maximum experience in their city."
     ],
     "tableName": "Employees",
-    "hint": "Filter where e.experience equals a correlated subquery computing MAX(experience) for that city.",
+    "hint": "Use a correlated subquery matching sub.city = e.city.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.city, e.experience FROM Employees e WHERE e.experience = (SELECT MAX(sub.experience) FROM Employees sub WHERE sub.city = e.city);",
     "explanation": "Finds the seniority anchor within each geographical branch location.",
     "tags": [
@@ -23742,18 +23590,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 284,
-    "title": "Appraisals Exceeding Annual Cycle Bonus Average",
+    "title": "Reviews with Bonus Above Year's Average",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "The compensation committee is analyzing merit incentives that exceeded standard benchmarks within their appraisal year. Retrieve review ID, employee ID, review year, and bonus for reviews where the awarded bonus strictly exceeds the average bonus granted during that specific review cycle.",
+    "problemStatement": "Find performance reviews where the bonus was higher than the average bonus for that specific review year.",
     "requirements": [
-      "Compare each review's bonus against the average bonus calculated for that same review year.",
-      "Filter for reviews with bonuses strictly above that annual average.",
-      "Display `review_id`, `emp_id`, `review_year`, and `bonus` from Performance_Reviews."
+      "Display `review_id`, `emp_id`, `review_year`, and `bonus`.",
+      "Compare bonus to the average bonus of the same review year."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Use a correlated subquery calculating AVG(bonus) WHERE sub.review_year = pr.review_year.",
+    "hint": "Use a correlated subquery matching sub.review_year = pr.review_year.",
     "expectedSql": "SELECT pr.review_id, pr.emp_id, pr.review_year, pr.bonus FROM Performance_Reviews pr WHERE pr.bonus > (SELECT AVG(sub.bonus) FROM Performance_Reviews sub WHERE sub.review_year = pr.review_year);",
     "explanation": "Correlates review year to compare bonus allocations against the mean of that year's appraisal cohort.",
     "tags": [
@@ -23818,18 +23665,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 285,
-    "title": "Initiatives Budgeted Above Department Project Average",
+    "title": "Projects with Budget Above Department Average",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Project governance evaluates funding priorities within sponsoring divisions. Display project ID, name, department ID, and budget for all projects whose capital budget strictly exceeds the average project budget within their sponsoring department.",
+    "problemStatement": "Find projects whose budget is greater than the average project budget of their assigned department.",
     "requirements": [
-      "Compare each project's budget against the average budget of projects in the same department.",
-      "Filter for projects whose budget exceeds that departmental project average.",
-      "Display `project_id`, `project_name`, `dept_id`, and `budget` from Projects."
+      "Display `project_id`, `project_name`, `dept_id`, and `budget`.",
+      "Compare project budget to the department average using a correlated subquery."
     ],
     "tableName": "Projects",
-    "hint": "Use a correlated subquery calculating AVG(budget) WHERE sub.dept_id = p.dept_id.",
+    "hint": "Correlate on sub.dept_id = p.dept_id.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.dept_id, p.budget FROM Projects p WHERE p.budget > (SELECT AVG(sub.budget) FROM Projects sub WHERE sub.dept_id = p.dept_id);",
     "explanation": "Identifies capital initiatives prioritized above typical department investment levels.",
     "tags": [
@@ -23858,18 +23704,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 286,
-    "title": "Correlated Assigned Project Count per Staff Member",
+    "title": "Project Count per Employee (Select Subquery)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Resource scheduling generates individual utilization summaries. For every employee in Employees, display their employee ID, full name, and the total count of projects they are assigned to, aliasing the count as `total_projects`.",
+    "problemStatement": "Display each employee's ID, name, and total count of assigned projects using a correlated subquery in the SELECT clause.",
     "requirements": [
-      "Query the Employees table.",
-      "Compute total assigned projects for each employee using a correlated subquery in the SELECT clause, aliased as `total_projects`.",
-      "Display `emp_id`, `emp_name`, and `total_projects`."
+      "Display `emp_id`, `emp_name`, and total projects aliased as `total_projects`.",
+      "Calculate project count using a subquery in SELECT."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Include (SELECT COUNT(*) FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id) in SELECT.",
+    "hint": "Use (SELECT COUNT(*) FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id) AS total_projects.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, (SELECT COUNT(*) FROM Employee_Projects ep WHERE ep.emp_id = e.emp_id) AS total_projects FROM Employees e;",
     "explanation": "Correlated scalar subqueries in SELECT append child aggregations to parent entities without requiring GROUP BY.",
     "tags": [
@@ -23991,18 +23836,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 287,
-    "title": "Lifetime Peak Appraisal Rating per Staff Member",
+    "title": "Highest Rating per Employee (Select Subquery)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Talent development tracks personal career best performance ratings. For each employee in Employees, display employee ID, name, and the highest performance rating they have ever received across all appraisal cycles, aliased as `highest_rating`.",
+    "problemStatement": "Display each employee's ID, name, and their highest review rating (or NULL if no reviews) using a subquery.",
     "requirements": [
-      "Query the Employees table.",
-      "Project the maximum rating for each employee using a correlated subquery in SELECT, aliased as `highest_rating`.",
-      "Display `emp_id`, `emp_name`, and `highest_rating`."
+      "Display `emp_id`, `emp_name`, and `highest_rating`.",
+      "Use a correlated subquery in SELECT calculating MAX(rating)."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use (SELECT MAX(rating) FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id) in the projection.",
+    "hint": "Use (SELECT MAX(rating) FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id) AS highest_rating.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, (SELECT MAX(rating) FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id) AS highest_rating FROM Employees e;",
     "explanation": "Embeds each employee's personal appraisal ceiling directly into the workforce roster.",
     "tags": [
@@ -24124,18 +23968,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 288,
-    "title": "Active Initiative Tally per Corporate Division",
+    "title": "Active Project Count per Department (Select Subquery)",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Medium",
-    "problemStatement": "Corporate governance tracks active program deployment by division. For each department in Departments, display department name, office location, and the count of projects currently marked as 'Active' sponsored by that department, aliased as `active_projects`.",
+    "problemStatement": "Display each department's name, location, and the count of its active projects using a correlated subquery in SELECT.",
     "requirements": [
-      "Query the Departments table.",
-      "Count active projects for each department using a correlated subquery in SELECT, aliased as `active_projects`.",
-      "Display `dept_name`, `location`, and `active_projects`."
+      "Display `dept_name`, `location`, and `active_projects`.",
+      "Calculate count of active projects using a correlated subquery."
     ],
     "tableName": "Departments, Projects",
-    "hint": "Use (SELECT COUNT(*) FROM Projects p WHERE p.dept_id = d.dept_id AND p.status = 'Active') in SELECT.",
+    "hint": "Use (SELECT COUNT(*) FROM Projects p WHERE p.dept_id = d.dept_id AND p.status = 'Active') AS active_projects.",
     "expectedSql": "SELECT d.dept_name, d.location, (SELECT COUNT(*) FROM Projects p WHERE p.dept_id = d.dept_id AND p.status = 'Active') AS active_projects FROM Departments d;",
     "explanation": "Calculates live operational capacity for every department through correlated projection.",
     "tags": [
@@ -24197,18 +24040,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 289,
-    "title": "Staff Out-Earning Less Experienced Department Peers",
+    "title": "Employees Earning More Than Less-Experienced Peers",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Compensation analytics evaluates tenure equity. Find all employees who earn strictly more than any colleague in their department who has less experience than them, displaying employee ID, name, department, salary, and experience.",
+    "problemStatement": "Find employees who earn more than all colleagues in the same department who have less experience than them.",
     "requirements": [
-      "For each employee, find the maximum salary among colleagues in the same department with strictly less experience.",
-      "Filter for employees whose salary strictly exceeds that maximum.",
-      "Display `emp_id`, `emp_name`, `department`, `salary`, and `experience`."
+      "Display `emp_id`, `emp_name`, `department`, `salary`, and `experience`.",
+      "Filter for salary > maximum salary of peers in the same department with less experience."
     ],
     "tableName": "Employees",
-    "hint": "Compare e.salary to a correlated subquery computing MAX(salary) for colleagues with less experience.",
+    "hint": "Correlate on department and sub.experience < e.experience.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department, e.salary, e.experience FROM Employees e WHERE e.salary > (SELECT MAX(sub.salary) FROM Employees sub WHERE sub.department = e.department AND sub.experience < e.experience);",
     "explanation": "Enforces tenure-based pay progression by checking that salary exceeds the compensation of all colleagues with lower experience.",
     "tags": [
@@ -24323,18 +24165,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 290,
-    "title": "Appraisals Exceeding Employee Lifetime Average Rating",
+    "title": "Reviews with Rating Above Employee's Lifetime Average",
     "topic": "Subqueries",
     "subtopic": "Correlated Subqueries with Analytical Comparisons",
     "difficulty": "Hard",
-    "problemStatement": "Talent management identifies breakthrough review performances. Retrieve review ID, employee ID, review year, and rating for performance reviews where the achieved rating strictly exceeds that employee's own lifetime average rating.",
+    "problemStatement": "Find performance reviews where the rating received was higher than the employee's own lifetime average rating.",
     "requirements": [
-      "For each review, compute the employee's average rating across all their reviews.",
-      "Filter for evaluations where the rating strictly exceeds that employee's average.",
-      "Display `review_id`, `emp_id`, `review_year`, and `rating` from Performance_Reviews."
+      "Display `review_id`, `emp_id`, `review_year`, and `rating`.",
+      "Compare rating to the employee's own average rating across all reviews."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Compare pr.rating against a correlated subquery computing AVG(rating) for that same employee.",
+    "hint": "Use a correlated subquery matching sub.emp_id = pr.emp_id.",
     "expectedSql": "SELECT pr.review_id, pr.emp_id, pr.review_year, pr.rating FROM Performance_Reviews pr WHERE pr.rating > (SELECT AVG(sub.rating) FROM Performance_Reviews sub WHERE sub.emp_id = pr.emp_id);",
     "explanation": "Highlights breakout individual performances that surpass the employee's typical appraisal baseline.",
     "tags": [
@@ -24369,18 +24210,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 291,
-    "title": "Departmental Pre-Aggregation Filter via Derived Table",
+    "title": "Departments with Average Salary Over 50k (Derived Table)",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Medium",
-    "problemStatement": "Financial reporting uses modular staging queries to summarize departmental metrics. Using a derived table that computes employee count and average salary per department, filter for departments where the average salary strictly exceeds 50,000, displaying department name, employee count (`emp_count`), and average salary (`avg_sal`).",
+    "problemStatement": "Find departments where the average salary exceeds 50,000 using a subquery in the FROM clause.",
     "requirements": [
-      "Aggregate headcount (`emp_count`) and average salary rounded to 2 decimal places (`avg_sal`) by department in a FROM-clause subquery.",
-      "Filter the outer query for `avg_sal > 50000`.",
-      "Display `department`, `emp_count`, and `avg_sal`."
+      "Display `department`, `emp_count`, and `avg_sal`.",
+      "Compute department aggregates in a derived table `dt` and filter in the outer WHERE."
     ],
     "tableName": "Employees",
-    "hint": "Wrap the GROUP BY aggregation in a derived table and filter on the calculated alias in the outer WHERE clause.",
+    "hint": "Select from the derived table where dt.avg_sal > 50000.",
     "expectedSql": "SELECT dt.department, dt.emp_count, dt.avg_sal FROM (SELECT department, COUNT(*) AS emp_count, ROUND(AVG(salary), 2) AS avg_sal FROM Employees GROUP BY department) dt WHERE dt.avg_sal > 50000;",
     "explanation": "Derived tables create inline temporary views that allow filtering on computed column aliases using standard WHERE clauses.",
     "tags": [
@@ -24417,18 +24257,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 292,
-    "title": "Workload Capacity Outliers via Derived Table",
+    "title": "Employees with Over 35 Total Hours (Derived Table)",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance audits cumulative weekly commitments across projects. Using a derived table that aggregates total weekly hours per employee in Employee_Projects, identify all employees whose cumulative weekly hours strictly exceed 35, displaying employee ID and total hours (`total_hours`).",
+    "problemStatement": "Find employees whose total weekly project hours exceed 35 using a subquery in the FROM clause.",
     "requirements": [
-      "Aggregate `SUM(hours_allocated)` aliased as `total_hours` grouped by `emp_id` in a derived table.",
-      "Filter the outer query for `total_hours > 35`.",
-      "Display `emp_id` and `total_hours`."
+      "Display `emp_id` and `total_hours`.",
+      "Calculate sum of hours per employee in a derived table `dt` and filter for `dt.total_hours > 35`."
     ],
     "tableName": "Employee_Projects",
-    "hint": "Query from a derived table aggregating hours by emp_id, filtering for total_hours > 35.",
+    "hint": "Wrap the GROUP BY query in FROM and filter in outer WHERE.",
     "expectedSql": "SELECT dt.emp_id, dt.total_hours FROM (SELECT emp_id, SUM(hours_allocated) AS total_hours FROM Employee_Projects GROUP BY emp_id) dt WHERE dt.total_hours > 35;",
     "explanation": "Encapsulates aggregation inside a derived table, enabling clean post-aggregation filtering.",
     "tags": [
@@ -24465,18 +24304,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 293,
-    "title": "Staff Records Enriched with Departmental Mean Benchmarks",
+    "title": "Join Employees with Department Salary Averages",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Compensation benchmarking compares individual salaries against departmental baselines. Join each employee record with a derived table that pre-calculates the average salary for each department (rounded to 2 decimal places, aliased as `avg_dept_sal`), displaying employee name, department, salary, and departmental average salary.",
+    "problemStatement": "Display each employee's name, department, salary, and their department's average salary by joining with an aggregated subquery.",
     "requirements": [
-      "Calculate average salary rounded to 2 decimal places by department in a derived table aliased as `dept_stats`.",
-      "Join Employees with `dept_stats` on matching department name.",
-      "Display `emp_name`, `department`, `salary`, and `avg_dept_sal`."
+      "Display `emp_name`, `department`, `salary`, and `dept_stats.avg_dept_sal`.",
+      "Join Employees with a derived table calculating department average salary."
     ],
     "tableName": "Employees",
-    "hint": "Join Employees with a derived table (SELECT department, ROUND(AVG(salary), 2) AS avg_dept_sal ... GROUP BY department).",
+    "hint": "INNER JOIN Employees with (SELECT department, ROUND(AVG(salary), 2) AS avg_dept_sal FROM Employees GROUP BY department) dept_stats.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, dept_stats.avg_dept_sal FROM Employees e INNER JOIN (SELECT department, ROUND(AVG(salary), 2) AS avg_dept_sal FROM Employees GROUP BY department) dept_stats ON e.department = dept_stats.department;",
     "explanation": "A standard SQL pattern: joining detail rows with a derived summary table avoids row-multiplication errors.",
     "tags": [
@@ -24619,19 +24457,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 294,
-    "title": "Employee Salary Variance Ranking Relative to Department Mean",
+    "title": "Salary Difference from Department Average",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is ranking employees by their salary difference relative to their department's average. Join employees with a departmental statistics derived table, calculate the variance (employee salary minus department average salary, aliased as `diff_from_dept_avg`), and sort by this difference in descending order.",
+    "problemStatement": "Calculate how much each employee's salary differs from their department average, sorted from highest positive difference to lowest.",
     "requirements": [
-      "Join Employees with a derived table calculating departmental average salary (`avg_sal`).",
-      "Compute `salary - avg_sal`, aliasing the result as `diff_from_dept_avg`.",
-      "Order results by `diff_from_dept_avg` in descending order.",
-      "Display `emp_name`, `department`, `salary`, and `diff_from_dept_avg`."
+      "Display `emp_name`, `department`, `salary`, and `(e.salary - dt.avg_sal) AS diff_from_dept_avg`.",
+      "Join with a department average subquery and order by `diff_from_dept_avg` descending."
     ],
     "tableName": "Employees",
-    "hint": "Join with the department average derived table and apply ORDER BY diff_from_dept_avg DESC.",
+    "hint": "Order by the calculated difference in descending order.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, (e.salary - dt.avg_sal) AS diff_from_dept_avg FROM Employees e INNER JOIN (SELECT department, ROUND(AVG(salary), 2) AS avg_sal FROM Employees GROUP BY department) dt ON e.department = dt.department ORDER BY diff_from_dept_avg DESC;",
     "explanation": "Enables multi-tiered compensation benchmarking across internal corporate departments.",
     "tags": [
@@ -24776,18 +24612,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 295,
-    "title": "High-Disbursement Appraisal Cycles via Derived Table",
+    "title": "Review Years with Over 100k in Bonuses (Derived Table)",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee identifies appraisal years with heavy financial bonus payouts. Using a derived table aggregating review count (`reviews_count`) and total bonuses (`total_bonus`) per review year, filter for review cycles where total bonuses strictly exceeded 100,000, displaying review year, review count, and total bonuses.",
+    "problemStatement": "Find review years where total bonus payouts exceeded 100,000 using a derived table.",
     "requirements": [
-      "Aggregate review count and bonus sum grouped by `review_year` in a derived table.",
-      "Filter the outer query for `total_bonus > 100000`.",
-      "Display `review_year`, `reviews_count`, and `total_bonus`."
+      "Display `review_year`, `reviews_count`, and `total_bonus`.",
+      "Compute annual aggregates in derived table `yt` and filter for `yt.total_bonus > 100000`."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Query from an aggregated review year derived table with WHERE total_bonus > 100000.",
+    "hint": "Filter the aggregated derived table in the outer query.",
     "expectedSql": "SELECT yt.review_year, yt.reviews_count, yt.total_bonus FROM (SELECT review_year, COUNT(*) AS reviews_count, SUM(bonus) AS total_bonus FROM Performance_Reviews GROUP BY review_year) yt WHERE yt.total_bonus > 100000;",
     "explanation": "Transforms annual performance aggregations into an inline table to audit mega-payout years.",
     "tags": [
@@ -24814,18 +24649,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 296,
-    "title": "Workforce in Highest-Average Compensation Department",
+    "title": "Employees in the Highest-Paying Department",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Executive remuneration identifies personnel working within the single best-compensated department. Find employee ID, name, department, and salary for all employees who belong to the department with the highest average salary in the company.",
+    "problemStatement": "Find all employees who work in the department that has the highest average salary.",
     "requirements": [
-      "Identify the single department with the highest average employee salary using an ordered and limited subquery.",
-      "Filter Employees for staff working in that department.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter where department equals the top department ordered by average salary."
     ],
     "tableName": "Employees",
-    "hint": "Filter department equal to (SELECT department FROM Employees GROUP BY department ORDER BY AVG(salary) DESC LIMIT 1).",
+    "hint": "Use a subquery grouping by department, ordered by AVG(salary) DESC LIMIT 1.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE department = (SELECT department FROM Employees GROUP BY department ORDER BY AVG(salary) DESC LIMIT 1);",
     "explanation": "Nest an aggregate group subquery inside the WHERE predicate to target the top-paying organizational division.",
     "tags": [
@@ -24872,18 +24706,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 297,
-    "title": "Initiatives in Largest Operating Budget Division",
+    "title": "Projects in the Highest-Budget Department",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Strategic planning tracks initiatives sponsored by the company's highest-funded division. Display project ID, name, and budget for all initiatives belonging to the department with the largest operating budget in the Departments table.",
+    "problemStatement": "Find all projects that belong to the department with the largest budget.",
     "requirements": [
-      "Determine the department ID of the department with the maximum budget using a subquery.",
-      "Filter Projects for initiatives belonging to that department ID.",
-      "Display `project_id`, `project_name`, and `budget` from Projects."
+      "Display `project_id`, `project_name`, and `budget`.",
+      "Filter where dept_id equals the department with the highest budget."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Filter dept_id equal to (SELECT dept_id FROM Departments ORDER BY budget DESC LIMIT 1).",
+    "hint": "Use a subquery selecting dept_id from Departments ORDER BY budget DESC LIMIT 1.",
     "expectedSql": "SELECT project_id, project_name, budget FROM Projects WHERE dept_id = (SELECT dept_id FROM Departments ORDER BY budget DESC LIMIT 1);",
     "explanation": "Links projects to the single highest-funded organizational unit using a nested subquery.",
     "tags": [
@@ -24910,18 +24743,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 298,
-    "title": "Personnel Deployed to Flagship Active Initiative",
+    "title": "Employees Assigned to the Highest-Budget Active Project",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Resource governance tracks staff assigned to the single highest-funded active project. Display employee ID, name, and department for all employees who are assigned to the active initiative with the largest capital budget.",
+    "problemStatement": "Find all employees who are working on the active project with the largest budget.",
     "requirements": [
-      "Determine the project ID of the highest-budget project marked as 'Active'.",
-      "Identify employee IDs assigned to that project in Employee_Projects.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Filter for employees assigned to the top active project by budget."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Use nested subqueries: finding the max-budget active project ID, finding its assigned staff, and querying Employees.",
+    "hint": "Nest a subquery finding the top active project ID inside an IN subquery on Employee_Projects.",
     "expectedSql": "SELECT emp_id, emp_name, department FROM Employees WHERE emp_id IN (SELECT ep.emp_id FROM Employee_Projects ep WHERE ep.project_id = (SELECT project_id FROM Projects WHERE status = 'Active' ORDER BY budget DESC LIMIT 1));",
     "explanation": "Multi-level nested subquery passes from active project budget evaluation through the staffing junction table to the workforce roster.",
     "tags": [
@@ -24968,19 +24800,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 299,
-    "title": "Employee Share of Departmental Payroll",
+    "title": "Employee Salary as Percentage of Department Payroll",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "Workforce cost analysis computes each employee's salary as a proportion of their division's wage expenditure. Join employees with a derived table calculating total departmental payroll, displaying employee name, department, monthly salary, and the percentage of department payroll they represent (rounded to 2 decimal places, aliased as `pct_of_dept_payroll`).",
+    "problemStatement": "Calculate what percentage of their department's total payroll each employee receives (rounded to 2 decimal places).",
     "requirements": [
-      "Calculate cumulative payroll by department in a derived table (`dp`).",
-      "Join Employees with `dp` on matching department.",
-      "Calculate percentage share as `ROUND((e.salary * 100.0) / dp.total_dept_payroll, 2)` aliased as `pct_of_dept_payroll`.",
-      "Display `emp_name`, `department`, `salary`, and `pct_of_dept_payroll`."
+      "Display `emp_name`, `department`, `salary`, and `ROUND((e.salary * 100.0) / dp.total_dept_payroll, 2) AS pct_of_dept_payroll`.",
+      "Join Employees with a derived table calculating total payroll per department."
     ],
     "tableName": "Employees",
-    "hint": "Join with a derived table computing departmental payroll and compute the percentage ratio.",
+    "hint": "Multiply salary by 100.0 and divide by total_dept_payroll.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, ROUND((e.salary * 100.0) / dp.total_dept_payroll, 2) AS pct_of_dept_payroll FROM Employees e INNER JOIN (SELECT department, SUM(salary) AS total_dept_payroll FROM Employees GROUP BY department) dp ON e.department = dp.department;",
     "explanation": "Computes proportional compensation share within each business unit.",
     "tags": [
@@ -25124,18 +24954,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 300,
-    "title": "Highest Lifetime Incentive Recipient Recognition",
+    "title": "Employee with Highest Lifetime Bonus",
     "topic": "Subqueries",
     "subtopic": "Derived Tables & Subqueries in the FROM Clause",
     "difficulty": "Hard",
-    "problemStatement": "The executive compensation committee is recognizing the employee who has accumulated the largest total performance bonus payout in company history. Find the employee ID, name, department, and salary for the individual who has earned the highest cumulative bonus sum across all performance reviews.",
+    "problemStatement": "Find the employee details for the person who has received the highest cumulative bonus in the company.",
     "requirements": [
-      "Determine the employee ID with the highest cumulative bonus sum in Performance_Reviews using a grouped, ordered, and limited subquery.",
-      "Filter Employees for that employee ID.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter for the employee whose ID matches the top bonus earner from Performance_Reviews."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Filter emp_id equal to (SELECT emp_id FROM Performance_Reviews GROUP BY emp_id ORDER BY SUM(bonus) DESC LIMIT 1).",
+    "hint": "Use a subquery grouping Performance_Reviews by emp_id ORDER BY SUM(bonus) DESC LIMIT 1.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE emp_id = (SELECT emp_id FROM Performance_Reviews GROUP BY emp_id ORDER BY SUM(bonus) DESC LIMIT 1);",
     "explanation": "Capstone subquery problem: ranks aggregate bonus earnings across historical appraisals to isolate and return the top-performing corporate employee.",
     "tags": [
@@ -25166,17 +24995,17 @@ const BASE_QUESTIONS = [
   {
     "id": 301,
     "interviewQuestionNumber": 1,
-    "title": "Q1. High-Compensation Workforce Threshold",
+    "title": "Filter Employees Earning Over 50k",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 1 — Filtering and Conditions",
     "difficulty": "Beginner",
-    "problemStatement": "The executive compensation committee is reviewing senior payroll across all departments. Identify all employees whose monthly salary strictly exceeds 50,000, displaying their identification and department details.",
+    "problemStatement": "Find all employees who earn more than 50,000.",
     "requirements": [
-      "Select `emp_id`, `emp_name`, `department`, and `salary` in that exact order.",
-      "Filter for staff members earning strictly more than 50,000."
+      "Select `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter for `salary > 50000`."
     ],
     "tableName": "Employees",
-    "hint": "Use an inequality comparison on the salary attribute.",
+    "hint": "Use a simple WHERE condition on salary.",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE salary > 50000;",
     "explanation": "Standard numeric comparison using the > comparison operator filters records whose compensation exceeds the threshold.",
     "tags": [
@@ -25261,17 +25090,17 @@ const BASE_QUESTIONS = [
   {
     "id": 302,
     "interviewQuestionNumber": 2,
-    "title": "Q2. Mid-Bracket Compensation Filter",
+    "title": "Employees Earning Between 30,000 and 60,000",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 1 — Filtering and Conditions",
     "difficulty": "Beginner",
-    "problemStatement": "Human Resources is auditing middle-tier salary bands for standard pay parity. Retrieve the name and monthly salary for all employees whose salary falls within the range of 30,000 to 60,000, inclusive of both boundaries.",
+    "problemStatement": "Find employees whose salary is between 30,000 and 60,000 (inclusive).",
     "requirements": [
-      "Select `emp_name` and `salary` from Employees.",
-      "Filter for compensation between 30,000 and 60,000 inclusive."
+      "Select `emp_name` and `salary`.",
+      "Filter for salary between 30,000 and 60,000."
     ],
     "tableName": "Employees",
-    "hint": "Use an inclusive range operator to test the salary value.",
+    "hint": "Use the BETWEEN operator.",
     "expectedSql": "SELECT emp_name, salary FROM Employees WHERE salary BETWEEN 30000 AND 60000;",
     "explanation": "BETWEEN is inclusive in SQL, returning all records where salary >= 30000 AND salary <= 60000.",
     "tags": [
@@ -25338,17 +25167,17 @@ const BASE_QUESTIONS = [
   {
     "id": 303,
     "interviewQuestionNumber": 3,
-    "title": "Q3. Senior Technical Division Staff",
+    "title": "IT Employees Earning Over 50,000",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 1 — Filtering and Conditions",
     "difficulty": "Easy",
-    "problemStatement": "The Chief Technology Officer requires a complete profile of senior earners within the engineering organization. Retrieve all available columns for employees who belong to the IT department and earn strictly more than 50,000.",
+    "problemStatement": "Find all employees in the 'IT' department who earn more than 50,000. Display all columns.",
     "requirements": [
-      "Select all columns from the Employees table.",
-      "Filter for staff assigned to the 'IT' department whose salary strictly exceeds 50,000."
+      "Select all columns from Employees.",
+      "Filter for `department = 'IT'` and `salary > 50000`."
     ],
     "tableName": "Employees",
-    "hint": "Combine the department filter and salary condition using a logical AND operator.",
+    "hint": "Combine the two conditions with AND.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'IT' AND salary > 50000;",
     "explanation": "The AND operator requires both predicates to evaluate to TRUE for a row to be included.",
     "tags": [
@@ -25407,18 +25236,18 @@ const BASE_QUESTIONS = [
   {
     "id": 304,
     "interviewQuestionNumber": 4,
-    "title": "Q4. Southern Regional Hub Experienced Talent",
+    "title": "Experienced Employees in Hyderabad or Chennai",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 1 — Filtering and Conditions",
     "difficulty": "Easy",
-    "problemStatement": "Regional management is identifying experienced personnel stationed in southern metropolitan branch offices. Retrieve all columns for employees who are based in either Hyderabad or Chennai and possess at least 3 years of professional experience.",
+    "problemStatement": "Find employees located in Hyderabad or Chennai with at least 3 years of experience. Display all columns.",
     "requirements": [
-      "Select all columns from the Employees table.",
-      "Filter for employees based in 'Hyderabad' or 'Chennai'.",
-      "Ensure the employee has at least 3 years of experience (`experience >= 3`)."
+      "Select all columns from Employees.",
+      "City must be 'Hyderabad' or 'Chennai'.",
+      "Experience must be 3 or greater."
     ],
     "tableName": "Employees",
-    "hint": "Combine a location set check with a minimum experience condition using AND.",
+    "hint": "Use IN ('Hyderabad', 'Chennai') AND experience >= 3.",
     "expectedSql": "SELECT * FROM Employees WHERE city IN ('Hyderabad', 'Chennai') AND experience >= 3;",
     "explanation": "Combining the IN set operator with AND allows concise expression of multiple allowed city locations alongside an experience threshold.",
     "tags": [
@@ -25537,17 +25366,17 @@ const BASE_QUESTIONS = [
   {
     "id": 305,
     "interviewQuestionNumber": 5,
-    "title": "Q5. Name Pattern Identification (Prefix or Suffix A)",
+    "title": "Employees Starting or Ending with 'A'",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 1 — Filtering and Conditions",
     "difficulty": "Easy",
-    "problemStatement": "Identity governance is verifying badge transliteration conventions for names starting or ending with the letter 'A'. Display employee ID and full name for all staff whose name starts with capital 'A' OR ends with 'a' (case-insensitive).",
+    "problemStatement": "Find all employees whose name starts with 'A' or ends with 'a'.",
     "requirements": [
-      "Select `emp_id` and `emp_name` from Employees.",
-      "Filter for names starting with 'A' or ending with 'a'."
+      "Select `emp_id` and `emp_name`.",
+      "Filter for name starting with 'A' or ending with 'a'."
     ],
     "tableName": "Employees",
-    "hint": "Use pattern matching with wildcards combined with an OR operator.",
+    "hint": "Use LIKE 'A%' OR LIKE '%a'.",
     "expectedSql": "SELECT emp_id, emp_name FROM Employees WHERE emp_name LIKE 'A%' OR emp_name LIKE '%a';",
     "explanation": "The % wildcard represents zero, one, or multiple characters. 'A%' checks prefix while '%a' checks suffix.",
     "tags": [
@@ -25610,17 +25439,16 @@ const BASE_QUESTIONS = [
   {
     "id": 306,
     "interviewQuestionNumber": 6,
-    "title": "Q6. Total Workforce Census",
+    "title": "Total Number of Employees",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Beginner",
-    "problemStatement": "The board of directors requests an official headcount audit of all active staff members across the enterprise. Calculate the total number of employees currently recorded in the system.",
+    "problemStatement": "Find the total headcount of employees in the company.",
     "requirements": [
-      "Calculate the total record count from the Employees table.",
-      "Alias the aggregated count as `total_employees`."
+      "Count all rows aliased as `total_employees`."
     ],
     "tableName": "Employees",
-    "hint": "Apply the standard counting aggregate function across all records.",
+    "hint": "Use COUNT(*) from Employees.",
     "expectedSql": "SELECT COUNT(*) AS total_employees FROM Employees;",
     "explanation": "COUNT(*) tallies the total number of rows matching the query, including rows with NULL values.",
     "tags": [
@@ -25644,19 +25472,18 @@ const BASE_QUESTIONS = [
   {
     "id": 307,
     "interviewQuestionNumber": 7,
-    "title": "Q7. Departmental Average Salary Ranking",
+    "title": "Average Salary by Department Ranked",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Easy",
-    "problemStatement": "Corporate treasury is benchmarking departmental compensation across business units. Display each department name along with the average employee salary, ordered from the highest-paying department to the lowest.",
+    "problemStatement": "Calculate the average salary for each department, ordered from highest to lowest.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate the average salary aliased as `avg_salary`.",
-      "Sort the results by average salary in descending order.",
-      "Display `department` and `avg_salary`."
+      "Display `department` and `AVG(salary) AS avg_salary`.",
+      "Group by `department`.",
+      "Order by `avg_salary` descending."
     ],
     "tableName": "Employees",
-    "hint": "Group by department, calculate AVG(salary), and apply ORDER BY avg_salary DESC.",
+    "hint": "Use GROUP BY department and ORDER BY avg_salary DESC.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department ORDER BY avg_salary DESC;",
     "explanation": "GROUP BY partitions rows by department, AVG computes the mean salary per department, and ORDER BY DESC sorts highest to lowest.",
     "tags": [
@@ -25699,19 +25526,18 @@ const BASE_QUESTIONS = [
   {
     "id": 308,
     "interviewQuestionNumber": 8,
-    "title": "Q8. Major Operational Departments by Headcount",
+    "title": "Find Departments with More Than 3 Staff",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Easy",
-    "problemStatement": "Operations management wants to isolate major operational divisions that maintain substantial staffing. Display the department name and total employee count for all departments that employ strictly more than 3 staff members.",
+    "problemStatement": "Find departments that have strictly more than 3 employees.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate employee count aliased as `emp_count`.",
-      "Filter the aggregated groups for headcounts strictly greater than 3.",
-      "Display `department` and `emp_count`."
+      "Display `department` and `COUNT(*) AS emp_count`.",
+      "Group by `department`.",
+      "Filter groups having `COUNT(*) > 3`."
     ],
     "tableName": "Employees",
-    "hint": "Use a post-aggregation filter to restrict groups where COUNT(*) > 3.",
+    "hint": "Use GROUP BY with HAVING COUNT(*) > 3.",
     "expectedSql": "SELECT department, COUNT(*) AS emp_count FROM Employees GROUP BY department HAVING COUNT(*) > 3;",
     "explanation": "HAVING filters groups post-aggregation, unlike WHERE which filters individual rows prior to grouping.",
     "tags": [
@@ -25750,19 +25576,18 @@ const BASE_QUESTIONS = [
   {
     "id": 309,
     "interviewQuestionNumber": 9,
-    "title": "Q9. Enterprise Salary Extremes and Disparity",
+    "title": "Company Salary Extremes and Difference",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Easy",
-    "problemStatement": "The executive compensation committee is analyzing the full wage spread across the enterprise. Produce a single-row summary showing the highest salary, lowest salary, and the absolute difference between them.",
+    "problemStatement": "Find the highest salary, lowest salary, and the difference between them across the company.",
     "requirements": [
-      "Find the maximum salary aliased as `max_salary`.",
-      "Find the minimum salary aliased as `min_salary`.",
-      "Calculate the difference (maximum minus minimum salary) aliased as `salary_difference`.",
-      "Display all three metrics from the Employees table."
+      "Calculate `MAX(salary) AS max_salary`.",
+      "Calculate `MIN(salary) AS min_salary`.",
+      "Calculate `MAX(salary) - MIN(salary) AS salary_difference`."
     ],
     "tableName": "Employees",
-    "hint": "Apply MAX, MIN, and MAX(salary) - MIN(salary) in a single SELECT projection.",
+    "hint": "Use MAX(salary) and MIN(salary) in your SELECT list.",
     "expectedSql": "SELECT MAX(salary) AS max_salary, MIN(salary) AS min_salary, MAX(salary) - MIN(salary) AS salary_difference FROM Employees;",
     "explanation": "Aggregate functions can be combined in mathematical arithmetic expressions to compute statistical ranges.",
     "tags": [
@@ -25791,18 +25616,17 @@ const BASE_QUESTIONS = [
   {
     "id": 310,
     "interviewQuestionNumber": 10,
-    "title": "Q10. Departmental Payroll Expenditure Summary",
+    "title": "Total Payroll Spend by Department",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Easy",
-    "problemStatement": "Finance leadership requires monthly wage expenditure breakdowns across business units. For each department, display the department name and total cumulative monthly salary expense paid to its employees.",
+    "problemStatement": "Calculate the total monthly salary spend for each department.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate the sum of all salaries in each department, aliased as `total_salary_expense`.",
-      "Display `department` and `total_salary_expense`."
+      "Display `department` and `SUM(salary) AS total_salary_expense`.",
+      "Group by `department`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and apply the sum aggregate function to salary.",
+    "hint": "Use SUM(salary) grouped by department.",
     "expectedSql": "SELECT department, SUM(salary) AS total_salary_expense FROM Employees GROUP BY department;",
     "explanation": "SUM(salary) aggregates total compensation outlay within each partitioned department group.",
     "tags": [
@@ -25845,19 +25669,18 @@ const BASE_QUESTIONS = [
   {
     "id": 311,
     "interviewQuestionNumber": 11,
-    "title": "Q11. High-Compensating Regional Hubs",
+    "title": "Cities with Average Salary Over 45,000",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is identifying branch cities where employee compensation runs above standard levels. Display the city name and average monthly salary for all cities where the average salary strictly exceeds 45,000.",
+    "problemStatement": "Find cities where the average employee salary is greater than 45,000.",
     "requirements": [
-      "Group records by `city`.",
-      "Calculate average salary aliased as `avg_salary`.",
-      "Filter groups where average salary is strictly greater than 45,000.",
-      "Display `city` and `avg_salary`."
+      "Display `city` and `AVG(salary) AS avg_salary`.",
+      "Group by `city`.",
+      "Filter groups having `AVG(salary) > 45000`."
     ],
     "tableName": "Employees",
-    "hint": "Group by city and use a HAVING clause checking AVG(salary) > 45000.",
+    "hint": "Use GROUP BY city HAVING AVG(salary) > 45000.",
     "expectedSql": "SELECT city, AVG(salary) AS avg_salary FROM Employees GROUP BY city HAVING AVG(salary) > 45000;",
     "explanation": "The HAVING clause applies group-level filters on the calculated mean salary per city.",
     "tags": [
@@ -25892,20 +25715,17 @@ const BASE_QUESTIONS = [
   {
     "id": 312,
     "interviewQuestionNumber": 12,
-    "title": "Q12. Departmental Comprehensive Salary Statistics",
+    "title": "Department Salary Statistics",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 2 — Aggregates and Grouping",
     "difficulty": "Medium",
-    "problemStatement": "Executive management is reviewing complete compensation metrics by division. For each department, display the department name, total headcount, average salary, highest salary, and lowest salary.",
+    "problemStatement": "For each department, calculate employee count, average salary, maximum salary, and minimum salary.",
     "requirements": [
-      "Group records by `department`.",
-      "Calculate employee count aliased as `employee_count`.",
-      "Calculate average salary aliased as `avg_salary`.",
-      "Find maximum salary aliased as `max_salary` and minimum salary aliased as `min_salary`.",
-      "Display `department`, `employee_count`, `avg_salary`, `max_salary`, and `min_salary`."
+      "Display `department`, `employee_count`, `avg_salary`, `max_salary`, and `min_salary`.",
+      "Group by `department`."
     ],
     "tableName": "Employees",
-    "hint": "Group by department and calculate COUNT, AVG, MAX, and MIN across the salary column.",
+    "hint": "Use COUNT, AVG, MAX, and MIN grouped by department.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary, MAX(salary) AS max_salary, MIN(salary) AS min_salary FROM Employees GROUP BY department;",
     "explanation": "Multi-aggregate grouping statements provide a complete statistical profile of departmental compensation.",
     "tags": [
@@ -25966,17 +25786,17 @@ const BASE_QUESTIONS = [
   {
     "id": 313,
     "interviewQuestionNumber": 13,
-    "title": "Q13. Staff Profile with Department Headquarters",
+    "title": "Employee Salary and Department Location",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Easy",
-    "problemStatement": "Facilities administration is cross-referencing staff members with official departmental locations. Display employee name, salary, department name, and department office location for all employees whose department is registered.",
+    "problemStatement": "Display employee name, salary, department name, and department location by joining Employees and Departments.",
     "requirements": [
-      "Join Employees and Departments based on matching department name.",
-      "Display `emp_name`, `salary`, `dept_name`, and `location`."
+      "Display `emp_name`, `salary`, `dept_name`, and `location`.",
+      "Join Employees with Departments on department name."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Connect Employees and Departments on e.department = d.dept_name.",
+    "hint": "INNER JOIN on e.department = d.dept_name.",
     "expectedSql": "SELECT e.emp_name, e.salary, d.dept_name, d.location FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name;",
     "explanation": "INNER JOIN matches rows having equal department names across both tables, enriching employee data with departmental headquarters locations.",
     "tags": [
@@ -26121,18 +25941,17 @@ const BASE_QUESTIONS = [
   {
     "id": 314,
     "interviewQuestionNumber": 14,
-    "title": "Q14. Unassigned Staff Identification",
+    "title": "Employees with No Assigned Projects",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Resource management is identifying employees who are not currently deployed to any project. Find employee ID, full name, and department for all employees who have zero project assignment records.",
+    "problemStatement": "Find all employees who are not assigned to any projects.",
     "requirements": [
-      "Combine Employees with Employee_Projects ensuring all employees are checked.",
-      "Filter for employees with no corresponding assignment record.",
-      "Display `emp_id`, `emp_name`, and `department`."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "LEFT JOIN Employees with Employee_Projects and filter for `ep.project_id IS NULL`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use an outer join from Employees to Employee_Projects and filter where project_id is null.",
+    "hint": "Use a LEFT JOIN anti-join.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.project_id IS NULL;",
     "explanation": "A LEFT JOIN with an IS NULL predicate on the joined table's foreign key detects non-participating (unassigned) entities.",
     "tags": [
@@ -26171,18 +25990,17 @@ const BASE_QUESTIONS = [
   {
     "id": 315,
     "interviewQuestionNumber": 15,
-    "title": "Q15. Unstaffed Project Identification",
+    "title": "Projects with No Team Members",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "The PMO is identifying projects that are currently operating without any assigned team members. Display the project ID, project name, and status for all initiatives in Projects that have zero assignments.",
+    "problemStatement": "Find all projects that do not have any employees assigned to them.",
     "requirements": [
-      "Combine Projects with Employee_Projects ensuring all projects are inspected.",
-      "Filter for projects that have no corresponding staff assignments.",
-      "Display `project_id`, `project_name`, and `status`."
+      "Display `project_id`, `project_name`, and `status`.",
+      "LEFT JOIN Projects with Employee_Projects and filter for `ep.emp_id IS NULL`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Use an outer join from Projects to Employee_Projects and filter where emp_id is null.",
+    "hint": "Use a LEFT JOIN anti-join on ep.emp_id IS NULL.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.status FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id WHERE ep.emp_id IS NULL;",
     "explanation": "Using LEFT JOIN and filtering for ep.emp_id IS NULL finds projects that have zero staffing allocations.",
     "tags": [
@@ -26216,20 +26034,18 @@ const BASE_QUESTIONS = [
   {
     "id": 316,
     "interviewQuestionNumber": 16,
-    "title": "Q16. Multi-Project Contributor Identification",
+    "title": "Employees Assigned to Multiple Projects",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance is tracking employees who juggle multiple project assignments concurrently. Find all employees who are assigned to strictly more than 1 distinct project, displaying their name and total distinct project count.",
+    "problemStatement": "Find employees who are assigned to more than 1 distinct project.",
     "requirements": [
-      "Join Employees with Employee_Projects on employee ID.",
-      "Group by employee ID and employee name.",
-      "Count distinct assigned projects aliased as `project_count`.",
-      "Filter groups where distinct project count is strictly greater than 1.",
-      "Display `emp_name` and `project_count`."
+      "Display `emp_name` and `project_count`.",
+      "Join Employees with Employee_Projects.",
+      "Group by employee and filter with `HAVING COUNT(DISTINCT ep.project_id) > 1`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Group by employee and apply HAVING COUNT(DISTINCT ep.project_id) > 1.",
+    "hint": "Group by employee and filter count with HAVING > 1.",
     "expectedSql": "SELECT e.emp_name, COUNT(DISTINCT ep.project_id) AS project_count FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name HAVING COUNT(DISTINCT ep.project_id) > 1;",
     "explanation": "Counting distinct project_ids after grouping by employee identifies multi-project contributors.",
     "tags": [
@@ -26264,17 +26080,17 @@ const BASE_QUESTIONS = [
   {
     "id": 317,
     "interviewQuestionNumber": 17,
-    "title": "Q17. Staff Initiative Assignment Profile",
+    "title": "Employee Project Names, Roles, and Hours",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Project operations requires a detailed roster of team assignments. Retrieve the employee name, project name, assigned role, and weekly allocated hours for all assigned personnel.",
+    "problemStatement": "Display employee name, project name, assigned role, and weekly hours across all project assignments.",
     "requirements": [
-      "Join Employees, Employee_Projects (on emp_id), and Projects (on project_id).",
-      "Display `emp_name`, `project_name`, `assigned_role`, and `hours_allocated`."
+      "Display `emp_name`, `project_name`, `assigned_role`, and `hours_allocated`.",
+      "Join Employees, Employee_Projects, and Projects."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Connect Employees, Employee_Projects, and Projects using their foreign key relationships.",
+    "hint": "Join the three tables using INNER JOIN.",
     "expectedSql": "SELECT e.emp_name, p.project_name, ep.assigned_role, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id;",
     "explanation": "Joining junction table Employee_Projects with both parent entities links individual staff to their concrete deliverables and allocated hours.",
     "tags": [
@@ -26419,19 +26235,18 @@ const BASE_QUESTIONS = [
   {
     "id": 318,
     "interviewQuestionNumber": 18,
-    "title": "Q18. Department Staffing Census Including Unstaffed Units",
+    "title": "Employee Count per Department (Including Zero)",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Organization design is auditing employee placement across all registered divisions. Display the department name and total employee count for every department in Departments, ensuring departments with zero staff display a count of 0.",
+    "problemStatement": "Count the number of employees in each department, showing 0 for departments with no staff.",
     "requirements": [
-      "Combine Departments and Employees preserving all registered departments.",
-      "Group records by department name.",
-      "Count assigned employee records aliased as `employee_count`.",
-      "Display `dept_name` and `employee_count`."
+      "Display `dept_name` and `employee_count`.",
+      "LEFT JOIN Departments with Employees.",
+      "Group by `dept_name`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Use a left outer join from Departments to Employees and apply COUNT(e.emp_id).",
+    "hint": "Use COUNT(e.emp_id) with LEFT JOIN.",
     "expectedSql": "SELECT d.dept_name, COUNT(e.emp_id) AS employee_count FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name;",
     "explanation": "COUNT(column) ignores NULLs produced by the LEFT JOIN for unmatched departments, returning an accurate 0.",
     "tags": [
@@ -26486,18 +26301,17 @@ const BASE_QUESTIONS = [
   {
     "id": 319,
     "interviewQuestionNumber": 19,
-    "title": "Q19. Intra-Departmental Colleague Pairings",
+    "title": "Unique Pairs of Department Colleagues",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Team building coordinators are mapping colleague pairings within business units. Find all unique pairs of employees who work in the same department, displaying employee 1 name as `employee_1`, employee 2 name as `employee_2`, and the department name, without duplicate reverse pairings.",
+    "problemStatement": "Find all unique pairs of employees who work in the same department.",
     "requirements": [
-      "Join Employees with itself on matching department.",
-      "Enforce `e1.emp_id < e2.emp_id` to eliminate mirror pairs and self-pairings.",
-      "Display `employee_1`, `employee_2`, and `department`."
+      "Display `employee_1`, `employee_2`, and `department`.",
+      "Self-join Employees where department matches and `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Use a self-join on department with e1.emp_id < e2.emp_id.",
+    "hint": "Use a self-join with e1.emp_id < e2.emp_id.",
     "expectedSql": "SELECT e1.emp_name AS employee_1, e2.emp_name AS employee_2, e1.department FROM Employees e1 INNER JOIN Employees e2 ON e1.department = e2.department AND e1.emp_id < e2.emp_id;",
     "explanation": "Self-joining with a strict inequality condition (e1.emp_id < e2.emp_id) pairs each unique unordered combination exactly once.",
     "tags": [
@@ -26676,18 +26490,18 @@ const BASE_QUESTIONS = [
   {
     "id": 320,
     "interviewQuestionNumber": 20,
-    "title": "Q20. Staff Out-Earning Department Leadership",
+    "title": "Employees Earning More Than Their Department Head",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Hard",
-    "problemStatement": "Compensation governance is identifying anomalous cases where an individual employee out-earns their department head. Display employee name, department, employee salary, department head name (`dept_head_name`), and department head salary (`dept_head_salary`) for employees who earn strictly more than their department head.",
+    "problemStatement": "Find employees who earn more than their department head. Display employee details and their department head's details.",
     "requirements": [
-      "Join Employees with Departments (on department name), and join Departments with Employees again to match the department head (`dept_head` to `emp_name`).",
-      "Filter for cases where the employee's salary strictly exceeds the department head's salary.",
-      "Display `emp_name`, `department`, `salary`, `dept_head_name`, and `dept_head_salary`."
+      "Display `emp_name`, `department`, `salary`, `dept_head_name`, and `dept_head_salary`.",
+      "Join Employees to Departments, and Departments to Employees matching dept_head.",
+      "Filter for `e.salary > mgr.salary`."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Join Employees with Departments and join a second instance of Employees representing the department head.",
+    "hint": "Join Employees with Departments, then join again to Employees on d.dept_head = mgr.emp_name.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, mgr.emp_name AS dept_head_name, mgr.salary AS dept_head_salary FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employees mgr ON d.dept_head = mgr.emp_name WHERE e.salary > mgr.salary;",
     "explanation": "Joining Employees twice—first as regular employees and second as department managers—allows direct comparison of hierarchical compensation.",
     "tags": [
@@ -26720,19 +26534,17 @@ const BASE_QUESTIONS = [
   {
     "id": 321,
     "interviewQuestionNumber": 21,
-    "title": "Q21. Cross-Departmental Project Collaborators",
+    "title": "Cross-Department Teammates on the Same Project",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Hard",
-    "problemStatement": "The PMO is tracking cross-functional collaboration on initiatives. Find pairs of employees who collaborate on the same project but belong to different departments, displaying the project ID, employee 1 name (`employee_1`), department 1 (`dept_1`), employee 2 name (`employee_2`), and department 2 (`dept_2`), avoiding duplicate reverse pairs.",
+    "problemStatement": "Find pairs of teammates on the same project who come from different departments.",
     "requirements": [
-      "Join Employee_Projects with itself on matching project ID where `ep1.emp_id < ep2.emp_id`.",
-      "Join each assignment with Employees to retrieve employee names and departments.",
-      "Filter for pairs where `e1.department <> e2.department`.",
-      "Display `project_id`, `employee_1`, `dept_1`, `employee_2`, and `dept_2`."
+      "Display `project_id`, `employee_1`, `dept_1`, `employee_2`, and `dept_2`.",
+      "Join project assignments where `e1.department <> e2.department` and `ep1.emp_id < ep2.emp_id`."
     ],
     "tableName": "Employee_Projects, Employees",
-    "hint": "Self-join Employee_Projects on project_id and join with Employees to compare departments.",
+    "hint": "Self-join assignments on project_id and join both employee profiles.",
     "expectedSql": "SELECT ep1.project_id, e1.emp_name AS employee_1, e1.department AS dept_1, e2.emp_name AS employee_2, e2.department AS dept_2 FROM Employee_Projects ep1 INNER JOIN Employee_Projects ep2 ON ep1.project_id = ep2.project_id AND ep1.emp_id < ep2.emp_id INNER JOIN Employees e1 ON ep1.emp_id = e1.emp_id INNER JOIN Employees e2 ON ep2.emp_id = e2.emp_id WHERE e1.department <> e2.department;",
     "explanation": "Joining the assignment table with itself and validating cross-department membership discovers inter-disciplinary project pairings.",
     "tags": [
@@ -26807,19 +26619,19 @@ const BASE_QUESTIONS = [
   {
     "id": 322,
     "interviewQuestionNumber": 22,
-    "title": "Q22. Project Cumulative Workload Hours",
+    "title": "Total Project Hours with Zero Fallback",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Medium",
-    "problemStatement": "Resource governance requires an overview of weekly hours committed to every project. Display the project name and total allocated weekly hours for all projects in Projects, ensuring initiatives with zero assignments display 0 total hours.",
+    "problemStatement": "Calculate total weekly hours allocated to each project, displaying 0 for unstaffed projects.",
     "requirements": [
-      "Combine Projects and Employee_Projects preserving all projects.",
-      "Group records by project ID and project name.",
-      "Sum weekly hours substituting 0 for nulls, aliased as `total_hours`.",
-      "Display `project_name` and `total_hours`."
+      "Display `project_name` and total hours aliased as `total_hours`.",
+      "LEFT JOIN Projects with Employee_Projects.",
+      "Use COALESCE to display 0 when sum is NULL.",
+      "Group by `project_id, project_name`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Left join Projects to Employee_Projects and apply COALESCE(SUM(hours_allocated), 0).",
+    "hint": "Use COALESCE(SUM(ep.hours_allocated), 0) grouped by project.",
     "expectedSql": "SELECT p.project_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name;",
     "explanation": "COALESCE converts NULL sums into 0 for projects that currently have no logged assignments.",
     "tags": [
@@ -26874,18 +26686,18 @@ const BASE_QUESTIONS = [
   {
     "id": 323,
     "interviewQuestionNumber": 23,
-    "title": "Q23. Perfect Performance Appraisal Reviewees",
+    "title": "Employees with Rating 5 Reviews",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Easy",
-    "problemStatement": "Executive leadership is recognizing employees who achieved top ratings. Display employee name, department, evaluation year, and rating for all appraisals where the employee earned a perfect rating of 5.",
+    "problemStatement": "Find all employees who received a rating of 5 in any performance review.",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Filter for evaluations with a rating of 5.",
-      "Display `emp_name`, `department`, `review_year`, and `rating`."
+      "Display `emp_name`, `department`, `review_year`, and `rating`.",
+      "Join Employees with Performance_Reviews.",
+      "Filter for `rating = 5`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join on emp_id and filter for rating = 5 in the WHERE clause.",
+    "hint": "INNER JOIN on emp_id WHERE pr.rating = 5.",
     "expectedSql": "SELECT e.emp_name, e.department, pr.review_year, pr.rating FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.rating = 5;",
     "explanation": "Filtering on the joined appraisal table pinpoints top-tier evaluation events across the organization.",
     "tags": [
@@ -26940,18 +26752,17 @@ const BASE_QUESTIONS = [
   {
     "id": 324,
     "interviewQuestionNumber": 24,
-    "title": "Q24. Most Recent Appraisal per Staff Member",
+    "title": "Most Recent Review for Each Employee",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 3 — JOIN-Based Problems",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources requires each employee's most recent performance evaluation. Display employee name, department, review year, and rating for each reviewed employee's latest appraisal record (the one with the latest review year, breaking ties by review ID).",
+    "problemStatement": "Display each employee's most recent performance review year and rating.",
     "requirements": [
-      "Join Employees with Performance_Reviews on employee ID.",
-      "Filter for the single latest review record per employee using a correlated subquery.",
-      "Display `emp_name`, `department`, `review_year`, and `rating`."
+      "Display `emp_name`, `department`, `review_year`, and `rating`.",
+      "Filter for each employee's latest review using a correlated subquery."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Filter review_id equal to a correlated subquery ordered by review_year DESC, review_id DESC LIMIT 1.",
+    "hint": "Match review_id to a subquery ordering by review_year DESC LIMIT 1.",
     "expectedSql": "SELECT e.emp_name, e.department, pr.review_year, pr.rating FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_id = (SELECT pr2.review_id FROM Performance_Reviews pr2 WHERE pr2.emp_id = pr.emp_id ORDER BY pr2.review_year DESC, pr2.review_id DESC LIMIT 1);",
     "explanation": "A correlated subquery picking the max review_id or max review_year isolates the singular most recent record per employee.",
     "tags": [
@@ -27060,18 +26871,17 @@ const BASE_QUESTIONS = [
   {
     "id": 325,
     "interviewQuestionNumber": 25,
-    "title": "Q25. Staff Earning Above Company Average",
+    "title": "Employees Earning Above Company Average Salary",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Easy",
-    "problemStatement": "Workforce compensation is reviewing above-average earners across the company. Find all employees whose monthly salary strictly exceeds the overall average salary calculated across the entire workforce.",
+    "problemStatement": "Find all employees whose salary exceeds the company-wide average salary.",
     "requirements": [
-      "Calculate the overall average employee salary across the organization.",
-      "Filter for employees whose salary strictly exceeds that dynamic average.",
-      "Display `emp_id`, `emp_name`, `department`, and `salary`."
+      "Display `emp_id`, `emp_name`, `department`, and `salary`.",
+      "Filter where `salary > (SELECT AVG(salary) FROM Employees)`."
     ],
     "tableName": "Employees",
-    "hint": "Compare each employee's salary against a scalar subquery calculating AVG(salary).",
+    "hint": "Compare salary with a scalar subquery calculating AVG(salary).",
     "expectedSql": "SELECT emp_id, emp_name, department, salary FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);",
     "explanation": "The scalar subquery computes the overall mean compensation once and evaluates each employee against it.",
     "tags": [
@@ -27156,18 +26966,16 @@ const BASE_QUESTIONS = [
   {
     "id": 326,
     "interviewQuestionNumber": 26,
-    "title": "Q26. Second Highest Salary Identification",
+    "title": "Second Highest Salary in Company",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "Executive remuneration analysis is determining the second-highest compensation figure in the company without using LIMIT or OFFSET clauses. Find the second highest salary recorded in the Employees table.",
+    "problemStatement": "Find the second highest salary in the company using a subquery.",
     "requirements": [
-      "Determine the peak salary value using a subquery.",
-      "Find the maximum salary among all values strictly less than that peak.",
-      "Alias the resulting figure as `second_highest_salary`."
+      "Calculate the maximum salary strictly less than the overall maximum salary, aliased as `second_highest_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Find MAX(salary) WHERE salary < (SELECT MAX(salary) FROM Employees).",
+    "hint": "Use MAX(salary) WHERE salary < (SELECT MAX(salary) FROM Employees).",
     "expectedSql": "SELECT MAX(salary) AS second_highest_salary FROM Employees WHERE salary < (SELECT MAX(salary) FROM Employees);",
     "explanation": "Finding the maximum salary strictly smaller than the absolute maximum yields the 2nd highest salary in pure ANSI SQL.",
     "tags": [
@@ -27192,19 +27000,17 @@ const BASE_QUESTIONS = [
   {
     "id": 327,
     "interviewQuestionNumber": 27,
-    "title": "Q27. Staff in Well-Funded Corporate Divisions",
+    "title": "Employees in High-Budget Departments",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "Corporate treasury is reviewing personnel assigned to divisions that receive above-average funding. Display employee name, department, and salary for staff working in departments whose operating budget strictly exceeds the average departmental budget.",
+    "problemStatement": "Find all employees working in departments whose budget is greater than the average department budget.",
     "requirements": [
-      "Calculate the average operating budget across all departments.",
-      "Identify departments whose budget strictly exceeds that average.",
-      "Filter employees whose department belongs to that qualifying set.",
-      "Display `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Filter where department is in departments with above-average budget."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Use IN with a subquery filtering Departments WHERE budget > (SELECT AVG(budget) FROM Departments).",
+    "hint": "Nest a subquery calculating average department budget inside an IN clause.",
     "expectedSql": "SELECT emp_name, department, salary FROM Employees WHERE department IN (SELECT dept_name FROM Departments WHERE budget > (SELECT AVG(budget) FROM Departments));",
     "explanation": "Nested subqueries first determine the company-wide average budget, find departments exceeding it, and filter the employee roster.",
     "tags": [
@@ -27273,18 +27079,18 @@ const BASE_QUESTIONS = [
   {
     "id": 328,
     "interviewQuestionNumber": 28,
-    "title": "Q28. Staff Deployed to High-Budget Initiatives",
+    "title": "Employees Assigned to 250k+ Projects",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "Project governance is tracking unique staff members working on major corporate programs. Find the unique employee ID, full name, and department for employees assigned to at least one project with a capital budget strictly exceeding 250,000.",
+    "problemStatement": "Find all unique employees who work on projects with a budget greater than 250,000.",
     "requirements": [
-      "Identify employee IDs assigned to projects with a budget strictly greater than 250,000.",
-      "Filter Employees for staff matching that list, ensuring distinct records.",
-      "Display `emp_id`, `emp_name`, and `department`."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Exclude duplicate employee records.",
+      "Filter for assignment on projects with budget > 250,000."
     ],
     "tableName": "Employees, Employee_Projects, Projects",
-    "hint": "Use DISTINCT with IN and an inner join between Employee_Projects and Projects.",
+    "hint": "Use SELECT DISTINCT and an IN subquery joining Employee_Projects with Projects.",
     "expectedSql": "SELECT DISTINCT e.emp_id, e.emp_name, e.department FROM Employees e WHERE e.emp_id IN (SELECT ep.emp_id FROM Employee_Projects ep INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.budget > 250000);",
     "explanation": "Subqueries filtering on junction tables cleanly isolate employees attached to high-value initiatives.",
     "tags": [
@@ -27343,19 +27149,17 @@ const BASE_QUESTIONS = [
   {
     "id": 329,
     "interviewQuestionNumber": 29,
-    "title": "Q29. Department with Largest Payroll Obligation",
+    "title": "Department with Highest Total Payroll",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "Finance leadership is identifying the single business unit that carries the highest monthly wage expense. Display the department name and total cumulative monthly payroll for the department with the largest total payroll in the company.",
+    "problemStatement": "Find the single department that has the largest total salary expenditure.",
     "requirements": [
-      "Group employees by department and calculate cumulative payroll aliased as `total_payroll`.",
-      "Order by total payroll in descending order.",
-      "Limit the result to the single top department.",
-      "Display `department` and `total_payroll`."
+      "Display `department` and `total_payroll`.",
+      "Group by department, sort by total payroll descending, and limit to 1."
     ],
     "tableName": "Employees",
-    "hint": "Group by department, sum salary, sort descending, and limit to 1.",
+    "hint": "Use SUM(salary) grouped by department ORDER BY total_payroll DESC LIMIT 1.",
     "expectedSql": "SELECT department, SUM(salary) AS total_payroll FROM Employees GROUP BY department ORDER BY total_payroll DESC LIMIT 1;",
     "explanation": "Grouping by department and sorting by aggregate sum descending yields the largest spending department.",
     "tags": [
@@ -27382,18 +27186,17 @@ const BASE_QUESTIONS = [
   {
     "id": 330,
     "interviewQuestionNumber": 30,
-    "title": "Q30. Staff Earning Above Department Average",
+    "title": "Employees Earning More Than Department Average",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Workforce compensation is reviewing intra-departmental salary equity. Find all employees whose salary strictly exceeds the average salary of colleagues working within their own department, displaying employee name, department, and salary.",
+    "problemStatement": "Find all employees who earn more than the average salary of their own department.",
     "requirements": [
-      "Compare each employee's salary against the average salary computed for their own department.",
-      "Filter for staff members earning strictly more than that departmental average.",
-      "Display `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Filter where salary is greater than the department's average using a correlated subquery."
     ],
     "tableName": "Employees",
-    "hint": "Use a correlated subquery computing AVG(salary) for matching departments.",
+    "hint": "Correlate on e2.department = e.department.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary FROM Employees e WHERE e.salary > (SELECT AVG(e2.salary) FROM Employees e2 WHERE e2.department = e.department);",
     "explanation": "Correlated subqueries re-evaluate the inner average per outer row, comparing each individual's salary to peers in their own department.",
     "tags": [
@@ -27467,17 +27270,17 @@ const BASE_QUESTIONS = [
   {
     "id": 331,
     "interviewQuestionNumber": 31,
-    "title": "Q31. Staff Without Any Performance Appraisals",
+    "title": "Employees Without Performance Reviews (NOT EXISTS)",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "HR governance is tracking unreviewed staff members. Retrieve employee ID, name, and department for all employees for whom zero evaluation records exist in Performance_Reviews.",
+    "problemStatement": "Find all employees who have never received a performance review using NOT EXISTS.",
     "requirements": [
-      "Verify the non-existence of matching review records for each employee.",
-      "Display `emp_id`, `emp_name`, and `department` from Employees."
+      "Display `emp_id`, `emp_name`, and `department`.",
+      "Use `WHERE NOT EXISTS (SELECT 1 FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id)`."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use the correlated NOT EXISTS operator checking Performance_Reviews on emp_id.",
+    "hint": "Use NOT EXISTS with a correlated subquery on emp_id.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, e.department FROM Employees e WHERE NOT EXISTS (SELECT 1 FROM Performance_Reviews pr WHERE pr.emp_id = e.emp_id);",
     "explanation": "NOT EXISTS evaluates to true when the correlated subquery returns 0 rows, efficiently handling NULL-safe anti-joins.",
     "tags": [
@@ -27531,18 +27334,18 @@ const BASE_QUESTIONS = [
   {
     "id": 332,
     "interviewQuestionNumber": 32,
-    "title": "Q32. Initiatives Staffed Exclusively by IT Personnel",
+    "title": "Projects Staffed Exclusively by IT Employees",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Project governance is identifying specialized technology initiatives staffed only by technical division members. Display project ID and project name for initiatives that have at least one team member assigned AND where zero assigned team members belong to departments other than IT.",
+    "problemStatement": "Find projects that have at least one team member, and where every assigned member belongs to the 'IT' department.",
     "requirements": [
-      "Verify that the project has at least one assigned team member in Employee_Projects.",
-      "Verify that no assigned team member belongs to a department other than 'IT'.",
-      "Display `project_id` and `project_name` from Projects."
+      "Display `project_id` and `project_name`.",
+      "Verify at least one staff assignment exists using EXISTS.",
+      "Verify no non-IT assignments exist using NOT EXISTS."
     ],
     "tableName": "Projects, Employee_Projects, Employees",
-    "hint": "Combine an EXISTS check for project staffing with a NOT EXISTS check for non-IT personnel.",
+    "hint": "Combine EXISTS with NOT EXISTS checking e.department <> 'IT'.",
     "expectedSql": "SELECT p.project_id, p.project_name FROM Projects p WHERE EXISTS (SELECT 1 FROM Employee_Projects ep WHERE ep.project_id = p.project_id) AND NOT EXISTS (SELECT 1 FROM Employee_Projects ep INNER JOIN Employees e ON ep.emp_id = e.emp_id WHERE ep.project_id = p.project_id AND e.department <> 'IT');",
     "explanation": "Universal quantification ('all elements satisfy X') is expressed in SQL via double negation: 'exists at least one' AND 'not exists any that violates X'.",
     "tags": [
@@ -27573,18 +27376,16 @@ const BASE_QUESTIONS = [
   {
     "id": 333,
     "interviewQuestionNumber": 33,
-    "title": "Q33. Third Highest Distinct Salary Without LIMIT",
+    "title": "Third Highest Salary in Company",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Compensation analytics is determining the third-highest distinct salary tier across the company without using LIMIT or OFFSET clauses. Calculate the third highest distinct salary recorded in the Employees table.",
+    "problemStatement": "Find the third highest salary in the company using nested subqueries.",
     "requirements": [
-      "Filter out the peak salary and second peak salary using nested subqueries.",
-      "Calculate the maximum salary remaining after excluding the top two salary levels.",
-      "Alias the resulting metric as `third_highest_salary`."
+      "Calculate the third highest salary aliased as `third_highest_salary`."
     ],
     "tableName": "Employees",
-    "hint": "Use nested MAX(salary) subqueries to successively peel away the top two compensation tiers.",
+    "hint": "Nest subqueries filtering below the top two salaries.",
     "expectedSql": "SELECT MAX(salary) AS third_highest_salary FROM Employees WHERE salary < (SELECT MAX(salary) FROM Employees WHERE salary < (SELECT MAX(salary) FROM Employees));",
     "explanation": "Nesting the condition salary < MAX(salary) twice peels off the 1st and 2nd highest salaries to isolate the 3rd highest distinct salary.",
     "tags": [
@@ -27609,19 +27410,17 @@ const BASE_QUESTIONS = [
   {
     "id": 334,
     "interviewQuestionNumber": 34,
-    "title": "Q34. Staff Allocated Above-Average Project Hours",
+    "title": "Employees Working Above Project Average Hours",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 4 — Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Resource scheduling identifies team members carrying disproportionate workload on their initiatives. Find all project assignments where an employee's allocated weekly hours strictly exceed the average allocated hours on that specific project, displaying project ID, employee name, and allocated hours.",
+    "problemStatement": "For each project assignment, find employees whose allocated hours exceed the average hours for that specific project.",
     "requirements": [
-      "Join Employee_Projects with Employees on employee ID.",
-      "Compare each assignment's weekly hours against the average weekly hours on that same project.",
-      "Filter for assignments exceeding that project's average workload.",
-      "Display `project_id`, `emp_name`, and `hours_allocated`."
+      "Display `project_id`, `emp_name`, and `hours_allocated`.",
+      "Compare hours against a correlated subquery calculating average hours for the same project."
     ],
     "tableName": "Employee_Projects, Employees",
-    "hint": "Compare hours_allocated to a correlated subquery computing AVG(hours_allocated) for that project_id.",
+    "hint": "Correlate on ep2.project_id = ep.project_id.",
     "expectedSql": "SELECT ep.project_id, e.emp_name, ep.hours_allocated FROM Employee_Projects ep INNER JOIN Employees e ON ep.emp_id = e.emp_id WHERE ep.hours_allocated > (SELECT AVG(ep2.hours_allocated) FROM Employee_Projects ep2 WHERE ep2.project_id = ep.project_id);",
     "explanation": "Correlating on project_id computes the specific project's average workload and filters out assignments below it.",
     "tags": [
@@ -27700,18 +27499,18 @@ const BASE_QUESTIONS = [
   {
     "id": 335,
     "interviewQuestionNumber": 35,
-    "title": "Q35. Top Three Highest Earners in the Enterprise",
+    "title": "Find Top 3 Highest Earners",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 5 — Ranking and Top-N Logic",
     "difficulty": "Easy",
-    "problemStatement": "Executive remuneration analysis requires an extract of the three highest-paid employees in the organization. Display employee name, department, and salary for the 3 top earners, ordered from highest salary to lowest.",
+    "problemStatement": "Find the 3 employees with the highest salaries in the company.",
     "requirements": [
-      "Select `emp_name`, `department`, and `salary` from Employees.",
-      "Sort by salary in descending order.",
-      "Limit the final result set to exactly 3 records."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Order by `salary` descending.",
+      "Limit output to 3 rows."
     ],
     "tableName": "Employees",
-    "hint": "Sort descending by salary and apply LIMIT 3.",
+    "hint": "ORDER BY salary DESC LIMIT 3.",
     "expectedSql": "SELECT emp_name, department, salary FROM Employees ORDER BY salary DESC LIMIT 3;",
     "explanation": "ORDER BY salary DESC paired with LIMIT 3 returns the top 3 highest paid individuals.",
     "tags": [
@@ -27750,18 +27549,17 @@ const BASE_QUESTIONS = [
   {
     "id": 336,
     "interviewQuestionNumber": 36,
-    "title": "Q36. Peak Earner within Each Department",
+    "title": "Highest Earner in Each Department",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 5 — Ranking and Top-N Logic",
     "difficulty": "Medium",
-    "problemStatement": "Workforce compensation is identifying the top salary recipient inside every corporate department. Retrieve employee name, department, and salary for the employee who earns the maximum salary in their respective department.",
+    "problemStatement": "Find the highest-earning employee(s) in each department.",
     "requirements": [
-      "For each employee, compare their salary to the maximum salary in their department.",
-      "Filter for staff members matching that departmental maximum.",
-      "Display `emp_name`, `department`, and `salary` from Employees."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Filter where salary equals the maximum salary in that department."
     ],
     "tableName": "Employees",
-    "hint": "Filter where salary equals a correlated subquery computing MAX(salary) for that department.",
+    "hint": "Correlate with (SELECT MAX(salary) FROM Employees e2 WHERE e2.department = e.department).",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary FROM Employees e WHERE e.salary = (SELECT MAX(e2.salary) FROM Employees e2 WHERE e2.department = e.department);",
     "explanation": "Correlating the salary to the maximum department salary isolates the top earner per group.",
     "tags": [
@@ -27810,18 +27608,17 @@ const BASE_QUESTIONS = [
   {
     "id": 337,
     "interviewQuestionNumber": 37,
-    "title": "Q37. Dense Ranking of Departmental Salaries",
+    "title": "Rank Employees by Salary Within Department",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 5 — Ranking and Top-N Logic",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics requires ranking employee salaries within each division without skipping ranking numbers when ties occur. For each employee, display their name, department, salary, and their departmental salary rank (highest salary = rank 1), aliasing the rank as `dept_salary_rank`.",
+    "problemStatement": "Rank employees by salary in descending order within each department using DENSE_RANK.",
     "requirements": [
-      "Apply dense ranking partitioned by department and ordered by salary in descending order.",
-      "Alias the calculated rank as `dept_salary_rank`.",
-      "Display `emp_name`, `department`, `salary`, and `dept_salary_rank`."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Compute `DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_salary_rank`."
     ],
     "tableName": "Employees",
-    "hint": "Use DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC).",
+    "hint": "Use DENSE_RANK() with PARTITION BY department.",
     "expectedSql": "SELECT emp_name, department, salary, DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_salary_rank FROM Employees;",
     "explanation": "DENSE_RANK() partitions rows by department and assigns consecutive integer ranks without gaps when ties occur.",
     "tags": [
@@ -27966,18 +27763,17 @@ const BASE_QUESTIONS = [
   {
     "id": 338,
     "interviewQuestionNumber": 38,
-    "title": "Q38. Colleague Compensation Parity Identification",
+    "title": "Colleagues with Identical Salaries",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 5 — Ranking and Top-N Logic",
     "difficulty": "Medium",
-    "problemStatement": "Compensation equity is auditing identical salary points across the organization. Find all unique pairs of employees who earn the exact same monthly salary, displaying employee 1 name as `employee_1`, employee 2 name as `employee_2`, and the matching salary, avoiding duplicate reverse pairs.",
+    "problemStatement": "Find all pairs of employees who earn the exact same salary.",
     "requirements": [
-      "Join Employees with itself on matching salary.",
-      "Enforce `e1.emp_id < e2.emp_id` to eliminate mirror pairs and self-pairings.",
-      "Display `employee_1`, `employee_2`, and `salary`."
+      "Display `employee_1`, `employee_2`, and `salary`.",
+      "Self-join Employees on salary where `e1.emp_id < e2.emp_id`."
     ],
     "tableName": "Employees",
-    "hint": "Self-join Employees on salary with e1.emp_id < e2.emp_id.",
+    "hint": "Self-join Employees on e1.salary = e2.salary AND e1.emp_id < e2.emp_id.",
     "expectedSql": "SELECT e1.emp_name AS employee_1, e2.emp_name AS employee_2, e1.salary FROM Employees e1 INNER JOIN Employees e2 ON e1.salary = e2.salary AND e1.emp_id < e2.emp_id;",
     "explanation": "Self-joining with an equality check on salary identifies compensation parity between colleagues.",
     "tags": [
@@ -28006,18 +27802,18 @@ const BASE_QUESTIONS = [
   {
     "id": 339,
     "interviewQuestionNumber": 39,
-    "title": "Q39. Entry-Level Compensation Baseline (Bottom 2 Earners)",
+    "title": "Bottom 2 Earners in the Company",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 5 — Ranking and Top-N Logic",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is verifying minimum pay rates across the company. Display employee name, department, and monthly salary for the 2 lowest-earning employees in the organization, ordered from lowest salary to highest.",
+    "problemStatement": "Find the 2 employees with the lowest salaries in the company.",
     "requirements": [
-      "Select `emp_name`, `department`, and `salary` from Employees.",
-      "Sort records by salary in ascending order (lowest first).",
-      "Limit the final result set to exactly 2 records."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Order by `salary` ascending.",
+      "Limit output to 2 rows."
     ],
     "tableName": "Employees",
-    "hint": "Sort by salary ASC and apply LIMIT 2.",
+    "hint": "ORDER BY salary ASC LIMIT 2.",
     "expectedSql": "SELECT emp_name, department, salary FROM Employees ORDER BY salary ASC LIMIT 2;",
     "explanation": "Ascending sort with LIMIT 2 retrieves the base entry-level compensation records.",
     "tags": [
@@ -28051,19 +27847,18 @@ const BASE_QUESTIONS = [
   {
     "id": 340,
     "interviewQuestionNumber": 40,
-    "title": "Q40. Duplicate Regional Office Locations",
+    "title": "Locations with Multiple Departments",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 6 — Duplicate Detection and Data Quality",
     "difficulty": "Medium",
-    "problemStatement": "Facilities planning is auditing geographical consolidation of corporate divisions. Find all office locations in Departments that house strictly more than 1 registered department, displaying the location and total department count (`dept_count`).",
+    "problemStatement": "Find all locations that have more than 1 department.",
     "requirements": [
-      "Group records in Departments by `location`.",
-      "Count departments in each location aliased as `dept_count`.",
-      "Filter groups where department count is strictly greater than 1.",
-      "Display `location` and `dept_count`."
+      "Display `location` and `dept_count`.",
+      "Group by `location`.",
+      "Filter groups having `COUNT(*) > 1`."
     ],
     "tableName": "Departments",
-    "hint": "Group by location and apply HAVING COUNT(*) > 1.",
+    "hint": "Use GROUP BY location HAVING COUNT(*) > 1.",
     "expectedSql": "SELECT location, COUNT(*) AS dept_count FROM Departments GROUP BY location HAVING COUNT(*) > 1;",
     "explanation": "Group by column + HAVING COUNT(*) > 1 is the canonical SQL pattern for identifying duplicate categorical values.",
     "tags": [
@@ -28098,18 +27893,18 @@ const BASE_QUESTIONS = [
   {
     "id": 341,
     "interviewQuestionNumber": 41,
-    "title": "Q41. Corporate Divisions Lacking Active Staff",
+    "title": "Departments with No Staff (Left Join)",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 6 — Duplicate Detection and Data Quality",
     "difficulty": "Medium",
-    "problemStatement": "Organization design is identifying registered corporate departments that currently have zero assigned staff members. Display the department ID, department name, and location for all departments in Departments that have no matching employees.",
+    "problemStatement": "Find all departments that currently have no employees assigned to them.",
     "requirements": [
-      "Combine Departments with Employees on department name preserving all departments.",
-      "Filter for departments where no matching employee record exists.",
-      "Display `dept_id`, `dept_name`, and `location`."
+      "Display `dept_id`, `dept_name`, and `location`.",
+      "LEFT JOIN Departments with Employees.",
+      "Filter for `e.emp_id IS NULL`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Use a left outer join from Departments to Employees and filter where emp_id is null.",
+    "hint": "Use a LEFT JOIN anti-join on e.emp_id IS NULL.",
     "expectedSql": "SELECT d.dept_id, d.dept_name, d.location FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department WHERE e.emp_id IS NULL;",
     "explanation": "Checking for NULL primary keys on the joined child table detects orphaned parent master records.",
     "tags": [
@@ -28148,19 +27943,18 @@ const BASE_QUESTIONS = [
   {
     "id": 342,
     "interviewQuestionNumber": 42,
-    "title": "Q42. Inactive Initiatives with Zero Workload",
+    "title": "Projects with Zero Staff or Zero Hours",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 6 — Duplicate Detection and Data Quality",
     "difficulty": "Medium",
-    "problemStatement": "Portfolio governance is identifying stalled or inactive corporate initiatives. Display project ID, name, and status for all projects that either have zero assigned staff members OR have a cumulative weekly workload allocation of 0 hours.",
+    "problemStatement": "Find projects that have either no assigned employees or 0 total allocated hours.",
     "requirements": [
-      "Combine Projects and Employee_Projects on project ID preserving all projects.",
-      "Group by project ID, project name, and status.",
-      "Filter groups where assigned staff count is 0 OR cumulative weekly hours equals 0.",
-      "Display `project_id`, `project_name`, and `status`."
+      "Display `project_id`, `project_name`, and `status`.",
+      "LEFT JOIN Projects with Employee_Projects.",
+      "Group by project attributes and filter with `HAVING COUNT(ep.emp_id) = 0 OR COALESCE(SUM(ep.hours_allocated), 0) = 0`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Group by project attributes and filter with HAVING COUNT(emp_id) = 0 OR COALESCE(SUM(hours_allocated), 0) = 0.",
+    "hint": "Use HAVING to check for 0 employees or 0 total hours.",
     "expectedSql": "SELECT p.project_id, p.project_name, p.status FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name, p.status HAVING COUNT(ep.emp_id) = 0 OR COALESCE(SUM(ep.hours_allocated), 0) = 0;",
     "explanation": "Auditing zero assignments or zero hours allocated highlights inactive and stalled organizational initiatives.",
     "tags": [
@@ -28194,18 +27988,18 @@ const BASE_QUESTIONS = [
   {
     "id": 343,
     "interviewQuestionNumber": 43,
-    "title": "Q43. Intra-Departmental High-Salary Outliers",
+    "title": "Employees Earning 30% Above Department Average",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 6 — Duplicate Detection and Data Quality",
     "difficulty": "Hard",
-    "problemStatement": "Compensation governance is identifying significant salary outliers within divisions. Find employees whose salary strictly exceeds 130% (1.3 times) of their own department's average salary, displaying employee name, department, salary, and the department average salary rounded to 2 decimal places (`dept_avg_salary`).",
+    "problemStatement": "Find employees who earn more than 30% above their department's average salary.",
     "requirements": [
-      "Join Employees with a derived table calculating average salary by department.",
-      "Filter for employees whose salary strictly exceeds `avg_dept_sal * 1.3`.",
-      "Display `emp_name`, `department`, `salary`, and `dept_avg_salary`."
+      "Display `emp_name`, `department`, `salary`, and `dept_avg_salary`.",
+      "Join Employees with a department average subquery.",
+      "Filter where `e.salary > sub.avg_dept_sal * 1.3`."
     ],
     "tableName": "Employees",
-    "hint": "Join with a department average derived table and compare salary to sub.avg_dept_sal * 1.3.",
+    "hint": "Filter with e.salary > sub.avg_dept_sal * 1.3.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, ROUND(sub.avg_dept_sal, 2) AS dept_avg_salary FROM Employees e INNER JOIN (SELECT department, AVG(salary) AS avg_dept_sal FROM Employees GROUP BY department) sub ON e.department = sub.department WHERE e.salary > sub.avg_dept_sal * 1.3;",
     "explanation": "Joining with pre-aggregated department averages allows mathematical multiplier comparisons to catch statistical outliers.",
     "tags": [
@@ -28254,18 +28048,19 @@ const BASE_QUESTIONS = [
   {
     "id": 344,
     "interviewQuestionNumber": 44,
-    "title": "Q44. Senior Professional Salary Review Eligibility",
+    "title": "Senior IT or Finance Employees Earning Under 70k",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 7 — Real-World Business Logic",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is compiling a salary review eligibility roster for seasoned personnel. Find all employees who work in either the Finance or IT departments, possess at least 5 years of professional experience, and earn less than 70,000.",
+    "problemStatement": "Find employees in Finance or IT who have at least 5 years of experience but earn less than 70,000.",
     "requirements": [
-      "Display `emp_id`, `emp_name`, `department`, `experience`, and `salary` from Employees.",
-      "Filter for departments in ('Finance', 'IT').",
-      "Filter for `experience >= 5` and `salary < 70000`."
+      "Display `emp_id`, `emp_name`, `department`, `experience`, and `salary`.",
+      "Department must be 'Finance' or 'IT'.",
+      "Experience must be 5 or greater.",
+      "Salary must be less than 70,000."
     ],
     "tableName": "Employees",
-    "hint": "Combine a department set membership check with experience and salary inequalities using AND.",
+    "hint": "Combine IN ('Finance', 'IT') with experience >= 5 AND salary < 70000.",
     "expectedSql": "SELECT emp_id, emp_name, department, experience, salary FROM Employees WHERE department IN ('Finance', 'IT') AND experience >= 5 AND salary < 70000;",
     "explanation": "Multi-condition business policy filtering identifies veteran employees who may be under-compensated.",
     "tags": [
@@ -28312,20 +28107,18 @@ const BASE_QUESTIONS = [
   {
     "id": 345,
     "interviewQuestionNumber": 45,
-    "title": "Q45. Departments Exceeding Allocated Payroll Budget",
+    "title": "Departments Where Annual Payroll Exceeds Budget",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 7 — Real-World Business Logic",
     "difficulty": "Hard",
-    "problemStatement": "Corporate audit is identifying departments where annual employee wage obligations outstrip the allocated departmental budget. For departments where annualized payroll (monthly payroll multiplied by 12) strictly exceeds the department's annual budget, display the department name, annualized payroll (`annual_payroll`), and annual budget (`budget`).",
+    "problemStatement": "Find departments where total annual payroll (monthly salary * 12) strictly exceeds the department's annual budget.",
     "requirements": [
-      "Join Departments and Employees on matching department name.",
-      "Group records by department name and budget.",
-      "Calculate annualized payroll as `SUM(e.salary * 12)` aliased as `annual_payroll`.",
-      "Filter groups where annualized payroll strictly exceeds departmental budget.",
-      "Display `dept_name`, `annual_payroll`, and `budget`."
+      "Display `dept_name`, `annual_payroll`, and `budget`.",
+      "Join Departments with Employees.",
+      "Group by department and filter with `HAVING SUM(e.salary * 12) > d.budget`."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Group by dept_name and budget, and filter with HAVING SUM(e.salary * 12) > d.budget.",
+    "hint": "Use HAVING SUM(e.salary * 12) > d.budget.",
     "expectedSql": "SELECT d.dept_name, SUM(e.salary * 12) AS annual_payroll, d.budget FROM Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget HAVING SUM(e.salary * 12) > d.budget;",
     "explanation": "Business budget compliance audits aggregate monthly salaries across 12 months and compare against authorized department allocations.",
     "tags": [
@@ -28375,20 +28168,19 @@ const BASE_QUESTIONS = [
   {
     "id": 346,
     "interviewQuestionNumber": 46,
-    "title": "Q46. Staff Workload Capacity Tier Classification",
+    "title": "Classify Employees by Total Workload Tier",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 7 — Real-World Business Logic",
     "difficulty": "Hard",
-    "problemStatement": "Resource governance classifies individual employee workload capacity across corporate projects. For all employees, display employee ID, full name, cumulative allocated weekly hours (defaulting to 0 if unassigned, aliased as `total_hours`), and a categorical workload tier (`workload_tier`): 'Unassigned' if 0 hours, 'Light Workload' for under 25 hours, 'Moderate Workload' for 25 to 35 hours inclusive, and 'Heavy Workload' for over 35 hours.",
+    "problemStatement": "Calculate total project hours for each employee and classify them into workload tiers: 'Unassigned' (0 hrs), 'Light Workload' (<25 hrs), 'Moderate Workload' (25-35 hrs), or 'Heavy Workload' (>35 hrs).",
     "requirements": [
-      "Combine Employees and Employee_Projects preserving all employees.",
-      "Group by employee ID and employee name.",
-      "Sum allocated weekly hours substituting 0 for nulls, aliased as `total_hours`.",
-      "Categorize total hours into 'Unassigned', 'Light Workload', 'Moderate Workload', or 'Heavy Workload' aliased as `workload_tier`.",
-      "Display `emp_id`, `emp_name`, `total_hours`, and `workload_tier`."
+      "Display `emp_id`, `emp_name`, `total_hours`, and `workload_tier`.",
+      "LEFT JOIN Employees with Employee_Projects.",
+      "Use CASE to assign the tier.",
+      "Group by `emp_id, emp_name`."
     ],
     "tableName": "Employees, Employee_Projects",
-    "hint": "Use a left outer join from Employees to Employee_Projects and evaluate SUM(hours_allocated) with a CASE expression.",
+    "hint": "Use COALESCE(SUM(hours_allocated), 0) and a CASE expression.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours, CASE WHEN COALESCE(SUM(ep.hours_allocated), 0) = 0 THEN 'Unassigned' WHEN SUM(ep.hours_allocated) < 25 THEN 'Light Workload' WHEN SUM(ep.hours_allocated) <= 35 THEN 'Moderate Workload' ELSE 'Heavy Workload' END AS workload_tier FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name;",
     "explanation": "Combining aggregation, COALESCE, and CASE categorization creates powerful capacity planning summaries.",
     "tags": [
@@ -28533,17 +28325,17 @@ const BASE_QUESTIONS = [
   {
     "id": 347,
     "interviewQuestionNumber": 47,
-    "title": "Q47. Categorical Compensation Tier Placement",
+    "title": "Classify Employees into Salary Tiers",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 8 — CASE Expressions",
     "difficulty": "Easy",
-    "problemStatement": "Compensation planning classifies employees into categorical compensation bands: 'Low' for salaries under 35,000, 'Medium' for salaries from 35,000 to 60,000 inclusive, and 'High' for salaries above 60,000. Display employee name, department, monthly salary, and the assigned salary tier aliased as `salary_tier`.",
+    "problemStatement": "Classify each employee's salary into 'Low' (< 35,000), 'Medium' (35,000 to 60,000), or 'High' (> 60,000).",
     "requirements": [
-      "Classify each employee's salary into 'Low', 'Medium', or 'High' aliased as `salary_tier`.",
-      "Display `emp_name`, `department`, `salary`, and `salary_tier` from Employees."
+      "Display `emp_name`, `department`, `salary`, and `salary_tier`.",
+      "Use a CASE expression to categorize salary."
     ],
     "tableName": "Employees",
-    "hint": "Use a CASE expression testing salary thresholds.",
+    "hint": "Use CASE WHEN salary < 35000 THEN 'Low' ... END AS salary_tier.",
     "expectedSql": "SELECT emp_name, department, salary, CASE WHEN salary < 35000 THEN 'Low' WHEN salary <= 60000 THEN 'Medium' ELSE 'High' END AS salary_tier FROM Employees;",
     "explanation": "CASE statements in SELECT allow branching conditional categorization without modifying table data.",
     "tags": [
@@ -28688,17 +28480,17 @@ const BASE_QUESTIONS = [
   {
     "id": 348,
     "interviewQuestionNumber": 48,
-    "title": "Q48. Experience-Based Seniority Tier Placement",
+    "title": "Classify Employees into Seniority Tiers",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 8 — CASE Expressions",
     "difficulty": "Easy",
-    "problemStatement": "Human Resources is standardizing seniority titles based on career tenure: 'Fresher' for under 2 years of experience, 'Junior' for 2 to 4 years inclusive, 'Mid-Level' for 5 to 8 years inclusive, and 'Senior' for more than 8 years. Display employee name, years of experience, and the assigned seniority tier aliased as `seniority_tier`.",
+    "problemStatement": "Classify each employee into 'Fresher' (< 2 yrs), 'Junior' (2 to 4 yrs), 'Mid-Level' (5 to 8 yrs), or 'Senior' (> 8 yrs).",
     "requirements": [
-      "Classify employees into 'Fresher', 'Junior', 'Mid-Level', or 'Senior' aliased as `seniority_tier`.",
-      "Display `emp_name`, `experience`, and `seniority_tier` from Employees."
+      "Display `emp_name`, `experience`, and `seniority_tier`.",
+      "Use a CASE expression to evaluate experience."
     ],
     "tableName": "Employees",
-    "hint": "Use a CASE expression with multiple WHEN branches testing the experience column.",
+    "hint": "Use CASE WHEN experience < 2 THEN 'Fresher' ... END AS seniority_tier.",
     "expectedSql": "SELECT emp_name, experience, CASE WHEN experience < 2 THEN 'Fresher' WHEN experience <= 4 THEN 'Junior' WHEN experience <= 8 THEN 'Mid-Level' ELSE 'Senior' END AS seniority_tier FROM Employees;",
     "explanation": "Evaluating integer thresholds sequentially in a CASE expression partitions employees into standard organizational career levels.",
     "tags": [
@@ -28822,19 +28614,18 @@ const BASE_QUESTIONS = [
   {
     "id": 349,
     "interviewQuestionNumber": 49,
-    "title": "Q49. High vs Standard Earner Headcount per Department",
+    "title": "Count High vs Standard Earners by Department",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 8 — CASE Expressions",
     "difficulty": "Medium",
-    "problemStatement": "Finance leadership is comparing the balance between high earners and standard earners across business units. For each department, display the department name, count of high earners earning strictly over 50,000 (aliased as `high_earners`), and count of standard earners earning 50,000 or less (aliased as `standard_earners`).",
+    "problemStatement": "For each department, count how many employees earn over 50,000 and how many earn 50,000 or less.",
     "requirements": [
-      "Group records by `department` in Employees.",
-      "Count staff with salary > 50,000 using conditional aggregation, aliased as `high_earners`.",
-      "Count staff with salary <= 50,000 using conditional aggregation, aliased as `standard_earners`.",
-      "Display `department`, `high_earners`, and `standard_earners`."
+      "Display `department`, `high_earners`, and `standard_earners`.",
+      "Group by `department`.",
+      "Use conditional aggregation with SUM and CASE."
     ],
     "tableName": "Employees",
-    "hint": "Use SUM with CASE expressions to pivot high earner and standard earner counts into separate columns.",
+    "hint": "Use SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END).",
     "expectedSql": "SELECT department, SUM(CASE WHEN salary > 50000 THEN 1 ELSE 0 END) AS high_earners, SUM(CASE WHEN salary <= 50000 THEN 1 ELSE 0 END) AS standard_earners FROM Employees GROUP BY department;",
     "explanation": "Embedding CASE expressions inside SUM() pivots conditional counts into multiple columns, a key interview data modeling pattern.",
     "tags": [
@@ -28883,18 +28674,18 @@ const BASE_QUESTIONS = [
   {
     "id": 350,
     "interviewQuestionNumber": 50,
-    "title": "Q50. Performance Rating Merit Recommendation Mapping",
+    "title": "Map Performance Ratings to Recommendations",
     "topic": "Interview Ready Questions",
     "subtopic": "Part 8 — CASE Expressions",
     "difficulty": "Medium",
-    "problemStatement": "The compensation committee maps performance ratings to standardized merit recommendations: 'Exceptional' for rating 5, 'Strong' for rating 4, 'Satisfactory' for rating 3, and 'Needs Improvement' for any lower rating. For all completed appraisals, display employee name, review year, rating, and the corresponding merit recommendation aliased as `recommendation`.",
+    "problemStatement": "Map each employee's review rating to a recommendation: 'Exceptional' (5), 'Strong' (4), 'Satisfactory' (3), or 'Needs Improvement' (<= 2).",
     "requirements": [
-      "Join Employees and Performance_Reviews on employee ID.",
-      "Map ratings to 'Exceptional', 'Strong', 'Satisfactory', or 'Needs Improvement' aliased as `recommendation`.",
-      "Display `emp_name`, `review_year`, `rating`, and `recommendation`."
+      "Display `emp_name`, `review_year`, `rating`, and `recommendation`.",
+      "Join Employees with Performance_Reviews.",
+      "Use a CASE expression to map ratings."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Join on emp_id and use a CASE expression on rating to generate the recommendation label.",
+    "hint": "Use CASE WHEN rating = 5 THEN 'Exceptional' ... END AS recommendation.",
     "expectedSql": "SELECT e.emp_name, pr.review_year, pr.rating, CASE WHEN pr.rating = 5 THEN 'Exceptional' WHEN pr.rating = 4 THEN 'Strong' WHEN pr.rating = 3 THEN 'Satisfactory' ELSE 'Needs Improvement' END AS recommendation FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Mapping numeric review scores to corporate qualitative appraisal designations is a classic CASE expression application.",
     "tags": [
@@ -29026,18 +28817,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 351,
-    "title": "Regional Operational Zone Classification",
+    "title": "Classify Employees by Regional Zone",
     "topic": "CASE Expressions",
     "subtopic": "CASE Fundamentals",
     "difficulty": "Beginner",
-    "problemStatement": "Regional logistics and operations planning divides branch locations into operational zones for resource distribution. For all employees, display employee ID, full name, office city, and an operational zone label (`operational_zone`): 'South-Central' for Hyderabad and Vijayawada, 'South-Coastal' for Chennai, 'South-Tech' for Bengaluru, and 'Other Zone' for any other location.",
+    "problemStatement": "Map each employee's city to an operational zone ('South-Central', 'South-Coastal', 'South-Tech', or 'Other Zone').",
     "requirements": [
-      "Categorize `city` into 'South-Central', 'South-Coastal', 'South-Tech', or 'Other Zone'.",
-      "Alias the categorized zone as `operational_zone`.",
-      "Display `emp_id`, `emp_name`, `city`, and `operational_zone` in that exact order."
+      "Display `emp_id`, `emp_name`, `city`, and `operational_zone`.",
+      "Use a CASE statement on city to map zones."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional logic matching city values to assign the target zone strings.",
+    "hint": "Use CASE city WHEN ... THEN ... END AS operational_zone.",
     "expectedSql": "SELECT emp_id, emp_name, city, CASE city WHEN 'Hyderabad' THEN 'South-Central' WHEN 'Vijayawada' THEN 'South-Central' WHEN 'Chennai' THEN 'South-Coastal' WHEN 'Bengaluru' THEN 'South-Tech' ELSE 'Other Zone' END AS operational_zone FROM Employees;",
     "explanation": "A simple CASE expression compares an input expression (city) to a series of literal values using implicit equality tests. The ELSE branch catches any city not explicitly matched.",
     "tags": [
@@ -29181,18 +28971,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 352,
-    "title": "Onboarding Era Indicator Tag",
+    "title": "Flag Recent Hires (2023 or Later)",
     "topic": "CASE Expressions",
     "subtopic": "CASE Fundamentals",
     "difficulty": "Beginner",
-    "problemStatement": "Talent development tracks recent joiners for onboarding follow-ups. Display employee name, joining year, and a binary flag (`is_recent_hire`) indicating whether the employee joined in 2023 or later (1 if joining year is 2023 or greater, 0 otherwise).",
+    "problemStatement": "Add a flag column `is_recent_hire` that displays 1 if the employee joined in 2023 or later, and 0 otherwise.",
     "requirements": [
-      "Evaluate whether `joining_year >= 2023`, assigning 1 for true and 0 for false.",
-      "Alias the binary indicator as `is_recent_hire`.",
-      "Display `emp_name`, `joining_year`, and `is_recent_hire`."
+      "Display `emp_name`, `joining_year`, and `is_recent_hire`.",
+      "Use a CASE expression returning 1 for `joining_year >= 2023` and 0 otherwise."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional expression syntax returning 1 when joining_year is 2023 or greater, and 0 otherwise.",
+    "hint": "Use CASE WHEN joining_year >= 2023 THEN 1 ELSE 0 END AS is_recent_hire.",
     "expectedSql": "SELECT emp_name, joining_year, CASE WHEN joining_year >= 2023 THEN 1 ELSE 0 END AS is_recent_hire FROM Employees;",
     "explanation": "Searched CASE expressions evaluate arbitrary boolean expressions in each WHEN clause. Returning 1 and 0 is standard SQL practice for creating numeric indicator flags.",
     "tags": [
@@ -29315,18 +29104,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 353,
-    "title": "Initiative Delivery Urgency Categorization",
+    "title": "Map Project Status to Delivery Urgency",
     "topic": "CASE Expressions",
     "subtopic": "CASE Fundamentals",
     "difficulty": "Beginner",
-    "problemStatement": "Project portfolio managers categorize initiatives into operational delivery urgency tiers. For all corporate projects, display the project name, current status, and a delivery urgency classification (`delivery_urgency`): 'In Progress' for active projects, 'Upcoming' for planning projects, and 'Archive / Standby' for any other status.",
+    "problemStatement": "Map project status to 'In Progress' for Active, 'Upcoming' for Planning, and 'Archive / Standby' for others.",
     "requirements": [
-      "Map project `status` to 'In Progress' for 'Active', 'Upcoming' for 'Planning', and 'Archive / Standby' for all other states.",
-      "Alias the resulting category as `delivery_urgency`.",
-      "Display `project_name`, `status`, and `delivery_urgency`."
+      "Display `project_name`, `status`, and `delivery_urgency`.",
+      "Use a CASE statement evaluating status."
     ],
     "tableName": "Projects",
-    "hint": "Evaluate the status column and provide the designated fallback text for other statuses.",
+    "hint": "Use CASE status WHEN 'Active' THEN 'In Progress' ... END AS delivery_urgency.",
     "expectedSql": "SELECT project_name, status, CASE status WHEN 'Active' THEN 'In Progress' WHEN 'Planning' THEN 'Upcoming' ELSE 'Archive / Standby' END AS delivery_urgency FROM Projects;",
     "explanation": "If no WHEN condition evaluates to true and an ELSE clause is omitted, SQL returns NULL. Providing an explicit ELSE ensures deterministic non-null categorical labeling.",
     "tags": [
@@ -29389,19 +29177,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 354,
-    "title": "Fast-Track Career Profile Detection",
+    "title": "Identify Fast Track Candidates",
     "topic": "CASE Expressions",
     "subtopic": "CASE Fundamentals",
     "difficulty": "Beginner",
-    "problemStatement": "Leadership development is identifying high-potential early-career talent. Display employee name, age, experience, and a career profile tag (`career_profile`): 'Fast Track Candidate' for employees who are 25 years old or younger AND possess at least 2 years of experience, and 'Standard Profile' for all other employees.",
+    "problemStatement": "Identify employees aged 25 or younger who already have at least 2 years experience as 'Fast Track Candidate', and others as 'Standard Profile'.",
     "requirements": [
-      "Evaluate whether `age <= 25` and `experience >= 2` simultaneously.",
-      "Assign 'Fast Track Candidate' when both conditions hold, otherwise 'Standard Profile'.",
-      "Alias the resulting column as `career_profile`.",
-      "Display `emp_name`, `age`, `experience`, and `career_profile`."
+      "Display `emp_name`, `age`, `experience`, and `career_profile`.",
+      "Use a CASE expression evaluating age and experience."
     ],
     "tableName": "Employees",
-    "hint": "Combine the age and experience conditions in a conditional expression branch.",
+    "hint": "Check WHEN age <= 25 AND experience >= 2.",
     "expectedSql": "SELECT emp_name, age, experience, CASE WHEN age <= 25 AND experience >= 2 THEN 'Fast Track Candidate' ELSE 'Standard Profile' END AS career_profile FROM Employees;",
     "explanation": "Searched CASE statements support compound logical expressions (AND, OR, NOT), allowing multi-dimensional criteria evaluation within a single branch.",
     "tags": [
@@ -29545,18 +29331,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 355,
-    "title": "Demographic Age Group Cohort Classification",
+    "title": "Group Employees by Age Category",
     "topic": "CASE Expressions",
     "subtopic": "Conditional Classification",
     "difficulty": "Beginner",
-    "problemStatement": "Human Resources is compiling demographic statistics across age bands. Display employee ID, name, age, and a demographic cohort label (`age_group`): 'Under 25' for ages strictly below 25, '25 to 29' for ages from 25 to 29 inclusive, and '30 and Above' for ages 30 and higher.",
+    "problemStatement": "Classify employees into age groups: 'Under 25', '25 to 29', or '30 and Above'.",
     "requirements": [
-      "Classify `age` into 'Under 25', '25 to 29', or '30 and Above'.",
-      "Alias the calculated cohort as `age_group`.",
-      "Display `emp_id`, `emp_name`, `age`, and `age_group`."
+      "Display `emp_id`, `emp_name`, `age`, and `age_group`.",
+      "Use a CASE expression to categorize age."
     ],
     "tableName": "Employees",
-    "hint": "Use sequenced threshold checks to assign the correct demographic bracket.",
+    "hint": "Use CASE WHEN age < 25 THEN 'Under 25' ... END AS age_group.",
     "expectedSql": "SELECT emp_id, emp_name, age, CASE WHEN age < 25 THEN 'Under 25' WHEN age <= 29 THEN '25 to 29' ELSE '30 and Above' END AS age_group FROM Employees;",
     "explanation": "Because CASE evaluates conditions sequentially and short-circuits on the first true branch, 'age <= 29' naturally captures ages between 25 and 29 without needing an explicit lower bound check.",
     "tags": [
@@ -29700,18 +29485,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 356,
-    "title": "Department-Specific Compensation Scale Designation",
+    "title": "Assign Department Pay Scale Status",
     "topic": "CASE Expressions",
     "subtopic": "Conditional Classification",
     "difficulty": "Beginner",
-    "problemStatement": "Compensation planning uses specialized pay scales for technology roles versus corporate functions. Display employee name, department, monthly salary, and an assigned pay scale status (`pay_scale_status`): 'Tech Core Scale' for IT employees earning at least 50,000, 'Tech Entry Scale' for all other IT employees, and 'General Corporate Scale' for all non-IT personnel.",
+    "problemStatement": "Assign each employee a pay scale: 'Tech Core Scale' (IT >= 50k), 'Tech Entry Scale' (IT < 50k), or 'General Corporate Scale' (all others).",
     "requirements": [
-      "Classify employees based on department and salary criteria into the three designated scales.",
-      "Alias the resulting label as `pay_scale_status`.",
-      "Display `emp_name`, `department`, `salary`, and `pay_scale_status`."
+      "Display `emp_name`, `department`, `salary`, and `pay_scale_status`.",
+      "Use CASE WHEN with department and salary conditions."
     ],
     "tableName": "Employees",
-    "hint": "Evaluate specific IT salary criteria first before defaulting to the general corporate scale.",
+    "hint": "Evaluate IT department salary thresholds in a CASE expression.",
     "expectedSql": "SELECT emp_name, department, salary, CASE WHEN department = 'IT' AND salary >= 50000 THEN 'Tech Core Scale' WHEN department = 'IT' THEN 'Tech Entry Scale' ELSE 'General Corporate Scale' END AS pay_scale_status FROM Employees;",
     "explanation": "Sequential evaluation handles hierarchical domain logic cleanly: the first branch handles high IT earners, the second catches remaining IT staff, and the ELSE branch catches all other departments.",
     "tags": [
@@ -29855,18 +29639,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 357,
-    "title": "Organizational Tenure and Loyalty Tiers",
+    "title": "Classify Employees by Tenure Tier",
     "topic": "CASE Expressions",
     "subtopic": "Conditional Classification",
     "difficulty": "Beginner",
-    "problemStatement": "Human Resources recognizes organizational loyalty across hiring cohorts. Display employee name, joining year, and a loyalty tier designation (`loyalty_tier`): 'Veteran' for staff who joined prior to 2020, 'Established' for staff who joined between 2020 and 2022 inclusive, and 'New Hire' for staff joining after 2022.",
+    "problemStatement": "Classify employees by joining year into 'Veteran' (< 2020), 'Established' (2020-2022), or 'New Hire' (after 2022).",
     "requirements": [
-      "Classify `joining_year` into 'Veteran', 'Established', or 'New Hire'.",
-      "Alias the resulting tier as `loyalty_tier`.",
-      "Display `emp_name`, `joining_year`, and `loyalty_tier`."
+      "Display `emp_name`, `joining_year`, and `loyalty_tier`.",
+      "Use CASE WHEN evaluating joining_year."
     ],
     "tableName": "Employees",
-    "hint": "Check joining_year with conditional branches and assign the corresponding tier.",
+    "hint": "Use CASE WHEN joining_year < 2020 THEN 'Veteran' ... END AS loyalty_tier.",
     "expectedSql": "SELECT emp_name, joining_year, CASE WHEN joining_year < 2020 THEN 'Veteran' WHEN joining_year <= 2022 THEN 'Established' ELSE 'New Hire' END AS loyalty_tier FROM Employees;",
     "explanation": "Sorting temporal attributes into discrete historical eras allows high-level workforce planning without mutating base table data.",
     "tags": [
@@ -29989,18 +29772,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 358,
-    "title": "Enterprise Division Functional Grouping",
+    "title": "Group Departments into High-Level Divisions",
     "topic": "CASE Expressions",
     "subtopic": "Conditional Classification",
     "difficulty": "Beginner",
-    "problemStatement": "Corporate governance groups functional departments into four broad operational divisions. For each department in Departments, display the department name and its broad division classification (`division`): 'Technology & Innovation' for IT and R&D, 'Growth & Revenue' for Sales and Marketing, 'Governance & Capital' for Finance and Legal, and 'Operations & Support' for all other units.",
+    "problemStatement": "Group departments into broad corporate divisions based on their department name.",
     "requirements": [
-      "Classify `dept_name` into the four broad divisional categories.",
-      "Alias the categorized division as `division`.",
-      "Display `dept_name` and `division` from Departments."
+      "Display `dept_name` and `division`.",
+      "Use a CASE expression checking department names with IN."
     ],
     "tableName": "Departments",
-    "hint": "Use set membership checks within conditional branches to map departments to divisions.",
+    "hint": "Use CASE WHEN dept_name IN (...) THEN ... END AS division.",
     "expectedSql": "SELECT dept_name, CASE WHEN dept_name IN ('IT', 'R&D') THEN 'Technology & Innovation' WHEN dept_name IN ('Sales', 'Marketing') THEN 'Growth & Revenue' WHEN dept_name IN ('Finance', 'Legal') THEN 'Governance & Capital' ELSE 'Operations & Support' END AS division FROM Departments;",
     "explanation": "Combining CASE with IN sets creates clean category groupings that roll up granular operational units into executive reporting divisions.",
     "tags": [
@@ -30054,18 +29836,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 359,
-    "title": "Executive Slide Order Custom Sorting",
+    "title": "Custom Sort by Department Priority and Salary",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Sorting and Filtering",
     "difficulty": "Medium",
-    "problemStatement": "Executive presentation decks require a custom departmental sequence rather than alphabetical order. Display employee name, department, and salary, sorted primarily by a custom departmental priority: IT first, Finance second, Marketing third, Sales fourth, HR fifth, and any other department last, breaking ties by salary from highest to lowest.",
+    "problemStatement": "Sort employees by custom department priority (IT first, Finance second, Marketing third, Sales fourth, HR fifth), then by salary descending.",
     "requirements": [
-      "Sort employees by custom department priority: IT (1), Finance (2), Marketing (3), Sales (4), HR (5), Other (6).",
-      "Sort secondarily by salary in descending order.",
-      "Display `emp_name`, `department`, and `salary`."
+      "Display `emp_name`, `department`, and `salary`.",
+      "Order by a CASE expression mapping department priority, then by salary DESC."
     ],
     "tableName": "Employees",
-    "hint": "Order by a conditional expression mapping department names to rank numbers, then salary DESC.",
+    "hint": "Place the CASE expression in the ORDER BY clause.",
     "expectedSql": "SELECT emp_name, department, salary FROM Employees ORDER BY CASE department WHEN 'IT' THEN 1 WHEN 'Finance' THEN 2 WHEN 'Marketing' THEN 3 WHEN 'Sales' THEN 4 WHEN 'HR' THEN 5 ELSE 6 END, salary DESC;",
     "explanation": "Placing a CASE expression inside ORDER BY transforms strings into user-defined numeric weights, bypassing standard lexicographical sort order.",
     "tags": [
@@ -30188,19 +29969,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 360,
-    "title": "Performance Bonus Payout Categorization",
+    "title": "Categorize Bonus Payout Tiers",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Sorting and Filtering",
     "difficulty": "Medium",
-    "problemStatement": "Internal audit is categorizing performance reviews based on incentive payout magnitude. For all completed appraisals in Performance_Reviews, display review ID, employee ID, rating, bonus, and a payout status (`payout_status`): 'No Bonus Awarded' if bonus is unassigned or 0, 'Standard Bonus' if bonus is strictly under 15,000, and 'High Performance Bonus' for bonuses of 15,000 or greater.",
+    "problemStatement": "Categorize bonus payouts into 'No Bonus Awarded' (NULL or 0), 'Standard Bonus' (< 15,000), or 'High Performance Bonus' (>= 15,000).",
     "requirements": [
-      "Safely evaluate bonus amounts, checking for null or 0 values.",
-      "Classify payouts into 'No Bonus Awarded', 'Standard Bonus', or 'High Performance Bonus'.",
-      "Alias the payout category as `payout_status`.",
-      "Display `review_id`, `emp_id`, `rating`, `bonus`, and `payout_status`."
+      "Display `review_id`, `emp_id`, `rating`, `bonus`, and `payout_status`.",
+      "Use a CASE expression to evaluate bonus."
     ],
     "tableName": "Performance_Reviews",
-    "hint": "Handle null or zero bonus conditions first before checking numeric thresholds.",
+    "hint": "Handle NULL or 0 in the first WHEN condition.",
     "expectedSql": "SELECT review_id, emp_id, rating, bonus, CASE WHEN bonus IS NULL OR bonus = 0 THEN 'No Bonus Awarded' WHEN bonus < 15000 THEN 'Standard Bonus' ELSE 'High Performance Bonus' END AS payout_status FROM Performance_Reviews;",
     "explanation": "Direct arithmetic comparisons on NULL produce UNKNOWN in three-valued logic. Explicitly checking 'bonus IS NULL' prevents unexpected fallback behavior.",
     "tags": [
@@ -30351,18 +30130,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 361,
-    "title": "Executive Compensation Tier Extraction",
+    "title": "Filter by Calculated Pay Grade in Derived Table",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Sorting and Filtering",
     "difficulty": "Medium",
-    "problemStatement": "Compensation governance is isolating employees categorized into the executive compensation tier. Classify employees into 'Executive Pay' for salaries of 75,000 or higher, 'Mid Pay' for salaries from 40,000 to 74,999, and 'Junior Pay' for salaries under 40,000, and filter the final result to return only staff members placed in 'Executive Pay'.",
+    "problemStatement": "Classify employees into pay grades and filter for employees in 'Executive Pay' (salary >= 75,000) using a derived table.",
     "requirements": [
-      "Classify salaries in a subquery or derived table aliasing the tier as `pay_grade`.",
-      "Filter the outer result strictly for records where `pay_grade = 'Executive Pay'`.",
-      "Display `emp_name`, `department`, `salary`, and `pay_grade`."
+      "Display `emp_name`, `department`, `salary`, and `pay_grade`.",
+      "Compute pay grade in a subquery and filter for `pay_grade = 'Executive Pay'` in outer WHERE."
     ],
     "tableName": "Employees",
-    "hint": "Wrap the classification in a derived table and filter by pay_grade in the outer query.",
+    "hint": "Wrap the CASE classification in a derived table so you can filter by alias.",
     "expectedSql": "SELECT emp_name, department, salary, pay_grade FROM (SELECT emp_name, department, salary, CASE WHEN salary >= 75000 THEN 'Executive Pay' WHEN salary >= 40000 THEN 'Mid Pay' ELSE 'Junior Pay' END AS pay_grade FROM Employees) classified WHERE pay_grade = 'Executive Pay';",
     "explanation": "Because SQL's WHERE clause processes before SELECT, aliases defined in SELECT cannot be referenced in the same query's WHERE clause. Wrapping in a subquery resolves this lexical scoping constraint.",
     "tags": [
@@ -30404,18 +30182,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 362,
-    "title": "Project Portfolio Urgency-Based Prioritization",
+    "title": "Custom Sort Projects by Status Priority and Budget",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Sorting and Filtering",
     "difficulty": "Medium",
-    "problemStatement": "The PMO reviews corporate initiatives using a customized operational urgency sort order. Display project name, status, and budget from Projects, ordered primarily by operational status urgency: 'Active' first, 'Planning' second, 'Completed' third, and any other status fourth, and secondarily by budget from highest to lowest.",
+    "problemStatement": "Sort projects by status priority ('Active' first, 'Planning' second, 'Completed' third), and by budget descending within each status.",
     "requirements": [
-      "Order projects by custom status priority: Active (1), Planning (2), Completed (3), Other (4).",
-      "Apply secondary sorting on budget in descending order.",
-      "Display `project_name`, `status`, and `budget`."
+      "Display `project_name`, `status`, and `budget`.",
+      "Order by a CASE expression on status, then `budget` descending."
     ],
     "tableName": "Projects",
-    "hint": "Sort by a conditional expression mapping statuses to numeric rank order, followed by budget DESC.",
+    "hint": "Use CASE status WHEN 'Active' THEN 1 ... in ORDER BY.",
     "expectedSql": "SELECT project_name, status, budget FROM Projects ORDER BY CASE status WHEN 'Active' THEN 1 WHEN 'Planning' THEN 2 WHEN 'Completed' THEN 3 ELSE 4 END, budget DESC;",
     "explanation": "Business workflows frequently require custom status ordering (e.g., Active before Inactive) combined with financial sorting for stakeholder reviews.",
     "tags": [
@@ -30478,19 +30255,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 363,
-    "title": "City Senior Staff Density Breakdown",
+    "title": "Total and Senior Staff Count by City",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Workforce planning is auditing the presence of seasoned talent across branch locations. For each city in Employees, display the city name, total employee headcount (`total_employees`), and the count of senior staff members who possess at least 5 years of experience (`senior_count`).",
+    "problemStatement": "For each city, calculate the total employee count and the count of senior employees (experience >= 5).",
     "requirements": [
-      "Group records by `city`.",
-      "Count total employees aliased as `total_employees`.",
-      "Count employees with `experience >= 5` using conditional counting, aliased as `senior_count`.",
-      "Display `city`, `total_employees`, and `senior_count`."
+      "Display `city`, `total_employees`, and `senior_count`.",
+      "Group by `city`.",
+      "Use `COUNT(CASE WHEN experience >= 5 THEN 1 END)` for senior count."
     ],
     "tableName": "Employees",
-    "hint": "Apply COUNT(CASE WHEN experience >= 5 THEN 1 END) within the GROUP BY aggregation.",
+    "hint": "Count matching rows using CASE inside the COUNT function.",
     "expectedSql": "SELECT city, COUNT(*) AS total_employees, COUNT(CASE WHEN experience >= 5 THEN 1 END) AS senior_count FROM Employees GROUP BY city;",
     "explanation": "COUNT(expression) only tallies non-null values. When a CASE statement has no ELSE branch, unmatched rows evaluate to NULL and are completely ignored by COUNT().",
     "tags": [
@@ -30533,19 +30309,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 364,
-    "title": "Experience-Tiered Payroll Expenditure Comparison",
+    "title": "Compare Junior vs Senior Total Payroll",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Finance leadership is comparing corporate wage expenditure between junior and senior personnel. In a single summary record, calculate total payroll spent on junior staff with under 4 years of experience (aliased as `junior_payroll`) versus seasoned staff with 4 or more years of experience (aliased as `senior_payroll`).",
+    "problemStatement": "Calculate total monthly salary expenditure for junior staff (< 4 years experience) and senior staff (>= 4 years experience).",
     "requirements": [
-      "Query the Employees table.",
-      "Calculate total salary for staff with `experience < 4` aliased as `junior_payroll`.",
-      "Calculate total salary for staff with `experience >= 4` aliased as `senior_payroll`.",
-      "Display both metrics in a single summary row."
+      "Calculate `junior_payroll` and `senior_payroll`.",
+      "Use conditional SUM with CASE expressions."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional SUM aggregation evaluating the experience threshold into separate metrics.",
+    "hint": "Use SUM(CASE WHEN experience < 4 THEN salary ELSE 0 END).",
     "expectedSql": "SELECT SUM(CASE WHEN experience < 4 THEN salary ELSE 0 END) AS junior_payroll, SUM(CASE WHEN experience >= 4 THEN salary ELSE 0 END) AS senior_payroll FROM Employees;",
     "explanation": "Conditional summation enables partitioning monetary sums into multiple columnar metrics within a single database table scan.",
     "tags": [
@@ -30571,20 +30345,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 365,
-    "title": "Departmental Compensation Band Headcounts",
+    "title": "Count Employees in Salary Tiers per Department",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Human Resources is mapping salary tier distribution across departments. For each department, display the department name, count of staff earning strictly under 35,000 (`tier_low`), count of staff earning between 35,000 and 60,000 inclusive (`tier_mid`), and count of staff earning strictly over 60,000 (`tier_high`).",
+    "problemStatement": "For each department, count how many employees fall into low (< 35k), mid (35k to 60k), and high (> 60k) salary tiers.",
     "requirements": [
-      "Group records by `department`.",
-      "Count staff earning under 35,000 aliased as `tier_low`.",
-      "Count staff earning between 35,000 and 60,000 inclusive aliased as `tier_mid`.",
-      "Count staff earning over 60,000 aliased as `tier_high`.",
-      "Display `department`, `tier_low`, `tier_mid`, and `tier_high`."
+      "Display `department`, `tier_low`, `tier_mid`, and `tier_high`.",
+      "Group by `department`.",
+      "Use conditional aggregation with SUM and CASE."
     ],
     "tableName": "Employees",
-    "hint": "Use SUM with conditional expressions to pivot headcounts into three distinct tier columns.",
+    "hint": "Use SUM(CASE WHEN ... THEN 1 ELSE 0 END) for each tier.",
     "expectedSql": "SELECT department, SUM(CASE WHEN salary < 35000 THEN 1 ELSE 0 END) AS tier_low, SUM(CASE WHEN salary BETWEEN 35000 AND 60000 THEN 1 ELSE 0 END) AS tier_mid, SUM(CASE WHEN salary > 60000 THEN 1 ELSE 0 END) AS tier_high FROM Employees GROUP BY department;",
     "explanation": "This classic pivot aggregation pattern transforms row-level categories into distinct report columns, essential for cross-tab analysis.",
     "tags": [
@@ -30638,19 +30410,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 366,
-    "title": "Technical vs Business Unit Average Salary Benchmark",
+    "title": "Average Salary for IT vs Non-IT",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Compensation analytics compares overall average salaries between engineering staff and all other business departments. In a single summary row, compute the average salary of employees in the IT department (rounded to 2 decimal places, aliased as `avg_it_salary`) alongside the average salary of all non-IT employees (rounded to 2 decimal places, aliased as `avg_non_it_salary`).",
+    "problemStatement": "Calculate the average salary for IT employees versus all non-IT employees, both rounded to 2 decimal places.",
     "requirements": [
-      "Query the Employees table.",
-      "Calculate average salary for IT employees rounded to 2 decimal places, aliased as `avg_it_salary`.",
-      "Calculate average salary for non-IT employees rounded to 2 decimal places, aliased as `avg_non_it_salary`.",
-      "Return both metrics in a single summary record."
+      "Calculate `avg_it_salary` and `avg_non_it_salary`.",
+      "Use ROUND(AVG(CASE WHEN ... THEN salary END), 2)."
     ],
     "tableName": "Employees",
-    "hint": "Apply conditional AVG(CASE WHEN ...) wrapped in ROUND to 2 decimal places for each cohort.",
+    "hint": "Use AVG with CASE to aggregate salaries conditionally.",
     "expectedSql": "SELECT ROUND(AVG(CASE WHEN department = 'IT' THEN salary END), 2) AS avg_it_salary, ROUND(AVG(CASE WHEN department <> 'IT' THEN salary END), 2) AS avg_non_it_salary FROM Employees;",
     "explanation": "Omitting the ELSE clause in AVG(CASE WHEN ...) causes non-matching rows to evaluate to NULL. Because AVG() skips NULL values, the mean is accurately computed over only the target subset.",
     "tags": [
@@ -30676,20 +30446,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 367,
-    "title": "Department High-Earner Percentage with Safeguard",
+    "title": "High Earner Percentage by Department",
     "topic": "CASE Expressions",
     "subtopic": "CASE with Aggregates",
     "difficulty": "Medium",
-    "problemStatement": "Compensation governance calculates the percentage of high earners in each business unit while safeguarding against division-by-zero errors. For each department, display the department name, total staff count (`total_staff`), count of staff earning at least 50,000 (`high_earner_count`), and the percentage of staff earning at least 50,000 rounded to 1 decimal place (`high_earner_percentage`).",
+    "problemStatement": "For each department, calculate total staff, count of employees earning >= 50,000, and their percentage of the department (rounded to 1 decimal).",
     "requirements": [
-      "Group records by `department` in Employees.",
-      "Count total staff aliased as `total_staff`.",
-      "Count staff earning at least 50,000 aliased as `high_earner_count`.",
-      "Calculate high earner percentage with a zero-division safeguard, rounded to 1 decimal place, aliased as `high_earner_percentage`.",
-      "Display `department`, `total_staff`, `high_earner_count`, and `high_earner_percentage`."
+      "Display `department`, `total_staff`, `high_earner_count`, and `high_earner_percentage`.",
+      "Group by `department`.",
+      "Calculate percentage using conditional SUM divided by COUNT(*)."
     ],
     "tableName": "Employees",
-    "hint": "Use conditional logic to check for a headcount of 0 before performing the percentage division.",
+    "hint": "Divide high earner count by total staff, multiply by 100, and round to 1 decimal place.",
     "expectedSql": "SELECT department, COUNT(*) AS total_staff, SUM(CASE WHEN salary >= 50000 THEN 1 ELSE 0 END) AS high_earner_count, ROUND(CASE WHEN COUNT(*) = 0 THEN 0.0 ELSE (SUM(CASE WHEN salary >= 50000 THEN 1.0 ELSE 0.0 END) / COUNT(*)) * 100.0 END, 1) AS high_earner_percentage FROM Employees GROUP BY department;",
     "explanation": "Guarding mathematical divisions against zero-count denominators is a critical production pattern that prevents runtime mathematical exceptions in corporate reporting.",
     "tags": [
@@ -30743,19 +30511,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 368,
-    "title": "Colocation vs Regional Work Model Classification",
+    "title": "Classify Employee Work Location Model",
     "topic": "CASE Expressions",
     "subtopic": "CASE with JOINs and Subqueries",
     "difficulty": "Medium",
-    "problemStatement": "Facilities and HR analyze employee geographical colocation with their department's headquarters. Join employees with their registered department and display employee name, department, employee resident city, department headquarters location, and an operational work model tag (`work_model`): 'Colocated HQ' if the employee lives in the same city as the department headquarters, or 'Regional Branch' if located in a different city.",
+    "problemStatement": "Display each employee's work model: 'Colocated HQ' if their city matches department location, or 'Regional Branch' otherwise.",
     "requirements": [
-      "Join Employees and Departments on matching department name.",
-      "Classify work arrangement as 'Colocated HQ' if `city = location`, otherwise 'Regional Branch'.",
-      "Alias the classification as `work_model`.",
-      "Display `emp_name`, `department`, `city`, `location`, and `work_model`."
+      "Display `emp_name`, `department`, `city`, `location`, and `work_model`.",
+      "Join Employees with Departments.",
+      "Use CASE WHEN e.city = d.location THEN 'Colocated HQ' ELSE 'Regional Branch' END."
     ],
     "tableName": "Employees, Departments",
-    "hint": "Join on department name and use a conditional equality check comparing e.city to d.location.",
+    "hint": "Compare employee city to department location in a CASE expression.",
     "expectedSql": "SELECT e.emp_name, e.department, e.city, d.location, CASE WHEN e.city = d.location THEN 'Colocated HQ' ELSE 'Regional Branch' END AS work_model FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name;",
     "explanation": "Joining entities before applying conditional logic allows multi-table attribute cross-validation to derive organizational insights.",
     "tags": [
@@ -30920,20 +30687,19 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 369,
-    "title": "Project Initiative Resource Intensity Rating",
+    "title": "Classify Project Workload Intensity",
     "topic": "CASE Expressions",
     "subtopic": "CASE with JOINs and Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Resource governance rates corporate initiatives by resource intensity. For all projects in Projects, display project name, cumulative weekly allocated hours (defaulting to 0, aliased as `total_hours`), assigned staff count (`staff_count`), and an intensity rating (`intensity_rating`): 'Unstaffed' if staff count or total hours is 0, 'Low Intensity' for under 50 weekly hours, 'Medium Intensity' for 50 to 80 weekly hours inclusive, and 'High Intensity' for over 80 weekly hours.",
+    "problemStatement": "For each project, calculate total hours and staff count, and classify intensity: 'Unstaffed' (0 hrs/staff), 'Low Intensity' (<50 hrs), 'Medium Intensity' (50-80 hrs), or 'High Intensity' (>80 hrs).",
     "requirements": [
-      "Combine Projects and Employee_Projects preserving all projects.",
-      "Group by project ID and project name.",
-      "Sum weekly hours aliased as `total_hours` and count assigned staff aliased as `staff_count`.",
-      "Assign intensity rating into 'Unstaffed', 'Low Intensity', 'Medium Intensity', or 'High Intensity' aliased as `intensity_rating`.",
-      "Display `project_name`, `total_hours`, `staff_count`, and `intensity_rating`."
+      "Display `project_name`, `total_hours`, `staff_count`, and `intensity_rating`.",
+      "LEFT JOIN Projects with Employee_Projects.",
+      "Use CASE to classify intensity based on total hours.",
+      "Group by `project_id, project_name`."
     ],
     "tableName": "Projects, Employee_Projects",
-    "hint": "Group by project attributes and evaluate total hours with a conditional classification expression.",
+    "hint": "Combine LEFT JOIN with CASE in SELECT and GROUP BY project attributes.",
     "expectedSql": "SELECT p.project_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours, COUNT(ep.emp_id) AS staff_count, CASE WHEN COUNT(ep.emp_id) = 0 OR COALESCE(SUM(ep.hours_allocated), 0) = 0 THEN 'Unstaffed' WHEN SUM(ep.hours_allocated) < 50 THEN 'Low Intensity' WHEN SUM(ep.hours_allocated) <= 80 THEN 'Medium Intensity' ELSE 'High Intensity' END AS intensity_rating FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name;",
     "explanation": "Combining outer joins, aggregate functions, and multi-tier CASE branching handles both staffed initiatives and empty edge cases in a single query.",
     "tags": [
@@ -31006,19 +30772,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 370,
-    "title": "Intra-Departmental Salary Standing Evaluation",
+    "title": "Classify Employee Salary Standing vs Department",
     "topic": "CASE Expressions",
     "subtopic": "CASE with JOINs and Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Workforce equity evaluates each employee's salary standing relative to their own department's average. Display employee name, department, monthly salary, and a relative salary standing label (`salary_standing`): 'Above Dept Average' if salary exceeds 115% of the department average, 'At Dept Average' if salary is between 85% and 115% of the department average inclusive, and 'Below Dept Average' if salary is under 85% of the department average.",
+    "problemStatement": "Classify each employee's salary standing compared to their department average: 'Above Dept Average' (>115%), 'At Dept Average' (85-115%), or 'Below Dept Average' (<85%).",
     "requirements": [
-      "Compare each employee's salary against a correlated subquery computing their department's average salary.",
-      "Classify into 'Above Dept Average', 'At Dept Average', or 'Below Dept Average' based on the specified percentage thresholds.",
-      "Alias the standing label as `salary_standing`.",
-      "Display `emp_name`, `department`, `salary`, and `salary_standing` from Employees."
+      "Display `emp_name`, `department`, `salary`, and `salary_standing`.",
+      "Use a correlated subquery in CASE to compare with department average."
     ],
     "tableName": "Employees",
-    "hint": "Use a correlated subquery computing AVG(salary) for the matching department within the conditional checks.",
+    "hint": "Compare salary with correlated department average scaled by 1.15 and 0.85.",
     "expectedSql": "SELECT e.emp_name, e.department, e.salary, CASE WHEN e.salary > (SELECT AVG(e2.salary) FROM Employees e2 WHERE e2.department = e.department) * 1.15 THEN 'Above Dept Average' WHEN e.salary >= (SELECT AVG(e2.salary) FROM Employees e2 WHERE e2.department = e.department) * 0.85 THEN 'At Dept Average' ELSE 'Below Dept Average' END AS salary_standing FROM Employees e;",
     "explanation": "Correlated subqueries dynamically evaluate the benchmark value for each candidate row, enabling relative percentile-style categorization.",
     "tags": [
@@ -31162,19 +30926,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 371,
-    "title": "Project Capital Allocation Scale Classification",
+    "title": "Classify Project Scale Relative to Department Budget",
     "topic": "CASE Expressions",
     "subtopic": "CASE with JOINs and Subqueries",
     "difficulty": "Hard",
-    "problemStatement": "Strategic planning classifies project size relative to the sponsoring department's overall budget. For all projects, display project name, department name, project budget (`project_budget`), department budget (`dept_budget`), and a project scale classification (`project_scale`): 'Major Capital Project' if project budget exceeds 30% of the department budget, 'Significant Project' if between 15% and 30% inclusive, and 'Routine Department Project' if under 15%.",
+    "problemStatement": "Classify projects as 'Major Capital Project' (>30% of dept budget), 'Significant Project' (15-30%), or 'Routine Department Project' (<15%).",
     "requirements": [
-      "Join Projects and Departments on department ID (`dept_id`).",
-      "Compare project budget to departmental budget thresholds.",
-      "Classify scale into 'Major Capital Project', 'Significant Project', or 'Routine Department Project' aliased as `project_scale`.",
-      "Display `project_name`, `dept_name`, `project_budget`, `dept_budget`, and `project_scale`."
+      "Display `project_name`, `dept_name`, `project_budget`, `dept_budget`, and `project_scale`.",
+      "Join Projects with Departments on dept_id.",
+      "Use a CASE expression comparing project budget to percentages of department budget."
     ],
     "tableName": "Projects, Departments",
-    "hint": "Join on dept_id and compare p.budget against percentages of d.budget.",
+    "hint": "Compare p.budget with 0.30 and 0.15 of d.budget.",
     "expectedSql": "SELECT p.project_name, d.dept_name, p.budget AS project_budget, d.budget AS dept_budget, CASE WHEN p.budget > d.budget * 0.30 THEN 'Major Capital Project' WHEN p.budget >= d.budget * 0.15 THEN 'Significant Project' ELSE 'Routine Department Project' END AS project_scale FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id;",
     "explanation": "Cross-table mathematical comparisons in CASE statements provide real-world portfolio risk and capital allocation metrics.",
     "tags": [
@@ -31256,18 +31019,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 372,
-    "title": "Talent Retention and Compensation Flight Risk Audit",
+    "title": "Evaluate Employee Retention Risk",
     "topic": "CASE Expressions",
     "subtopic": "Interview-Level CASE Challenges",
     "difficulty": "Hard",
-    "problemStatement": "Human Resources is conducting a flight risk assessment combining experience and compensation. For all employees, display employee name, years of experience, monthly salary, and an assigned retention assessment (`retention_assessment`): for seasoned staff (6 or more years of experience), label as 'High Flight Risk (Underpaid Veteran)' if salary is under 60,000, or 'Key Retained Leader' otherwise; for staff under 6 years of experience, label as 'Entry Flight Risk' if salary is under 30,000, or 'Standard Stable' otherwise.",
+    "problemStatement": "Assess retention risk using nested CASE expressions based on experience and salary thresholds.",
     "requirements": [
-      "Classify employees using multi-tiered logic combining experience and salary criteria.",
-      "Alias the resulting evaluation as `retention_assessment`.",
-      "Display `emp_name`, `experience`, `salary`, and `retention_assessment` from Employees."
+      "Display `emp_name`, `experience`, `salary`, and `retention_assessment`.",
+      "Evaluate seasoned staff (>= 6 yrs) and junior staff (< 6 yrs) against salary cutoffs."
     ],
     "tableName": "Employees",
-    "hint": "Structure nested conditional expressions evaluating the tenure band first, then compensation thresholds.",
+    "hint": "Nest a CASE expression inside another CASE expression.",
     "expectedSql": "SELECT emp_name, experience, salary, CASE WHEN experience >= 6 THEN CASE WHEN salary < 60000 THEN 'High Flight Risk (Underpaid Veteran)' ELSE 'Key Retained Leader' END ELSE CASE WHEN salary < 30000 THEN 'Entry Flight Risk' ELSE 'Standard Stable' END END AS retention_assessment FROM Employees;",
     "explanation": "Nesting CASE expressions models hierarchical decision trees where secondary criteria depend completely on the primary outcome branch.",
     "tags": [
@@ -31411,18 +31173,17 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 373,
-    "title": "Workforce Priority Career Tier Designation",
+    "title": "Assign Career Tier Designation",
     "topic": "CASE Expressions",
     "subtopic": "Interview-Level CASE Challenges",
     "difficulty": "Hard",
-    "problemStatement": "Organizational design implements priority-ordered career tier designations. Classify employees into career tiers evaluated in sequence: 'Leadership Tier' for staff with at least 8 years of experience AND earning at least 75,000; 'Senior Contributor' for staff with at least 6 years of experience OR earning at least 60,000; 'Core Professional' for staff with at least 3 years of experience; and 'Associate' for all other employees. Display employee name, experience, salary, and the assigned tier aliased as `tier_designation`.",
+    "problemStatement": "Assign each employee to 'Leadership Tier' (8+ yrs and >= 75k), 'Senior Contributor' (6+ yrs or >= 60k), 'Core Professional' (3+ yrs), or 'Associate'.",
     "requirements": [
-      "Evaluate criteria in the exact specified priority order.",
-      "Alias the assigned label as `tier_designation`.",
-      "Display `emp_name`, `experience`, `salary`, and `tier_designation` from Employees."
+      "Display `emp_name`, `experience`, `salary`, and `tier_designation`.",
+      "Use a CASE expression evaluating experience and salary combinations."
     ],
     "tableName": "Employees",
-    "hint": "Rely on sequential short-circuiting logic in the conditional expression, ordering conditions from most selective to least.",
+    "hint": "Order your WHEN conditions from most specific (Leadership) to least specific.",
     "expectedSql": "SELECT emp_name, experience, salary, CASE WHEN experience >= 8 AND salary >= 75000 THEN 'Leadership Tier' WHEN experience >= 6 OR salary >= 60000 THEN 'Senior Contributor' WHEN experience >= 3 THEN 'Core Professional' ELSE 'Associate' END AS tier_designation FROM Employees;",
     "explanation": "Because SQL short-circuits on the first condition evaluating to true, placing strict conditions first guarantees candidates receive their highest qualifying designation.",
     "tags": [
@@ -31566,19 +31327,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 374,
-    "title": "Comprehensive Performance and Incentive Audit Matrix",
+    "title": "Classify Employee Appraisal Status",
     "topic": "CASE Expressions",
     "subtopic": "Interview-Level CASE Challenges",
     "difficulty": "Hard",
-    "problemStatement": "The compensation committee audits review and bonus history across all staff members. Display employee ID, name, review year, rating, and a comprehensive appraisal status (`appraisal_status`): 'Pending Initial Review' if the employee has never been reviewed; 'Top Performer (Bonus Awarded)' if rating is at least 4 and a bonus was awarded; 'High Rating (No Cash Bonus)' if rating is at least 4 but bonus is unassigned; and 'Standard Rating (No Cash Bonus)' for all other cases.",
+    "problemStatement": "Classify review status: 'Pending Initial Review' (no review), 'Top Performer (Bonus Awarded)', 'High Rating (No Cash Bonus)', or 'Standard Rating (No Cash Bonus)'.",
     "requirements": [
-      "Combine Employees and Performance_Reviews preserving all employees.",
-      "Classify status into the four designated appraisal categories, accounting for outer join null values.",
-      "Alias the resulting label as `appraisal_status`.",
-      "Display `emp_id`, `emp_name`, `review_year`, `rating`, and `appraisal_status`."
+      "Display `emp_id`, `emp_name`, `review_year`, `rating`, and `appraisal_status`.",
+      "LEFT JOIN Employees with Performance_Reviews on emp_id.",
+      "Use a CASE expression evaluating review_id, rating, and bonus."
     ],
     "tableName": "Employees, Performance_Reviews",
-    "hint": "Use a left outer join from Employees to Performance_Reviews and evaluate review_id nullity first.",
+    "hint": "Handle review_id IS NULL first in the CASE expression.",
     "expectedSql": "SELECT e.emp_id, e.emp_name, pr.review_year, pr.rating, CASE WHEN pr.review_id IS NULL THEN 'Pending Initial Review' WHEN pr.rating >= 4 AND pr.bonus IS NOT NULL THEN 'Top Performer (Bonus Awarded)' WHEN pr.rating >= 4 AND pr.bonus IS NULL THEN 'High Rating (No Cash Bonus)' ELSE 'Standard Rating (No Cash Bonus)' END AS appraisal_status FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     "explanation": "Correctly distinguishing between missing outer join child records (unreviewed employees) and present records with NULL values (reviewed with no bonus) tests senior SQL data engineering competence.",
     "tags": [
@@ -31772,20 +31532,18 @@ const BASE_QUESTIONS = [
   },
   {
     "id": 375,
-    "title": "Departmental Health and Restructuring Priority Matrix",
+    "title": "Department Health and Restructure Priority",
     "topic": "CASE Expressions",
     "subtopic": "Interview-Level CASE Challenges",
     "difficulty": "Hard",
-    "problemStatement": "The executive committee is evaluating organizational health across all registered corporate departments. For each department in Departments, display department name, assigned staff count (`staff_count`), annualized payroll expense (`annual_payroll`, defaulting to 0), departmental budget, and a restructuring priority label (`restructure_priority`): 'Vacant Department - Urgent Staffing' if headcount is 0; 'Overstaffed & Overbudget' if headcount is at least 5 AND annual payroll exceeds budget; 'Overbudget Warning' if annual payroll exceeds budget; 'Undermanned Unit' if headcount is 2 or fewer; and 'Balanced Operations' for all other departments.",
+    "problemStatement": "Evaluate each department's operational status based on staffing count and annual payroll relative to budget.",
     "requirements": [
-      "Combine Departments and Employees preserving all registered departments.",
-      "Group by department ID, department name, and budget.",
-      "Count staff aliased as `staff_count` and sum annualized payroll (`salary * 12`) defaulting to 0 aliased as `annual_payroll`.",
-      "Classify restructuring priority into the five designated categories, aliased as `restructure_priority`.",
-      "Display `dept_name`, `staff_count`, `annual_payroll`, `budget`, and `restructure_priority`."
+      "Display `dept_name`, `staff_count`, `annual_payroll`, `budget`, and `restructure_priority`.",
+      "LEFT JOIN Departments with Employees.",
+      "Group by department and classify status using a CASE expression with aggregate functions."
     ],
     "tableName": "Departments, Employees",
-    "hint": "Left join Departments to Employees, group by department attributes, and evaluate group aggregates with conditional logic in order.",
+    "hint": "Evaluate headcount and payroll vs budget in the CASE statement.",
     "expectedSql": "SELECT d.dept_name, COUNT(e.emp_id) AS staff_count, COALESCE(SUM(e.salary * 12), 0) AS annual_payroll, d.budget, CASE WHEN COUNT(e.emp_id) = 0 THEN 'Vacant Department - Urgent Staffing' WHEN COUNT(e.emp_id) >= 5 AND SUM(e.salary * 12) > d.budget THEN 'Overstaffed & Overbudget' WHEN SUM(e.salary * 12) > d.budget THEN 'Overbudget Warning' WHEN COUNT(e.emp_id) <= 2 THEN 'Undermanned Unit' ELSE 'Balanced Operations' END AS restructure_priority FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_id, d.dept_name, d.budget;",
     "explanation": "Enterprise decision engines use multi-tiered aggregate evaluations with priority fall-throughs to power operational analytics and organizational health dashboards.",
     "tags": [
