@@ -189,6 +189,8 @@ async function buildAndVerify() {
  * Generated automatically by scripts/buildAndVerifyQuestionBank.js
  */
 
+import { DDL_DML_QUESTIONS, DDL_DML_TOPICS } from './ddlDmlQuestions.js';
+
 export const QUESTION_TOPICS = [
   "SQL Fundamentals",
   "WHERE & Operators",
@@ -199,10 +201,16 @@ export const QUESTION_TOPICS = [
   "SQL JOINs",
   "Subqueries",
   "CASE Expressions",
-  "Interview Ready Questions"
+  "Interview Ready Questions",
+  ...DDL_DML_TOPICS
 ];
 
-export const QUESTIONS = ${JSON.stringify(verifiedQuestions, null, 2)};
+const BASE_QUESTIONS = ${JSON.stringify(verifiedQuestions, null, 2)};
+
+export const QUESTIONS = [
+  ...BASE_QUESTIONS,
+  ...DDL_DML_QUESTIONS
+];
 `;
 
   fs.writeFileSync(path.resolve('src/data/questionBank.js'), fileContent, 'utf8');

@@ -2,17 +2,17 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Inner Joins & Relational Equi-Joins (IDs 176 to 190)
   {
     id: 176,
-    title: "Join employees with their corporate department details",
+    title: "Departmental Headquarters and Budget Alignment",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display emp_name, department, location, and budget by joining Employees and Departments on Employees.department = Departments.dept_name.",
+    problemStatement: "The facilities planning committee needs to cross-reference staff with official department records. Retrieve the employee name, department name, headquarters location, and annual departmental budget for all employees whose department is registered in the Departments table.",
     requirements: [
-      "INNER JOIN Employees e and Departments d on e.department = d.dept_name.",
-      "Select e.emp_name, e.department, d.location, d.budget."
+      "Combine records from Employees and Departments based on matching department name.",
+      "Display `emp_name`, `department`, `location`, and `budget`."
     ],
     tableName: "Employees, Departments",
-    hint: "FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name",
+    hint: "Connect Employees and Departments on the matching department name attribute.",
     expectedSql: "SELECT e.emp_name, e.department, d.location, d.budget FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name;",
     explanation: "Equi-join on department name pairs employee records with their departmental headquarters and budget.",
     tags: ["joins", "inner-join", "equi-join"],
@@ -20,17 +20,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 177,
-    title: "Link corporate initiatives to owning departments via foreign key",
+    title: "Active Staff Project Assignments",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display project_id, project_name, dept_name, and budget (from Projects) by joining Projects with Departments on dept_id.",
+    problemStatement: "The PMO is reviewing staff deployed to initiatives. Display employee name, department, assigned project ID, assigned role, and weekly allocated hours for all staff members who have an active project assignment.",
     requirements: [
-      "INNER JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "Select p.project_id, p.project_name, d.dept_name, p.budget."
+      "Combine Employees and Employee_Projects based on matching employee ID.",
+      "Display `emp_name`, `department`, `project_id`, `assigned_role`, and `hours_allocated`."
     ],
     tableName: "Projects, Departments",
-    hint: "FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id",
+    hint: "Join Employees with Employee_Projects on emp_id.",
     expectedSql: "SELECT p.project_id, p.project_name, d.dept_name, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id;",
     explanation: "Standard primary-key to foreign-key equi-join connects projects with owning organizational units.",
     tags: ["joins", "inner-join", "foreign-key"],
@@ -38,17 +38,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 178,
-    title: "Display employee project assignments and allocated hours",
+    title: "Project Ownership and Divisional Budgets",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display emp_name, project_id, assigned_role, and hours_allocated by joining Employees and Employee_Projects on emp_id.",
+    problemStatement: "Corporate governance needs an overview linking projects to their sponsoring departments. For each initiative, display the project name, project budget, sponsoring department name, and department office location.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Select e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated."
+      "Combine Projects and Departments based on matching department ID (`dept_id`).",
+      "Display `project_name`, project `budget`, `dept_name`, and `location`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id",
+    hint: "Join Projects and Departments on dept_id.",
     expectedSql: "SELECT e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     explanation: "Resolves employee names for project staffing records via the junction table.",
     tags: ["joins", "inner-join", "junction"],
@@ -56,17 +56,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 179,
-    title: "Retrieve employee performance evaluations with appraisal details",
+    title: "Employee Appraisal History Record",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display emp_name, review_year, rating, and bonus by joining Employees and Performance_Reviews on emp_id.",
+    problemStatement: "Human Resources is compiling historical performance ratings alongside employee profiles. Display each employee's name, evaluation year, rating, and awarded bonus for all completed performance appraisals.",
     requirements: [
-      "INNER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_name, pr.review_year, pr.rating, pr.bonus."
+      "Combine Employees and Performance_Reviews on matching employee ID.",
+      "Display `emp_name`, `review_year`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Join Employees and Performance_Reviews on emp_id.",
     expectedSql: "SELECT e.emp_name, pr.review_year, pr.rating, pr.bonus FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Combines employee biographical names with historical performance appraisals.",
     tags: ["joins", "inner-join", "reviews"],
@@ -74,17 +74,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 180,
-    title: "Join projects with staff assignments to view project roles",
+    title: "Initiative Staffing and Operational Status",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display project_name, emp_id, assigned_role, and hours_allocated by joining Projects and Employee_Projects on project_id.",
+    problemStatement: "Resource allocation reviews need to correlate project status with assigned personnel. Display project name, execution status, assigned employee ID, and assigned role for all current project assignments.",
     requirements: [
-      "INNER JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Select p.project_name, ep.emp_id, ep.assigned_role, ep.hours_allocated."
+      "Combine Projects and Employee_Projects based on matching project ID.",
+      "Display `project_name`, `status`, `emp_id`, and `assigned_role`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id",
+    hint: "Join Projects with Employee_Projects on project_id.",
     expectedSql: "SELECT p.project_name, ep.emp_id, ep.assigned_role, ep.hours_allocated FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     explanation: "Exposes project team composition by joining the project dimension with staffing assignments.",
     tags: ["joins", "inner-join", "projects"],
@@ -92,18 +92,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 181,
-    title: "Find staff assigned to departments headquartered in Hyderabad",
+    title: "Hyderabad Division Personnel Roster",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display e.emp_name, e.department, and d.dept_head for employees whose department location is 'Hyderabad'.",
+    problemStatement: "Corporate administration is compiling a directory of staff members whose departments are headquartered in Hyderabad. Display employee name, department, and office location for all employees working in departments located in Hyderabad.",
     requirements: [
-      "INNER JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "Filter with d.location = 'Hyderabad'.",
-      "Select e.emp_name, e.department, d.dept_head."
+      "Combine Employees and Departments on department name.",
+      "Filter for departments situated in 'Hyderabad'.",
+      "Display `emp_name`, `department`, and `location`."
     ],
     tableName: "Employees, Departments",
-    hint: "WHERE d.location = 'Hyderabad'",
+    hint: "Join on department name and filter for location = 'Hyderabad' in the WHERE clause.",
     expectedSql: "SELECT e.emp_name, e.department, d.dept_head FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE d.location = 'Hyderabad';",
     explanation: "Combines join logic with WHERE filtering on department headquarters location.",
     tags: ["joins", "where", "location"],
@@ -111,18 +111,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 182,
-    title: "List active projects alongside their department names and budgets",
+    title: "High-Rated Appraisals in the 2024 Cycle",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display p.project_name, d.dept_name, and p.budget for projects where p.status = 'Active'.",
+    problemStatement: "Executive management is recognizing top performers from the 2024 review cycle. Retrieve employee name, department, rating, and bonus for reviews conducted in 2024 where the employee achieved a rating of 4 or higher.",
     requirements: [
-      "INNER JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "Filter where p.status = 'Active'.",
-      "Select p.project_name, d.dept_name, p.budget."
+      "Join Employees and Performance_Reviews on employee ID.",
+      "Filter for evaluations in calendar year 2024 with a rating of 4 or 5.",
+      "Display `emp_name`, `department`, `rating`, and `bonus`."
     ],
     tableName: "Projects, Departments",
-    hint: "WHERE p.status = 'Active'",
+    hint: "Join on emp_id and filter for review_year = 2024 and rating >= 4.",
     expectedSql: "SELECT p.project_name, d.dept_name, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id WHERE p.status = 'Active';",
     explanation: "Filters active project status across joined departmental relations.",
     tags: ["joins", "where", "status"],
@@ -130,18 +130,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 183,
-    title: "Display five-star appraisal recipients with department and manager comments",
+    title: "Substantial Workload Commitments on Active Initiatives",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.department, pr.rating, pr.bonus, and pr.feedback for reviews where pr.rating = 5.",
+    problemStatement: "Project operations is monitoring intensive resource commitments on active projects. Display project name, assigned employee ID, role, and allocated weekly hours for all assignments on 'Active' projects where weekly hours strictly exceed 20.",
     requirements: [
-      "INNER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Filter where pr.rating = 5.",
-      "Select e.emp_name, e.department, pr.rating, pr.bonus, pr.feedback."
+      "Join Projects and Employee_Projects on project ID.",
+      "Filter for active projects and weekly workload exceeding 20 hours.",
+      "Display `project_name`, `emp_id`, `assigned_role`, and `hours_allocated`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "WHERE pr.rating = 5",
+    hint: "Join on project_id and filter for status = 'Active' and hours_allocated > 20.",
     expectedSql: "SELECT e.emp_name, e.department, pr.rating, pr.bonus, pr.feedback FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.rating = 5;",
     explanation: "Isolates top-rated staff members and details their compensation rewards.",
     tags: ["joins", "reviews", "ratings"],
@@ -149,18 +149,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 184,
-    title: "Identify full-time allocations (>= 35 hrs/wk) on initiatives",
+    title: "High-Earner Divisional Placement and Budgets",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display ep.emp_id, p.project_name, ep.assigned_role, and ep.hours_allocated for assignments with hours_allocated >= 35.",
+    problemStatement: "Compensation analytics is evaluating high-earning staff relative to departmental funding. For employees earning strictly more than 50,000, display employee name, salary, department name, and departmental operating budget.",
     requirements: [
-      "INNER JOIN Employee_Projects ep and Projects p ON ep.project_id = p.project_id.",
-      "Filter with ep.hours_allocated >= 35.",
-      "Select ep.emp_id, p.project_name, ep.assigned_role, ep.hours_allocated."
+      "Join Employees and Departments on matching department name.",
+      "Filter for employees earning strictly more than 50,000.",
+      "Display `emp_name`, `salary`, `dept_name`, and `budget`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "WHERE ep.hours_allocated >= 35",
+    hint: "Join on department name and filter for salary > 50000 in the WHERE clause.",
     expectedSql: "SELECT ep.emp_id, p.project_name, ep.assigned_role, ep.hours_allocated FROM Employee_Projects ep INNER JOIN Projects p ON ep.project_id = p.project_id WHERE ep.hours_allocated >= 35;",
     explanation: "Pairs project names with intensive staffing commitments.",
     tags: ["joins", "workload", "hours"],
@@ -168,18 +168,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 185,
-    title: "Match well-compensated employees (> 50000) with department leadership",
+    title: "Completed Capital Initiatives by Department",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display e.emp_name, e.salary, d.dept_name, and d.dept_head for employees with salary > 50000.",
+    problemStatement: "The PMO is reporting delivered programs alongside their sponsoring division. Display project name, budget, department name, and office location for all projects that have reached 'Completed' status.",
     requirements: [
-      "INNER JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "Filter where e.salary > 50000.",
-      "Select e.emp_name, e.salary, d.dept_name, d.dept_head."
+      "Join Projects and Departments on department ID (`dept_id`).",
+      "Filter for initiatives marked as 'Completed'.",
+      "Display `project_name`, project `budget`, `dept_name`, and `location`."
     ],
     tableName: "Employees, Departments",
-    hint: "WHERE e.salary > 50000",
+    hint: "Join on dept_id and filter for status = 'Completed'.",
     expectedSql: "SELECT e.emp_name, e.salary, d.dept_name, d.dept_head FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE e.salary > 50000;",
     explanation: "Surfaces executive leadership associated with high-earning staff members.",
     tags: ["joins", "salary", "management"],
@@ -187,18 +187,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 186,
-    title: "List leadership role assignments with employee departmental context",
+    title: "Leadership Assignments Across Projects",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.department, ep.project_id, and ep.assigned_role for assignments where ep.assigned_role LIKE '%Lead%'.",
+    problemStatement: "Workforce governance is tracking personnel serving in managerial and lead capacities on corporate initiatives. Display employee name, department, project ID, and assigned role for assignments where the role title contains 'Lead' or 'Manager'.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Filter where ep.assigned_role LIKE '%Lead%'.",
-      "Select e.emp_name, e.department, ep.project_id, ep.assigned_role."
+      "Join Employees and Employee_Projects on employee ID.",
+      "Filter for assigned roles containing 'Lead' or 'Manager'.",
+      "Display `emp_name`, `department`, `project_id`, and `assigned_role`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "WHERE ep.assigned_role LIKE '%Lead%'",
+    hint: "Join on emp_id and use partial string matching on assigned_role with OR.",
     expectedSql: "SELECT e.emp_name, e.department, ep.project_id, ep.assigned_role FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.assigned_role LIKE '%Lead%';",
     explanation: "Joins staffing records with biographical details to highlight lead project contributors.",
     tags: ["joins", "roles", "like"],
@@ -206,18 +206,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 187,
-    title: "Display employee office location and bonuses for 2024 reviews",
+    title: "Substantial Merit Bonus Disbursements",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.city, pr.rating, and pr.bonus for reviews where pr.review_year = 2024 and pr.bonus IS NOT NULL.",
+    problemStatement: "Finance is auditing significant incentive disbursements. Display employee name, evaluation year, rating, and bonus for all performance reviews where the awarded bonus strictly exceeds 10,000.",
     requirements: [
-      "INNER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Filter where pr.review_year = 2024 AND pr.bonus IS NOT NULL.",
-      "Select e.emp_name, e.city, pr.rating, pr.bonus."
+      "Join Employees and Performance_Reviews on employee ID.",
+      "Filter for appraisals with a bonus strictly greater than 10,000.",
+      "Display `emp_name`, `review_year`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "WHERE pr.review_year = 2024 AND pr.bonus IS NOT NULL",
+    hint: "Join on emp_id and filter for bonus > 10000.",
     expectedSql: "SELECT e.emp_name, e.city, pr.rating, pr.bonus FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_year = 2024 AND pr.bonus IS NOT NULL;",
     explanation: "Correlates regional office branches with recent appraisal compensation.",
     tags: ["joins", "reviews", "bonus"],
@@ -225,18 +225,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 188,
-    title: "Filter initiatives with budgets exceeding 200,000 and show department head",
+    title: "Major Capital Investments by Division",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display p.project_name, d.dept_name, d.dept_head, and p.budget for projects where p.budget > 200000.",
+    problemStatement: "Corporate treasury is reviewing capital-intensive programs. Retrieve project name, budget, department name, and location for all initiatives with a project budget strictly exceeding 250,000.",
     requirements: [
-      "INNER JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "Filter where p.budget > 200000.",
-      "Select p.project_name, d.dept_name, d.dept_head, p.budget."
+      "Join Projects and Departments on department ID.",
+      "Filter for project budgets exceeding 250,000.",
+      "Display `project_name`, project `budget`, `dept_name`, and `location`."
     ],
     tableName: "Projects, Departments",
-    hint: "WHERE p.budget > 200000",
+    hint: "Join on dept_id and filter for Projects.budget > 250000.",
     expectedSql: "SELECT p.project_name, d.dept_name, d.dept_head, p.budget FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id WHERE p.budget > 200000;",
     explanation: "Joins project capital data with departmental executive leadership.",
     tags: ["joins", "budget", "departments"],
@@ -244,18 +244,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 189,
-    title: "Find co-located employees working in their department's headquarters city",
+    title: "Staff Assignment Workload Leaderboard",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.city, e.department, and d.location by joining Employees and Departments on e.department = d.dept_name where e.city = d.location.",
+    problemStatement: "Resource scheduling requires a leaderboard of project assignments ranked by weekly commitment. Display employee name, department, project ID, and allocated hours, ordered from the highest weekly workload to the lowest.",
     requirements: [
-      "INNER JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "Filter where e.city = d.location.",
-      "Select e.emp_name, e.city, e.department, d.location."
+      "Join Employees and Employee_Projects on employee ID.",
+      "Order results by allocated hours in descending order.",
+      "Display `emp_name`, `department`, `project_id`, and `hours_allocated`."
     ],
     tableName: "Employees, Departments",
-    hint: "WHERE e.city = d.location",
+    hint: "Join on emp_id and apply ORDER BY hours_allocated DESC.",
     expectedSql: "SELECT e.emp_name, e.city, e.department, d.location FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name WHERE e.city = d.location;",
     explanation: "Verifies whether an employee's work base aligns with their division's central headquarters.",
     tags: ["joins", "location", "co-location"],
@@ -263,18 +263,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 190,
-    title: "Correlate base salary with performance bonuses",
+    title: "Appraisal Excellence Leaderboard",
     topic: "SQL JOINs",
     subtopic: "Inner Joins & Relational Equi-Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.salary, pr.bonus, and pr.rating for reviews where pr.bonus IS NOT NULL.",
+    problemStatement: "Human Resources is compiling an honor roll of employee performance appraisals. Display employee name, department, review year, rating, and bonus, sorted primarily by rating from highest to lowest, and secondarily by bonus amount descending.",
     requirements: [
-      "INNER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Filter where pr.bonus IS NOT NULL.",
-      "Select e.emp_name, e.salary, pr.bonus, pr.rating."
+      "Join Employees and Performance_Reviews on employee ID.",
+      "Order primarily by rating descending, and secondarily by bonus descending.",
+      "Display `emp_name`, `department`, `review_year`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "WHERE pr.bonus IS NOT NULL",
+    hint: "Join on emp_id and sort by rating DESC, bonus DESC.",
     expectedSql: "SELECT e.emp_name, e.salary, pr.bonus, pr.rating FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.bonus IS NOT NULL;",
     explanation: "Juxtaposes recurring monthly compensation against one-time merit bonus awards.",
     tags: ["joins", "salary", "bonus"],
@@ -284,17 +284,17 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Left Outer Joins & Unmatched Preservations (IDs 191 to 205)
   {
     id: 191,
-    title: "List all employees and their project assignments including unassigned staff",
+    title: "Comprehensive Project Staffing Audit",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, ep.project_id, and ep.assigned_role by LEFT JOINing Employees with Employee_Projects on emp_id.",
+    problemStatement: "The Project Management Office is conducting a full staffing inventory. Generate a report listing every single employee in the company along with their assigned project ID and role. Crucially, employees who are not currently assigned to any project must still appear in the report.",
     requirements: [
-      "LEFT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Select e.emp_id, e.emp_name, ep.project_id, ep.assigned_role."
+      "Include employee ID (`emp_id`), full name (`emp_name`), assigned project ID (`project_id`), and assigned role (`assigned_role`).",
+      "Ensure all company employees are retained in the results, displaying NULL for project details when an employee has no active assignment."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id",
+    hint: "Use an outer join that preserves all rows from the primary employee table.",
     expectedSql: "SELECT e.emp_id, e.emp_name, ep.project_id, ep.assigned_role FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     explanation: "Preserves all employees in the result set; employees with no project assignments return NULL for project attributes.",
     tags: ["joins", "left-join", "preservation"],
@@ -302,18 +302,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 192,
-    title: "Identify unstaffed employees with no active project assignments (Anti-Join)",
+    title: "Workforce Appraisal Coverage Inventory",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display emp_id, emp_name, and department for employees who are currently not assigned to any project.",
+    problemStatement: "HR governance is auditing review completion across the workforce. Produce a roster listing all employees alongside their review year, rating, and bonus, ensuring that staff members who have never received a performance appraisal are preserved in the list.",
     requirements: [
-      "LEFT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Filter with WHERE ep.project_id IS NULL.",
-      "Select e.emp_id, e.emp_name, e.department."
+      "Combine Employees and Performance_Reviews preserving all employees.",
+      "Display `emp_id`, `emp_name`, `review_year`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "WHERE ep.project_id IS NULL",
+    hint: "Use a left outer join from Employees to Performance_Reviews on emp_id.",
     expectedSql: "SELECT e.emp_id, e.emp_name, e.department FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id WHERE ep.project_id IS NULL;",
     explanation: "Classic SQL anti-join: LEFT JOIN combined with IS NULL on the right table's key identifies unmatched records.",
     tags: ["joins", "anti-join", "left-join", "null"],
@@ -321,17 +320,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 193,
-    title: "Display all corporate departments and their project initiatives",
+    title: "Departmental Project Ownership Directory",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display d.dept_name, d.location, p.project_name, and p.status by LEFT JOINing Departments with Projects on dept_id.",
+    problemStatement: "Corporate strategy is auditing project sponsorship across all divisions. Display department name, office location, project ID, and project name, ensuring departments that currently sponsor zero projects are still listed.",
     requirements: [
-      "LEFT JOIN Departments d and Projects p ON d.dept_id = p.dept_id.",
-      "Select d.dept_name, d.location, p.project_name, p.status."
+      "Combine Departments and Projects preserving all departments.",
+      "Display `dept_name`, `location`, `project_id`, and `project_name`."
     ],
     tableName: "Departments, Projects",
-    hint: "FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id",
+    hint: "Use a left join from Departments to Projects on dept_id.",
     expectedSql: "SELECT d.dept_name, d.location, p.project_name, p.status FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id;",
     explanation: "Preserves departments even if they have no ongoing or planned projects.",
     tags: ["joins", "left-join", "departments"],
@@ -339,18 +338,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 194,
-    title: "Find departments that currently have no associated projects (Anti-Join)",
+    title: "Initiative Resource Deployment Audit",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display dept_id, dept_name, and location for departments that have zero projects in the Projects table.",
+    problemStatement: "Resource governance is verifying team assignments across the project portfolio. Display project name, status, assigned employee ID, and weekly hours, ensuring initiatives with zero assigned team members are preserved in the report.",
     requirements: [
-      "LEFT JOIN Departments d and Projects p ON d.dept_id = p.dept_id.",
-      "Filter with WHERE p.project_id IS NULL.",
-      "Select d.dept_id, d.dept_name, d.location."
+      "Combine Projects and Employee_Projects preserving all projects.",
+      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
     ],
     tableName: "Departments, Projects",
-    hint: "WHERE p.project_id IS NULL",
+    hint: "Left join Projects to Employee_Projects on project_id.",
     expectedSql: "SELECT d.dept_id, d.dept_name, d.location FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id WHERE p.project_id IS NULL;",
     explanation: "Surfaces departments that lack project activity using an anti-join pattern.",
     tags: ["joins", "anti-join", "left-join"],
@@ -358,17 +356,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 195,
-    title: "List all employees alongside their historical review ratings",
+    title: "Employee Department Registration Verification",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, e.department, pr.review_year, and pr.rating by LEFT JOINing Employees with Performance_Reviews on emp_id.",
+    problemStatement: "Data management is verifying organizational alignment between staff and registered departments. Display employee name, department, office location, and budget, preserving all employee records even if their department is unlisted in official department records.",
     requirements: [
-      "LEFT JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_id, e.emp_name, e.department, pr.review_year, pr.rating."
+      "Combine Employees and Departments preserving all employees.",
+      "Display `emp_name`, `department`, `location`, and `budget`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Left join Employees with Departments matching department to dept_name.",
     expectedSql: "SELECT e.emp_id, e.emp_name, e.department, pr.review_year, pr.rating FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Lists every corporate employee while including appraisal data for those who have been evaluated.",
     tags: ["joins", "left-join", "reviews"],
@@ -376,18 +374,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 196,
-    title: "Find employees who have never received a performance review (Anti-Join)",
+    title: "Unassigned Personnel Identification",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display emp_id, emp_name, department, and salary for employees who have no records in Performance_Reviews.",
+    problemStatement: "Operations management needs to deploy unallocated talent to new initiatives. Identify all employees who currently have zero project assignments in Employee_Projects, displaying their ID, name, department, and salary.",
     requirements: [
-      "LEFT JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Filter with WHERE pr.review_id IS NULL.",
-      "Select e.emp_id, e.emp_name, e.department, e.salary."
+      "Identify employees who have no corresponding record in Employee_Projects.",
+      "Display `emp_id`, `emp_name`, `department`, and `salary` from Employees."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "WHERE pr.review_id IS NULL",
+    hint: "Use a left outer join and filter where the joined project assignment attribute is null.",
     expectedSql: "SELECT e.emp_id, e.emp_name, e.department, e.salary FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_id IS NULL;",
     explanation: "Isolates unreviewed personnel to schedule pending evaluations.",
     tags: ["joins", "anti-join", "null"],
@@ -395,17 +392,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 197,
-    title: "List all projects and their assigned team members",
+    title: "Unreviewed Staff Identification",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display p.project_id, p.project_name, ep.emp_id, and ep.assigned_role by LEFT JOINing Projects with Employee_Projects on project_id.",
+    problemStatement: "Human Resources is scheduling evaluations for staff who have never been reviewed. Find all employees who do not have any performance reviews recorded in the system, displaying their employee ID, name, department, and joining year.",
     requirements: [
-      "LEFT JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Select p.project_id, p.project_name, ep.emp_id, ep.assigned_role."
+      "Find employees who do not appear in Performance_Reviews.",
+      "Display `emp_id`, `emp_name`, `department`, and `joining_year`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id",
+    hint: "Left join Employees to Performance_Reviews and filter where review_id is null.",
     expectedSql: "SELECT p.project_id, p.project_name, ep.emp_id, ep.assigned_role FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     explanation: "Retains all initiatives, including newly planned initiatives that have no staff assigned yet.",
     tags: ["joins", "left-join", "projects"],
@@ -413,18 +410,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 198,
-    title: "Find initiatives that currently have zero assigned staff members (Anti-Join)",
+    title: "Divisions Lacking Project Sponsorship",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display project_id, project_name, and status for projects that have no assigned staff in Employee_Projects.",
+    problemStatement: "Corporate strategy is identifying departments that currently have no active capital initiatives. Display the department ID, department name, and location for all departments that sponsor zero projects.",
     requirements: [
-      "LEFT JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Filter with WHERE ep.emp_id IS NULL.",
-      "Select p.project_id, p.project_name, p.status."
+      "Find departments with no corresponding records in Projects.",
+      "Display `dept_id`, `dept_name`, and `location` from Departments."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "WHERE ep.emp_id IS NULL",
+    hint: "Left join Departments to Projects on dept_id and filter where project_id is null.",
     expectedSql: "SELECT p.project_id, p.project_name, p.status FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id WHERE ep.emp_id IS NULL;",
     explanation: "Detects unstaffed initiatives requiring human resource allocation.",
     tags: ["joins", "anti-join", "staffing"],
@@ -432,17 +428,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 199,
-    title: "Display all corporate departments and associated staff names",
+    title: "Unstaffed Initiative Identification",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display d.dept_name, d.dept_head, and e.emp_name by LEFT JOINing Departments with Employees on d.dept_name = e.department.",
+    problemStatement: "The PMO is identifying projects that are currently operating without any assigned staff. Display the project ID, project name, and status for all initiatives in Projects that have zero assignments in Employee_Projects.",
     requirements: [
-      "LEFT JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Select d.dept_name, d.dept_head, e.emp_name."
+      "Find projects that have no corresponding records in Employee_Projects.",
+      "Display `project_id`, `project_name`, and `status` from Projects."
     ],
     tableName: "Departments, Employees",
-    hint: "FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department",
+    hint: "Left join Projects to Employee_Projects on project_id and filter where emp_id is null.",
     expectedSql: "SELECT d.dept_name, d.dept_head, e.emp_name FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department;",
     explanation: "Preserves departments with zero staff (e.g. Legal, Operations, R&D) with NULL employee names.",
     tags: ["joins", "left-join", "departments"],
@@ -450,18 +446,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 200,
-    title: "Identify corporate departments that currently have zero employees (Anti-Join)",
+    title: "Staff Project Allocation with Default Indicators",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display dept_id, dept_name, and location for departments that have no staff in the Employees table.",
+    problemStatement: "Reporting systems require a clean display without empty project cells. Display employee name and assigned project ID for all employees, substituting 0 whenever an employee has no project assigned, aliasing the column as `assigned_project_id`.",
     requirements: [
-      "LEFT JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Filter with WHERE e.emp_id IS NULL.",
-      "Select d.dept_id, d.dept_name, d.location."
+      "Left join Employees with Employee_Projects on employee ID.",
+      "Display `emp_name` and project ID with nulls replaced by 0, aliased as `assigned_project_id`."
     ],
     tableName: "Departments, Employees",
-    hint: "WHERE e.emp_id IS NULL",
+    hint: "Use COALESCE on the project_id column from the preserved outer join.",
     expectedSql: "SELECT d.dept_id, d.dept_name, d.location FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department WHERE e.emp_id IS NULL;",
     explanation: "Locates unpopulated or newly formed corporate organizational units.",
     tags: ["joins", "anti-join", "headcount"],
@@ -469,17 +464,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 201,
-    title: "Filter joined records within the ON clause vs WHERE clause",
+    title: "Comprehensive Staffing with 2024 Appraisal Overlay",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, e.department, pr.rating, and pr.bonus for all employees, showing 2024 review data where available by placing pr.review_year = 2024 directly in the LEFT JOIN ON clause.",
+    problemStatement: "Management is compiling a complete workforce roster showing 2024 appraisal data where available. Display employee name, department, rating, and bonus for all employees, showing 2024 review metrics for employees who completed a 2024 review and null for all others.",
     requirements: [
-      "LEFT JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id AND pr.review_year = 2024.",
-      "Select e.emp_name, e.department, pr.rating, pr.bonus."
+      "Preserve all employees in the result set.",
+      "Correlate 2024 review ratings and bonuses by placing the 2024 year filter directly in the join condition.",
+      "Display `emp_name`, `department`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "ON e.emp_id = pr.emp_id AND pr.review_year = 2024",
+    hint: "Include review_year = 2024 directly in the ON clause of the left join.",
     expectedSql: "SELECT e.emp_name, e.department, pr.rating, pr.bonus FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id AND pr.review_year = 2024;",
     explanation: "Placing a condition in the ON clause filters the right table while preserving all rows of the left table.",
     tags: ["joins", "left-join", "on-clause-filtering"],
@@ -487,18 +483,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 202,
-    title: "Format unassigned staffing roles using COALESCE in a LEFT JOIN",
+    title: "Staff Performance Incentive Overview with Zero Default",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, and COALESCE(ep.assigned_role, 'Unassigned') AS project_role by LEFT JOINing Employees with Employee_Projects on emp_id.",
+    problemStatement: "Payroll reporting requires a full staff list displaying incentive bonuses, substituting 0 for staff who did not receive a bonus. Display employee ID, name, rating, and bonus with null bonuses replaced by 0, aliased as `final_bonus`.",
     requirements: [
-      "LEFT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Use COALESCE(ep.assigned_role, 'Unassigned') AS project_role.",
-      "Select e.emp_id, e.emp_name, project_role."
+      "Left join Employees and Performance_Reviews on employee ID.",
+      "Display `emp_id`, `emp_name`, `rating`, and bonus defaulting to 0 aliased as `final_bonus`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "COALESCE(ep.assigned_role, 'Unassigned') AS project_role",
+    hint: "Use COALESCE(bonus, 0) on the joined bonus column.",
     expectedSql: "SELECT e.emp_id, e.emp_name, COALESCE(ep.assigned_role, 'Unassigned') AS project_role FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     explanation: "Replaces NULL results in unassigned left-join records with informative default labels.",
     tags: ["joins", "coalesce", "left-join"],
@@ -506,18 +501,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 203,
-    title: "Compute total weekly hours per project preserving unstaffed initiatives",
+    title: "Initiative Resource Allocation on Active Projects",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display p.project_id, p.project_name, and COALESCE(SUM(ep.hours_allocated), 0) AS total_hours by LEFT JOINing Projects with Employee_Projects on project_id, grouped by p.project_id and p.project_name.",
+    problemStatement: "Resource governance is tracking staffing on active corporate initiatives. Display project name, status, assigned employee ID, and allocated hours, preserving all active projects even if they currently have no staff assigned.",
     requirements: [
-      "LEFT JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Group by p.project_id, p.project_name.",
-      "Select p.project_id, p.project_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours."
+      "Filter Projects for `status = 'Active'`.",
+      "Left join with Employee_Projects on project ID.",
+      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "GROUP BY p.project_id, p.project_name",
+    hint: "Filter Projects for status = 'Active' and left join with Employee_Projects.",
     expectedSql: "SELECT p.project_id, p.project_name, COALESCE(SUM(ep.hours_allocated), 0) AS total_hours FROM Projects p LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name;",
     explanation: "Calculates resource allocation across all initiatives, reporting 0 hours for unstaffed projects.",
     tags: ["joins", "left-join", "group-by", "coalesce"],
@@ -525,19 +520,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 204,
-    title: "Count employees per department including zero-headcount divisions",
+    title: "Staff Requiring Performance Coaching or Initial Review",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display d.dept_name and COUNT(e.emp_id) AS staff_count by LEFT JOINing Departments with Employees on d.dept_name = e.department, grouped by d.dept_name.",
+    problemStatement: "Talent development is identifying employees who either received low ratings (under 3) or have never been reviewed. Display employee name, department, rating, and review year for employees whose rating is either null or strictly less than 3.",
     requirements: [
-      "LEFT JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Group by d.dept_name.",
-      "Use COUNT(e.emp_id) AS staff_count (do NOT use COUNT(*)).",
-      "Select d.dept_name, staff_count."
+      "Left join Employees with Performance_Reviews on employee ID.",
+      "Filter for records where rating is null OR rating is strictly less than 3.",
+      "Display `emp_name`, `department`, `rating`, and `review_year`."
     ],
     tableName: "Departments, Employees",
-    hint: "COUNT(e.emp_id) AS staff_count GROUP BY d.dept_name",
+    hint: "Left join on emp_id and filter with rating IS NULL OR rating < 3 in WHERE.",
     expectedSql: "SELECT d.dept_name, COUNT(e.emp_id) AS staff_count FROM Departments d LEFT JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name;",
     explanation: "COUNT(column) properly outputs 0 for NULL matches, whereas COUNT(*) would falsely report 1 for unmatched rows.",
     tags: ["joins", "left-join", "count", "group-by"],
@@ -545,19 +539,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 205,
-    title: "Count reviews per employee including unreviewed individuals",
+    title: "Unassigned Senior Personnel Identification",
     topic: "SQL JOINs",
     subtopic: "Left Outer Joins & Unmatched Preservations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, and COUNT(pr.review_id) AS review_count by LEFT JOINing Employees with Performance_Reviews on emp_id, grouped by e.emp_id and e.emp_name.",
+    problemStatement: "Resource planning is identifying seasoned personnel available for major new projects. Find all employees with at least 5 years of professional experience who currently have zero project assignments.",
     requirements: [
-      "LEFT JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Group by e.emp_id, e.emp_name.",
-      "Use COUNT(pr.review_id) AS review_count.",
-      "Select e.emp_id, e.emp_name, review_count."
+      "Left join Employees with Employee_Projects on employee ID.",
+      "Filter for `experience >= 5` and unassigned project status.",
+      "Display `emp_id`, `emp_name`, `department`, and `experience`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "GROUP BY e.emp_id, e.emp_name",
+    hint: "Filter for experience >= 5 and ep.project_id IS NULL after left joining.",
     expectedSql: "SELECT e.emp_id, e.emp_name, COUNT(pr.review_id) AS review_count FROM Employees e LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.emp_id, e.emp_name;",
     explanation: "Guarantees every employee appears in the tally, correctly reporting zero reviews for unreviewed staff.",
     tags: ["joins", "left-join", "count", "group-by"],
@@ -567,17 +560,17 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Right Outer Joins & Full Outer Joins (IDs 206 to 215)
   {
     id: 206,
-    title: "Right outer join: Preserve all departments when matching employees",
+    title: "Preserving All Departments in Project Sourcing",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, d.dept_name, and d.location by RIGHT JOINing Employees with Departments on e.department = d.dept_name.",
+    problemStatement: "Auditors are verifying divisional project portfolios while ensuring every registered department is represented. Display department name, location, project ID, and project name, preserving all departments from Departments regardless of whether projects exist.",
     requirements: [
-      "RIGHT JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "Select e.emp_name, d.dept_name, d.location."
+      "Query Departments and Projects ensuring all departments are retained.",
+      "Display `dept_name`, `location`, `project_id`, and `project_name`."
     ],
     tableName: "Employees, Departments",
-    hint: "FROM Employees e RIGHT JOIN Departments d ON e.department = d.dept_name",
+    hint: "Use an outer join that preserves all rows from Departments.",
     expectedSql: "SELECT e.emp_name, d.dept_name, d.location FROM Employees e RIGHT JOIN Departments d ON e.department = d.dept_name;",
     explanation: "RIGHT JOIN guarantees that every row from the right-hand table (Departments) is included in the output.",
     tags: ["joins", "right-join", "outer-join"],
@@ -585,17 +578,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 207,
-    title: "Right outer join: Retain all projects when querying staff allocations",
+    title: "Preserving Complete Workforce in Allocation Records",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display ep.emp_id, ep.assigned_role, p.project_id, and p.project_name by RIGHT JOINing Employee_Projects with Projects on ep.project_id = p.project_id.",
+    problemStatement: "Workforce governance is auditing assignment records while guaranteeing that all employees appear. Display employee name, department, project ID, and allocated hours, ensuring all staff members from Employees are preserved.",
     requirements: [
-      "RIGHT JOIN Employee_Projects ep and Projects p ON ep.project_id = p.project_id.",
-      "Select ep.emp_id, ep.assigned_role, p.project_id, p.project_name."
+      "Query Employee_Projects and Employees ensuring all employees are retained.",
+      "Display `emp_name`, `department`, `project_id`, and `hours_allocated`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "FROM Employee_Projects ep RIGHT JOIN Projects p ON ep.project_id = p.project_id",
+    hint: "Use an outer join preserving the Employees table.",
     expectedSql: "SELECT ep.emp_id, ep.assigned_role, p.project_id, p.project_name FROM Employee_Projects ep RIGHT JOIN Projects p ON ep.project_id = p.project_id;",
     explanation: "Ensures projects without assigned personnel remain in the result with NULL staffing fields.",
     tags: ["joins", "right-join", "projects"],
@@ -603,17 +596,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 208,
-    title: "Right outer join: Match all performance reviews with employee names",
+    title: "Preserving Complete Workforce in Appraisal Roster",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, pr.review_id, pr.rating, and pr.bonus by RIGHT JOINing Employees with Performance_Reviews on e.emp_id = pr.emp_id.",
+    problemStatement: "HR compliance requires a comprehensive appraisal ledger that includes all personnel. Display employee name, department, review year, and rating, ensuring all employees from Employees are represented in the output.",
     requirements: [
-      "RIGHT JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_name, pr.review_id, pr.rating, pr.bonus."
+      "Query Performance_Reviews and Employees ensuring all employees are retained.",
+      "Display `emp_name`, `department`, `review_year`, and `rating`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "FROM Employees e RIGHT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Use an outer join preserving all records from the Employees table.",
     expectedSql: "SELECT e.emp_name, pr.review_id, pr.rating, pr.bonus FROM Employees e RIGHT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Guarantees every review is represented even if employee foreign keys were unassigned.",
     tags: ["joins", "right-join", "reviews"],
@@ -621,17 +614,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 209,
-    title: "Right outer join: Retain all corporate departments when joining with projects",
+    title: "Preserving Complete Project Portfolio in Assignments",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display p.project_name, d.dept_name, and d.budget by RIGHT JOINing Projects with Departments on p.dept_id = d.dept_id.",
+    problemStatement: "The PMO is reporting all projects alongside team members, ensuring projects without staff are retained. Display project name, status, assigned employee ID, and assigned role, preserving all projects from Projects.",
     requirements: [
-      "RIGHT JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "Select p.project_name, d.dept_name, d.budget."
+      "Query Employee_Projects and Projects ensuring all projects are retained.",
+      "Display `project_name`, `status`, `emp_id`, and `assigned_role`."
     ],
     tableName: "Projects, Departments",
-    hint: "FROM Projects p RIGHT JOIN Departments d ON p.dept_id = d.dept_id",
+    hint: "Ensure all records from Projects are preserved in the outer join.",
     expectedSql: "SELECT p.project_name, d.dept_name, d.budget FROM Projects p RIGHT JOIN Departments d ON p.dept_id = d.dept_id;",
     explanation: "Preserves departments with no current project commitments in the right-join result.",
     tags: ["joins", "right-join", "departments"],
@@ -639,17 +632,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 210,
-    title: "Right outer join: Retain all staffing allocations when pairing with staff names",
+    title: "Preserving Complete Workforce in Department Cross-Reference",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, ep.project_id, ep.assigned_role, and ep.hours_allocated by RIGHT JOINing Employees with Employee_Projects on e.emp_id = ep.emp_id.",
+    problemStatement: "Workforce records are cross-referenced with department data, ensuring every employee is listed. Display employee name, salary, department name, and location, preserving all employees from Employees.",
     requirements: [
-      "RIGHT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Select e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated."
+      "Query Departments and Employees ensuring all employees are retained.",
+      "Display `emp_name`, `salary`, `dept_name`, and `location`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "FROM Employees e RIGHT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id",
+    hint: "Preserve all records from the Employees table in the join.",
     expectedSql: "SELECT e.emp_name, ep.project_id, ep.assigned_role, ep.hours_allocated FROM Employees e RIGHT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id;",
     explanation: "Maintains all junction table records on the right side of the join.",
     tags: ["joins", "right-join", "junction"],
@@ -657,17 +650,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 211,
-    title: "Full outer join: Comprehensive matrix between Departments and Employees",
+    title: "Full Bidirectional Reconciliation: Employees and Departments",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display d.dept_name, d.location, e.emp_name, and e.salary by performing a FULL OUTER JOIN between Departments and Employees on d.dept_name = e.department.",
+    problemStatement: "Data quality engineers are performing a bidirectional reconciliation between employees and departments. Produce a consolidated view that includes all matched records, unmatched employees, and unmatched departments, displaying employee name, department, and department headquarters location.",
     requirements: [
-      "FULL OUTER JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Select d.dept_name, d.location, e.emp_name, e.salary."
+      "Combine Employees and Departments preserving unmatched records from both tables.",
+      "Display `emp_name`, `department`, and `location`."
     ],
     tableName: "Departments, Employees",
-    hint: "FROM Departments d FULL OUTER JOIN Employees e ON d.dept_name = e.department",
+    hint: "Combine a left outer join and an anti-join or right outer join using UNION.",
     expectedSql: "SELECT d.dept_name, d.location, e.emp_name, e.salary FROM Departments d FULL OUTER JOIN Employees e ON d.dept_name = e.department;",
     explanation: "Returns all records from both tables, filling with NULL wherever matches do not exist on either side.",
     tags: ["joins", "full-outer-join", "complete-outer"],
@@ -675,17 +668,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 212,
-    title: "Full outer join: Reconcile all projects with staffing records",
+    title: "Full Bidirectional Reconciliation: Projects and Assignments",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display p.project_id, p.project_name, ep.emp_id, and ep.assigned_role by performing a FULL OUTER JOIN between Projects and Employee_Projects on p.project_id = ep.project_id.",
+    problemStatement: "Resource governance requires a complete reconciliation between projects and assignment records. Display project name, status, assigned employee ID, and allocated hours, preserving both unstaffed projects and any unlinked assignment records.",
     requirements: [
-      "FULL OUTER JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Select p.project_id, p.project_name, ep.emp_id, ep.assigned_role."
+      "Reconcile Projects and Employee_Projects preserving unmatched records from both sides.",
+      "Display `project_name`, `status`, `emp_id`, and `hours_allocated`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "FROM Projects p FULL OUTER JOIN Employee_Projects ep ON p.project_id = ep.project_id",
+    hint: "Use UNION to merge left and right outer join projections.",
     expectedSql: "SELECT p.project_id, p.project_name, ep.emp_id, ep.assigned_role FROM Projects p FULL OUTER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     explanation: "Surfaces both unstaffed projects and any orphaned staffing records.",
     tags: ["joins", "full-outer-join", "staffing"],
@@ -693,18 +686,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 213,
-    title: "Isolate disjoint entities using FULL OUTER JOIN with NULL filtering",
+    title: "Departments with No Assigned Personnel",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display d.dept_name and e.emp_name by performing a FULL OUTER JOIN between Departments and Employees on d.dept_name = e.department where either d.dept_id IS NULL OR e.emp_id IS NULL.",
+    problemStatement: "Organization design is identifying registered corporate departments that currently have zero assigned staff members. Display the department name and location for all departments that do not match any employees.",
     requirements: [
-      "FULL OUTER JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Filter with WHERE d.dept_id IS NULL OR e.emp_id IS NULL.",
-      "Select d.dept_name, e.emp_name."
+      "Identify departments from Departments that have no matching records in Employees.",
+      "Display `dept_name` and `location`."
     ],
     tableName: "Departments, Employees",
-    hint: "WHERE d.dept_id IS NULL OR e.emp_id IS NULL",
+    hint: "Use an outer join from Departments to Employees and filter where the employee attribute is null.",
     expectedSql: "SELECT d.dept_name, e.emp_name FROM Departments d FULL OUTER JOIN Employees e ON d.dept_name = e.department WHERE d.dept_id IS NULL OR e.emp_id IS NULL;",
     explanation: "Identifies symmetric differences (rows present in one table but not the other) across two relational domains.",
     tags: ["joins", "full-outer-join", "symmetric-difference"],
@@ -712,17 +704,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 214,
-    title: "Full outer join between Projects and Departments comparing allocations",
+    title: "Department Initiatives Filtered by Leadership Roles",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display p.project_name, d.dept_name, p.budget AS project_budget, and d.budget AS dept_budget by performing a FULL OUTER JOIN between Projects and Departments on p.dept_id = d.dept_id.",
+    problemStatement: "Governance is tracking managerial assignments within department projects. Display department name, project name, employee ID, and assigned role for projects where the assigned role contains 'Manager', while preserving all departments.",
     requirements: [
-      "FULL OUTER JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "Select p.project_name, d.dept_name, p.budget AS project_budget, d.budget AS dept_budget."
+      "Combine Departments, Projects, and Employee_Projects.",
+      "Filter for roles containing 'Manager' while preserving departmental structures.",
+      "Display `dept_name`, `project_name`, `emp_id`, and `assigned_role`."
     ],
     tableName: "Projects, Departments",
-    hint: "FROM Projects p FULL OUTER JOIN Departments d ON p.dept_id = d.dept_id",
+    hint: "Join Departments, Projects, and Employee_Projects with appropriate outer joins.",
     expectedSql: "SELECT p.project_name, d.dept_name, p.budget AS project_budget, d.budget AS dept_budget FROM Projects p FULL OUTER JOIN Departments d ON p.dept_id = d.dept_id;",
     explanation: "Compares project budgets against overall departmental capital allocations with complete outer preservation.",
     tags: ["joins", "full-outer-join", "budget"],
@@ -730,17 +723,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 215,
-    title: "Full outer join between Employees and Performance_Reviews",
+    title: "High-Budget Project Resource Allocations",
     topic: "SQL JOINs",
     subtopic: "Right Outer Joins & Full Outer Joins",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, e.salary, pr.review_year, and pr.rating by performing a FULL OUTER JOIN between Employees and Performance_Reviews on e.emp_id = pr.emp_id.",
+    problemStatement: "Finance leadership is auditing staffing on initiatives with budgets of at least 200,000. Display project name, budget, assigned employee ID, and allocated hours, ensuring all qualifying high-budget projects are preserved.",
     requirements: [
-      "FULL OUTER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_name, e.salary, pr.review_year, pr.rating."
+      "Filter Projects for `budget >= 200000`.",
+      "Preserve qualifying projects while joining with Employee_Projects.",
+      "Display `project_name`, `budget`, `emp_id`, and `hours_allocated`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "FROM Employees e FULL OUTER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Join high-budget projects with Employee_Projects preserving projects.",
     expectedSql: "SELECT e.emp_name, e.salary, pr.review_year, pr.rating FROM Employees e FULL OUTER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Integrates complete employee rosters and appraisal records in a single outer query.",
     tags: ["joins", "full-outer-join", "reviews"],
@@ -750,18 +744,17 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Multi-Table Relational Joins (3 to 4 tables) (IDs 216 to 227)
   {
     id: 216,
-    title: "Join Employees, Employee_Projects, and Projects across junction entity",
+    title: "Tri-Table Relational Link: Staff, Departments, and Projects",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, p.project_name, ep.assigned_role, and ep.hours_allocated by joining Employees, Employee_Projects, and Projects.",
+    problemStatement: "Corporate reporting requires an integrated view connecting employees with their department and associated departmental projects. For each employee, display employee name, department name, department location, and project name for projects belonging to that department.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "INNER JOIN Projects p ON ep.project_id = p.project_id.",
-      "Select e.emp_name, p.project_name, ep.assigned_role, ep.hours_allocated."
+      "Join Employees, Departments (matching on department name), and Projects (matching on department ID).",
+      "Display `emp_name`, `dept_name`, `location`, and `project_name`."
     ],
     tableName: "Employees, Employee_Projects, Projects",
-    hint: "FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id",
+    hint: "Chain inner joins: Employees to Departments on department name, and Departments to Projects on dept_id.",
     expectedSql: "SELECT e.emp_name, p.project_name, ep.assigned_role, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id;",
     explanation: "Traverses a classic many-to-many relationship using a bridging associative junction table.",
     tags: ["joins", "multi-table", "many-to-many"],
@@ -769,18 +762,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 217,
-    title: "Filter active initiatives across the employee project join",
+    title: "Tri-Table Staffing Pipeline: Employee, Role, and Project Details",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, p.project_name, p.status, and ep.hours_allocated for projects where p.status = 'Active'.",
+    problemStatement: "The PMO is generating an assignment roster with project context. Display employee name, department, assigned project name, project status, and weekly hours allocated for all active project assignments.",
     requirements: [
-      "Join Employees, Employee_Projects, and Projects.",
-      "Filter with p.status = 'Active'.",
-      "Select e.emp_name, p.project_name, p.status, ep.hours_allocated."
+      "Join Employees, Employee_Projects (on emp_id), and Projects (on project_id).",
+      "Display `emp_name`, `department`, `project_name`, `status`, and `hours_allocated`."
     ],
     tableName: "Employees, Employee_Projects, Projects",
-    hint: "WHERE p.status = 'Active'",
+    hint: "Join Employees with Employee_Projects on emp_id, then join with Projects on project_id.",
     expectedSql: "SELECT e.emp_name, p.project_name, p.status, ep.hours_allocated FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.status = 'Active';",
     explanation: "Navigates multi-table joins while constraining results to active initiatives.",
     tags: ["joins", "multi-table", "status"],
@@ -788,18 +780,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 218,
-    title: "Join Projects, Departments, and Employee_Projects to view project oversight",
+    title: "Tri-Table Governance Link: Division, Project, and Team Member",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display p.project_name, d.dept_name, d.dept_head, and ep.assigned_role by joining Projects, Departments, and Employee_Projects.",
+    problemStatement: "Corporate governance tracks project staffing back to sponsoring divisions. Display department name, project name, assigned employee ID, and assigned role for all current assignments.",
     requirements: [
-      "INNER JOIN Projects p and Departments d ON p.dept_id = d.dept_id.",
-      "INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Select p.project_name, d.dept_name, d.dept_head, ep.assigned_role."
+      "Join Departments, Projects (on dept_id), and Employee_Projects (on project_id).",
+      "Display `dept_name`, `project_name`, `emp_id`, and `assigned_role`."
     ],
     tableName: "Projects, Departments, Employee_Projects",
-    hint: "FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id",
+    hint: "Chain inner joins across Departments, Projects, and Employee_Projects.",
     expectedSql: "SELECT p.project_name, d.dept_name, d.dept_head, ep.assigned_role FROM Projects p INNER JOIN Departments d ON p.dept_id = d.dept_id INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     explanation: "Connects operational project assignments with departmental governance.",
     tags: ["joins", "multi-table", "governance"],
@@ -807,18 +798,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 219,
-    title: "Join Employees, Departments, and Performance_Reviews for appraisal audits",
+    title: "Tri-Table Personnel Synthesis: Assignments and Appraisals",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, d.dept_name, d.location, pr.rating, and pr.bonus by joining Employees, Departments, and Performance_Reviews.",
+    problemStatement: "Human Resources is correlating project workload with appraisal ratings. For employees who have both a project assignment and a performance review, display employee name, project ID, hours allocated, review rating, and bonus.",
     requirements: [
-      "INNER JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_name, d.dept_name, d.location, pr.rating, pr.bonus."
+      "Join Employees, Employee_Projects (on emp_id), and Performance_Reviews (on emp_id).",
+      "Display `emp_name`, `project_id`, `hours_allocated`, `rating`, and `bonus`."
     ],
     tableName: "Employees, Departments, Performance_Reviews",
-    hint: "FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Join Employees with Employee_Projects and Performance_Reviews on emp_id.",
     expectedSql: "SELECT e.emp_name, d.dept_name, d.location, pr.rating, pr.bonus FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Synthesizes biographical employee identity, departmental origin, and evaluation scores.",
     tags: ["joins", "multi-table", "auditing"],
@@ -826,18 +816,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 220,
-    title: "Correlate project staff roles with performance ratings",
+    title: "Tri-Table Project Staffing Directory with Employee Names",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, ep.assigned_role, pr.review_year, and pr.rating by joining Employees, Employee_Projects, and Performance_Reviews.",
+    problemStatement: "The project directory displays project names alongside the full names of assigned personnel. Retrieve project name, employee full name, assigned role, and weekly hours for all assigned team members.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Select e.emp_name, ep.assigned_role, pr.review_year, pr.rating."
+      "Join Projects, Employee_Projects (on project_id), and Employees (on emp_id).",
+      "Display `project_name`, `emp_name`, `assigned_role`, and `hours_allocated`."
     ],
     tableName: "Employees, Employee_Projects, Performance_Reviews",
-    hint: "FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id",
+    hint: "Connect Projects to Employee_Projects on project_id and then to Employees on emp_id.",
     expectedSql: "SELECT e.emp_name, ep.assigned_role, pr.review_year, pr.rating FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id;",
     explanation: "Links tactical project duties directly to appraisal outcomes.",
     tags: ["joins", "multi-table", "performance"],
@@ -845,19 +834,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 221,
-    title: "Four-table join: Connect Employees, Departments, Projects, and Staffing",
+    title: "Four-Table Enterprise Integration: Staff, Unit, Project, and Role",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, d.dept_name, p.project_name, and ep.assigned_role by joining Employees, Departments, Employee_Projects, and Projects.",
+    problemStatement: "Enterprise reporting requires a comprehensive operational view uniting four business entities. For all project assignments, display employee name, department location, project name, project budget, and assigned role.",
     requirements: [
-      "INNER JOIN Employees e and Departments d ON e.department = d.dept_name.",
-      "INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "INNER JOIN Projects p ON ep.project_id = p.project_id.",
-      "Select e.emp_name, d.dept_name, p.project_name, ep.assigned_role."
+      "Join Employees, Departments (on department name), Employee_Projects (on emp_id), and Projects (on project_id).",
+      "Display `emp_name`, `location`, `project_name`, project `budget`, and `assigned_role`."
     ],
     tableName: "Employees, Departments, Employee_Projects, Projects",
-    hint: "Join e to d, e to ep, and ep to p",
+    hint: "Join Employees to Departments, Employee_Projects, and Projects using their respective foreign keys.",
     expectedSql: "SELECT e.emp_name, d.dept_name, p.project_name, ep.assigned_role FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id;",
     explanation: "Traverses four relational entities in the enterprise schema to construct an operational staffing view.",
     tags: ["joins", "four-tables", "relational"],
@@ -865,18 +852,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 222,
-    title: "Four-table join: Cross-reference project staffing with annual bonus payouts",
+    title: "Four-Table Executive Audit: Staff, Division, Appraisal, and Initiative",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, p.project_name, pr.review_year, and pr.bonus for reviews where pr.bonus IS NOT NULL by joining Employees, Employee_Projects, Projects, and Performance_Reviews.",
+    problemStatement: "An executive compensation and project audit synthesizes multiple data points. Display employee name, department, office location, 2024 appraisal rating, and project name for staff assigned to projects who completed a 2024 review.",
     requirements: [
-      "Join Employees, Employee_Projects, Projects, and Performance_Reviews.",
-      "Filter with pr.bonus IS NOT NULL.",
-      "Select e.emp_name, p.project_name, pr.review_year, pr.bonus."
+      "Join Employees, Departments, Performance_Reviews, and Employee_Projects with Projects.",
+      "Filter for `review_year = 2024`.",
+      "Display `emp_name`, `dept_name`, `location`, `rating`, and `project_name`."
     ],
     tableName: "Employees, Employee_Projects, Projects, Performance_Reviews",
-    hint: "WHERE pr.bonus IS NOT NULL",
+    hint: "Join across the four tables and filter for review_year = 2024.",
     expectedSql: "SELECT e.emp_name, p.project_name, pr.review_year, pr.bonus FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.bonus IS NOT NULL;",
     explanation: "Reconciles project delivery commitments against confirmed merit bonuses.",
     tags: ["joins", "four-tables", "compensation"],
@@ -884,18 +871,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 223,
-    title: "Multi-table LEFT JOIN: Preserve all employees while retrieving assigned project titles",
+    title: "Multi-Table Outer Join: Preserving Unassigned Staff Across Projects",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, and p.project_name by LEFT JOINing Employees with Employee_Projects and then LEFT JOINing Projects.",
+    problemStatement: "Human Resources is compiling a master assignment inventory that retains all employees regardless of whether they have project assignments. Display employee name, department, assigned project name, and hours allocated, preserving staff with zero assignments.",
     requirements: [
-      "LEFT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "LEFT JOIN Projects p ON ep.project_id = p.project_id.",
-      "Select e.emp_id, e.emp_name, p.project_name."
+      "Left join Employees to Employee_Projects (on emp_id), then left join to Projects (on project_id).",
+      "Display `emp_name`, `department`, `project_name`, and `hours_allocated`."
     ],
     tableName: "Employees, Employee_Projects, Projects",
-    hint: "FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id LEFT JOIN Projects p ON ep.project_id = p.project_id",
+    hint: "Chain two left outer joins starting from Employees.",
     expectedSql: "SELECT e.emp_id, e.emp_name, p.project_name FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id LEFT JOIN Projects p ON ep.project_id = p.project_id;",
     explanation: "Cascading LEFT JOIN preserves all employees, including unassigned individuals who return NULL project names.",
     tags: ["joins", "multi-table", "left-join", "cascading"],
@@ -903,18 +889,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 224,
-    title: "Multi-table LEFT JOIN: Cascade from Departments through Projects to staffing",
+    title: "Multi-Table Outer Join: Department to Project Cascade",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display d.dept_name, p.project_name, and ep.emp_id by LEFT JOINing Departments with Projects, and then LEFT JOINing Employee_Projects.",
+    problemStatement: "The PMO is auditing the organizational project hierarchy from departments down to project team members. Display department name, project name, and assigned employee ID, preserving departments with no projects and projects with no staff.",
     requirements: [
-      "LEFT JOIN Departments d and Projects p ON d.dept_id = p.dept_id.",
-      "LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Select d.dept_name, p.project_name, ep.emp_id."
+      "Left join Departments to Projects (on dept_id), then left join to Employee_Projects (on project_id).",
+      "Display `dept_name`, `project_name`, and `emp_id`."
     ],
     tableName: "Departments, Projects, Employee_Projects",
-    hint: "FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id",
+    hint: "Chain two left joins from Departments through Projects to Employee_Projects.",
     expectedSql: "SELECT d.dept_name, p.project_name, ep.emp_id FROM Departments d LEFT JOIN Projects p ON d.dept_id = p.dept_id LEFT JOIN Employee_Projects ep ON p.project_id = ep.project_id;",
     explanation: "Preserves departments without projects, as well as projects without assigned employees.",
     tags: ["joins", "multi-table", "left-join"],
@@ -922,18 +907,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 225,
-    title: "Filter four-table join: High earners working on completed projects",
+    title: "High-Earner Deliveries on Completed Initiatives",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, e.salary, d.dept_name, and p.project_name by joining Employees, Departments, Employee_Projects, and Projects where p.status = 'Completed' AND e.salary > 40000.",
+    problemStatement: "The compensation committee is reviewing high-earning staff deployed to delivered projects. For employees earning strictly more than 40,000 who worked on projects marked as 'Completed', display employee name, salary, department name, and project name.",
     requirements: [
       "Join Employees, Departments, Employee_Projects, and Projects.",
-      "Filter with p.status = 'Completed' AND e.salary > 40000.",
-      "Select e.emp_name, e.salary, d.dept_name, p.project_name."
+      "Filter for `status = 'Completed'` and `salary > 40000`.",
+      "Display `emp_name`, `salary`, `dept_name`, and `project_name`."
     ],
     tableName: "Employees, Departments, Employee_Projects, Projects",
-    hint: "WHERE p.status = 'Completed' AND e.salary > 40000",
+    hint: "Join the four tables and filter for p.status = 'Completed' and e.salary > 40000.",
     expectedSql: "SELECT e.emp_name, e.salary, d.dept_name, p.project_name FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE p.status = 'Completed' AND e.salary > 40000;",
     explanation: "Constrains a four-table relational query across both project state and individual compensation.",
     tags: ["joins", "four-tables", "filtering"],
@@ -941,18 +926,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 226,
-    title: "Filter four-table join: Heavy commitments (> 25 hrs) on active initiatives",
+    title: "Heavy Workload Contributors on Active Programs",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, d.location, p.project_name, and ep.hours_allocated by joining Employees, Departments, Employee_Projects, and Projects where ep.hours_allocated > 25 AND p.status = 'Active'.",
+    problemStatement: "Resource governance is monitoring staff carrying heavy weekly commitments on active initiatives. For active projects where an employee is allocated strictly more than 25 weekly hours, display employee name, department location, project name, and allocated hours.",
     requirements: [
       "Join Employees, Departments, Employee_Projects, and Projects.",
-      "Filter with ep.hours_allocated > 25 AND p.status = 'Active'.",
-      "Select e.emp_name, d.location, p.project_name, ep.hours_allocated."
+      "Filter for `status = 'Active'` and `hours_allocated > 25`.",
+      "Display `emp_name`, `location`, `project_name`, and `hours_allocated`."
     ],
     tableName: "Employees, Departments, Employee_Projects, Projects",
-    hint: "WHERE ep.hours_allocated > 25 AND p.status = 'Active'",
+    hint: "Join the four tables and filter for ep.hours_allocated > 25 and p.status = 'Active'.",
     expectedSql: "SELECT e.emp_name, d.location, p.project_name, ep.hours_allocated FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id WHERE ep.hours_allocated > 25 AND p.status = 'Active';",
     explanation: "Identifies heavy resource investments on live business priorities.",
     tags: ["joins", "four-tables", "workload"],
@@ -960,21 +945,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 227,
-    title: "Synthesize complete profile: Employee, department, project, and review rating",
+    title: "Comprehensive Staff Profile: Unit, Project, and 2024 Appraisal",
     topic: "SQL JOINs",
     subtopic: "Multi-Table Relational Joins (3 to 4 tables)",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, d.dept_name, p.project_name, and pr.rating by joining Employees, Departments, Employee_Projects, Projects, and Performance_Reviews where pr.review_year = 2024.",
+    problemStatement: "Executive dashboards require a complete cross-functional profile for active staff. For employees who completed a 2024 review and are assigned to a project, display employee name, department name, project name, and 2024 performance rating.",
     requirements: [
-      "Join Employees e to Departments d ON e.department = d.dept_name.",
-      "Join e to Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Join ep to Projects p ON ep.project_id = p.project_id.",
-      "Join e to Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Filter where pr.review_year = 2024.",
-      "Select e.emp_name, d.dept_name, p.project_name, pr.rating."
+      "Join Employees, Departments, Employee_Projects, Projects, and Performance_Reviews.",
+      "Filter for `review_year = 2024`.",
+      "Display `emp_name`, `dept_name`, `project_name`, and `rating`."
     ],
     tableName: "Employees, Departments, Employee_Projects, Projects, Performance_Reviews",
-    hint: "WHERE pr.review_year = 2024",
+    hint: "Join across the relevant tables and filter for pr.review_year = 2024.",
     expectedSql: "SELECT e.emp_name, d.dept_name, p.project_name, pr.rating FROM Employees e INNER JOIN Departments d ON e.department = d.dept_name INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id INNER JOIN Projects p ON ep.project_id = p.project_id INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id WHERE pr.review_year = 2024;",
     explanation: "Assembles a 360-degree operational profile connecting organization, initiative, and appraisal rating.",
     tags: ["joins", "five-tables", "360-view"],
@@ -984,18 +966,18 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Self Joins & Hierarchical Comparisons (IDs 228 to 235)
   {
     id: 228,
-    title: "Self-join: Find unique pairs of employees working in the same department",
+    title: "Intra-Departmental Peer Pairings",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e1.emp_name AS employee_1, e2.emp_name AS employee_2, and e1.department by self-joining Employees on department where e1.emp_id < e2.emp_id.",
+    problemStatement: "Organizational network analysis is studying collaboration pairs within business units. Find all unique pairs of employees who work in the same department, displaying the first employee name as `employee_1`, second employee name as `employee_2`, and the department name, ensuring each unique pair appears only once.",
     requirements: [
-      "Self-join Employees e1 and Employees e2 ON e1.department = e2.department.",
-      "Filter with e1.emp_id < e2.emp_id to eliminate duplicates and self-pairings.",
-      "Select e1.emp_name AS employee_1, e2.emp_name AS employee_2, e1.department."
+      "Join Employees with itself on matching department.",
+      "Enforce `e1.emp_id < e2.emp_id` to eliminate self-matches and duplicate mirror pairs.",
+      "Display employee 1 aliased as `employee_1`, employee 2 aliased as `employee_2`, and `department`."
     ],
     tableName: "Employees",
-    hint: "WHERE e1.emp_id < e2.emp_id",
+    hint: "Use a self-join on department with e1.emp_id < e2.emp_id.",
     expectedSql: "SELECT e1.emp_name AS employee_1, e2.emp_name AS employee_2, e1.department FROM Employees e1 INNER JOIN Employees e2 ON e1.department = e2.department WHERE e1.emp_id < e2.emp_id;",
     explanation: "e1.emp_id < e2.emp_id prevents pairing an employee with themselves and prevents mirror duplicates (A, B and B, A).",
     tags: ["joins", "self-join", "pairing"],
@@ -1003,18 +985,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 229,
-    title: "Self-join: Find colleague pairings sharing the same office city",
+    title: "Colleague Pairings Sharing Office Cities",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e1.emp_name AS colleague_1, e2.emp_name AS colleague_2, and e1.city by self-joining Employees on city where e1.emp_id < e2.emp_id.",
+    problemStatement: "Facilities is setting up local peer mentorships within branch offices. Find all unique pairs of colleagues who are stationed in the same office city, displaying colleague 1 as `colleague_1`, colleague 2 as `colleague_2`, and city name, preventing duplicate pairs.",
     requirements: [
-      "Self-join Employees e1 and Employees e2 ON e1.city = e2.city.",
-      "Filter with e1.emp_id < e2.emp_id.",
-      "Select e1.emp_name AS colleague_1, e2.emp_name AS colleague_2, e1.city."
+      "Join Employees with itself on matching city.",
+      "Enforce `e1.emp_id < e2.emp_id`.",
+      "Display `colleague_1`, `colleague_2`, and `city`."
     ],
     tableName: "Employees",
-    hint: "WHERE e1.emp_id < e2.emp_id",
+    hint: "Self-join Employees on city with e1.emp_id < e2.emp_id.",
     expectedSql: "SELECT e1.emp_name AS colleague_1, e2.emp_name AS colleague_2, e1.city FROM Employees e1 INNER JOIN Employees e2 ON e1.city = e2.city WHERE e1.emp_id < e2.emp_id;",
     explanation: "Groups colleagues stationed in identical office hubs using self-join pairs.",
     tags: ["joins", "self-join", "city"],
@@ -1022,18 +1004,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 230,
-    title: "Self-join: Identify departmental colleagues where one out-earns the other by >= 20000",
+    title: "Colleague Compensation Disparity Comparison",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e1.emp_name AS higher_earner, e1.salary AS high_sal, e2.emp_name AS lower_earner, e2.salary AS low_sal, and e1.department by self-joining Employees on department where e1.salary >= e2.salary + 20000.",
+    problemStatement: "Compensation equity is analyzing salary gaps between colleagues in the same division. Find pairs of colleagues in the same department where one employee out-earns the other by at least 20,000, displaying the higher earner name (`higher_earner`), higher salary (`high_sal`), lower earner name (`lower_earner`), lower salary (`low_sal`), and department name.",
     requirements: [
-      "Self-join Employees e1 and Employees e2 ON e1.department = e2.department.",
-      "Filter with e1.salary >= e2.salary + 20000.",
-      "Select e1.emp_name AS higher_earner, e1.salary AS high_sal, e2.emp_name AS lower_earner, e2.salary AS low_sal, e1.department."
+      "Join Employees with itself on matching department.",
+      "Filter for records where `e1.salary >= e2.salary + 20000`.",
+      "Display `higher_earner`, `high_sal`, `lower_earner`, `low_sal`, and `department`."
     ],
     tableName: "Employees",
-    hint: "WHERE e1.salary >= e2.salary + 20000",
+    hint: "Self-join on department and compare e1.salary to e2.salary + 20000.",
     expectedSql: "SELECT e1.emp_name AS higher_earner, e1.salary AS high_sal, e2.emp_name AS lower_earner, e2.salary AS low_sal, e1.department FROM Employees e1 INNER JOIN Employees e2 ON e1.department = e2.department WHERE e1.salary >= e2.salary + 20000;",
     explanation: "Performs intra-departmental compensation comparisons between pairs of colleagues.",
     tags: ["joins", "self-join", "salary-comparison"],
@@ -1041,18 +1023,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 231,
-    title: "Self-join: Pair employees hired in the same calendar year",
+    title: "Same-Year Hiring Cohort Pairings",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e1.emp_name AS joiner_1, e2.emp_name AS joiner_2, and e1.joining_year by self-joining Employees on joining_year where e1.emp_id < e2.emp_id.",
+    problemStatement: "Talent acquisition is organizing anniversary cohorts for staff hired in the same year. Find all unique pairs of employees who joined the company in the same calendar year, displaying joiner 1 as `joiner_1`, joiner 2 as `joiner_2`, and the joining year, without duplicate mirror pairs.",
     requirements: [
-      "Self-join Employees e1 and Employees e2 ON e1.joining_year = e2.joining_year.",
-      "Filter with e1.emp_id < e2.emp_id.",
-      "Select e1.emp_name AS joiner_1, e2.emp_name AS joiner_2, e1.joining_year."
+      "Join Employees with itself on matching joining year.",
+      "Enforce `e1.emp_id < e2.emp_id`.",
+      "Display `joiner_1`, `joiner_2`, and `joining_year`."
     ],
     tableName: "Employees",
-    hint: "WHERE e1.emp_id < e2.emp_id",
+    hint: "Self-join Employees on joining_year with e1.emp_id < e2.emp_id.",
     expectedSql: "SELECT e1.emp_name AS joiner_1, e2.emp_name AS joiner_2, e1.joining_year FROM Employees e1 INNER JOIN Employees e2 ON e1.joining_year = e2.joining_year WHERE e1.emp_id < e2.emp_id;",
     explanation: "Detects hiring cohort cohorts through temporal equality self-joining.",
     tags: ["joins", "self-join", "cohorts"],
@@ -1060,18 +1042,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 232,
-    title: "Self-join: Pair projects belonging to the same department",
+    title: "Same-Department Project Initiative Pairings",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display p1.project_name AS project_1, p2.project_name AS project_2, and p1.dept_id by self-joining Projects on dept_id where p1.project_id < p2.project_id.",
+    problemStatement: "The PMO is reviewing project portfolios within sponsoring divisions. Find all unique pairs of projects that are sponsored by the same department, displaying project 1 as `project_1`, project 2 as `project_2`, and the department ID (`dept_id`), avoiding duplicate pairs.",
     requirements: [
-      "Self-join Projects p1 and Projects p2 ON p1.dept_id = p2.dept_id.",
-      "Filter with p1.project_id < p2.project_id.",
-      "Select p1.project_name AS project_1, p2.project_name AS project_2, p1.dept_id."
+      "Join Projects with itself on matching department ID.",
+      "Enforce `p1.project_id < p2.project_id`.",
+      "Display `project_1`, `project_2`, and `dept_id`."
     ],
     tableName: "Projects",
-    hint: "WHERE p1.project_id < p2.project_id",
+    hint: "Self-join Projects on dept_id with p1.project_id < p2.project_id.",
     expectedSql: "SELECT p1.project_name AS project_1, p2.project_name AS project_2, p1.dept_id FROM Projects p1 INNER JOIN Projects p2 ON p1.dept_id = p2.dept_id WHERE p1.project_id < p2.project_id;",
     explanation: "Surfaces intra-departmental project portfolios sharing the same departmental budget origin.",
     tags: ["joins", "self-join", "projects"],
@@ -1079,18 +1061,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 233,
-    title: "Self-join: Track year-over-year rating progression for the same employee",
+    title: "Year-over-Year Performance Appraisal Trajectory",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query from Performance_Reviews to display r1.emp_id, r1.review_year AS prev_year, r1.rating AS prev_rating, r2.review_year AS next_year, and r2.rating AS next_rating by self-joining on emp_id where r1.review_year = r2.review_year - 1.",
+    problemStatement: "HR analytics is tracking individual rating progression across consecutive review cycles. For employees evaluated in consecutive calendar years, display employee ID, previous review year (`prev_year`), previous rating (`prev_rating`), subsequent review year (`next_year`), and subsequent rating (`next_rating`).",
     requirements: [
-      "Self-join Performance_Reviews r1 and Performance_Reviews r2 ON r1.emp_id = r2.emp_id.",
-      "Filter with r1.review_year = r2.review_year - 1.",
-      "Select r1.emp_id, r1.review_year AS prev_year, r1.rating AS prev_rating, r2.review_year AS next_year, r2.rating AS next_rating."
+      "Join Performance_Reviews with itself on matching employee ID.",
+      "Filter for consecutive years where `r1.review_year = r2.review_year - 1`.",
+      "Display `emp_id`, `prev_year`, `prev_rating`, `next_year`, and `next_rating`."
     ],
     tableName: "Performance_Reviews",
-    hint: "WHERE r1.review_year = r2.review_year - 1",
+    hint: "Self-join Performance_Reviews on emp_id and r1.review_year = r2.review_year - 1.",
     expectedSql: "SELECT r1.emp_id, r1.review_year AS prev_year, r1.rating AS prev_rating, r2.review_year AS next_year, r2.rating AS next_rating FROM Performance_Reviews r1 INNER JOIN Performance_Reviews r2 ON r1.emp_id = r2.emp_id WHERE r1.review_year = r2.review_year - 1;",
     explanation: "Tracks year-over-year rating trends by matching an appraisal record with its consecutive-year successor.",
     tags: ["joins", "self-join", "progression", "temporal"],
@@ -1098,18 +1080,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 234,
-    title: "Self-join: Pair colleagues with identical years of professional experience",
+    title: "Colleague Pairings with Identical Career Experience",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e1.emp_name AS peer_1, e2.emp_name AS peer_2, and e1.experience by self-joining Employees on experience where e1.emp_id < e2.emp_id.",
+    problemStatement: "Professional development is pairing colleagues with matching career seniority. Find all unique pairs of employees who have the exact same number of years of experience, displaying peer 1 as `peer_1`, peer 2 as `peer_2`, and years of experience, without duplicate pairs.",
     requirements: [
-      "Self-join Employees e1 and Employees e2 ON e1.experience = e2.experience.",
-      "Filter with e1.emp_id < e2.emp_id.",
-      "Select e1.emp_name AS peer_1, e2.emp_name AS peer_2, e1.experience."
+      "Join Employees with itself on matching experience.",
+      "Enforce `e1.emp_id < e2.emp_id`.",
+      "Display `peer_1`, `peer_2`, and `experience`."
     ],
     tableName: "Employees",
-    hint: "WHERE e1.emp_id < e2.emp_id",
+    hint: "Self-join Employees on experience with e1.emp_id < e2.emp_id.",
     expectedSql: "SELECT e1.emp_name AS peer_1, e2.emp_name AS peer_2, e1.experience FROM Employees e1 INNER JOIN Employees e2 ON e1.experience = e2.experience WHERE e1.emp_id < e2.emp_id;",
     explanation: "Finds peer experience equivalents across the organization.",
     tags: ["joins", "self-join", "tenure"],
@@ -1117,18 +1099,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 235,
-    title: "Self-join: Identify pairs of employees collaborating on the same project",
+    title: "Project Teammate Collaboration Pairings",
     topic: "SQL JOINs",
     subtopic: "Self Joins & Hierarchical Comparisons",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query from Employee_Projects to display ep1.project_id, ep1.emp_id AS team_member_1, and ep2.emp_id AS team_member_2 by self-joining on project_id where ep1.emp_id < ep2.emp_id.",
+    problemStatement: "Resource management is mapping collaboration networks across project initiatives. Find all unique pairs of employees who are assigned to the same project, displaying the project ID, teammate 1 ID as `team_member_1`, and teammate 2 ID as `team_member_2`, without duplicate pairs.",
     requirements: [
-      "Self-join Employee_Projects ep1 and Employee_Projects ep2 ON ep1.project_id = ep2.project_id.",
-      "Filter with ep1.emp_id < ep2.emp_id.",
-      "Select ep1.project_id, ep1.emp_id AS team_member_1, ep2.emp_id AS team_member_2."
+      "Join Employee_Projects with itself on matching project ID.",
+      "Enforce `ep1.emp_id < ep2.emp_id`.",
+      "Display `project_id`, `team_member_1`, and `team_member_2`."
     ],
     tableName: "Employee_Projects",
-    hint: "WHERE ep1.emp_id < ep2.emp_id",
+    hint: "Self-join Employee_Projects on project_id with ep1.emp_id < ep2.emp_id.",
     expectedSql: "SELECT ep1.project_id, ep1.emp_id AS team_member_1, ep2.emp_id AS team_member_2 FROM Employee_Projects ep1 INNER JOIN Employee_Projects ep2 ON ep1.project_id = ep2.project_id WHERE ep1.emp_id < ep2.emp_id;",
     explanation: "Generates teammate pairs sharing assignments on a common corporate initiative.",
     tags: ["joins", "self-join", "collaboration"],
@@ -1138,18 +1120,17 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Cross Joins & Cartesian Combinations (IDs 236 to 240)
   {
     id: 236,
-    title: "Cross join: Generate all theoretical department and project status combinations",
+    title: "Comprehensive Department and Status Matrix",
     topic: "SQL JOINs",
     subtopic: "Cross Joins & Cartesian Combinations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to generate a Cartesian product between distinct dept_name from Departments and distinct status from Projects. Alias columns as dept_name and project_status.",
+    problemStatement: "Strategic planning is generating an empty matrix grid of all theoretical combinations between corporate departments and project statuses. Generate all unique combinations of distinct department names and distinct project statuses.",
     requirements: [
-      "Select DISTINCT dept_name from Departments.",
-      "CROSS JOIN with (SELECT DISTINCT status FROM Projects).",
-      "Select dept_name, status AS project_status."
+      "Generate the cartesian product of distinct department names and distinct project statuses.",
+      "Display department name as `dept_name` and status aliased as `project_status`."
     ],
     tableName: "Departments, Projects",
-    hint: "CROSS JOIN (SELECT DISTINCT status FROM Projects)",
+    hint: "Use a cross join between distinct department names and distinct project statuses.",
     expectedSql: "SELECT d.dept_name, s.status AS project_status FROM (SELECT DISTINCT dept_name FROM Departments) d CROSS JOIN (SELECT DISTINCT status FROM Projects) s;",
     explanation: "Cartesian product generates every possible combination of departments and project operational states.",
     tags: ["joins", "cross-join", "cartesian"],
@@ -1157,18 +1138,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 237,
-    title: "Cross join: Generate branch city and department combinations",
+    title: "Branch City and Division Operational Grid",
     topic: "SQL JOINs",
     subtopic: "Cross Joins & Cartesian Combinations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display distinct city from Employees paired with distinct dept_name from Departments using CROSS JOIN.",
+    problemStatement: "Facilities planning is evaluating the potential expansion of any department into any existing city. Generate all possible combinations between distinct office branch cities and distinct corporate department names.",
     requirements: [
-      "Select DISTINCT city from Employees.",
-      "CROSS JOIN with (SELECT DISTINCT dept_name FROM Departments).",
-      "Select city, dept_name."
+      "Generate the cartesian product of unique cities from Employees and unique department names from Departments.",
+      "Display `city` and `dept_name`."
     ],
     tableName: "Employees, Departments",
-    hint: "FROM (SELECT DISTINCT city FROM Employees) c CROSS JOIN (SELECT DISTINCT dept_name FROM Departments) d",
+    hint: "Cross join distinct cities with distinct department names.",
     expectedSql: "SELECT c.city, d.dept_name FROM (SELECT DISTINCT city FROM Employees) c CROSS JOIN (SELECT DISTINCT dept_name FROM Departments) d;",
     explanation: "Creates an expansion matrix to audit departmental presence across all office locations.",
     tags: ["joins", "cross-join", "matrix"],
@@ -1176,18 +1156,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 238,
-    title: "Cross join with scalar aggregate: Compare each employee's salary to company average",
+    title: "Employee Salary Variance Relative to Company Average",
     topic: "SQL JOINs",
     subtopic: "Cross Joins & Cartesian Combinations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, e.salary, a.avg_sal, and (e.salary - a.avg_sal) AS salary_diff by CROSS JOINing Employees with a subquery calculating ROUND(AVG(salary), 2) AS avg_sal from Employees.",
+    problemStatement: "Compensation benchmarking requires measuring each employee's salary against the organization-wide average. Display each employee's name, monthly salary, overall average salary across all employees (rounded to 2 decimal places as `avg_sal`), and the difference (salary minus average salary) aliased as `salary_diff`.",
     requirements: [
-      "CROSS JOIN Employees e with (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees) a.",
-      "Calculate (e.salary - a.avg_sal) AS salary_diff.",
-      "Select e.emp_name, e.salary, a.avg_sal, salary_diff."
+      "Cross join Employees with a scalar aggregate subquery computing overall average salary rounded to 2 decimal places.",
+      "Display `emp_name`, `salary`, `avg_sal`, and computed difference aliased as `salary_diff`."
     ],
     tableName: "Employees",
-    hint: "CROSS JOIN (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees) a",
+    hint: "Cross join Employees with (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees).",
     expectedSql: "SELECT e.emp_name, e.salary, a.avg_sal, (e.salary - a.avg_sal) AS salary_diff FROM Employees e CROSS JOIN (SELECT ROUND(AVG(salary), 2) AS avg_sal FROM Employees) a;",
     explanation: "A single-row subquery CROSS JOIN appends overall benchmark statistics to every individual row without GROUP BY restrictions.",
     tags: ["joins", "cross-join", "benchmark", "scalars"],
@@ -1195,18 +1174,18 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 239,
-    title: "Cross join with total capital: Compute each project's percentage share of portfolio budget",
+    title: "Project Share of Total Portfolio Budget",
     topic: "SQL JOINs",
     subtopic: "Cross Joins & Cartesian Combinations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display p.project_name, p.budget, and ROUND((p.budget * 100.0) / t.total_budget, 2) AS budget_pct by CROSS JOINing Projects with a subquery computing SUM(budget) AS total_budget from Projects.",
+    problemStatement: "Capital governance evaluates the proportional size of each project relative to total corporate investment. For each initiative, display the project name, project budget, and the percentage of the total portfolio budget it represents (rounded to 2 decimal places, aliased as `budget_pct`).",
     requirements: [
-      "CROSS JOIN Projects p with (SELECT SUM(budget) AS total_budget FROM Projects) t.",
-      "Calculate ROUND((p.budget * 100.0) / t.total_budget, 2) AS budget_pct.",
-      "Select p.project_name, p.budget, budget_pct."
+      "Cross join Projects with a scalar aggregate subquery calculating total portfolio budget.",
+      "Calculate percentage share as `(p.budget * 100.0) / total_budget`, rounded to 2 decimal places, aliased as `budget_pct`.",
+      "Display `project_name`, `budget`, and `budget_pct`."
     ],
     tableName: "Projects",
-    hint: "CROSS JOIN (SELECT SUM(budget) AS total_budget FROM Projects) t",
+    hint: "Cross join Projects with (SELECT SUM(budget) AS total_budget FROM Projects).",
     expectedSql: "SELECT p.project_name, p.budget, ROUND((p.budget * 100.0) / t.total_budget, 2) AS budget_pct FROM Projects p CROSS JOIN (SELECT SUM(budget) AS total_budget FROM Projects) t;",
     explanation: "Allows calculating percentage share of a whole by appending aggregate portfolio capital across all records.",
     tags: ["joins", "cross-join", "percentage", "ratios"],
@@ -1214,18 +1193,17 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 240,
-    title: "Cross join: Generate rating evaluation slots (1 to 5) for all corporate departments",
+    title: "Department and Evaluation Rating Matrix",
     topic: "SQL JOINs",
     subtopic: "Cross Joins & Cartesian Combinations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display d.dept_name and r.rating_slot by CROSS JOINing (SELECT DISTINCT dept_name FROM Departments) d with (SELECT DISTINCT rating AS rating_slot FROM Performance_Reviews) r.",
+    problemStatement: "Human Resources is setting up appraisal distribution tables across departments. Generate a grid showing all combinations of distinct department names and all distinct rating values (1 through 5) present in the reviews table.",
     requirements: [
-      "Select DISTINCT dept_name from Departments.",
-      "CROSS JOIN with (SELECT DISTINCT rating AS rating_slot FROM Performance_Reviews).",
-      "Select d.dept_name, r.rating_slot."
+      "Generate the cartesian product of distinct department names and distinct rating values.",
+      "Display department name as `dept_name` and rating value aliased as `rating_slot`."
     ],
     tableName: "Departments, Performance_Reviews",
-    hint: "CROSS JOIN (SELECT DISTINCT rating AS rating_slot FROM Performance_Reviews) r",
+    hint: "Cross join distinct department names from Departments with distinct ratings from Performance_Reviews.",
     expectedSql: "SELECT d.dept_name, r.rating_slot FROM (SELECT DISTINCT dept_name FROM Departments) d CROSS JOIN (SELECT DISTINCT rating AS rating_slot FROM Performance_Reviews) r;",
     explanation: "Generates template matrices to report rating distributions across all corporate divisions.",
     tags: ["joins", "cross-join", "ratings"],
@@ -1235,18 +1213,19 @@ export const TOPIC7_QUESTIONS = [
   // Subtopic: Aggregations & Analytical Filtering over Joined Relations (IDs 241 to 250)
   {
     id: 241,
-    title: "Aggregate headcount and total payroll joined with department budget",
+    title: "Departmental Headcount and Payroll vs Budget",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display d.dept_name, COUNT(e.emp_id) AS emp_count, SUM(e.salary) AS total_payroll, and d.budget by joining Departments and Employees on d.dept_name = e.department, grouped by d.dept_name and d.budget.",
+    problemStatement: "Corporate finance is comparing departmental wage bills against allocated operating budgets. For each department, calculate the total active employee count and cumulative monthly payroll, displaying the department name, headcount, payroll, and departmental budget.",
     requirements: [
-      "INNER JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Group by d.dept_name, d.budget.",
-      "Select d.dept_name, COUNT(e.emp_id) AS emp_count, SUM(e.salary) AS total_payroll, d.budget."
+      "Join Departments and Employees on matching department name.",
+      "Group records by department name and budget.",
+      "Calculate employee count aliased as `emp_count` and total payroll aliased as `total_payroll`.",
+      "Display `dept_name`, `emp_count`, `total_payroll`, and `budget`."
     ],
     tableName: "Departments, Employees",
-    hint: "GROUP BY d.dept_name, d.budget",
+    hint: "Join Departments and Employees on department name, group by dept_name and budget, and aggregate.",
     expectedSql: "SELECT d.dept_name, COUNT(e.emp_id) AS emp_count, SUM(e.salary) AS total_payroll, d.budget FROM Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget;",
     explanation: "Aggregates employee counts and salary totals while reporting departmental operating budgets.",
     tags: ["joins", "aggregates", "group-by", "payroll"],
@@ -1254,18 +1233,19 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 242,
-    title: "Calculate total committed hours and headcount per project initiative",
+    title: "Initiative Staffing Roster and Weekly Workload Summary",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display p.project_name, p.status, COUNT(ep.emp_id) AS assigned_staff, and SUM(ep.hours_allocated) AS total_weekly_hours by joining Projects and Employee_Projects on project_id, grouped by p.project_id, p.project_name, p.status.",
+    problemStatement: "The PMO is reporting resource utilization for each project initiative. For each project in Projects that has assigned personnel, display the project name, execution status, total assigned headcount, and cumulative weekly hours allocated.",
     requirements: [
-      "INNER JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "Group by p.project_id, p.project_name, p.status.",
-      "Select p.project_name, p.status, COUNT(ep.emp_id) AS assigned_staff, SUM(ep.hours_allocated) AS total_weekly_hours."
+      "Join Projects and Employee_Projects on project ID.",
+      "Group by project ID, project name, and status.",
+      "Count assigned staff aliased as `assigned_staff` and sum weekly hours aliased as `total_weekly_hours`.",
+      "Display `project_name`, `status`, `assigned_staff`, and `total_weekly_hours`."
     ],
     tableName: "Projects, Employee_Projects",
-    hint: "GROUP BY p.project_id, p.project_name, p.status",
+    hint: "Join Projects to Employee_Projects on project_id and group by project attributes.",
     expectedSql: "SELECT p.project_name, p.status, COUNT(ep.emp_id) AS assigned_staff, SUM(ep.hours_allocated) AS total_weekly_hours FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id GROUP BY p.project_id, p.project_name, p.status;",
     explanation: "Aggregates project staff counts and weekly labor hours by project.",
     tags: ["joins", "aggregates", "workload"],
@@ -1273,18 +1253,19 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 243,
-    title: "Count projects and cumulative initiative investment per department",
+    title: "Departmental Project Investment and Portfolio Count",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display d.dept_name, COUNT(p.project_id) AS projects_count, and SUM(p.budget) AS total_project_budget by joining Departments and Projects on dept_id, grouped by d.dept_name.",
+    problemStatement: "Strategic planning is aggregating capital project sponsorship per department. For each department sponsoring projects, display the department name, count of projects sponsored, and cumulative capital budget committed.",
     requirements: [
-      "INNER JOIN Departments d and Projects p ON d.dept_id = p.dept_id.",
-      "Group by d.dept_name.",
-      "Select d.dept_name, COUNT(p.project_id) AS projects_count, SUM(p.budget) AS total_project_budget."
+      "Join Departments and Projects on department ID (`dept_id`).",
+      "Group records by department name.",
+      "Count projects aliased as `projects_count` and sum budgets aliased as `total_project_budget`.",
+      "Display `dept_name`, `projects_count`, and `total_project_budget`."
     ],
     tableName: "Departments, Projects",
-    hint: "GROUP BY d.dept_name",
+    hint: "Join Departments and Projects on dept_id, group by dept_name, and aggregate.",
     expectedSql: "SELECT d.dept_name, COUNT(p.project_id) AS projects_count, SUM(p.budget) AS total_project_budget FROM Departments d INNER JOIN Projects p ON d.dept_id = p.dept_id GROUP BY d.dept_name;",
     explanation: "Summarizes departmental project portfolios and total budget commitments.",
     tags: ["joins", "aggregates", "budget"],
@@ -1292,19 +1273,20 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 244,
-    title: "Identify employees with heavy cross-project workloads (> 30 total hours)",
+    title: "Heavy Cross-Project Workload Contributors",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_id, e.emp_name, e.department, and SUM(ep.hours_allocated) AS total_weekly_hours by joining Employees and Employee_Projects on emp_id, grouped by e.emp_id, e.emp_name, e.department, having total_weekly_hours > 30.",
+    problemStatement: "Resource governance is identifying employees whose cumulative project workload exceeds full-time capacity. Find all employees whose total weekly allocated hours across all projects strictly exceed 30, displaying employee ID, name, department, and total weekly hours.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Group by e.emp_id, e.emp_name, e.department.",
-      "Filter with HAVING SUM(ep.hours_allocated) > 30.",
-      "Select e.emp_id, e.emp_name, e.department, SUM(ep.hours_allocated) AS total_weekly_hours."
+      "Join Employees and Employee_Projects on employee ID.",
+      "Group by employee ID, name, and department.",
+      "Sum allocated weekly hours aliased as `total_weekly_hours`.",
+      "Filter groups where cumulative hours strictly exceed 30.",
+      "Display `emp_id`, `emp_name`, `department`, and `total_weekly_hours`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "HAVING SUM(ep.hours_allocated) > 30",
+    hint: "Join on emp_id, group by employee attributes, and apply HAVING SUM(hours_allocated) > 30.",
     expectedSql: "SELECT e.emp_id, e.emp_name, e.department, SUM(ep.hours_allocated) AS total_weekly_hours FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name, e.department HAVING SUM(ep.hours_allocated) > 30;",
     explanation: "Aggregates across junction table assignments and applies HAVING to highlight overloaded team members.",
     tags: ["joins", "having", "workload"],
@@ -1312,19 +1294,20 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 245,
-    title: "Audit department compensation burn: Total annual payroll vs budget",
+    title: "Departmental Annual Payroll Burn Audit",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display d.dept_name, (SUM(e.salary) * 12) AS annual_payroll, d.budget AS annual_budget from Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget HAVING (SUM(e.salary) * 12) > (d.budget * 0.5);",
+    problemStatement: "Finance leadership is auditing departmental payroll burn relative to annual operating budgets. For departments where annualized payroll (monthly payroll multiplied by 12) exceeds 50% of the departmental budget, display department name, annualized payroll (`annual_payroll`), and annual budget (`annual_budget`).",
     requirements: [
-      "INNER JOIN Departments d and Employees e ON d.dept_name = e.department.",
-      "Group by d.dept_name, d.budget.",
-      "Filter with HAVING (SUM(e.salary) * 12) > (d.budget * 0.5).",
-      "Select d.dept_name, (SUM(e.salary) * 12) AS annual_payroll, d.budget AS annual_budget."
+      "Join Departments and Employees on department name.",
+      "Group by department name and budget.",
+      "Calculate annualized payroll as `SUM(e.salary) * 12` aliased as `annual_payroll`.",
+      "Filter groups where annualized payroll exceeds 50% of department budget (`budget * 0.5`).",
+      "Display `dept_name`, `annual_payroll`, and `annual_budget`."
     ],
     tableName: "Departments, Employees",
-    hint: "HAVING (SUM(e.salary) * 12) > (d.budget * 0.5)",
+    hint: "Group by dept_name and budget, and filter with HAVING (SUM(salary) * 12) > (budget * 0.5).",
     expectedSql: "SELECT d.dept_name, (SUM(e.salary) * 12) AS annual_payroll, d.budget AS annual_budget FROM Departments d INNER JOIN Employees e ON d.dept_name = e.department GROUP BY d.dept_name, d.budget HAVING (SUM(e.salary) * 12) > (d.budget * 0.5);",
     explanation: "Evaluates whether total annual payroll consumes more than 50% of the departmental operating budget.",
     tags: ["joins", "having", "budget-burn", "finance"],
@@ -1332,18 +1315,20 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 246,
-    title: "Compute average experience and average salary of teams assigned to each project",
+    title: "Project Team Experience and Compensation Benchmarks",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display p.project_name, ROUND(AVG(e.experience), 1) AS avg_team_exp, and ROUND(AVG(e.salary), 2) AS avg_team_salary by joining Projects, Employee_Projects, and Employees, grouped by p.project_id, p.project_name.",
+    problemStatement: "Resource analytics evaluates talent seniority and cost per project. For each initiative, calculate the average years of experience (rounded to 1 decimal place) and average monthly salary (rounded to 2 decimal places) of all assigned team members, displaying project name, average experience, and average salary.",
     requirements: [
-      "Join Projects p, Employee_Projects ep, and Employees e.",
-      "Group by p.project_id, p.project_name.",
-      "Select p.project_name, ROUND(AVG(e.experience), 1) AS avg_team_exp, ROUND(AVG(e.salary), 2) AS avg_team_salary."
+      "Join Projects, Employee_Projects (on project_id), and Employees (on emp_id).",
+      "Group by project ID and project name.",
+      "Calculate average team experience rounded to 1 decimal place aliased as `avg_team_exp`.",
+      "Calculate average team salary rounded to 2 decimal places aliased as `avg_team_salary`.",
+      "Display `project_name`, `avg_team_exp`, and `avg_team_salary`."
     ],
     tableName: "Projects, Employee_Projects, Employees",
-    hint: "GROUP BY p.project_id, p.project_name",
+    hint: "Join Projects to Employee_Projects and Employees, group by project_name, and compute averages.",
     expectedSql: "SELECT p.project_name, ROUND(AVG(e.experience), 1) AS avg_team_exp, ROUND(AVG(e.salary), 2) AS avg_team_salary FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id INNER JOIN Employees e ON ep.emp_id = e.emp_id GROUP BY p.project_id, p.project_name;",
     explanation: "Profiles project team seniority and compensation through multi-table joins.",
     tags: ["joins", "aggregates", "team-composition"],
@@ -1351,19 +1336,19 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 247,
-    title: "Count distinct projects and distinct reviews per employee",
+    title: "Dual Engagement Audit: Projects Assigned and Reviews Received",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display e.emp_name, COUNT(DISTINCT ep.project_id) AS projects_assigned, and COUNT(DISTINCT pr.review_id) AS reviews_received by LEFT JOINing Employees with Employee_Projects and Performance_Reviews, grouped by e.emp_id, e.emp_name.",
+    problemStatement: "Human Resources is summarizing employee engagement in projects and appraisal cycles. For all employees, display employee name, count of distinct projects assigned (aliased as `projects_assigned`), and count of distinct reviews completed (aliased as `reviews_received`), preserving employees with zero in either category.",
     requirements: [
-      "LEFT JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Group by e.emp_id, e.emp_name.",
-      "Select e.emp_name, COUNT(DISTINCT ep.project_id) AS projects_assigned, COUNT(DISTINCT pr.review_id) AS reviews_received."
+      "Left join Employees with Employee_Projects (on emp_id) and Performance_Reviews (on emp_id).",
+      "Group by employee ID and employee name.",
+      "Count distinct projects aliased as `projects_assigned` and distinct reviews aliased as `reviews_received`.",
+      "Display `emp_name`, `projects_assigned`, and `reviews_received`."
     ],
     tableName: "Employees, Employee_Projects, Performance_Reviews",
-    hint: "Use COUNT(DISTINCT ...) to prevent Cartesian product inflation",
+    hint: "Use left outer joins from Employees and apply COUNT(DISTINCT ...) for projects and reviews.",
     expectedSql: "SELECT e.emp_name, COUNT(DISTINCT ep.project_id) AS projects_assigned, COUNT(DISTINCT pr.review_id) AS reviews_received FROM Employees e LEFT JOIN Employee_Projects ep ON e.emp_id = ep.emp_id LEFT JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.emp_id, e.emp_name;",
     explanation: "COUNT(DISTINCT) is essential when joining multiple one-to-many child tables to prevent inflated counts.",
     tags: ["joins", "count-distinct", "fan-out-trap"],
@@ -1371,19 +1356,21 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 248,
-    title: "Identify top 3 employees by total project hours worked",
+    title: "Top Three Workload Contributors Across Initiatives",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.emp_name, e.department, and SUM(ep.hours_allocated) AS total_hours by joining Employees and Employee_Projects on emp_id, grouped by e.emp_id, e.emp_name, e.department, ordered by total_hours descending, limited to 3 employees.",
+    problemStatement: "Project operations is recognizing the three hardest-working contributors across all company initiatives. Find the 3 employees with the highest cumulative weekly hours committed to projects, displaying employee name, department, and total hours.",
     requirements: [
-      "INNER JOIN Employees e and Employee_Projects ep ON e.emp_id = ep.emp_id.",
-      "Group by e.emp_id, e.emp_name, e.department.",
-      "Order by total_hours DESC.",
-      "LIMIT 3."
+      "Join Employees and Employee_Projects on employee ID.",
+      "Group by employee ID, name, and department.",
+      "Sum weekly hours aliased as `total_hours`.",
+      "Order by total hours in descending order.",
+      "Limit the result to the top 3 employees.",
+      "Display `emp_name`, `department`, and `total_hours`."
     ],
     tableName: "Employees, Employee_Projects",
-    hint: "ORDER BY total_hours DESC LIMIT 3",
+    hint: "Join on emp_id, group by employee, sum hours, sort descending, and limit to 3.",
     expectedSql: "SELECT e.emp_name, e.department, SUM(ep.hours_allocated) AS total_hours FROM Employees e INNER JOIN Employee_Projects ep ON e.emp_id = ep.emp_id GROUP BY e.emp_id, e.emp_name, e.department ORDER BY total_hours DESC LIMIT 3;",
     explanation: "Highlights top contributors by aggregated project commitments across the company.",
     tags: ["joins", "order-by", "limit", "top-3"],
@@ -1392,18 +1379,19 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 249,
-    title: "Calculate total bonuses awarded per department",
+    title: "Departmental Incentive Payout Pool Totals",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query to display e.department, COUNT(pr.review_id) AS reviewed_count, and SUM(pr.bonus) AS total_department_bonuses by joining Employees and Performance_Reviews on emp_id, grouped by e.department.",
+    problemStatement: "The compensation committee is summarizing performance bonuses distributed by business unit. For each department with reviewed employees, display the department name, count of reviews completed, and cumulative bonus pool awarded.",
     requirements: [
-      "INNER JOIN Employees e and Performance_Reviews pr ON e.emp_id = pr.emp_id.",
-      "Group by e.department.",
-      "Select e.department, COUNT(pr.review_id) AS reviewed_count, SUM(pr.bonus) AS total_department_bonuses."
+      "Join Employees and Performance_Reviews on employee ID.",
+      "Group records by department name.",
+      "Count reviews aliased as `reviewed_count` and sum awarded bonuses aliased as `total_department_bonuses`.",
+      "Display `department`, `reviewed_count`, and `total_department_bonuses`."
     ],
     tableName: "Employees, Performance_Reviews",
-    hint: "GROUP BY e.department",
+    hint: "Join Employees and Performance_Reviews on emp_id, group by department, and aggregate.",
     expectedSql: "SELECT e.department, COUNT(pr.review_id) AS reviewed_count, SUM(pr.bonus) AS total_department_bonuses FROM Employees e INNER JOIN Performance_Reviews pr ON e.emp_id = pr.emp_id GROUP BY e.department;",
     explanation: "Aggregates performance bonuses paid to employees by department.",
     tags: ["joins", "bonus", "department-aggregates"],
@@ -1411,20 +1399,21 @@ export const TOPIC7_QUESTIONS = [
   },
   {
     id: 250,
-    title: "Projects where assigned team members average a performance rating of at least 4.0",
+    title: "Initiatives Staffed by Elite High-Rated Teams",
     topic: "SQL JOINs",
     subtopic: "Aggregations & Analytical Filtering over Joined Relations",
     difficulty: "Hard",
-    problemStatement: "Write a SQL query to display p.project_name, COUNT(DISTINCT ep.emp_id) AS staff_count, and ROUND(AVG(pr.rating), 2) AS avg_team_rating by joining Projects p, Employee_Projects ep, and Performance_Reviews pr, grouped by p.project_id, p.project_name, having avg_team_rating >= 4.0.",
+    problemStatement: "Executive governance tracks projects staffed by high-performing personnel. Identify initiatives where the assigned team members have an average performance rating of at least 4.0, displaying project name, distinct assigned staff count, and team average rating (rounded to 2 decimal places).",
     requirements: [
-      "INNER JOIN Projects p and Employee_Projects ep ON p.project_id = ep.project_id.",
-      "INNER JOIN Performance_Reviews pr ON ep.emp_id = pr.emp_id.",
-      "Group by p.project_id, p.project_name.",
-      "Filter with HAVING AVG(pr.rating) >= 4.0.",
-      "Select p.project_name, COUNT(DISTINCT ep.emp_id) AS staff_count, ROUND(AVG(pr.rating), 2) AS avg_team_rating."
+      "Join Projects, Employee_Projects (on project_id), and Performance_Reviews (on emp_id).",
+      "Group by project ID and project name.",
+      "Count distinct assigned staff aliased as `staff_count`.",
+      "Calculate average rating rounded to 2 decimal places aliased as `avg_team_rating`.",
+      "Filter groups where average rating is at least 4.0.",
+      "Display `project_name`, `staff_count`, and `avg_team_rating`."
     ],
     tableName: "Projects, Employee_Projects, Performance_Reviews",
-    hint: "HAVING AVG(pr.rating) >= 4.0",
+    hint: "Join the three tables, group by project, and filter with HAVING AVG(rating) >= 4.0.",
     expectedSql: "SELECT p.project_name, COUNT(DISTINCT ep.emp_id) AS staff_count, ROUND(AVG(pr.rating), 2) AS avg_team_rating FROM Projects p INNER JOIN Employee_Projects ep ON p.project_id = ep.project_id INNER JOIN Performance_Reviews pr ON ep.emp_id = pr.emp_id GROUP BY p.project_id, p.project_name HAVING AVG(pr.rating) >= 4.0;",
     explanation: "Assesses project staffing quality by filtering for initiatives where assigned team members hold elite appraisal scores.",
     tags: ["joins", "having", "team-quality"],

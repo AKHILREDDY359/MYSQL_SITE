@@ -2,17 +2,17 @@ export const TOPIC1_QUESTIONS = [
   // Subtopic 1: Basic SELECT & Column Projection (IDs 51 to 55)
   {
     id: 51,
-    title: "Display all columns and records from Employees",
+    title: "Enterprise Workforce Master Directory",
     topic: "SQL Fundamentals",
     subtopic: "Basic SELECT & Column Projection",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to retrieve all columns and all records from the Employees table.",
+    problemStatement: "The Human Resources Information Systems (HRIS) team needs a full extract of all employee profiles currently registered in the database for a comprehensive system audit. Retrieve all employee records and all columns without filtering.",
     requirements: [
-      "Use the asterisk (*) wildcard to project all columns.",
-      "Select from the Employees table without any row filters."
+      "Select all available columns from the Employees table.",
+      "Include all employee records in the company."
     ],
     tableName: "Employees",
-    hint: "Use SELECT * FROM Employees;",
+    hint: "Retrieve all columns from the Employees table without any row filtering conditions.",
     expectedSql: "SELECT * FROM Employees;",
     explanation: "The asterisk (*) wildcard in a SELECT statement retrieves every column defined in the target table.",
     tags: ["select", "fundamentals", "projection"],
@@ -20,17 +20,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 52,
-    title: "Select employee names and their monthly salaries",
+    title: "Basic Compensation Overview",
     topic: "SQL Fundamentals",
     subtopic: "Basic SELECT & Column Projection",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to retrieve only the employee name and salary columns for all employees.",
+    problemStatement: "The payroll department is reviewing base salaries across the organization. Produce a report displaying each employee's name alongside their current monthly salary.",
     requirements: [
-      "Select only the emp_name and salary columns.",
-      "Preserve the column order: emp_name, salary."
+      "Display employee name (`emp_name`) and monthly salary (`salary`).",
+      "Include all records from the Employees table."
     ],
     tableName: "Employees",
-    hint: "Specify columns separated by comma: SELECT emp_name, salary FROM Employees;",
+    hint: "Specify only the employee name and salary columns in your projection.",
     expectedSql: "SELECT emp_name, salary FROM Employees;",
     explanation: "Explicitly projecting columns reduces network payload and improves query performance over SELECT *.",
     tags: ["select", "columns", "projection"],
@@ -38,17 +38,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 53,
-    title: "Display employee ID, full name, and department",
+    title: "Staff Badge Credentials and Division Alignment",
     topic: "SQL Fundamentals",
     subtopic: "Basic SELECT & Column Projection",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display the employee ID, employee name, and department for all employees.",
+    problemStatement: "Facilities administration is issuing updated security access cards. Extract each staff member's unique employee identifier, full name, and assigned operational department.",
     requirements: [
-      "Select emp_id, emp_name, and department.",
-      "Maintain the specified column order."
+      "Project employee ID (`emp_id`), full name (`emp_name`), and department (`department`).",
+      "Retrieve data from the Employees table."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_id, emp_name, department FROM Employees;",
+    hint: "Select the three requested identification attributes from the Employees table.",
     expectedSql: "SELECT emp_id, emp_name, department FROM Employees;",
     explanation: "Column projections allow retrieving specific business attributes without extraneous information.",
     tags: ["select", "columns", "fundamentals"],
@@ -56,17 +56,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 54,
-    title: "Retrieve department names, locations, and budgets",
+    title: "Department Operational Centers and Allocations",
     topic: "SQL Fundamentals",
     subtopic: "Basic SELECT & Column Projection",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display the department name, location, and annual budget from the Departments table.",
+    problemStatement: "The executive finance committee requires an overview of corporate divisions. Retrieve the department name, headquarters location, and total operating budget for each department in the organization.",
     requirements: [
-      "Query the Departments table.",
-      "Select dept_name, location, and budget."
+      "Project department name (`dept_name`), office location (`location`), and budget (`budget`).",
+      "Extract records from the Departments table."
     ],
     tableName: "Departments",
-    hint: "SELECT dept_name, location, budget FROM Departments;",
+    hint: "Query the Departments table selecting the division name, location, and budget fields.",
     expectedSql: "SELECT dept_name, location, budget FROM Departments;",
     explanation: "Queries can target any table in the relational database by naming it in the FROM clause.",
     tags: ["departments", "select", "projection"],
@@ -74,17 +74,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 55,
-    title: "Retrieve all project names and their current status",
+    title: "Corporate Project Portfolio Status Tracking",
     topic: "SQL Fundamentals",
     subtopic: "Basic SELECT & Column Projection",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to project the project name and operational status for all corporate initiatives in the Projects table.",
+    problemStatement: "The Project Management Office is preparing a portfolio health dashboard. Display the name of each corporate initiative and its current operational status.",
     requirements: [
-      "Query the Projects table.",
-      "Select project_name and status."
+      "Select project name (`project_name`) and execution status (`status`).",
+      "Source data from the Projects table."
     ],
     tableName: "Projects",
-    hint: "SELECT project_name, status FROM Projects;",
+    hint: "Retrieve only the project name and status columns from the Projects table.",
     expectedSql: "SELECT project_name, status FROM Projects;",
     explanation: "Selecting key descriptive columns allows tracking status across projects.",
     tags: ["projects", "select", "status"],
@@ -94,18 +94,18 @@ export const TOPIC1_QUESTIONS = [
   // Subtopic 2: Column Aliasing & Renaming (IDs 56 to 60)
   {
     id: 56,
-    title: "Alias employee name and salary with business-friendly titles",
+    title: "Executive Reporting Column Formatting",
     topic: "SQL Fundamentals",
     subtopic: "Column Aliasing & Renaming",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to retrieve emp_name renamed as employee_full_name, and salary renamed as monthly_salary.",
+    problemStatement: "Executive leadership prefers human-friendly headers in analytical reports. Retrieve each employee's name and salary, relabeling the columns to clearly distinguish full name and monthly compensation in the final output.",
     requirements: [
-      "Select emp_name aliased as employee_full_name.",
-      "Select salary aliased as monthly_salary.",
-      "Use the AS keyword for explicit aliasing."
+      "Select employee name aliased as `employee_full_name`.",
+      "Select monthly salary aliased as `monthly_salary`.",
+      "Query from the Employees table."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name AS employee_full_name, salary AS monthly_salary FROM Employees;",
+    hint: "Use column aliasing to assign the requested business-friendly headers to the projected fields.",
     expectedSql: "SELECT emp_name AS employee_full_name, salary AS monthly_salary FROM Employees;",
     explanation: "The AS keyword creates temporary result column headers without changing the underlying schema.",
     tags: ["alias", "as", "formatting"],
@@ -113,18 +113,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 57,
-    title: "Alias department attributes for executive reporting",
+    title: "Departmental Financial Summary Labels",
     topic: "SQL Fundamentals",
     subtopic: "Column Aliasing & Renaming",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query from Departments that renames dept_name to dept and budget to annual_budget.",
+    problemStatement: "Financial reporting systems require concise standardized column aliases for automated ingestion. Retrieve department names and budgets, formatting them with designated technical headers.",
     requirements: [
       "Query the Departments table.",
-      "Alias dept_name as dept.",
-      "Alias budget as annual_budget."
+      "Alias `dept_name` as `dept`.",
+      "Alias `budget` as `annual_budget`."
     ],
     tableName: "Departments",
-    hint: "SELECT dept_name AS dept, budget AS annual_budget FROM Departments;",
+    hint: "Alias the department name column as dept and the budget column as annual_budget.",
     expectedSql: "SELECT dept_name AS dept, budget AS annual_budget FROM Departments;",
     explanation: "Aliasing is standard practice for conforming database columns to application DTO requirements.",
     tags: ["alias", "departments", "reporting"],
@@ -132,17 +132,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 58,
-    title: "Compute and alias annual employee compensation",
+    title: "Annualized Compensation Projection",
     topic: "SQL Fundamentals",
     subtopic: "Column Aliasing & Renaming",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to project emp_name and calculate the annual compensation (monthly salary multiplied by 12) with the column alias annual_salary.",
+    problemStatement: "Corporate accounting is forecasting annual base compensation obligations. For each employee, display their name and compute their full annual salary based on 12 months of pay.",
     requirements: [
-      "Select emp_name.",
-      "Multiply salary by 12 and alias as annual_salary."
+      "Display employee name (`emp_name`).",
+      "Calculate monthly salary multiplied by 12, aliasing the result as `annual_salary`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, salary * 12 AS annual_salary FROM Employees;",
+    hint: "Multiply the monthly salary attribute by 12 within the column projection list.",
     expectedSql: "SELECT emp_name, salary * 12 AS annual_salary FROM Employees;",
     explanation: "Arithmetic expressions in the SELECT clause compute derived values on-the-fly.",
     tags: ["arithmetic", "alias", "annual-salary"],
@@ -150,17 +150,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 59,
-    title: "Convert professional experience from years to months",
+    title: "Tenure Conversion to Operational Months",
     topic: "SQL Fundamentals",
     subtopic: "Column Aliasing & Renaming",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query displaying each employee's name and their total professional experience converted to months (experience * 12) aliased as experience_months.",
+    problemStatement: "Human Resources is calculating seniority milestones on a monthly cadence rather than years. Retrieve each staff member's name and their total career experience expressed in months.",
     requirements: [
-      "Select emp_name.",
-      "Multiply experience by 12 and alias as experience_months."
+      "Select employee name (`emp_name`).",
+      "Convert years of experience into months by multiplying by 12, aliasing the column as `experience_months`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, experience * 12 AS experience_months FROM Employees;",
+    hint: "Multiply the experience field by 12 and assign the specified alias.",
     expectedSql: "SELECT emp_name, experience * 12 AS experience_months FROM Employees;",
     explanation: "Multiplication expressions allow unit conversions directly within SQL projection.",
     tags: ["arithmetic", "alias", "conversion"],
@@ -168,18 +168,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 60,
-    title: "Project project budgets formatted in thousands (K)",
+    title: "Project Capital Allocation in Thousands",
     topic: "SQL Fundamentals",
     subtopic: "Column Aliasing & Renaming",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query from Projects to display project_name and the budget divided by 1000 aliased as budget_in_thousands.",
+    problemStatement: "Executive slide decks present large budget allocations in thousands of dollars (K) for visual clarity. Display each project name alongside its total budget scaled into thousands.",
     requirements: [
       "Query the Projects table.",
-      "Select project_name.",
-      "Calculate budget / 1000 and alias as budget_in_thousands."
+      "Select project name (`project_name`).",
+      "Divide the budget by 1000, aliasing the result as `budget_in_thousands`."
     ],
     tableName: "Projects",
-    hint: "SELECT project_name, budget / 1000 AS budget_in_thousands FROM Projects;",
+    hint: "Perform arithmetic division on the budget column and assign the designated alias.",
     expectedSql: "SELECT project_name, budget / 1000 AS budget_in_thousands FROM Projects;",
     explanation: "Division expressions scale large financial figures into readable units.",
     tags: ["arithmetic", "division", "alias"],
@@ -189,17 +189,17 @@ export const TOPIC1_QUESTIONS = [
   // Subtopic 3: DISTINCT & Unique Values (IDs 61 to 65)
   {
     id: 61,
-    title: "List all unique department names in the organization",
+    title: "Distinct Functional Divisions Roster",
     topic: "SQL Fundamentals",
     subtopic: "DISTINCT & Unique Values",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display all unique department names present in the Employees table without any duplicate entries.",
+    problemStatement: "Organizational design is conducting an inventory of all operational departments that currently employ active personnel. Produce a deduplicated listing of all unique department names.",
     requirements: [
-      "Use DISTINCT on the department column.",
-      "Retrieve results from the Employees table."
+      "Retrieve unique department names from the Employees table.",
+      "Ensure duplicate department names are removed from the result set."
     ],
     tableName: "Employees",
-    hint: "SELECT DISTINCT department FROM Employees;",
+    hint: "Eliminate duplicate values from the output using the distinct projection keyword.",
     expectedSql: "SELECT DISTINCT department FROM Employees;",
     explanation: "The DISTINCT keyword de-duplicates result sets, keeping only single occurrences of unique values.",
     tags: ["distinct", "unique", "departments"],
@@ -207,16 +207,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 62,
-    title: "Find all distinct office branch cities",
+    title: "Corporate Office Footprint Identification",
     topic: "SQL Fundamentals",
     subtopic: "DISTINCT & Unique Values",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to list all unique cities where employees are stationed, eliminating duplicate cities.",
+    problemStatement: "Facilities and real estate planning is mapping corporate branch locations. Extract a list of all distinct cities where company employees are currently stationed.",
     requirements: [
-      "Select DISTINCT city from Employees."
+      "Extract distinct city names from the Employees table.",
+      "Ensure each office city appears exactly once."
     ],
     tableName: "Employees",
-    hint: "SELECT DISTINCT city FROM Employees;",
+    hint: "Use distinct row projection on the city column to eliminate repeated locations.",
     expectedSql: "SELECT DISTINCT city FROM Employees;",
     explanation: "DISTINCT works on any scalar data type including strings and locations.",
     tags: ["distinct", "city", "unique"],
@@ -224,16 +225,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 63,
-    title: "List all unique years in which employees joined the company",
+    title: "Historical Hiring Cohort Years",
     topic: "SQL Fundamentals",
     subtopic: "DISTINCT & Unique Values",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to retrieve all unique joining years recorded in the Employees table.",
+    problemStatement: "Talent acquisition is analyzing employee retention across historical hiring cycles. Find all unique calendar years in which active employees joined the company.",
     requirements: [
-      "Select DISTINCT joining_year from Employees."
+      "Select distinct joining years from the Employees table.",
+      "Ensure each year appears only once in the final output."
     ],
     tableName: "Employees",
-    hint: "SELECT DISTINCT joining_year FROM Employees;",
+    hint: "Retrieve the distinct values present in the joining_year column.",
     expectedSql: "SELECT DISTINCT joining_year FROM Employees;",
     explanation: "DISTINCT on integer columns identifies the unique years of hiring cohorts.",
     tags: ["distinct", "temporal", "years"],
@@ -241,17 +243,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 64,
-    title: "Discover all distinct operational statuses across projects",
+    title: "Project Lifecycle Status Inventory",
     topic: "SQL Fundamentals",
     subtopic: "DISTINCT & Unique Values",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to identify all distinct project status categories currently in the Projects table.",
+    problemStatement: "Agile process auditors need to identify all workflow stages currently assigned to corporate projects. Retrieve all distinct operational status designations present in the project portfolio.",
     requirements: [
       "Query the Projects table.",
-      "Use DISTINCT on status."
+      "Return the unique set of status values without duplicates."
     ],
     tableName: "Projects",
-    hint: "SELECT DISTINCT status FROM Projects;",
+    hint: "Apply distinct filtering to the status column in the Projects table.",
     expectedSql: "SELECT DISTINCT status FROM Projects;",
     explanation: "DISTINCT helps discover enum-like categories in business workflows.",
     tags: ["distinct", "status", "projects"],
@@ -259,17 +261,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 65,
-    title: "Find distinct department and city office pairs",
+    title: "Departmental Branch Footprint Matrix",
     topic: "SQL Fundamentals",
     subtopic: "DISTINCT & Unique Values",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display all unique combinations of department and city from the Employees table.",
+    problemStatement: "Workforce operations needs to understand which business units operate in which cities. Generate a deduplicated list of all unique department and city pairs represented in the workforce.",
     requirements: [
-      "Use DISTINCT across both department and city columns.",
-      "Preserve order: department, city."
+      "Project department and city from the Employees table.",
+      "Ensure each unique combination of department and city appears only once.",
+      "Preserve column order: `department`, `city`."
     ],
     tableName: "Employees",
-    hint: "SELECT DISTINCT department, city FROM Employees;",
+    hint: "Apply the distinct keyword across multiple projected columns.",
     expectedSql: "SELECT DISTINCT department, city FROM Employees;",
     explanation: "When multiple columns follow DISTINCT, uniqueness is evaluated on the tuple of values.",
     tags: ["distinct", "multi-column", "combinations"],
@@ -279,17 +282,17 @@ export const TOPIC1_QUESTIONS = [
   // Subtopic 4: Arithmetic Calculations & Expressions (IDs 66 to 70)
   {
     id: 66,
-    title: "Calculate estimated daily wage assuming 30 days per month",
+    title: "Estimated Daily Wage Calculation",
     topic: "SQL Fundamentals",
     subtopic: "Arithmetic Calculations & Expressions",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display each employee's name and their estimated daily wage (salary divided by 30) aliased as daily_wage.",
+    problemStatement: "Contract compliance requires an estimate of daily labor costs assuming a standard 30-day billing month. Display each employee's name and their calculated daily wage.",
     requirements: [
-      "Select emp_name.",
-      "Calculate salary / 30 and alias as daily_wage."
+      "Select employee name (`emp_name`).",
+      "Compute daily wage by dividing monthly salary by 30, aliasing the result as `daily_wage`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, salary / 30 AS daily_wage FROM Employees;",
+    hint: "Divide the salary column by 30 in the select clause and alias the result.",
     expectedSql: "SELECT emp_name, salary / 30 AS daily_wage FROM Employees;",
     explanation: "Mathematical operations in SQL support integer and floating-point division.",
     tags: ["arithmetic", "division", "daily-wage"],
@@ -297,17 +300,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 67,
-    title: "Compute projected 10 percent salary hike",
+    title: "Proposed Cost-of-Living Salary Revision",
     topic: "SQL Fundamentals",
     subtopic: "Arithmetic Calculations & Expressions",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display emp_name, current salary, and the projected revised salary after a 10% raise (salary * 1.10) aliased as revised_salary.",
+    problemStatement: "The compensation committee is modeling a company-wide 10% cost-of-living salary adjustment. For each employee, display their name, current monthly salary, and projected revised salary reflecting a 10% increase.",
     requirements: [
-      "Select emp_name, salary.",
-      "Compute salary * 1.10 aliased as revised_salary."
+      "Select employee name (`emp_name`) and current salary (`salary`).",
+      "Calculate revised salary as 110% of current salary (multiplying by 1.10), aliased as `revised_salary`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, salary, salary * 1.10 AS revised_salary FROM Employees;",
+    hint: "Multiply current salary by 1.10 to compute the adjusted compensation.",
     expectedSql: "SELECT emp_name, salary, salary * 1.10 AS revised_salary FROM Employees;",
     explanation: "Multiplying by 1.10 applies a percentage increase directly within SQL.",
     tags: ["arithmetic", "percentage", "hike"],
@@ -315,17 +318,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 68,
-    title: "Compute projected salary with a 5000 INR fixed bonus increment",
+    title: "Flat Retention Bonus Projection",
     topic: "SQL Fundamentals",
     subtopic: "Arithmetic Calculations & Expressions",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to display emp_name and their salary plus a fixed 5000 increment aliased as incremented_salary.",
+    problemStatement: "Human Resources is evaluating the budget impact of a flat 5,000 INR retention supplement added to each employee's monthly pay. Display each employee's name alongside their projected compensation with the increment.",
     requirements: [
-      "Select emp_name.",
-      "Add 5000 to salary and alias as incremented_salary."
+      "Select employee name (`emp_name`).",
+      "Add 5000 to monthly salary, aliasing the calculated result as `incremented_salary`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, salary + 5000 AS incremented_salary FROM Employees;",
+    hint: "Add 5000 to the salary column and alias the resulting expression.",
     expectedSql: "SELECT emp_name, salary + 5000 AS incremented_salary FROM Employees;",
     explanation: "Addition operators allow applying flat stipends or allowances.",
     tags: ["arithmetic", "addition", "salary"],
@@ -333,17 +336,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 69,
-    title: "Calculate total annual package including 2 months festive bonus",
+    title: "Comprehensive Annual Package with Festive Bonus",
     topic: "SQL Fundamentals",
     subtopic: "Arithmetic Calculations & Expressions",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query to display emp_name and total compensation for 14 months (monthly salary * 14) aliased as total_annual_package.",
+    problemStatement: "Benefits planning models a total annual compensation package structured as 12 monthly salaries plus 2 additional months of festive bonuses (14 months total). Display each employee's name and their total 14-month package.",
     requirements: [
-      "Select emp_name.",
-      "Multiply salary by 14 and alias as total_annual_package."
+      "Select employee name (`emp_name`).",
+      "Multiply monthly salary by 14, aliasing the total package as `total_annual_package`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, salary * 14 AS total_annual_package FROM Employees;",
+    hint: "Calculate salary multiplied by 14 to reflect the 14-month compensation structure.",
     expectedSql: "SELECT emp_name, salary * 14 AS total_annual_package FROM Employees;",
     explanation: "Multiplication models realistic corporate compensation structures.",
     tags: ["arithmetic", "bonus", "compensation"],
@@ -351,18 +354,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 70,
-    title: "Calculate net usable project budget after 20 percent management reserve",
+    title: "Usable Project Working Capital",
     topic: "SQL Fundamentals",
     subtopic: "Arithmetic Calculations & Expressions",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query from Projects to display project_name and 80% of budget (budget * 0.80) aliased as net_usable_budget.",
+    problemStatement: "Financial risk governance mandates that 20% of every project budget be held back in a contingency reserve. For each corporate initiative, display the project name and the remaining 80% usable working capital.",
     requirements: [
       "Query the Projects table.",
-      "Select project_name.",
-      "Calculate budget * 0.80 and alias as net_usable_budget."
+      "Select project name (`project_name`).",
+      "Calculate 80% of budget (multiplying budget by 0.80), aliasing the figure as `net_usable_budget`."
     ],
     tableName: "Projects",
-    hint: "SELECT project_name, budget * 0.80 AS net_usable_budget FROM Projects;",
+    hint: "Multiply budget by 0.80 in your column projection to compute net usable funds.",
     expectedSql: "SELECT project_name, budget * 0.80 AS net_usable_budget FROM Projects;",
     explanation: "Floating point multiplication is commonly used for reserve deductions and financial modeling.",
     tags: ["arithmetic", "budget", "projects"],
@@ -372,17 +375,17 @@ export const TOPIC1_QUESTIONS = [
   // Subtopic 5: Literals & NULL Value Handling (IDs 71 to 75)
   {
     id: 71,
-    title: "Append static corporate organization literal column",
+    title: "Legal Entity Corporate Tagging",
     topic: "SQL Fundamentals",
     subtopic: "Literals & NULL Value Handling",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to select emp_name and a static string literal 'SQL Sprint Corp' aliased as organization for all employees.",
+    problemStatement: "Legal compliance requires generating vendor reports where each staff record includes the formal corporate entity name. Display each employee's name alongside a constant column designating the corporate organization.",
     requirements: [
-      "Select emp_name.",
-      "Include string literal 'SQL Sprint Corp' aliased as organization."
+      "Select employee name (`emp_name`).",
+      "Include a literal string column with the value 'SQL Sprint Corp', aliased as `organization`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, 'SQL Sprint Corp' AS organization FROM Employees;",
+    hint: "Add a string literal enclosed in single quotes to your select list with the required alias.",
     expectedSql: "SELECT emp_name, 'SQL Sprint Corp' AS organization FROM Employees;",
     explanation: "String literals enclosed in single quotes project constant values for every row in the result set.",
     tags: ["literal", "string", "constants"],
@@ -390,17 +393,17 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 72,
-    title: "Project static employment classification tag",
+    title: "Employment Classification Indicator",
     topic: "SQL Fundamentals",
     subtopic: "Literals & NULL Value Handling",
     difficulty: "Beginner",
-    problemStatement: "Write a SQL query to select emp_name, department, and a literal column 'Full-Time' aliased as employment_type.",
+    problemStatement: "HR payroll exports require an explicit employment classification label for benefits processing. Display employee name, department, and a static tag indicating full-time employment status.",
     requirements: [
-      "Select emp_name, department.",
-      "Include literal 'Full-Time' aliased as employment_type."
+      "Select employee name (`emp_name`) and department (`department`).",
+      "Include a static string literal 'Full-Time' aliased as `employment_type`."
     ],
     tableName: "Employees",
-    hint: "SELECT emp_name, department, 'Full-Time' AS employment_type FROM Employees;",
+    hint: "Project the static text 'Full-Time' alongside the employee name and department.",
     expectedSql: "SELECT emp_name, department, 'Full-Time' AS employment_type FROM Employees;",
     explanation: "Static classification labels are frequently used in union operations and export pipelines.",
     tags: ["literal", "employment-type", "constants"],
@@ -408,18 +411,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 73,
-    title: "Identify performance reviews where bonus was not awarded (NULL)",
+    title: "Reviews Lacking Awarded Bonuses",
     topic: "SQL Fundamentals",
     subtopic: "Literals & NULL Value Handling",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query from Performance_Reviews to retrieve review_id, emp_id, and rating for reviews where the bonus is NULL.",
+    problemStatement: "Internal audit is reviewing annual performance appraisals where no financial incentive was allocated. Retrieve the review ID, employee ID, and performance rating for all evaluations where the bonus was not awarded.",
     requirements: [
       "Query the Performance_Reviews table.",
-      "Filter rows where bonus IS NULL.",
-      "Select review_id, emp_id, rating."
+      "Filter for evaluations where bonus is unassigned (NULL).",
+      "Display review ID (`review_id`), employee ID (`emp_id`), and rating (`rating`)."
     ],
     tableName: "Performance_Reviews",
-    hint: "Use IS NULL operator: SELECT review_id, emp_id, rating FROM Performance_Reviews WHERE bonus IS NULL;",
+    hint: "Check for the absence of a value in the bonus column using the null verification operator.",
     expectedSql: "SELECT review_id, emp_id, rating FROM Performance_Reviews WHERE bonus IS NULL;",
     explanation: "In SQL, NULL signifies unknown or missing data and cannot be checked with '= NULL'. Use 'IS NULL'.",
     tags: ["null", "is-null", "performance-reviews"],
@@ -427,18 +430,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 74,
-    title: "Retrieve performance reviews with confirmed bonus payouts",
+    title: "Verified Performance Incentive Payouts",
     topic: "SQL Fundamentals",
     subtopic: "Literals & NULL Value Handling",
     difficulty: "Easy",
-    problemStatement: "Write a SQL query from Performance_Reviews to display review_id, emp_id, rating, and bonus where bonus IS NOT NULL.",
+    problemStatement: "Payroll finance is preparing incentive disbursement files. Extract review records that have an approved, confirmed bonus payout, showing the review ID, employee ID, rating, and bonus amount.",
     requirements: [
-      "Query Performance_Reviews.",
-      "Filter with bonus IS NOT NULL.",
-      "Select review_id, emp_id, rating, bonus."
+      "Query the Performance_Reviews table.",
+      "Filter for evaluations that have a confirmed bonus value.",
+      "Display `review_id`, `emp_id`, `rating`, and `bonus`."
     ],
     tableName: "Performance_Reviews",
-    hint: "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE bonus IS NOT NULL;",
+    hint: "Filter for records where the bonus column contains an assigned, non-null value.",
     expectedSql: "SELECT review_id, emp_id, rating, bonus FROM Performance_Reviews WHERE bonus IS NOT NULL;",
     explanation: "The IS NOT NULL operator filters for populated values, ignoring rows with missing compensation.",
     tags: ["null", "is-not-null", "filtering"],
@@ -446,18 +449,18 @@ export const TOPIC1_QUESTIONS = [
   },
   {
     id: 75,
-    title: "Safeguard bonus calculations using COALESCE for NULL values",
+    title: "Default Zero Baseline for Unassigned Bonuses",
     topic: "SQL Fundamentals",
     subtopic: "Literals & NULL Value Handling",
     difficulty: "Medium",
-    problemStatement: "Write a SQL query from Performance_Reviews displaying review_id, emp_id, rating, and COALESCE(bonus, 0) aliased as final_bonus to replace NULL bonuses with 0.",
+    problemStatement: "Executive performance dashboards require numeric calculations without missing values. Display review ID, employee ID, rating, and bonus for all reviews, substituting 0 whenever a bonus is unassigned.",
     requirements: [
-      "Query Performance_Reviews.",
-      "Use COALESCE(bonus, 0) aliased as final_bonus.",
-      "Select review_id, emp_id, rating, final_bonus."
+      "Query the Performance_Reviews table.",
+      "Display `review_id`, `emp_id`, `rating`.",
+      "Replace unassigned bonus values with 0, aliasing the result as `final_bonus`."
     ],
     tableName: "Performance_Reviews",
-    hint: "SELECT review_id, emp_id, rating, COALESCE(bonus, 0) AS final_bonus FROM Performance_Reviews;",
+    hint: "Use a null-coalescing function to provide a fallback value of 0 when bonus is null.",
     expectedSql: "SELECT review_id, emp_id, rating, COALESCE(bonus, 0) AS final_bonus FROM Performance_Reviews;",
     explanation: "COALESCE returns the first non-null argument, safely replacing missing bonus entries with numeric zero.",
     tags: ["coalesce", "null-handling", "expressions"],

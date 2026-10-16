@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "title": "Display all employees working in IT",
+    "title": "Identify Technical Department Personnel",
     "part": "Part A: WHERE and operators",
     "topic": "WHERE Clause",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all details of employees who belong to the 'IT' department.",
+    "problemStatement": "The engineering director requires a complete personnel roster for the Information Technology division. Extract all employee records for staff members assigned to the IT department.",
     "requirements": [
-      "Select all columns from the Employees table.",
-      "Filter rows where department is strictly 'IT'."
+      "Include all employee profile fields in the output.",
+      "Limit the records strictly to staff currently working in the 'IT' department."
     ],
     "tableName": "Employees",
-    "hint": "Use the WHERE clause with an equality operator: WHERE department = 'IT'",
+    "hint": "Filter the records by comparing the department column to the string 'IT'.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'IT';",
     "explanation": "The query filters the Employees table where the department attribute exactly matches the string 'IT'.",
     "tags": [
@@ -88,17 +88,17 @@
   },
   {
     "id": 2,
-    "title": "Display employees whose salary is greater than 50000",
+    "title": "High-Compensation Workforce Audit",
     "part": "Part A: WHERE and operators",
     "topic": "Comparison Operators",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to retrieve all employees who earn a salary strictly greater than 50000.",
+    "problemStatement": "The executive compensation committee is reviewing senior payroll across all departments. Generate a report of all employees whose current annual salary strictly exceeds 50,000.",
     "requirements": [
-      "Select all columns.",
-      "Filter where salary > 50000."
+      "Include all employee attributes in the final result.",
+      "Filter for staff members earning strictly more than 50,000."
     ],
     "tableName": "Employees",
-    "hint": "Use the greater-than comparison operator (>): WHERE salary > 50000",
+    "hint": "Use a comparison operator to test whether the salary value exceeds 50000.",
     "expectedSql": "SELECT * FROM Employees WHERE salary > 50000;",
     "explanation": "The > operator tests numeric values, returning records where salary exceeds 50000.",
     "tags": [
@@ -225,17 +225,17 @@
   },
   {
     "id": 3,
-    "title": "Display employees whose age is less than or equal to 25",
+    "title": "Early-Career Talent Roster",
     "part": "Part A: WHERE and operators",
     "topic": "Comparison Operators",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all details of employees whose age is 25 or younger.",
+    "problemStatement": "The human resources development team is organizing a mentorship cohort targeted at junior professionals. Retrieve all details for employees who are 25 years old or younger.",
     "requirements": [
-      "Select all columns.",
-      "Filter where age is less than or equal to 25."
+      "Display all available employee fields.",
+      "Filter for employees whose age does not exceed 25 years."
     ],
     "tableName": "Employees",
-    "hint": "Use the less-than-or-equal-to operator (<=): WHERE age <= 25",
+    "hint": "Use a comparison operator that includes values up to and including 25.",
     "expectedSql": "SELECT * FROM Employees WHERE age <= 25;",
     "explanation": "The <= operator includes employees who are exactly 25 or below.",
     "tags": [
@@ -322,17 +322,17 @@
   },
   {
     "id": 4,
-    "title": "Display employees working in HR who earn more than 30000",
+    "title": "Human Resources Senior Compensation Review",
     "part": "Part A: WHERE and operators",
     "topic": "Logical Operators (AND)",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all employees in the 'HR' department whose salary is strictly greater than 30000.",
+    "problemStatement": "Internal audit is reviewing operational spending within human resources. Find all personnel within the HR department who receive a salary strictly above 30,000.",
     "requirements": [
-      "Select all columns.",
-      "Both conditions must hold true: department is 'HR' and salary > 30000."
+      "Retrieve full employee details across all columns.",
+      "Satisfy both business criteria: assigned to the 'HR' department and earning more than 30,000."
     ],
     "tableName": "Employees",
-    "hint": "Combine the two filtering conditions using the AND keyword.",
+    "hint": "Combine the department filter and salary condition so that both must evaluate to true.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'HR' AND salary > 30000;",
     "explanation": "The AND operator ensures that only records satisfying both department = 'HR' and salary > 30000 are returned.",
     "tags": [
@@ -389,17 +389,17 @@
   },
   {
     "id": 5,
-    "title": "Display employees working in IT or Finance",
+    "title": "Cross-Departmental Roster for IT and Finance",
     "part": "Part A: WHERE and operators",
     "topic": "Logical Operators (OR)",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to retrieve all employees who belong to either the 'IT' department or the 'Finance' department.",
+    "problemStatement": "Operations needs an updated roster of personnel supporting technical infrastructure and corporate accounting. Retrieve all employees who belong to either the IT or Finance business units.",
     "requirements": [
-      "Select all columns.",
-      "Match either department = 'IT' or department = 'Finance'."
+      "Return complete employee profile data.",
+      "Include staff belonging to either the 'IT' department or the 'Finance' department."
     ],
     "tableName": "Employees",
-    "hint": "Use the OR operator: WHERE department = 'IT' OR department = 'Finance'",
+    "hint": "Connect the two alternative department conditions using a logical operator that returns true if either condition is met.",
     "expectedSql": "SELECT * FROM Employees WHERE department = 'IT' OR department = 'Finance';",
     "explanation": "The OR operator evaluates to true if either condition is met.",
     "tags": [
@@ -516,17 +516,17 @@
   },
   {
     "id": 6,
-    "title": "Display employees whose salary is between 30000 and 60000, inclusive",
+    "title": "Mid-Range Salary Bracket Analysis",
     "part": "Part A: WHERE and operators",
     "topic": "BETWEEN Operator",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display employees whose salary falls within the range 30000 to 60000 (inclusive of both boundaries).",
+    "problemStatement": "The payroll department is analyzing compensation bands for mid-level professionals. Retrieve all employees whose salary falls within the range of 30,000 to 60,000, inclusive of both boundaries.",
     "requirements": [
-      "Select all columns.",
-      "Use BETWEEN or comparison operators covering 30000 and 60000."
+      "Include all employee attributes.",
+      "Filter for salaries between 30,000 and 60,000 inclusive."
     ],
     "tableName": "Employees",
-    "hint": "The BETWEEN operator is inclusive: WHERE salary BETWEEN 30000 AND 60000",
+    "hint": "Use an operator that tests whether a value falls within an inclusive numeric range.",
     "expectedSql": "SELECT * FROM Employees WHERE salary BETWEEN 30000 AND 60000;",
     "explanation": "In SQL, `salary BETWEEN 30000 AND 60000` is equivalent to `salary >= 30000 AND salary <= 60000`.",
     "tags": [
@@ -663,17 +663,17 @@
   },
   {
     "id": 7,
-    "title": "Display employees belonging to IT, HR, or Sales using IN",
+    "title": "Multi-Division Operational Staff List",
     "part": "Part A: WHERE and operators",
     "topic": "IN Operator",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all employees who work in either 'IT', 'HR', or 'Sales' using the IN operator.",
+    "problemStatement": "The regional operations committee is convening an executive review for staff in Information Technology, Human Resources, and Sales. Generate a roster of all employees currently assigned to any of these three operational divisions.",
     "requirements": [
-      "Select all columns.",
-      "Use the IN operator with the list ('IT', 'HR', 'Sales')."
+      "Select all employee attributes across the entire table.",
+      "Include staff members belonging to IT, HR, or Sales."
     ],
     "tableName": "Employees",
-    "hint": "Syntax: WHERE department IN ('IT', 'HR', 'Sales')",
+    "hint": "Check whether the department column matches any value in a specified set of values.",
     "expectedSql": "SELECT * FROM Employees WHERE department IN ('IT', 'HR', 'Sales');",
     "explanation": "The IN operator checks if a value matches any value in a specified list, providing a concise alternative to chained OR conditions.",
     "tags": [
@@ -830,18 +830,17 @@
   },
   {
     "id": 8,
-    "title": "Display employees living in Hyderabad whose salary is at least 40000",
+    "title": "Hyderabad Experienced Compensation Audit",
     "part": "Part A: WHERE and operators",
     "topic": "Combined WHERE Filters",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to retrieve all employees who live in 'Hyderabad' and earn a salary of at least 40000 (>= 40000).",
+    "problemStatement": "Management is assessing living wage adjustments for the Hyderabad regional hub. Identify all employees stationed in Hyderabad who earn at least 40,000.",
     "requirements": [
-      "Select all columns.",
-      "Condition 1: city = 'Hyderabad'.",
-      "Condition 2: salary >= 40000."
+      "Include all employee profile columns.",
+      "Ensure the employee is based in 'Hyderabad' and earns a salary of 40,000 or more."
     ],
     "tableName": "Employees",
-    "hint": "WHERE city = 'Hyderabad' AND salary >= 40000",
+    "hint": "Join the location equality check with a greater-than-or-equal condition on salary.",
     "expectedSql": "SELECT * FROM Employees WHERE city = 'Hyderabad' AND salary >= 40000;",
     "explanation": "Combines city text matching with a numeric >= comparison.",
     "tags": [
@@ -908,18 +907,17 @@
   },
   {
     "id": 9,
-    "title": "Display employees whose names start with A",
+    "title": "Personnel Directory Filter: Prefix A",
     "part": "Part A: WHERE and operators",
     "topic": "Pattern Matching (LIKE)",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find all employees whose employee name starts with the capital letter 'A'.",
+    "problemStatement": "The directory administrators are creating an indexed telephone guide. Find all employees whose full name begins with the capital letter 'A'.",
     "requirements": [
-      "Select all columns.",
-      "Use the LIKE operator with wildcard '%'.",
-      "Pattern: 'A%'."
+      "Include all employee attributes in the output.",
+      "Filter for employees whose name starts with 'A'."
     ],
     "tableName": "Employees",
-    "hint": "Use LIKE 'A%' where '%' matches any sequence of zero or more characters.",
+    "hint": "Use pattern matching with a wildcard that represents any sequence of characters following 'A'.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE 'A%';",
     "explanation": "The % wildcard represents zero, one, or multiple characters. 'A%' checks for names starting with A.",
     "tags": [
@@ -966,17 +964,17 @@
   },
   {
     "id": 10,
-    "title": "Display employees whose names end with a",
+    "title": "Personnel Directory Filter: Suffix a",
     "part": "Part A: WHERE and operators",
     "topic": "Pattern Matching (LIKE)",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find all employees whose name ends with the letter 'a' (or 'A').",
+    "problemStatement": "Data quality engineers are verifying transliterated records for name standardization. Find all employees whose name ends with the letter 'a' (case-insensitive).",
     "requirements": [
-      "Select all columns.",
-      "Use the pattern '%a' with the LIKE operator."
+      "Retrieve all employee details.",
+      "Filter for employee names terminating with the letter 'a'."
     ],
     "tableName": "Employees",
-    "hint": "Use LIKE '%a'. In standard SQL and SQLite, LIKE is case-insensitive for ASCII characters.",
+    "hint": "Use pattern matching with a leading wildcard before the character 'a'.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE '%a';",
     "explanation": "The '%a' pattern matches strings where the final character is 'a'.",
     "tags": [
@@ -1083,17 +1081,17 @@
   },
   {
     "id": 11,
-    "title": "Display employees whose names contain an",
+    "title": "Personnel Directory Substring Search",
     "part": "Part A: WHERE and operators",
     "topic": "Pattern Matching (LIKE)",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find all employees whose name contains the substring 'an' anywhere in the name.",
+    "problemStatement": "The HR search portal must locate staff members by partial name queries. Retrieve all employee records where the name contains the substring 'an' at any position.",
     "requirements": [
       "Select all columns.",
-      "Use the LIKE pattern '%an%'."
+      "Filter for names containing 'an' anywhere in the string."
     ],
     "tableName": "Employees",
-    "hint": "Surround 'an' with percent signs: WHERE emp_name LIKE '%an%'",
+    "hint": "Enclose the substring between wildcard characters on both sides.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE '%an%';",
     "explanation": "The '%an%' pattern matches any string having 'an' as a substring at the start, middle, or end.",
     "tags": [
@@ -1160,17 +1158,17 @@
   },
   {
     "id": 12,
-    "title": "Display employees whose salary is not equal to 40000",
+    "title": "Standard Salary Benchmark Variance",
     "part": "Part A: WHERE and operators",
     "topic": "Not Equal Operator",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all employees whose salary is not equal to 40000.",
+    "problemStatement": "Compensation analysis is identifying employees who deviate from the standard baseline compensation of 40,000. Retrieve all employees whose salary is not equal to 40,000.",
     "requirements": [
-      "Select all columns.",
-      "Use != or <> to exclude records with salary = 40000."
+      "Include all employee attributes.",
+      "Exclude staff members whose salary is exactly 40,000."
     ],
     "tableName": "Employees",
-    "hint": "WHERE salary != 40000 (or WHERE salary <> 40000)",
+    "hint": "Use an inequality comparison operator.",
     "expectedSql": "SELECT * FROM Employees WHERE salary != 40000;",
     "explanation": "The != and <> operators both represent inequality in modern SQL.",
     "tags": [
@@ -1387,18 +1385,17 @@
   },
   {
     "id": 13,
-    "title": "Display employees aged between 25 and 30 who work in IT",
+    "title": "Young IT Professionals Roster",
     "part": "Part B: Combined conditions and operators",
     "topic": "Multiple Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display all employees whose age is between 25 and 30 (inclusive) and who work in the 'IT' department.",
+    "problemStatement": "The tech talent accelerator is looking for candidates between the ages of 25 and 30 within the engineering organization. Find all employees working in the IT department who are between 25 and 30 years old, inclusive.",
     "requirements": [
-      "Select all columns.",
-      "Age must be in [25, 30].",
-      "Department must be 'IT'."
+      "Return all employee columns.",
+      "Apply two filters: age must be between 25 and 30 inclusive, and department must be 'IT'."
     ],
     "tableName": "Employees",
-    "hint": "Combine BETWEEN with AND: WHERE age BETWEEN 25 AND 30 AND department = 'IT'",
+    "hint": "Combine an inclusive age range condition with a department equality check.",
     "expectedSql": "SELECT * FROM Employees WHERE age BETWEEN 25 AND 30 AND department = 'IT';",
     "explanation": "Combines range filtering on age with an exact string match on department using AND.",
     "tags": [
@@ -1455,17 +1452,17 @@
   },
   {
     "id": 14,
-    "title": "Display employees who do not work in HR",
+    "title": "Non-HR Operational Workforce",
     "part": "Part B: Combined conditions and operators",
     "topic": "NOT / Inequality",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find all employees who do not belong to the 'HR' department.",
+    "problemStatement": "The general operations directorate requires a listing of all staff members who do not work in Human Resources. Retrieve all employees who are not assigned to the HR department.",
     "requirements": [
-      "Select all columns.",
-      "Exclude employees in the HR department."
+      "Retrieve full employee profiles across all columns.",
+      "Exclude employees assigned to the 'HR' department."
     ],
     "tableName": "Employees",
-    "hint": "WHERE department != 'HR' (or WHERE department <> 'HR' or WHERE NOT department = 'HR')",
+    "hint": "Use an inequality operator on the department column.",
     "expectedSql": "SELECT * FROM Employees WHERE department != 'HR';",
     "explanation": "Filters out records where department equals 'HR'.",
     "tags": [
@@ -1652,19 +1649,18 @@
   },
   {
     "id": 15,
-    "title": "Display employees living in Chennai or Bengaluru whose salary exceeds 50000",
+    "title": "Southern Hub High-Compensation Staff",
     "part": "Part B: Combined conditions and operators",
     "topic": "Operator Precedence",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to retrieve all employees who live in either 'Chennai' or 'Bengaluru' AND have a salary strictly greater than 50000.",
+    "problemStatement": "Regional leadership is auditing high earners in southern metropolitan branches. Find all employees based in either Chennai or Bengaluru who earn strictly more than 50,000.",
     "requirements": [
-      "Select all columns.",
-      "City must be Chennai or Bengaluru.",
-      "Salary must be > 50000.",
-      "Mind operator precedence using parentheses or IN."
+      "Select all employee fields.",
+      "Filter for employees located in either 'Chennai' or 'Bengaluru' whose salary exceeds 50,000.",
+      "Ensure proper grouping of logical conditions so location alternatives are evaluated before the salary threshold."
     ],
     "tableName": "Employees",
-    "hint": "Use parentheses: WHERE (city = 'Chennai' OR city = 'Bengaluru') AND salary > 50000, or WHERE city IN ('Chennai', 'Bengaluru') AND salary > 50000",
+    "hint": "Wrap the two city choices in parentheses so the alternative condition is evaluated before the salary threshold.",
     "expectedSql": "SELECT * FROM Employees WHERE (city = 'Chennai' OR city = 'Bengaluru') AND salary > 50000;",
     "explanation": "AND has higher precedence than OR. Grouping the OR condition inside parentheses ensures the salary threshold applies to both cities.",
     "tags": [
@@ -1761,17 +1757,17 @@
   },
   {
     "id": 16,
-    "title": "Display employees with at least 5 years of experience and salary below 70000",
+    "title": "Experienced Below-Ceiling Compensation Audit",
     "part": "Part B: Combined conditions and operators",
     "topic": "Multiple Numeric Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display employees who have at least 5 years of experience (experience >= 5) and earn a salary less than 70000 (salary < 70000).",
+    "problemStatement": "Human Resources is conducting pay equity analysis for seasoned staff members. Retrieve all employees who possess at least 5 years of professional experience but earn less than 70,000.",
     "requirements": [
-      "Select all columns.",
-      "experience >= 5 AND salary < 70000."
+      "Include all employee columns.",
+      "Filter for experience of 5 or more years and a salary strictly under 70,000."
     ],
     "tableName": "Employees",
-    "hint": "WHERE experience >= 5 AND salary < 70000",
+    "hint": "Combine a greater-than-or-equal test on experience with a less-than test on salary.",
     "expectedSql": "SELECT * FROM Employees WHERE experience >= 5 AND salary < 70000;",
     "explanation": "Filters records using two simultaneous numeric inequalities joined by AND.",
     "tags": [
@@ -1858,17 +1854,17 @@
   },
   {
     "id": 17,
-    "title": "Display employees who joined in 2022, 2023, or 2024 using IN",
+    "title": "Recent Multi-Year Hiring Cohorts",
     "part": "Part B: Combined conditions and operators",
     "topic": "IN with Numbers",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display employees who joined the company in the years 2022, 2023, or 2024 using the IN operator.",
+    "problemStatement": "The talent acquisition team is compiling an onboarding retention report for staff hired during the recent expansion years. Display all employees who joined the company in 2022, 2023, or 2024.",
     "requirements": [
-      "Select all columns.",
-      "Use joining_year IN (2022, 2023, 2024)."
+      "Display all employee details.",
+      "Filter for employees who joined in any of the years: 2022, 2023, or 2024."
     ],
     "tableName": "Employees",
-    "hint": "WHERE joining_year IN (2022, 2023, 2024)",
+    "hint": "Match joining_year against a list of the specified target years.",
     "expectedSql": "SELECT * FROM Employees WHERE joining_year IN (2022, 2023, 2024);",
     "explanation": "The IN operator checks membership against a set of integer values.",
     "tags": [
@@ -1965,17 +1961,17 @@
   },
   {
     "id": 18,
-    "title": "Display employees whose names contain exactly four characters using LIKE",
+    "title": "Four-Character Name Identifier",
     "part": "Part B: Combined conditions and operators",
     "topic": "Pattern Matching (Underscore Wildcard)",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display employees whose emp_name is exactly 4 characters long using the LIKE operator with underscore (_) wildcards.",
+    "problemStatement": "Identity governance is verifying short badge names for security printing. Find all employees whose first name consists of exactly four characters.",
     "requirements": [
-      "Select all columns.",
-      "Use LIKE with exactly four underscore characters: '____'."
+      "Select all employee columns.",
+      "Filter for employee names that have a length of exactly four characters."
     ],
     "tableName": "Employees",
-    "hint": "Each underscore `_` matches exactly one character. Use 4 underscores: LIKE '____'",
+    "hint": "Use single-character wildcards to enforce an exact character count.",
     "expectedSql": "SELECT * FROM Employees WHERE emp_name LIKE '____';",
     "explanation": "In SQL LIKE clauses, the underscore character `_` represents exactly one single character. Four underscores match strings of length 4.",
     "tags": [
@@ -2022,17 +2018,17 @@
   },
   {
     "id": 19,
-    "title": "Display employees whose salary is outside the range 30000 to 60000",
+    "title": "Out-of-Band Compensation Outliers",
     "part": "Part B: Combined conditions and operators",
     "topic": "NOT BETWEEN / Boundary Conditions",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to find employees whose salary is outside the range 30000 to 60000 (i.e. strictly less than 30000 or strictly greater than 60000).",
+    "problemStatement": "Finance is reviewing compensation anomalies outside the core standard pay bracket. Find all employees whose salary falls outside the 30,000 to 60,000 range (strictly less than 30,000 or strictly greater than 60,000).",
     "requirements": [
-      "Select all columns.",
-      "Exclude the range [30000, 60000]."
+      "Include all employee attributes.",
+      "Filter for salaries outside the range of 30,000 to 60,000 inclusive."
     ],
     "tableName": "Employees",
-    "hint": "WHERE salary NOT BETWEEN 30000 AND 60000 (or WHERE salary < 30000 OR salary > 60000)",
+    "hint": "Negate a range condition or check for values strictly below 30,000 or strictly above 60,000.",
     "expectedSql": "SELECT * FROM Employees WHERE salary NOT BETWEEN 30000 AND 60000;",
     "explanation": "NOT BETWEEN excludes values that fall inside the inclusive interval [30000, 60000].",
     "tags": [
@@ -2149,18 +2145,18 @@
   },
   {
     "id": 20,
-    "title": "Display employees who work in IT or Sales but do not live in Chennai",
+    "title": "Target Departments Outside Chennai",
     "part": "Part B: Combined conditions and operators",
     "topic": "Complex Filtering",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display employees working in either 'IT' or 'Sales' who do not reside in 'Chennai'.",
+    "problemStatement": "Business development is planning on-site workshops for IT and Sales personnel stationed outside the Chennai office. Retrieve all employees who work in either IT or Sales and are not based in Chennai.",
     "requirements": [
-      "Select all columns.",
-      "department IN ('IT', 'Sales') (or department = 'IT' OR department = 'Sales').",
-      "city != 'Chennai'."
+      "Select all employee columns.",
+      "Include employees from the 'IT' or 'Sales' departments.",
+      "Exclude employees located in 'Chennai'."
     ],
     "tableName": "Employees",
-    "hint": "WHERE department IN ('IT', 'Sales') AND city != 'Chennai'",
+    "hint": "Check department membership in ('IT', 'Sales') combined with a city inequality check.",
     "expectedSql": "SELECT * FROM Employees WHERE department IN ('IT', 'Sales') AND city != 'Chennai';",
     "explanation": "Combines set inclusion on department with inequality on city.",
     "tags": [
@@ -2258,17 +2254,17 @@
   },
   {
     "id": 21,
-    "title": "Count the total number of employees",
+    "title": "Total Workforce Census",
     "part": "Part C: Aggregate functions",
     "topic": "COUNT()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to count the total number of employees in the Employees table.",
+    "problemStatement": "The board of directors requests an official headcount audit of all active staff members across the entire organization. Calculate the total number of employees currently employed.",
     "requirements": [
-      "Use COUNT(*).",
-      "Provide an alias such as total_employees."
+      "Count all records in the Employees table.",
+      "Alias the aggregated metric as total_employees."
     ],
     "tableName": "Employees",
-    "hint": "SELECT COUNT(*) AS total_employees FROM Employees;",
+    "hint": "Use an aggregate counting function across all rows.",
     "expectedSql": "SELECT COUNT(*) AS total_employees FROM Employees;",
     "explanation": "COUNT(*) returns the total number of rows in the table, including rows with NULL values.",
     "tags": [
@@ -2290,17 +2286,17 @@
   },
   {
     "id": 22,
-    "title": "Calculate the total salary of all employees",
+    "title": "Enterprise Monthly Payroll Expenditure",
     "part": "Part C: Aggregate functions",
     "topic": "SUM()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to calculate the sum of salaries of all employees.",
+    "problemStatement": "The Chief Financial Officer requires the total monthly payroll obligation for all employees combined. Calculate the cumulative sum of all employee salaries.",
     "requirements": [
-      "Use the SUM() aggregate function on the salary column.",
-      "Provide an alias such as total_salary."
+      "Calculate the sum of the salary column across all employees.",
+      "Alias the calculated total as total_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT SUM(salary) AS total_salary FROM Employees;",
+    "hint": "Use an aggregation function that sums all values in a numeric column.",
     "expectedSql": "SELECT SUM(salary) AS total_salary FROM Employees;",
     "explanation": "SUM(salary) computes the arithmetic sum of all values in the salary column.",
     "tags": [
@@ -2322,17 +2318,17 @@
   },
   {
     "id": 23,
-    "title": "Calculate the average salary of all employees",
+    "title": "Company-Wide Average Compensation Benchmark",
     "part": "Part C: Aggregate functions",
     "topic": "AVG()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to compute the average salary of all employees.",
+    "problemStatement": "Compensation benchmarking requires knowing the overall baseline salary across the enterprise. Calculate the average salary paid to employees.",
     "requirements": [
-      "Use the AVG() aggregate function on salary.",
-      "Provide an alias such as average_salary."
+      "Compute the mathematical mean of all employee salaries.",
+      "Alias the resulting figure as average_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT AVG(salary) AS average_salary FROM Employees;",
+    "hint": "Use the standard arithmetic mean aggregate function.",
     "expectedSql": "SELECT AVG(salary) AS average_salary FROM Employees;",
     "explanation": "AVG(salary) computes the mean of the salary values.",
     "tags": [
@@ -2354,17 +2350,17 @@
   },
   {
     "id": 24,
-    "title": "Find the highest salary",
+    "title": "Peak Compensation Identification",
     "part": "Part C: Aggregate functions",
     "topic": "MAX()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find the maximum salary among all employees.",
+    "problemStatement": "Executive remuneration analysis needs to verify the maximum base compensation paid to any employee in the company. Find the highest salary recorded in the employee directory.",
     "requirements": [
-      "Use the MAX() aggregate function on salary.",
-      "Provide an alias such as max_salary."
+      "Determine the maximum value from the salary column.",
+      "Alias the resulting metric as max_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT MAX(salary) AS max_salary FROM Employees;",
+    "hint": "Use the aggregate function that finds the highest value in a column.",
     "expectedSql": "SELECT MAX(salary) AS max_salary FROM Employees;",
     "explanation": "MAX(salary) returns the highest value present in the salary column.",
     "tags": [
@@ -2386,17 +2382,17 @@
   },
   {
     "id": 25,
-    "title": "Find the lowest salary",
+    "title": "Entry-Level Minimum Salary Baseline",
     "part": "Part C: Aggregate functions",
     "topic": "MIN()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to find the lowest salary among all employees.",
+    "problemStatement": "Human resources is checking compliance with corporate minimum wage standards. Determine the lowest salary currently paid to any employee in the organization.",
     "requirements": [
-      "Use the MIN() aggregate function on salary.",
-      "Provide an alias such as min_salary."
+      "Find the minimum value within the salary column.",
+      "Alias the resulting metric as min_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT MIN(salary) AS min_salary FROM Employees;",
+    "hint": "Use the aggregate function that finds the lowest numeric value.",
     "expectedSql": "SELECT MIN(salary) AS min_salary FROM Employees;",
     "explanation": "MIN(salary) returns the minimum value from the salary column.",
     "tags": [
@@ -2418,17 +2414,17 @@
   },
   {
     "id": 26,
-    "title": "Count employees working in IT",
+    "title": "Technical Division Headcount",
     "part": "Part C: Aggregate functions",
     "topic": "COUNT with WHERE",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to count how many employees work in the 'IT' department.",
+    "problemStatement": "The Chief Technology Officer is assessing engineering capacity. Count the total number of employees currently working in the IT department.",
     "requirements": [
-      "Use COUNT(*).",
-      "Filter using WHERE department = 'IT'."
+      "Count the qualifying employees belonging to the 'IT' department.",
+      "Alias the calculated count as it_employees_count."
     ],
     "tableName": "Employees",
-    "hint": "SELECT COUNT(*) AS it_employees_count FROM Employees WHERE department = 'IT';",
+    "hint": "Combine an aggregate count function with a filter for the IT department.",
     "expectedSql": "SELECT COUNT(*) AS it_employees_count FROM Employees WHERE department = 'IT';",
     "explanation": "The WHERE clause filters rows prior to the COUNT aggregation.",
     "tags": [
@@ -2451,17 +2447,17 @@
   },
   {
     "id": 27,
-    "title": "Find the average age of all employees",
+    "title": "Workforce Mean Age Metric",
     "part": "Part C: Aggregate functions",
     "topic": "AVG()",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to calculate the average age of all employees.",
+    "problemStatement": "Corporate wellness planning is studying employee demographics to tailor health benefit programs. Calculate the average age of all employees across the company.",
     "requirements": [
-      "Use AVG(age).",
-      "Provide an alias such as average_age."
+      "Compute the average value of the age column across all employees.",
+      "Alias the resulting metric as average_age."
     ],
     "tableName": "Employees",
-    "hint": "SELECT AVG(age) AS average_age FROM Employees;",
+    "hint": "Use the average aggregate function on the age attribute.",
     "expectedSql": "SELECT AVG(age) AS average_age FROM Employees;",
     "explanation": "Calculates the arithmetic mean of the age column across all employees.",
     "tags": [
@@ -2483,17 +2479,17 @@
   },
   {
     "id": 28,
-    "title": "Calculate the total salary of employees living in Hyderabad",
+    "title": "Hyderabad Regional Payroll Budget",
     "part": "Part C: Aggregate functions",
     "topic": "SUM with WHERE",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to calculate the sum of salaries of all employees residing in 'Hyderabad'.",
+    "problemStatement": "The regional accounting office in Hyderabad needs its total monthly payroll commitment. Calculate the cumulative salary expenditure for all employees residing in Hyderabad.",
     "requirements": [
-      "Use SUM(salary).",
-      "Filter for city = 'Hyderabad'."
+      "Calculate the sum of salaries for staff based in 'Hyderabad'.",
+      "Alias the resulting sum as total_hyderabad_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT SUM(salary) AS total_hyderabad_salary FROM Employees WHERE city = 'Hyderabad';",
+    "hint": "Filter for Hyderabad before summing the salaries.",
     "expectedSql": "SELECT SUM(salary) AS total_hyderabad_salary FROM Employees WHERE city = 'Hyderabad';",
     "explanation": "Filters for employees based in Hyderabad and sums their compensation.",
     "tags": [
@@ -2516,17 +2512,18 @@
   },
   {
     "id": 29,
-    "title": "Find the highest salary among employees with at least 5 years of experience",
+    "title": "Top Compensation for Seasoned Personnel",
     "part": "Part C: Aggregate functions",
     "topic": "MAX with WHERE",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to find the maximum salary among employees who possess at least 5 years of experience (experience >= 5).",
+    "problemStatement": "The compensation committee is reviewing salary caps for senior staff. Find the highest salary earned among employees who have at least 5 years of professional experience.",
     "requirements": [
-      "Use MAX(salary).",
-      "Filter with experience >= 5."
+      "Filter for employees with 5 or more years of experience.",
+      "Determine the highest salary among those qualifying employees.",
+      "Alias the maximum salary as max_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT MAX(salary) AS max_salary FROM Employees WHERE experience >= 5;",
+    "hint": "Use the peak aggregate function on salary alongside a filter on experience.",
     "expectedSql": "SELECT MAX(salary) AS max_salary FROM Employees WHERE experience >= 5;",
     "explanation": "The WHERE clause restricts the set of rows to senior employees before finding the maximum salary.",
     "tags": [
@@ -2549,17 +2546,17 @@
   },
   {
     "id": 30,
-    "title": "Count employees earning more than 50000",
+    "title": "High-Earner Cohort Headcount",
     "part": "Part C: Aggregate functions",
     "topic": "COUNT with Numeric Condition",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to count how many employees earn a salary strictly greater than 50000.",
+    "problemStatement": "Tax compliance needs to know how many personnel fall into the higher tax brackets. Count how many employees earn a salary strictly greater than 50,000.",
     "requirements": [
-      "Use COUNT(*).",
-      "Filter with salary > 50000."
+      "Count the number of employees earning above 50,000.",
+      "Alias the resulting headcount as count_high_earners."
     ],
     "tableName": "Employees",
-    "hint": "SELECT COUNT(*) AS count_high_earners FROM Employees WHERE salary > 50000;",
+    "hint": "Combine the counting function with a salary filter strictly exceeding 50,000.",
     "expectedSql": "SELECT COUNT(*) AS count_high_earners FROM Employees WHERE salary > 50000;",
     "explanation": "Restricts the count to rows where salary exceeds 50000.",
     "tags": [
@@ -2582,17 +2579,18 @@
   },
   {
     "id": 31,
-    "title": "Display the number of employees in each department",
+    "title": "Departmental Staffing Distribution",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with COUNT",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each department name along with the total count of employees working in that department.",
+    "problemStatement": "Workforce management is balancing team sizes across divisions. Display each department name along with the total count of employees working in that department.",
     "requirements": [
-      "Select department and COUNT(*).",
-      "Group by department."
+      "Group records by department.",
+      "Display the department name and total employee count.",
+      "Alias the employee count as employee_count."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department;",
+    "hint": "Group by department and apply the count aggregate function.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department;",
     "explanation": "GROUP BY department groups records by their department, and COUNT(*) counts the rows in each group.",
     "tags": [
@@ -2633,17 +2631,18 @@
   },
   {
     "id": 32,
-    "title": "Display the average salary of each department",
+    "title": "Departmental Average Compensation Breakdown",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with AVG",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each department alongside the average salary of employees in that department.",
+    "problemStatement": "Finance is evaluating relative labor costs between business units. Display each department along with the average salary of employees working in that department.",
     "requirements": [
-      "Select department and AVG(salary).",
-      "Group by department."
+      "Group records by department.",
+      "Display the department name and average salary.",
+      "Alias the calculated average as avg_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department;",
+    "hint": "Group by department and compute the average salary for each group.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department;",
     "explanation": "Groups records by department and computes the average salary per department group.",
     "tags": [
@@ -2684,17 +2683,18 @@
   },
   {
     "id": 33,
-    "title": "Display the total salary paid by each department",
+    "title": "Departmental Total Payroll Expenditure",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with SUM",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each department along with the sum of salaries of all employees in that department.",
+    "problemStatement": "The accounting department is allocating monthly departmental operating budgets. Display each department name along with the total salary expenditure paid to its employees.",
     "requirements": [
-      "Select department and SUM(salary).",
-      "Group by department."
+      "Group records by department.",
+      "Display the department name and total salary expenditure.",
+      "Alias the total salary as total_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department;",
+    "hint": "Group by department and sum the salaries within each group.",
     "expectedSql": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department;",
     "explanation": "Aggregates total salary expenditure grouped by individual departments.",
     "tags": [
@@ -2734,17 +2734,18 @@
   },
   {
     "id": 34,
-    "title": "Display the highest salary in each department",
+    "title": "Peak Earner per Department",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with MAX",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each department name and the highest salary earned within that department.",
+    "problemStatement": "Executive recruitment is comparing top compensation ceilings across functional areas. Display each department name along with the highest salary earned within that department.",
     "requirements": [
-      "Select department and MAX(salary).",
-      "Group by department."
+      "Group records by department.",
+      "Display the department name and highest salary in that department.",
+      "Alias the peak salary as max_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department;",
+    "hint": "Group by department and use the maximum aggregate function on salary.",
     "expectedSql": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department;",
     "explanation": "Finds the peak compensation per department category.",
     "tags": [
@@ -2784,17 +2785,18 @@
   },
   {
     "id": 35,
-    "title": "Display the lowest salary in each department",
+    "title": "Entry-Level Salary Floor per Department",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with MIN",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each department along with the lowest salary within that department.",
+    "problemStatement": "Human Resources is auditing entry-level pay parity across functional teams. Display each department along with the lowest salary earned in that department.",
     "requirements": [
-      "Select department and MIN(salary).",
-      "Group by department."
+      "Group records by department.",
+      "Display the department name and lowest salary in that department.",
+      "Alias the lowest salary as min_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, MIN(salary) AS min_salary FROM Employees GROUP BY department;",
+    "hint": "Group by department and find the minimum salary.",
     "expectedSql": "SELECT department, MIN(salary) AS min_salary FROM Employees GROUP BY department;",
     "explanation": "Finds the minimum compensation earned in each department group.",
     "tags": [
@@ -2834,17 +2836,18 @@
   },
   {
     "id": 36,
-    "title": "Display the number of employees in each city",
+    "title": "Geographical Workforce Density",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY by Column",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to show each city and the total number of employees residing in that city.",
+    "problemStatement": "Real estate and facilities planning is sizing regional office spaces. Display each city and the total number of employees residing in that city.",
     "requirements": [
-      "Select city and COUNT(*).",
-      "Group by city."
+      "Group records by city.",
+      "Display the city name and total employee count.",
+      "Alias the employee count as employee_count."
     ],
     "tableName": "Employees",
-    "hint": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city;",
+    "hint": "Group by city and calculate the count of employees in each location.",
     "expectedSql": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city;",
     "explanation": "Partitions the data by city and counts members belonging to each location.",
     "tags": [
@@ -2881,17 +2884,18 @@
   },
   {
     "id": 37,
-    "title": "Display the average salary for each city",
+    "title": "Regional Cost of Labor Benchmarking",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY with AVG",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to calculate the average salary of employees in each city.",
+    "problemStatement": "The compensation committee is analyzing geographic wage differentials. Calculate the average employee salary for each city where staff are located.",
     "requirements": [
-      "Select city and AVG(salary).",
-      "Group by city."
+      "Group records by city.",
+      "Display the city name and average salary.",
+      "Alias the average salary as avg_salary."
     ],
     "tableName": "Employees",
-    "hint": "SELECT city, AVG(salary) AS avg_salary FROM Employees GROUP BY city;",
+    "hint": "Group by city and compute the average salary.",
     "expectedSql": "SELECT city, AVG(salary) AS avg_salary FROM Employees GROUP BY city;",
     "explanation": "Computes location-based compensation averages by grouping on city.",
     "tags": [
@@ -2928,17 +2932,18 @@
   },
   {
     "id": 38,
-    "title": "Display the number of employees for each joining year",
+    "title": "Annual Hiring Cohort Velocity",
     "part": "Part D: GROUP BY",
     "topic": "GROUP BY on Temporal Column",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display each joining year and how many employees joined in that year.",
+    "problemStatement": "Talent acquisition is reviewing historical hiring volumes over time. Display each employee joining year along with the total number of employees who joined in that year.",
     "requirements": [
-      "Select joining_year and COUNT(*).",
-      "Group by joining_year."
+      "Group records by joining_year.",
+      "Display joining_year and total employee count.",
+      "Alias the count as employee_count."
     ],
     "tableName": "Employees",
-    "hint": "SELECT joining_year, COUNT(*) AS employee_count FROM Employees GROUP BY joining_year;",
+    "hint": "Group by the joining_year attribute and count occurrences.",
     "expectedSql": "SELECT joining_year, COUNT(*) AS employee_count FROM Employees GROUP BY joining_year;",
     "explanation": "Groups employee records by their year of hire.",
     "tags": [
@@ -3003,18 +3008,18 @@
   },
   {
     "id": 39,
-    "title": "Display departments having more than 3 employees",
+    "title": "Identify Major Operating Departments",
     "part": "Part E: HAVING",
     "topic": "HAVING with COUNT",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display departments that have strictly more than 3 employees.",
+    "problemStatement": "Operations management wants to isolate major functional divisions that have substantial staffing. Display departments that have strictly more than 3 employees.",
     "requirements": [
-      "Select department and employee count.",
-      "Group by department.",
-      "Filter aggregated results using HAVING COUNT(*) > 3."
+      "Group records by department.",
+      "Display department name and employee count aliased as employee_count.",
+      "Filter the aggregated results to only include departments with more than 3 employees."
     ],
     "tableName": "Employees",
-    "hint": "Use HAVING to filter groups: GROUP BY department HAVING COUNT(*) > 3",
+    "hint": "Use a post-aggregation filter to restrict groups based on their calculated count.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count FROM Employees GROUP BY department HAVING COUNT(*) > 3;",
     "explanation": "HAVING filters groups after the GROUP BY operation, unlike WHERE which filters individual rows before grouping.",
     "tags": [
@@ -3051,18 +3056,18 @@
   },
   {
     "id": 40,
-    "title": "Display departments whose average salary is greater than 50000",
+    "title": "High-Compensation Departmental Filter",
     "part": "Part E: HAVING",
     "topic": "HAVING with AVG",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display departments where the average employee salary is strictly greater than 50000.",
+    "problemStatement": "Finance is reviewing business units where overall compensation exceeds the general norm. Display departments where the average employee salary strictly exceeds 50,000.",
     "requirements": [
-      "Select department and AVG(salary).",
-      "Group by department.",
-      "Use HAVING AVG(salary) > 50000."
+      "Group records by department.",
+      "Display department name and average salary aliased as avg_salary.",
+      "Filter groups to only include departments with an average salary greater than 50,000."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) > 50000;",
+    "hint": "Filter the aggregated groups using a condition on average salary.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) > 50000;",
     "explanation": "Filters the department groups to only include those where the calculated average salary exceeds 50000.",
     "tags": [
@@ -3095,18 +3100,18 @@
   },
   {
     "id": 41,
-    "title": "Display departments whose total salary exceeds 150000",
+    "title": "High-Budget Payroll Units",
     "part": "Part E: HAVING",
     "topic": "HAVING with SUM",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to find departments whose cumulative salary expense is strictly greater than 150000.",
+    "problemStatement": "Budget control is flagging business units whose monthly wage bill exceeds standard expenditure limits. Find departments whose cumulative salary expense strictly exceeds 150,000.",
     "requirements": [
-      "Select department and SUM(salary).",
-      "Group by department.",
-      "Apply HAVING SUM(salary) > 150000."
+      "Group records by department.",
+      "Display department name and total salary aliased as total_salary.",
+      "Filter groups to only keep departments where cumulative salary exceeds 150,000."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department HAVING SUM(salary) > 150000;",
+    "hint": "Filter group totals using a condition on the sum of salaries.",
     "expectedSql": "SELECT department, SUM(salary) AS total_salary FROM Employees GROUP BY department HAVING SUM(salary) > 150000;",
     "explanation": "Groups by department and restricts the output to groups where the sum of salaries exceeds 150000.",
     "tags": [
@@ -3147,18 +3152,18 @@
   },
   {
     "id": 42,
-    "title": "Display departments whose highest salary is at least 70000",
+    "title": "Departments with Executive-Tier Salaries",
     "part": "Part E: HAVING",
     "topic": "HAVING with MAX",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display departments whose highest salary is at least 70000 (>= 70000).",
+    "problemStatement": "Executive compensation is tracking departments with top-tier earners. Display departments where the highest earned salary is at least 70,000.",
     "requirements": [
-      "Select department and MAX(salary).",
-      "Group by department.",
-      "Apply HAVING MAX(salary) >= 70000."
+      "Group records by department.",
+      "Display department name and maximum salary aliased as max_salary.",
+      "Filter to only include departments where the peak salary is 70,000 or higher."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department HAVING MAX(salary) >= 70000;",
+    "hint": "Filter groups based on the maximum salary value in each department.",
     "expectedSql": "SELECT department, MAX(salary) AS max_salary FROM Employees GROUP BY department HAVING MAX(salary) >= 70000;",
     "explanation": "Filters out departments where the top earner's compensation is below 70000.",
     "tags": [
@@ -3191,18 +3196,18 @@
   },
   {
     "id": 43,
-    "title": "Display cities having at least 4 employees",
+    "title": "High-Density Branch Locations",
     "part": "Part E: HAVING",
     "topic": "HAVING on Group Count",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display all cities that have at least 4 employees (COUNT(*) >= 4).",
+    "problemStatement": "Corporate administration is evaluating which branch locations warrant dedicated local administrative staff. Display all cities that have at least 4 resident employees.",
     "requirements": [
-      "Select city and COUNT(*).",
-      "Group by city.",
-      "HAVING COUNT(*) >= 4."
+      "Group records by city.",
+      "Display city name and total employee count aliased as employee_count.",
+      "Filter groups to only include cities with 4 or more employees."
     ],
     "tableName": "Employees",
-    "hint": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city HAVING COUNT(*) >= 4;",
+    "hint": "Group by city and filter groups with a headcount of 4 or greater.",
     "expectedSql": "SELECT city, COUNT(*) AS employee_count FROM Employees GROUP BY city HAVING COUNT(*) >= 4;",
     "explanation": "Groups employees by city and retains only cities with 4 or more assigned employees.",
     "tags": [
@@ -3239,18 +3244,18 @@
   },
   {
     "id": 44,
-    "title": "Display departments whose average salary is below 45000",
+    "title": "Low-Average Compensation Departmental Audit",
     "part": "Part E: HAVING",
     "topic": "HAVING with Lower Bound",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display departments with an average salary strictly below 45000.",
+    "problemStatement": "Human Resources is reviewing compensation equity in departments that may be undercompensated. Display departments whose average salary is strictly below 45,000.",
     "requirements": [
-      "Select department and AVG(salary).",
-      "Group by department.",
-      "HAVING AVG(salary) < 45000."
+      "Group records by department.",
+      "Display department name and average salary aliased as avg_salary.",
+      "Filter groups to only include departments with an average salary under 45,000."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) < 45000;",
+    "hint": "Apply a filter to group averages for values less than 45000.",
     "expectedSql": "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) < 45000;",
     "explanation": "Identifies lower-compensating departments by evaluating group averages.",
     "tags": [
@@ -3279,18 +3284,18 @@
   },
   {
     "id": 45,
-    "title": "Display departments with more than 2 employees and an average salary above 40000",
+    "title": "Mid-Scale Well-Compensated Departments",
     "part": "Part E: HAVING",
     "topic": "HAVING with Multiple Conditions",
     "difficulty": "Hard",
-    "problemStatement": "Write a SQL query to display departments that have more than 2 employees (COUNT(*) > 2) AND have an average salary above 40000 (AVG(salary) > 40000).",
+    "problemStatement": "Strategic workforce planning is identifying departments that combine significant staffing with strong compensation levels. Display departments that have more than 2 employees and an average salary above 40,000.",
     "requirements": [
-      "Select department, COUNT(*), and AVG(salary).",
-      "Group by department.",
-      "Combine two aggregate filters in HAVING using AND."
+      "Group records by department.",
+      "Display department name, employee count aliased as employee_count, and average salary aliased as avg_salary.",
+      "Filter for departments satisfying both criteria: more than 2 employees and average salary greater than 40,000."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) > 2 AND AVG(salary) > 40000;",
+    "hint": "Combine two aggregate conditions in the group filtering clause using AND.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) > 2 AND AVG(salary) > 40000;",
     "explanation": "Demonstrates combining multiple aggregate criteria in a single HAVING clause using AND.",
     "tags": [
@@ -3338,18 +3343,17 @@
   },
   {
     "id": 46,
-    "title": "Display all employees ordered by salary from highest to lowest",
+    "title": "Workforce Compensation Ranking",
     "part": "Part F: ORDER BY and mixed interview questions",
     "topic": "ORDER BY DESC",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all employees, ordered by their salary in descending order (highest salary first).",
+    "problemStatement": "The payroll department is preparing an annual executive review list. Display all employees ordered by their salary from highest to lowest.",
     "requirements": [
-      "Select all columns.",
-      "Order by salary DESC.",
-      "Preserve order in output."
+      "Select all employee columns.",
+      "Sort the results by salary in descending order (highest first)."
     ],
     "tableName": "Employees",
-    "hint": "Use ORDER BY salary DESC",
+    "hint": "Sort the output by the salary attribute in descending direction.",
     "expectedSql": "SELECT * FROM Employees ORDER BY salary DESC;",
     "explanation": "ORDER BY salary DESC sorts the result set such that the highest compensation appears at the top.",
     "tags": [
@@ -3577,18 +3581,17 @@
   },
   {
     "id": 47,
-    "title": "Display employees ordered by age from youngest to oldest",
+    "title": "Demographic Seniority Roster",
     "part": "Part F: ORDER BY and mixed interview questions",
     "topic": "ORDER BY ASC",
     "difficulty": "Easy",
-    "problemStatement": "Write a SQL query to display all employees sorted by age in ascending order (youngest first).",
+    "problemStatement": "The benefits team is reviewing employee demographics from youngest to oldest. Display all employees sorted by age in ascending order.",
     "requirements": [
-      "Select all columns.",
-      "Order by age ASC (or default order by age).",
-      "Preserve ascending order."
+      "Select all employee columns.",
+      "Sort the results by age in ascending order (youngest first)."
     ],
     "tableName": "Employees",
-    "hint": "Use ORDER BY age ASC",
+    "hint": "Sort the output by age in ascending order.",
     "expectedSql": "SELECT * FROM Employees ORDER BY age ASC;",
     "explanation": "ORDER BY age ASC sorts rows from smallest age to largest age.",
     "tags": [
@@ -3816,18 +3819,18 @@
   },
   {
     "id": 48,
-    "title": "Sort employees by department alphabetically and then salary in descending order",
+    "title": "Departmental Payroll Hierarchical Sort",
     "part": "Part F: ORDER BY and mixed interview questions",
     "topic": "Multi-Column ORDER BY",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display all employees sorted primarily by department alphabetically (A to Z), and secondarily by salary in descending order within each department.",
+    "problemStatement": "Administrative reporting requires a tidy organizational directory grouped by division and tiered by earnings. Sort all employees primarily by department alphabetically (A to Z), and secondarily by salary in descending order within each department.",
     "requirements": [
-      "Select all columns.",
-      "Primary sort: department ASC.",
-      "Secondary sort: salary DESC."
+      "Select all employee attributes across the entire table.",
+      "Apply primary sorting on department in ascending order.",
+      "Apply secondary sorting on salary in descending order."
     ],
     "tableName": "Employees",
-    "hint": "Use ORDER BY department ASC, salary DESC",
+    "hint": "Specify multiple sort columns separated by commas with their respective sort directions.",
     "expectedSql": "SELECT * FROM Employees ORDER BY department ASC, salary DESC;",
     "explanation": "Multi-column sorting evaluates the first key; ties in department are broken by the second key (salary in descending order).",
     "tags": [
@@ -4055,18 +4058,18 @@
   },
   {
     "id": 49,
-    "title": "Display the three highest-paid employees",
+    "title": "Top Three Enterprise Earners",
     "part": "Part F: ORDER BY and mixed interview questions",
     "topic": "LIMIT with ORDER BY",
     "difficulty": "Medium",
-    "problemStatement": "Write a SQL query to display the details of the top 3 highest-earning employees in the company.",
+    "problemStatement": "Executive audit requires an extract of the company's highest earners. Display the full records of the three highest-paid employees in the organization.",
     "requirements": [
-      "Select all columns.",
-      "Sort by salary DESC.",
-      "Restrict the output to 3 records using LIMIT 3."
+      "Include all employee attributes.",
+      "Order by salary from highest to lowest.",
+      "Restrict the final output to exactly 3 records."
     ],
     "tableName": "Employees",
-    "hint": "SELECT * FROM Employees ORDER BY salary DESC LIMIT 3;",
+    "hint": "Sort descending by salary and restrict the number of returned rows.",
     "expectedSql": "SELECT * FROM Employees ORDER BY salary DESC LIMIT 3;",
     "explanation": "Combining ORDER BY salary DESC with LIMIT 3 extracts the top three records by salary.",
     "tags": [
@@ -4124,19 +4127,19 @@
   },
   {
     "id": 50,
-    "title": "Display department employee count and average salary for large departments ordered by average salary",
+    "title": "Major Department Compensation Leaderboard",
     "part": "Part F: ORDER BY and mixed interview questions",
     "topic": "Comprehensive Query (GROUP BY + HAVING + ORDER BY)",
     "difficulty": "Hard",
-    "problemStatement": "Write a SQL query to display each department's name, employee count, and average salary. Keep only departments with at least 3 employees (COUNT(*) >= 3), and sort the final output by average salary from highest to lowest.",
+    "problemStatement": "The board of directors requests a performance leaderboard of major business units ranked by compensation. Display each department's name, employee count, and average salary. Include only departments with at least 3 employees, and sort the leaderboard by average salary from highest to lowest.",
     "requirements": [
-      "Select department, COUNT(*), and AVG(salary).",
-      "Group by department.",
-      "Filter with HAVING COUNT(*) >= 3.",
-      "Order by average salary descending (ORDER BY avg_salary DESC or AVG(salary) DESC)."
+      "Group records by department.",
+      "Display department, employee count aliased as employee_count, and average salary aliased as avg_salary.",
+      "Filter to only retain departments with 3 or more employees.",
+      "Sort the resulting departments by average salary in descending order."
     ],
     "tableName": "Employees",
-    "hint": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) >= 3 ORDER BY avg_salary DESC;",
+    "hint": "Combine grouping, group filtering with HAVING, and sorting on the aggregate metric.",
     "expectedSql": "SELECT department, COUNT(*) AS employee_count, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING COUNT(*) >= 3 ORDER BY avg_salary DESC;",
     "explanation": "This classic interview question tests the complete SQL query execution lifecycle: FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY.",
     "tags": [
